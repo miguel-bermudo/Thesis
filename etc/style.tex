@@ -1,0 +1,279 @@
+% Fuente
+\usepackage[sc]{mathpazo}
+
+\linespread{1.2} % Espacio entre líneas
+\setlength{\parindent}{20pt} % Indentación de primera línea en párrafos
+
+% Configurar la fuente para la primera letra de los capítulos
+\renewcommand{\LettrineFontHook}{\Zallmanfamily}
+
+% Estilo para las citas al principio de los capítulos
+\epigraphsize{\small\itshape}
+\setlength{\epigraphwidth}{.6\textwidth}
+\renewcommand{\textflush}{flushepinormal}
+\setlength\epigraphrule{0pt}
+
+% Tamaños y estilos de elementos en la TOC
+\DeclareTOCStyleEntry[
+    linefill=\bfseries\TOCLineLeaderFill,
+    beforeskip=12pt,
+    entrynumberformat=\chapterprefixintoc,
+    entryformat=\chaptertocformat,
+    pagenumberformat=\chaptertocformat,
+    dynnumwidth
+]{tocline}{chapter}
+
+\DeclareTOCStyleEntry[
+    % linefill=\bfseries\TOCLineLeaderFill,
+    beforeskip=30pt,
+    entrynumberformat=\chapterprefixintoc,
+    entryformat=\parttocformat,
+    pagenumberformat=\partpagetocformat,
+    numwidth=0pt
+]{tocline}{part}
+
+\newcommand\chapterprefixintoc[1]{#1}%
+\newcommand\chaptertocformat[1]{\larger[1]{\textbf{#1}}}%
+\newcommand\parttocformat[1]{\larger[2]{\textbf{#1}}}%
+\newcommand\partpagetocformat[1]{} % Don't print the page number for parts
+
+
+\definecolor{ColorRedUS}{cmyk}{0,1,0.65,0.34}
+\definecolor{ColorYellowUS}{cmyk}{0,0.08,0.27,0}
+\definecolor{ColorFontETSII}{cmyk}{0.51,0.39,0,0.68}
+
+\setcounter{DefaultLines}{3}
+
+\newcommand*{\ecap}[1]{\begingroup\obeyspaces\etospace{#1}{}}
+\newcommand*{\etospace}[3]{\ifthenelse{\equal{#3}{\space}}%
+{\endgroup\lettrine[findent=10pt,nindent=0pt]{#1}{}#2#3}{\etospace{#1}{#2#3}}}
+
+%%% Comandos para cajas
+%Width, backcolor, linecolor, textcolor, text
+\newcommand{\drCoverBox}[5]{
+    \begin{tcolorbox}[
+        enhanced,
+        width=#1,
+        arc=0mm,
+        colframe=#2,
+        colback=#2,
+        borderline horizontal={4pt}{0pt}{#3},
+        halign=center,
+        code={\doublespacing}
+        ]
+        {\color{#4}\setstretch{2.2}#5}
+        \end{tcolorbox}
+}
+
+
+%Width, backcolor, linecolor, textcolor, title, text
+\newcommand{\drPartBox}[6]{
+    \begin{tcolorbox}[
+        enhanced,
+        width=#1,
+        arc=0mm,
+        colframe=#2,
+        colback=#2,
+        borderline horizontal={4pt}{0pt}{#3},
+        title=#5,
+        arc=0mm,
+        coltitle=#3,
+        boxed title style={size=small,colback=#2,colframe=#3},
+        attach boxed title to top right={yshift=-\tcboxedtitleheight/2, xshift=-12pt},
+        halign=center]
+        {\color{#4}#6}
+    \end{tcolorbox}
+    }
+
+%Width, backcolor, linecolor, textcolor, text
+\newcommand{\drHeadBox}[7]{
+    \begin{tcolorbox}[
+        enhanced,
+        width=#1,
+        title=#5,
+        borderline north={4pt}{0pt}{#2},
+        arc=0mm,
+        colframe=white,
+        colback=white,
+        coltitle=#3,
+        boxed title style={colback=#2,colframe=#2,arc=6pt},
+        attach boxed title to top #6={#7},
+        halign=center]
+        %{\color{#3}}
+    \end{tcolorbox}
+}
+
+ \newcommand{\drRightBox}[5]{
+     \drHeadBox{#1}{#2}{#3}{#4}{#5}{right}{yshift=-11pt, xshift=-25mm}
+ }
+
+ \newcommand{\drLeftBox}[5]{
+     \drHeadBox{#1}{#2}{#3}{#4}{#5}{left}{yshift=-11pt, xshift=25mm}
+ }
+ 
+%Width, backcolor, linecolor, textcolor, text
+\newcommand{\drHeadBall}[7]{
+\begin{tcolorbox}[
+    enhanced,
+    width=#1,
+    title=#5,
+    borderline north={4pt}{0pt}{#2},
+    colframe=white,
+    colback=white,
+    coltitle=#3,
+    boxed title style={colback=#2,colframe=#2,circular arc},
+    attach boxed title to top #6={#7}, %right={yshift=-11pt, xshift=-12pt},
+    halign=center,
+    valign=center]
+    {\color{#3}}
+\end{tcolorbox}
+}
+
+\newcommand{\drRightBall}[5]{
+    \drHeadBall{#1}{#2}{#3}{#4}{#5}{right}{yshift=-11pt, xshift=-12pt}
+}
+
+\newcommand{\drLeftBall}[5]{
+    \drHeadBall{#1}{#2}{#3}{#4}{#5}{left}{yshift=-11pt, xshift=12pt}
+}
+
+
+%%
+%% Page head (even and odd)
+%%
+\newcommand*\drHeadEven{%
+    \begin{adjustwidth}{-25mm}{25mm}
+        \drLeftBox{\paperwidth}{ColorYellowUS}{ColorRedUS}{ColorRedUS}{\itshape\nouppercase{\leftmark}}
+    \end{adjustwidth}
+}
+
+\newcommand*\drHeadOdd{%
+    \begin{adjustwidth}{-25mm}{25mm}
+        \drRightBox{\paperwidth}{ColorYellowUS}{ColorRedUS}{ColorRedUS}{\itshape\nouppercase{\rightmark}}
+    \end{adjustwidth}
+}
+
+%% Page feet (even and odd)
+\newcommand*\drFootEven{%
+    \begin{adjustwidth}{-25mm}{25mm}
+        \drLeftBox{\paperwidth}{ColorYellowUS}{ColorRedUS}{ColorRedUS}{\thepage}
+    \end{adjustwidth}
+}
+
+\newcommand*\drFootOdd{%
+    \begin{adjustwidth}{-25mm}{25mm}
+        \drRightBox{\paperwidth}{ColorYellowUS}{ColorRedUS}{ColorRedUS}{\thepage}
+    \end{adjustwidth}
+}
+
+\newcommand*\drFootOddTitle{%
+    \begin{adjustwidth}{-25mm}{25mm}
+        \drRightBox{\paperwidth}{ColorRedUS}{ColorYellowUS}{ColorRedUS}{\thepage}
+    \end{adjustwidth}
+}
+
+%% Page style for general pages 
+\fancypagestyle{drStyle}{%
+    \fancyhf{}
+    \fancyhead[CE]{\drHeadEven}
+    \fancyhead[CO]{\drHeadOdd}
+    \fancyfoot[CO]{\drFootOdd}
+    \fancyfoot[CE]{\drFootEven}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+%% Page style for plain pages (chapters and parts)
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyfoot[CO]{\drFootOddTitle}
+    \fancyfoot[CE]{\drFootEven}
+    %\renewcommand{\headrulewidth}{0pt}
+    %\renewcommand{\footrulewidth}{0pt}
+}
+
+%% Page style for title pages
+\fancypagestyle{title}{%
+ \fancyhf{}
+ \fancyhead[CE]{}
+ \fancyhead[CO]{}
+}
+
+%% Page headings for empty pages
+\fancypagestyle{empty}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+
+%% Defining Chapter Heading Style
+%\assignpagestyle{\chapter}{title}
+%\titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}
+  {\gdef\chapterlabel{}}
+  {\gdef\chapterlabel{\thechapter\ }}
+  {0pt}
+  { 
+    \ifx \chapterlabel \empty %Indices, preámbulo
+        % \hspace*{\fill}
+        {\normalfont\huge\bfseries\scshape\color{ColorRedUS}#1}\\
+        {\color{ColorRedUS}\rule{\textwidth}{2pt}}
+    \else %Resto de capítulos
+        \begin{center}
+            \drPartBox{0.9\linewidth}{white}{ColorRedUS}{ColorRedUS}{
+                {\normalfont\huge\bfseries\scshape\color{ColorRedUS}Chapter \chapterlabel}
+                }{
+                    \vspace{24pt}
+                    {\normalfont\huge\bfseries\scshape\color{ColorRedUS}#1}
+                    \vspace{24pt}
+                    }        
+        \end{center}
+    \fi
+  }
+
+%% Defining Part Heading Style
+%\newcommand*\partlabel{\thispagestyle{plain}}
+\let\Oldpart\part
+\newcommand{\parttitle}{}
+\renewcommand{\part}[1]{\Oldpart{#1}\renewcommand{\parttitle}{#1}}
+ \titleformat{\part}
+   {\gdef\partlabel{}
+    \normalfont\Huge\bfseries\scshape} %Format
+   {\gdef\partlabel{\thepart\ }} % Label
+   {0pt} %Sep
+   {
+        \thispagestyle{empty}
+       \begin{center}
+            \drPartBox{0.7\linewidth}{white}{ColorRedUS}{ColorRedUS}{Part \partlabel}{
+                \vspace{24pt}
+                \parttitle{#1}
+                \vspace{24pt}
+            }
+        \end{center}
+   }
+
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt}
+
+\newtheoremstyle{definition}% % see p. 10 of user manual of amsthm package
+{\topsep}%  Space above
+{\topsep}%  Space below
+{}%     Body font
+{}%     Indent amount
+{\bfseries}% Theorem head font
+{}%    Punctuation after theorem head -- none
+{.5em}% Space after theorem head
+{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}% Theorem head spec 
+
+\usepackage[
+    %showframe,
+    includeheadfoot,
+    headheight = 25mm,
+    headsep = 0mm,
+    footskip = 5mm,%\dimexpr\headsep+\ht\strutbox\relax,
+    tmargin = 0mm,
+    bmargin = 15mm,%\dimexpr2mm+2\ht\strutbox\relax,
+    lmargin = 25mm,
+    rmargin = 25mm
+]{geometry}

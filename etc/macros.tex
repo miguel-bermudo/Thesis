@@ -1,0 +1,117 @@
+% Citas y abstracts de los capítulos
+\newcommand{\chapterQuote}[2]{
+    \vspace{-1.5cm}
+    \epigraph{#1}{#2}
+}
+
+\newcommand{\chapterAbstract}[2]{
+    % Seguramente haya alguna forma de pasar sólo 1 argumento
+    % y extraer automáticamente la primera letra para pasársela
+    % al lettrine. Los ejemplos de cosas parecidas que he
+    % encontrado son todos feísimos y usan latex oscuro, así
+    % que paso, no me merece la pena el esfuerzo. Si tú, usuario
+    % futuro de esta plantilla, consigues hacerlo así, cambia
+    % este comando y siéntete realizado con tu vida.
+    \vspace{2cm}
+    \lettrine{#1}{ }#2
+    \newpage
+}
+
+\makeatletter
+\newcommand{\monthyeardate}{%
+  \DTMenglishmonthname{\@dtm@month} \@dtm@year
+}
+
+\newcommand{\monthyearcover}{%
+  \DTMenglishmonthname{\@dtm@month}, \@dtm@year
+}
+
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+
+\newcommand{\romanyear}{%
+    \rom{\@dtm@year}
+}
+\makeatother
+
+\newcommand{\hypthesis}[1]
+{
+    \begin{quote}
+        \textit{#1}
+    \end{quote}
+}
+
+% avoid having to prepend ~ to \cite and \ref all the time
+% to prevent the reference from being placed in the next line
+\let\oldcite\cite
+\renewcommand\cite{\nolinebreak\oldcite}
+
+\newcommand{\tripleSty}[1]{\textit{#1}}
+
+% Para que figuras grandes no se coman una pagina entera
+% https://tex.stackexchange.com/questions/68516/avoid-that-figure-gets-its-own-page
+\renewcommand{\floatpagefraction}{.9}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% A partir de aquí hacia abajo son cosas que he definido yo, se pueden borrar
+
+% this is so the text f's in math mode don't have spacing around them
+% by using {\ff}
+\newcommand{\ff}{\mkern-2mu f\mkern-3mu}
+
+%tipo de columna para las tablas
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+% shortcuts para formulas
+\newcommand{\fancy}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\Eset}{\fancy{E}}
+\newcommand{\Rset}{\fancy{R}}
+\newcommand{\Tset}{\fancy{T}}
+\newcommand{\Sset}{\fancy{C}}
+\newcommand{\triple}{\ensuremath{(s, r, t)}}
+\newcommand{\negtriple}{\ensuremath{(s, r, t')}}
+\newcommand{\KG}{\ensuremath{\textmd{\textup{\fancy{K}\fancy{G}}}}}
+\newcommand{\KGlong}{\ensuremath{(\Eset{}, \Rset{}, \Tset{})}}
+\newcommand{\subKG}[2]{\ensuremath{\KG_{#1}^{#2}}}
+\newcommand{\subKGdef}{\subKG{n}{n}}
+\newcommand{\nearby}[2]{\Eset{}_{#1}^{#2}}
+\newcommand{\kgpath}[3]{\ensuremath{path(#1, #2, #3)}}
+\newcommand{\kgpathl}[3]{\ensuremath{path_{#3}(#1, #2)}}
+\newcommand{\kgpathP}[3]{\ensuremath{\fancy{P}(#1, #2, #3)}}
+
+
+% entornos y comandos para definiciones y cosas
+\newcommand{\defin}[2]{
+\begin{definition}\label{#1}{\textbf{#1:}}
+#2
+\end{definition}
+}
+
+\newcommand{\candfunc}[2]{
+    \textbf{#1}: #2
+}
+
+\newcounter{featgroup}
+\newcommand{\featgroup}[6]{
+    \stepcounter{featgroup}
+    \textbf{\texorpdfstring{Feature group $f_{\arabic{featgroup}}$: \textit{#1}}{Feature group f\arabic{featgroup}: #1}} Features in this group are computed as: 
+    \begin{equation*}
+    \begin{gathered}
+        f_{\arabic{featgroup}}(#2) : \triple \mapsto #3
+    \end{gathered}
+    \end{equation*}
+    In the example shown in Figure \ref{fig:kg-potter}, $f_{\arabic{featgroup}}($\textit{#5}$)$ applied to the $\textit{example}$ triple is #6.
+}
+
+\newcounter{scifeatcount}
+\newcommand{\scifeature}[2]{
+    \stepcounter{scifeatcount}
+    \textbf{Feature $f_{\arabic{scifeatcount}}$: #1}. #2
+}
+
+\newcommand{\roberta}{RoBERTa}
+
+
+\definecolor{tickgreen}{HTML}{009B55} 
+\definecolor{crossred}{HTML}{850000} 
+\newcommand{\yes}{\textcolor{tickgreen}{\textbf{\checkmark}}}
+\newcommand{\no}{\textcolor{crossred}{\text{\sffamily X}}}

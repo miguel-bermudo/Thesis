@@ -1,0 +1,940 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Title: 
+%%Creator: PScript5.dll Version 5.2.2
+%%CreationDate: 4/17/2023 19:16:28
+%%For: Agu
+%%BoundingBox: 0 0 428 241
+%%Pages: 1
+%%Orientation: Portrait
+%%PageOrder: Ascend
+%%DocumentNeededResources: (atend)
+%%DocumentSuppliedResources: (atend)
+%%DocumentData: Clean7Bit
+%%TargetDevice: () (52.3) 320
+%%LanguageLevel: 1
+%%EndComments
+
+%%BeginDefaults
+%%PageBoundingBox: 0 0 428 241
+%%ViewingOrientation: 1 0 0 1
+%%EndDefaults
+
+%%BeginProlog
+%%BeginResource: file Pscript_WinNT_VMErrorHandler 5.0 0
+/currentpacking where{pop/oldpack currentpacking def/setpacking where{pop false
+setpacking}if}if/$brkpage 64 dict def $brkpage begin/prnt{dup type/stringtype
+ne{=string cvs}if dup length 6 mul/tx exch def/ty 10 def currentpoint/toy exch
+def/tox exch def 1 setgray newpath tox toy 2 sub moveto 0 ty rlineto tx 0
+rlineto 0 ty neg rlineto closepath fill tox toy moveto 0 setgray show}bind def
+/nl{currentpoint exch pop lmargin exch moveto 0 -10 rmoveto}def/=={/cp 0 def
+typeprint nl}def/typeprint{dup type exec}readonly def/lmargin 72 def/rmargin 72
+def/tprint{dup length cp add rmargin gt{nl/cp 0 def}if dup length cp add/cp
+exch def prnt}readonly def/cvsprint{=string cvs tprint( )tprint}readonly def
+/integertype{cvsprint}readonly def/realtype{cvsprint}readonly def/booleantype
+{cvsprint}readonly def/operatortype{(--)tprint =string cvs tprint(-- )tprint}
+readonly def/marktype{pop(-mark- )tprint}readonly def/dicttype{pop
+(-dictionary- )tprint}readonly def/nulltype{pop(-null- )tprint}readonly def
+/filetype{pop(-filestream- )tprint}readonly def/savetype{pop(-savelevel- )
+tprint}readonly def/fonttype{pop(-fontid- )tprint}readonly def/nametype{dup
+xcheck not{(/)tprint}if cvsprint}readonly def/stringtype{dup rcheck{(\()tprint
+tprint(\))tprint}{pop(-string- )tprint}ifelse}readonly def/arraytype{dup rcheck
+{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}forall(])
+tprint}ifelse}{pop(-array- )tprint}ifelse}readonly def/packedarraytype{dup
+rcheck{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}
+forall(])tprint}ifelse}{pop(-packedarray- )tprint}ifelse}readonly def/courier
+/Courier findfont 10 scalefont def end errordict/handleerror{systemdict begin
+$error begin $brkpage begin newerror{/newerror false store vmstatus pop pop 0
+ne{grestoreall}if initgraphics courier setfont lmargin 720 moveto errorname
+(VMerror)eq{version cvi 2016 ge{userdict/ehsave known{clear userdict/ehsave get
+restore 2 vmreclaim}if vmstatus exch pop exch pop PrtVMMsg}if}if systemdict
+/showpage get exec(%%[ Error: )print errorname =print(; OffendingCommand: )
+print/command load =print( ]%%)= flush}if end end end}dup 0 systemdict put dup
+4 $brkpage put bind readonly put/currentpacking where{pop/setpacking where{pop
+oldpack setpacking}if}if
+%%EndResource
+%%BeginProcSet: Pscript_Res_Emul 5.0 0
+/defineresource where{pop}{userdict begin/defineresource{userdict/Resources 2
+copy known{get begin}{15 dict dup begin put}ifelse exch readonly exch
+currentdict 1 index known not{dup 30 dict def}if load 3 -1 roll 2 index put
+end}bind readonly def/findresource{userdict/Resources get exch get exch get}
+bind readonly def/resourceforall{pop pop pop pop}bind readonly def
+/resourcestatus{userdict/Resources 2 copy known{get exch 2 copy known{get exch
+known{0 -1 true}{false}ifelse}{pop pop pop false}ifelse}{pop pop pop pop false}
+ifelse}bind readonly def end}ifelse
+%%EndProcSet
+userdict /Pscript_WinNT_Incr 230 dict dup begin put
+%%BeginResource: file Pscript_FatalError 5.0 0
+userdict begin/FatalErrorIf{{initgraphics findfont 1 index 0 eq{exch pop}{dup
+length dict begin{1 index/FID ne{def}{pop pop}ifelse}forall/Encoding
+{ISOLatin1Encoding}stopped{StandardEncoding}if def currentdict end
+/ErrFont-Latin1 exch definefont}ifelse exch scalefont setfont counttomark 3 div
+cvi{moveto show}repeat showpage quit}{cleartomark}ifelse}bind def end
+%%EndResource
+userdict begin/PrtVMMsg{vmstatus exch sub exch pop gt{[
+(La impresora no tiene suficiente memoria disponible para este trabajo.)100 500
+(Realice una de las siguientes operaciones e intente imprimir de nuevo:)100 485
+(Escoja "Optimizar para portabilidad" como formato de salida.)115 470
+(En el panel Configuración de dispositivo, compruebe que "Memoria PostScript disponible" tiene el valor correcto.)
+115 455(Reduzca el número de fuentes del documento.)115 440
+(Imprima el documento por partes.)115 425 12/Times-Roman showpage
+(%%[ PrinterError: Low Printer VM ]%%)= true FatalErrorIf}if}bind def end
+version cvi 2016 ge{/VM?{pop}bind def}{/VM? userdict/PrtVMMsg get def}ifelse
+%%BeginResource: file Pscript_Win_Basic 5.0 0
+/d/def load def/,/load load d/~/exch , d/?/ifelse , d/!/pop , d/`/begin , d/^
+/index , d/@/dup , d/+/translate , d/$/roll , d/U/userdict , d/M/moveto , d/-
+/rlineto , d/&/currentdict , d/:/gsave , d/;/grestore , d/F/false , d/T/true ,
+d/N/newpath , d/E/end , d/Ac/arc , d/An/arcn , d/A/ashow , d/D/awidthshow , d/C
+/closepath , d/V/div , d/O/eofill , d/L/fill , d/I/lineto , d/-c/curveto , d/-M
+/rmoveto , d/+S/scale , d/Ji/setfont , d/Lc/setlinecap , d/Lj/setlinejoin , d
+/Lw/setlinewidth , d/Lm/setmiterlimit , d/sd/setdash , d/S/show , d/LH/showpage
+, d/K/stroke , d/W/widthshow , d/R/rotate , d/L2? false/languagelevel where{pop
+languagelevel 2 ge{pop true}if}if d L2?{/xS/xshow , d/yS/yshow , d/zS/xyshow ,
+d}if/b{bind d}bind d/bd{bind d}bind d/xd{~ d}bd/ld{, d}bd/bn/bind ld/lw/Lw ld
+/lc/Lc ld/lj/Lj ld/sg/setgray ld/ADO_mxRot null d/self & d/OrgMx matrix
+currentmatrix d/reinitialize{: OrgMx setmatrix[/TextInit/GraphInit/UtilsInit
+counttomark{@ where{self eq}{F}?{cvx exec}{!}?}repeat cleartomark ;}b
+/initialize{`{/Pscript_Win_Data where{!}{U/Pscript_Win_Data & put}?/ADO_mxRot ~
+d/TextInitialised? F d reinitialize E}{U/Pscript_Win_Data 230 dict @ ` put
+/ADO_mxRot ~ d/TextInitialised? F d reinitialize}?}b/terminate{!{& self eq
+{exit}{E}?}loop E}b/suspend/terminate , d/resume{` Pscript_Win_Data `}b U `
+/lucas 21690 d/featurebegin{countdictstack lucas[}b/featurecleanup{stopped
+{cleartomark @ lucas eq{! exit}if}loop countdictstack ~ sub @ 0 gt{{E}repeat}
+{!}?}b E/snap{transform 0.25 sub round 0.25 add ~ 0.25 sub round 0.25 add ~
+itransform}b/dsnap{dtransform round ~ round ~ idtransform}b/nonzero_round{@ 0.5
+ge{round}{@ -0.5 lt{round}{0 ge{1}{-1}?}?}?}b/nonzero_dsnap{dtransform
+nonzero_round ~ nonzero_round ~ idtransform}b U<04>cvn{}put/rr{1 ^ 0 - 0 ~ -
+neg 0 - C}b/irp{4 -2 $ + +S fx 4 2 $ M 1 ^ 0 - 0 ~ - neg 0 -}b/rp{4 2 $ M 1 ^ 0
+- 0 ~ - neg 0 -}b/solid{[]0 sd}b/g{@ not{U/DefIf_save save put}if U/DefIf_bool
+2 ^ put}b/DefIf_El{if U/DefIf_bool get not @{U/DefIf_save get restore}if}b/e
+{DefIf_El !}b/UDF{L2?{undefinefont}{!}?}b/UDR{L2?{undefineresource}{! !}?}b
+/freeVM{/Courier findfont[40 0 0 -40 0 0]makefont Ji 2 vmreclaim}b/hfRedefFont
+{findfont @ length dict `{1 ^/FID ne{d}{! !}?}forall & E @ ` ~{/CharStrings 1
+dict `/.notdef 0 d & E d}if/Encoding 256 array 0 1 255{1 ^ ~/.notdef put}for d
+E definefont !}bind d/hfMkCIDFont{/CIDFont findresource @ length 2 add dict `{1
+^ @/FID eq ~ @/XUID eq ~/UIDBase eq or or{! !}{d}?}forall/CDevProc ~ d/Metrics2
+16 dict d/CIDFontName 1 ^ d & E 1 ^ ~/CIDFont defineresource ![~]composefont !}
+bind d
+%%EndResource
+%%BeginResource: file Pscript_Win_Utils_L1 5.0 0
+/rf{N rp L}b/fx{1 1 dtransform @ 0 ge{1 sub 1}{1 add -0.25}? 3 -1 $ @ 0 ge{1
+sub 1}{1 add -0.25}? 3 1 $ 4 1 $ idtransform 4 -2 $ idtransform}b/BZ{4 -2 $
+snap + +S fx rf}b/rs{N rp C K}b/rc{N rp clip N}b/UtilsInit{}b/setcolorspace{!}b
+/scol{[/setgray/setrgbcolor/setcolor/setcmykcolor/setcolor/setgray]~ get cvx
+exec}b/colspRefresh{}b/AddFontInfoBegin{/FontInfo 8 dict @ `}bind d/AddFontInfo
+{/GlyphNames2Unicode 16 dict d/GlyphNames2HostCode 16 dict d}bind d
+/AddFontInfoEnd{E d}bind d
+%%EndResource
+end
+%%EndProlog
+
+%%BeginSetup
+[ 1 0 0 1 0 0 ] false Pscript_WinNT_Incr dup /initialize get exec
+1 setlinecap 1 setlinejoin
+/mysetup [ 72 600 V 0 0 -72 600 V 0 240.66142 ] def 
+%%EndSetup
+
+%%Page: 1 1
+%%PageBoundingBox: 0 0 428 241
+%%EndPageComments
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ nonzero_dsnap YStep V ~
+XStep V ~ E +S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L1 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 2 d/RepsV 6 d/RepsH 5 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{}b/PaintProc{` SetBGndFGnd RepsH{Width Height F mx PaintData
+imagemask Width 0 +}repeat E}b E d/GDIpattfill{@ ` BGnd null ne PaintType 2 eq
+and{: BGnd aload ! scol fEOFill{O}{L}? ; FGnd aload ! U/iCol 2 ^ put @ 0 eq{!
+2}{@ 1 eq ~ 2 eq or{4}{5}?}? -1 $}if E @ patterncalc : 4 ^/PaintType get 2 eq
+{iCol 0 eq{6 -1 $}if iCol 1 eq iCol 2 eq or{8 -3 $}if iCol 3 eq iCol 4 eq or{9
+-4 $}if iCol scol}if fEOFill{eoclip}{clip}? N patternfill ; N}b/hbf
+{GDIpattfill}b/hfMain{/fEOFill ~ d ~/iCol ~ d GDIpattfill}b/hf{: hfMain ;}b
+/mpstr 1 string d/mp{~ @ length 12 add dict copy `/PatternCTM matrix
+currentmatrix d/PatternMatrix ~ d/PatWidth XStep mpstr length mul d/PatHeight
+YStep d/FontType 3 d/Encoding 256 array d 3 string 0 1 255{Encoding ~ @ 3 ^ cvs
+cvn put}for !/FontMatrix matrix d/FontBBox BBox d/BuildChar{! @ ` XStep 0
+FontBBox aload ! setcachedevice/PaintProc , E : exec ;}b & E ~ @ 3 -1 $
+definefont}b/build_pattern{: GDIBWPatternDict ` Width Height E dsnap +S
+/GDIBWPatternMx matrix currentmatrix d ; CTMsave GDIBWPatternMx setmatrix
+GDIBWPatternDict @ ` xOrg yOrg E matrix + mp CTMrestore}b/patterncalc{` :
+PatternCTM setmatrix PatternMatrix concat BBox aload ! ! ! + pathbbox ;
+PatHeight V ceiling 4 1 $ PatWidth V ceiling 4 1 $ PatHeight V floor 4 1 $
+PatWidth V floor 4 1 $ 2 ^ sub cvi abs ~ 3 ^ sub cvi abs ~ 4 2 $ PatHeight mul
+~ PatWidth mul ~ E}b/patternfill{5 -1 $ @ ` Ji PatternCTM setmatrix
+PatternMatrix concat 0 2 ^ 2 ^ M 0 1 mpstr length 1 sub{1 ^ mpstr 3 1 $ put}for
+! 2 ^{currentpoint 5 ^{mpstr S}repeat YStep add M}repeat ! ! ! ! E}b/pbf{: 14
+dict `/fGray ~ d/fEOFill ~ d/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/mx xOrg yOrg matrix + d fGray{/PaintProc{` Width Height
+OutputBPP mx PaintData image E}b}{/PaintProc{` Width Height 8 mx PaintData F
+OutputBPP 8 idiv colorimage E}b}? pathbbox fEOFill{eoclip}{clip}?/Top ~ d/Right
+~ d/Bottom ~ d/Left ~ d Top Height neg Bottom 1 sub{Left Width Right 1 sub{1 ^
+2 copy + & PaintProc neg ~ neg ~ +}bind for !}bind for E ;}b
+%%EndResource
+end reinitialize
+0 0 0 1 scol 1 Lj 1 Lc 21 Lw solid N 151 665 M 694 665 I 694 394 I 151 394 I 151 665 I C 
+: 0.398 0.398 +S K 
+; 11 dict begin
+/FontName /TT262o00 def
+/FontMatrix [1 2048 div 0 0 1 2048 div 0 0 ] def
+/Encoding  256 array 0 1 255 {1 index exch /.notdef put} for  def
+/PaintType 0 def
+/FontType 1 def
+/FontBBox { 0 0 0 0 } def
+AddFontInfoBegin
+AddFontInfo
+AddFontInfoEnd
+currentdict
+end
+
+currentfile eexec
+9e67edc6f3ddb54d987dfb0ad4392351758f10eff40ef287a1387512b853
+046f6e589e2c97d48fdb38d54b68757f1dc48a239a5da408c2bfd473eac0
+3ab6b0025b87770e5f3b06904c282a51ee189ce871258447b47d83c5fad2
+326aa26e4c7f0ff21a841a463c859f102729802bbfa6ac0c2766f6b09317
+a247f37b339b99b7588bee2e861ed9de7a8990c512001ce21da50f4516f7
+553cc5df31ac42402c2b4e2b106773ccdac45a8dee89d3d35ce4f9afb022
+79592359efd5293f35df57216c84236a1347e922a61c45691be2c137b65f
+08f4b3113b88e58dce4bd559387db7a00fe16460e5ab8fc835ea6ed9b938
+610bff26bc7ddabb1ae08d28fffbdf3b2be1a2354ff60dfadf0cdfb88ff4
+1f227bfa249f170643ff28ad4af22e33a9a01b2a05714a59dc205bc0a7bd
+d1f3ea30646d441985992c4551991898375a98846a910421230d2cf3d201
+ca2dec5330c107dcb5979f3471ce88425644279740eec6eefe9a3fba541f
+a74751c57cc4dd4b5b295b9823e968f757bc3c72c50a315b2523cc6286d3
+8907ab774bc7f3f19a7cc0267abf564f9b2bc44c6e5d70d9774f7c4e9971
+dd3bd7edf14983c7a22d698368a60a9c1166818f672a7023ef711950f02d
+8b9455bfdefbce4166af67984f30565b862689d070755fb358ca26d3cd09
+e3d67bd6241b40a7dd2418f9eb703978863354aacb4d745f49e7f6d5e60f
+4369ffbac47b20eea6935ed6e4eb1089fb9e8de37c775e42c13389c24c88
+3e6972c60891cb85f99ca6ecbd0e9640295d8e666815fc17fb3e8bcd7cce
+03cc32f30140c5d0ca730c95a5b7f07437acebe24798cd703ee72075da50
+6f8c14d19205ff372e9c7fbd561a0703be0446b1245270f60000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 1 /R put
+dup 2 /N put
+dup 3 /space put
+pop
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}b/mF42{15 dict ` @ 4 1 $
+FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add 255
+idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for/FDepVector
+Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1 Encoding
+length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName length 2
+add string}{FontName length 3 add string}?}? @ 0 FontName @ length string cvs
+putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~ putinterval cvn 1 ^
+256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1 $ put}for & @ E
+/FontName get ~ definefont ! ! ! mF}b/mF_OTF_V{~ ! ~ ! 4 -1 $ ! findfont 2 ^ ~
+definefont fM @ @ 4 6 -1 $ neg put 5 0 put 90 matrix R matrix concatmatrix
+makefont Pscript_Windows_Font 3 1 $ put}b/mF_TTF_V{3{~ !}repeat 3 -1 $ !
+findfont 1 ^ ~ definefont Pscript_Windows_Font 3 1 $ put}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+end reinitialize
+F /F0 0 /0 F /TT262o00 mF 
+/F0S66YFFFFFF99 F0 [102.531 0 0 -102.484 0 0 ] mFS
+F0S66YFFFFFF99 Ji 
+335 564 M <01>S 
+392 564 M <02>S  456 564 M <02>S  514 564 M <03>S  
+16 Lw N 658 12 M 658 128 I 775 128 I 775 12 I 658 12 I C 
+: 0.398 0.398 +S K 
+; N 716 117 M 742 117 763 96 763 71 -c 763 45 742 24 716 24 -c 691 24 670 45 670 71 -c 670 96 691 117 716 117 -c : 0.398 0.398 +S K 
+; N 542 12 M 542 128 I 659 128 I 659 12 I 542 12 I C 
+: 0.398 0.398 +S K 
+; N 600 117 M 626 117 647 96 647 71 -c 647 45 626 24 600 24 -c 575 24 554 45 554 71 -c 554 96 575 117 600 117 -c : 0.398 0.398 +S K 
+; N 424 12 M 424 128 I 541 128 I 541 12 I 424 12 I C 
+: 0.398 0.398 +S K 
+; N 483 117 M 508 117 529 96 529 71 -c 529 45 508 24 483 24 -c 457 24 436 45 436 71 -c 436 96 457 117 483 117 -c : 0.398 0.398 +S K 
+; N 306 12 M 306 128 I 423 128 I 423 12 I 306 12 I C 
+: 0.398 0.398 +S K 
+; N 365 117 M 390 117 411 96 411 71 -c 411 45 390 24 365 24 -c 339 24 318 45 318 71 -c 318 96 339 117 365 117 -c : 0.398 0.398 +S K 
+; N 188 12 M 188 128 I 305 128 I 305 12 I 188 12 I C 
+: 0.398 0.398 +S K 
+; N 246 117 M 272 117 293 96 293 71 -c 293 45 272 24 246 24 -c 221 24 200 45 200 71 -c 200 96 221 117 246 117 -c : 0.398 0.398 +S K 
+; N 70 12 M 70 128 I 187 128 I 187 12 I 70 12 I C 
+: 0.398 0.398 +S K 
+; N 128 117 M 154 117 175 96 175 71 -c 175 45 154 24 128 24 -c 103 24 82 45 82 71 -c 82 96 103 117 128 117 -c : 0.398 0.398 +S K 
+; N 151 931 M 151 1052 I 270 1052 I 270 931 I 151 931 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1052 M 270 1052 I 270 931 I 151 931 I 151 1052 I C 
+: 0.398 0.398 +S K 
+; N 258 991 M 258 965 237 944 210 944 -c 184 944 163 965 163 991 -c 163 1018 184 1039 210 1039 -c 237 1039 258 1018 258 991 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 991 M 258 965 237 944 210 944 -c 184 944 163 965 163 991 -c 163 1018 184 1039 210 1039 -c 237 1039 258 1018 258 991 -c : 0.398 0.398 +S K 
+; N 151 1051 M 151 1171 I 270 1171 I 270 1051 I 151 1051 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1171 M 270 1171 I 270 1051 I 151 1051 I 151 1171 I C 
+: 0.398 0.398 +S K 
+; N 258 1111 M 258 1084 237 1063 210 1063 -c 184 1063 163 1084 163 1111 -c 163 1137 184 1159 210 1159 -c 237 1159 258 1137 258 1111 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 1111 M 258 1084 237 1063 210 1063 -c 184 1063 163 1084 163 1111 -c 163 1137 184 1159 210 1159 -c 237 1159 258 1137 258 1111 -c : 0.398 0.398 +S K 
+; N 151 1172 M 151 1293 I 270 1293 I 270 1172 I 151 1172 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1293 M 270 1293 I 270 1172 I 151 1172 I 151 1293 I C 
+: 0.398 0.398 +S K 
+; N 258 1233 M 258 1206 237 1185 210 1185 -c 184 1185 163 1206 163 1233 -c 163 1259 184 1280 210 1280 -c 237 1280 258 1259 258 1233 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 1233 M 258 1206 237 1185 210 1185 -c 184 1185 163 1206 163 1233 -c 163 1259 184 1280 210 1280 -c 237 1280 258 1259 258 1233 -c : 0.398 0.398 +S K 
+; N 151 1294 M 151 1414 I 270 1414 I 270 1294 I 151 1294 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1414 M 270 1414 I 270 1294 I 151 1294 I 151 1414 I C 
+: 0.398 0.398 +S K 
+; N 258 1354 M 258 1328 237 1306 210 1306 -c 184 1306 163 1328 163 1354 -c 163 1381 184 1402 210 1402 -c 237 1402 258 1381 258 1354 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 1354 M 258 1328 237 1306 210 1306 -c 184 1306 163 1328 163 1354 -c 163 1381 184 1402 210 1402 -c 237 1402 258 1381 258 1354 -c : 0.398 0.398 +S K 
+; N 151 1416 M 151 1537 I 270 1537 I 270 1416 I 151 1416 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1537 M 270 1537 I 270 1416 I 151 1416 I 151 1537 I C 
+: 0.398 0.398 +S K 
+; N 258 1476 M 258 1450 237 1428 210 1428 -c 184 1428 163 1450 163 1476 -c 163 1503 184 1524 210 1524 -c 237 1524 258 1503 258 1476 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 1476 M 258 1450 237 1428 210 1428 -c 184 1428 163 1450 163 1476 -c 163 1503 184 1524 210 1524 -c 237 1524 258 1503 258 1476 -c : 0.398 0.398 +S K 
+; N 151 1538 M 151 1658 I 270 1658 I 270 1538 I 151 1538 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 151 1658 M 270 1658 I 270 1538 I 151 1538 I 151 1658 I C 
+: 0.398 0.398 +S K 
+; N 258 1598 M 258 1571 237 1550 210 1550 -c 184 1550 163 1571 163 1598 -c 163 1625 184 1646 210 1646 -c 237 1646 258 1625 258 1598 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 258 1598 M 258 1571 237 1550 210 1550 -c 184 1550 163 1571 163 1598 -c 163 1625 184 1646 210 1646 -c 237 1646 258 1625 258 1598 -c : 0.398 0.398 +S K 
+; N 574 931 M 574 1052 I 694 1052 I 694 931 I 574 931 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1052 M 694 1052 I 694 931 I 574 931 I 574 1052 I C 
+: 0.398 0.398 +S K 
+; N 682 991 M 682 965 661 944 634 944 -c 608 944 586 965 586 991 -c 586 1018 608 1039 634 1039 -c 661 1039 682 1018 682 991 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 991 M 682 965 661 944 634 944 -c 608 944 586 965 586 991 -c 586 1018 608 1039 634 1039 -c 661 1039 682 1018 682 991 -c : 0.398 0.398 +S K 
+; N 574 1051 M 574 1171 I 694 1171 I 694 1051 I 574 1051 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1171 M 694 1171 I 694 1051 I 574 1051 I 574 1171 I C 
+: 0.398 0.398 +S K 
+; N 682 1111 M 682 1084 661 1063 634 1063 -c 608 1063 586 1084 586 1111 -c 586 1137 608 1159 634 1159 -c 661 1159 682 1137 682 1111 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 1111 M 682 1084 661 1063 634 1063 -c 608 1063 586 1084 586 1111 -c 586 1137 608 1159 634 1159 -c 661 1159 682 1137 682 1111 -c : 0.398 0.398 +S K 
+; N 574 1172 M 574 1293 I 694 1293 I 694 1172 I 574 1172 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1293 M 694 1293 I 694 1172 I 574 1172 I 574 1293 I C 
+: 0.398 0.398 +S K 
+; N 682 1233 M 682 1206 661 1185 634 1185 -c 608 1185 586 1206 586 1233 -c 586 1259 608 1280 634 1280 -c 661 1280 682 1259 682 1233 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 1233 M 682 1206 661 1185 634 1185 -c 608 1185 586 1206 586 1233 -c 586 1259 608 1280 634 1280 -c 661 1280 682 1259 682 1233 -c : 0.398 0.398 +S K 
+; N 574 1294 M 574 1414 I 694 1414 I 694 1294 I 574 1294 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1414 M 694 1414 I 694 1294 I 574 1294 I 574 1414 I C 
+: 0.398 0.398 +S K 
+; N 682 1354 M 682 1328 661 1306 634 1306 -c 608 1306 586 1328 586 1354 -c 586 1381 608 1402 634 1402 -c 661 1402 682 1381 682 1354 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 1354 M 682 1328 661 1306 634 1306 -c 608 1306 586 1328 586 1354 -c 586 1381 608 1402 634 1402 -c 661 1402 682 1381 682 1354 -c : 0.398 0.398 +S K 
+; N 574 1416 M 574 1537 I 694 1537 I 694 1416 I 574 1416 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1537 M 694 1537 I 694 1416 I 574 1416 I 574 1537 I C 
+: 0.398 0.398 +S K 
+; N 682 1476 M 682 1450 661 1428 634 1428 -c 608 1428 586 1450 586 1476 -c 586 1503 608 1524 634 1524 -c 661 1524 682 1503 682 1476 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 1476 M 682 1450 661 1428 634 1428 -c 608 1428 586 1450 586 1476 -c 586 1503 608 1524 634 1524 -c 661 1524 682 1503 682 1476 -c : 0.398 0.398 +S K 
+; N 574 1538 M 574 1658 I 694 1658 I 694 1538 I 574 1538 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 574 1658 M 694 1658 I 694 1538 I 574 1538 I 574 1658 I C 
+: 0.398 0.398 +S K 
+; N 682 1598 M 682 1571 661 1550 634 1550 -c 608 1550 586 1571 586 1598 -c 586 1625 608 1646 634 1646 -c 661 1646 682 1625 682 1598 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 682 1598 M 682 1571 661 1550 634 1550 -c 608 1550 586 1571 586 1598 -c 586 1625 608 1646 634 1646 -c 661 1646 682 1625 682 1598 -c : 0.398 0.398 +S K 
+; 
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83c8f90feed1f90a4934875f71117a280dcfac8501033e5f7
+d45ea6c6129fee3bb75ea64ce42a36d38a4d8d89e116d80ab9bc329dff71
+638e2bcafc4f8412b29689f1196847d35da47a8f40723976c9f37eee9223
+853ac00db9cb03d03a0a3cb87405136d5b78b2f8c7db9d8c24939557a9a0
+9a7c0ac595317100db87b33d1929f169e8c2bbd1ea4a9237c104344ec030
+3e26215773174f947d06d411a8e864c713b984dad7932953f755714a69f2
+6229983e8f8b5f47bcbb7e502e4d8ec1a2d3565f398c98cbef12946935b9
+73e79ef5a077792444d1c534188fec34d82bddbd5dd6c6501578056c9f7f
+0b005bac779336da12c583c002a430750fcd79000812bc47a0401fb790d4
+3bbe06deabc8db611e51116cad0910b729c6a863d21bc84d722d9510ffe0
+dfa9078760ff60657eb688c0c6b2e85f60a9e30bdef8e3a7bfb0e4780832
+17481cb89340eed51c8c42f7d80bccb2870ed45a4fe1082a0b1a33b59765
+8aa24ca8bf194f328a233a889dfef1751e39879d4bfd0bc76291829ba624
+01a3a65caa9c79e686a05350fe34b9c799cf5b02442266f95f34ac242de5
+085b6eab548fdb5f071a164c033b4cbcacb374dffb4e01e641a5f6128835
+37a3967db7c1a6d6ce57495900417d795fcd34439c7489a83c04b6191d02
+af98ec3104257dde448f9d33d821610cf86d18681c2bc9c8f2360b7682ef
+3d59f170e48eada421390ba40018c55a8e12c9984ed622f2af98210ed214
+eb30141bcfb7c5a518ee997454806170c500ccc860939c9654d6c0bd84e7
+85a0bbce76a2b4c98bc721f0d8cdf685ee1e2dd36a7bc77aa61c6db39d46
+4c0c84ecdbb18866d3520b621c9f2cd62d1950bf0d778d1f9717f74d48a3
+0627ddb5c17fec80de4d38b3dc09ae8090f42a7660e5290252f55f4f458f
+4044357e0ddcb65d4a9fc07caba444a2e881ec0210fe7e0d4e694e539054
+8bc98ddf886ed1112c71df561a7214195fb0be042a4d33d94aaf5fd3a410
+044a3a72dbeed1d39f99bc7dee85917d7170e17461a085bf89ba42a93e78
+a174c6af1e10776e48ad4db2e8d6794004591d09b3e7be1f85a5ce97d3e4
+b1e5d5303a59aea40d28dc849a0778b6d894f6c5136a34a50a28e6013147
+9fdf00e75787b82d3ebb293c6b08edda3073ec986ba8d839a399f8424c70
+5f74c1bbdadf4174de837ee9a6638117f15245c5324ca74ab28d53dbbd69
+80ade6cb45ba7edd050ef4d978d4bd9bb90448417e8bb2b2f850a430f76f
+e6d9e321d6b85e7519a26398ac5509823975bc9e0e83a26d5389adcf663d
+07fbb15c901f2ff5421b5b30fbf296c1a5e1f38ae7bf70ad77399877ea35
+79f32095531b7043dd069967be79812f7ab5513e7f43a8efd334b85f617b
+11d9df113b559b378e6ad6b84b0849259fe878dd84a8115c7e8295fe229e
+b373a16e875861f874f2018e5bc7911de10ede9fbc37455c22c20dc3c2e9
+df4e5bc2c558d9efe3162f283c8da8aa172319aa09c622c92e926f66475f
+6e902db3df630334b70263de43cf69f521530237638a3f1cede9ec8aad0e
+6a746fca8bf46b4d103ebc4942764a0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 4 /M put
+dup 5 /a put
+dup 6 /g put
+dup 7 /n put
+dup 8 /u put
+dup 9 /s put
+pop
+64 1805 M <04>S 
+135 1805 M <05>S  180 1805 M <06>S  231 1805 M <07>S  276 1805 M <08>S  321 1805 M <09>S  
+
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83c81469b208b2a017557d6780327927549768c48724deaeb
+8ead3d90cca9cc246dc35c3b6837c9389963abbc0d804d0e9eebceabbbfa
+eb938957221f0264870045a39823a1b5b7bd910d8cbabd73e6fe2c2d7b9d
+becc466e6ea7f84f920fc043ca443397b93601060c032e05bea65e42cd77
+56d7e8d1010a6e37c28f463c642375a04a78128c5fc51b5d811983549b93
+3487665bb68d5a9aac6adf7ef34f759011355942e3fb8102210fd3f865c8
+2be702704d3cedf71e0e5486cd2bdc0a587a587c8c0d636ce9ed1f618e93
+224f334ef1d2f4eeb4caf28f3d5c44acedcaaf99000fdcf77335d765391e
+89823aab33e8e648531c40e6a5f9dba19946283148e3cb7c1f8a5c8791c7
+002ae68968d1a4f8ff45a1add67645cbfb1034d28878ec7883749142f969
+fe3c673b215d0999314c0ff608d191dda4679a3e9797f92fd23ad6734f60
+c6f76c64dfcdd9e3729ac85954df308977049d8b3a99ad23ae9eeec40f3b
+8223756571f31604cd64178f7066ca195616004e0b102d6bc6bcfc2cfca1
+e89ced23c9622020cd878d61dc9f2480a3e6825627a28f9e344cf8347eb8
+968831f2a6cf715c5608d92010d571d7dff66bcdba8f5418d102b8f6131a
+08e922168d727b861f9e264e9ca000d37d1f65a5822fbc1f62d45554be60
+9fbd45ee6c7436b3ff32955379d88a193945158dc49b20676c0446f88ba1
+9cede00bc9db82296fa114957d9289adca925a7e8350d2223ee5280000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 10 /C put
+dup 11 /r put
+dup 12 /l put
+dup 13 /e put
+pop
+69 1928 M <0A>S 
+127 1928 M <05>S  178 1928 M <0B>S  204 1928 M <0C>S  223 1928 M <09>S  268 1928 M <0D>S  312 1928 M <07>S  
+
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83ca045bfe99d34f4d677fa51eefe34604149b06e872cbdc1
+59e738593a612e01ca0cfa335a06181cfd2c19ef5c74b6ef02934a343ef3
+d6c1d75ab92b4e0dca7fc86798c2a86526efd84f96d0422a0ab700c84ebe
+35498107eb5328234ec05293351a20df8ab26bb1308da0818f19c6400840
+d210b638a564bf7ca7fc76063346f487561cd2223cc284b9b82724dbc420
+aa91fa006fb6ae87b4a74168ce274fdf80fa80161e3a689b1e1589c7e75f
+165683def93b0f035cd9a20f062bcde70c66a694d07f31a8752e426c3557
+c5931c141b1d5c49a56813ca459aebf38dcb9faa894d4a4f54806a490f3f
+f2db4010d62361ada4c83e603794374a01b476ec28cb5be0af55fd5cefb9
+2dd40324ee91196d13b5e5351db54161ba07e30cae6c38878e0fca7550e2
+2afe3ccb06966100c4f24b5cbeb6f08df3c2299d5b5da3962d8c1200aa83
+0d859fb7ba074f88074c3f19cc9adf5e96ccbe8c8ef1251cffca878f5323
+59917a60a8e44f01c463d1d3302c1c1e4e5d941977d406534746dd6b9d25
+4413a3a26b40e0422fdadc4ee548c02a2c0ffe3d53c7fa6c6387785540de
+d6327eae34499e2f27ad66da0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 14 /b put
+dup 15 /o put
+dup 16 /I put
+pop
+518 1832 M <0E>S 
+563 1832 M <0F>S  615 1832 M <0B>S  640 1832 M <07>S  685 1832 M <10>S  711 1832 M <07>S  
+21 Lw N 1075 665 M 1618 665 I 1618 394 I 1075 394 I 1075 665 I C 
+: 0.398 0.398 +S K 
+; 1259 564 M <01>S 
+1317 564 M <02>S  1381 564 M <02>S  1438 564 M <03>S  
+16 Lw N 1582 12 M 1582 128 I 1699 128 I 1699 12 I 1582 12 I C 
+: 0.398 0.398 +S K 
+; N 1641 117 M 1666 117 1687 96 1687 71 -c 1687 45 1666 24 1641 24 -c 1615 24 1594 45 1594 71 -c 1594 96 1615 117 1641 117 -c : 0.398 0.398 +S K 
+; N 1466 12 M 1466 128 I 1583 128 I 1583 12 I 1466 12 I C 
+: 0.398 0.398 +S K 
+; N 1525 117 M 1550 117 1571 96 1571 71 -c 1571 45 1550 24 1525 24 -c 1499 24 1478 45 1478 71 -c 1478 96 1499 117 1525 117 -c : 0.398 0.398 +S K 
+; N 1348 12 M 1348 128 I 1465 128 I 1465 12 I 1348 12 I C 
+: 0.398 0.398 +S K 
+; N 1407 117 M 1432 117 1453 96 1453 71 -c 1453 45 1432 24 1407 24 -c 1381 24 1360 45 1360 71 -c 1360 96 1381 117 1407 117 -c : 0.398 0.398 +S K 
+; N 1230 12 M 1230 128 I 1347 128 I 1347 12 I 1230 12 I C 
+: 0.398 0.398 +S K 
+; N 1289 117 M 1314 117 1335 96 1335 71 -c 1335 45 1314 24 1289 24 -c 1263 24 1242 45 1242 71 -c 1242 96 1263 117 1289 117 -c : 0.398 0.398 +S K 
+; N 1112 12 M 1112 128 I 1229 128 I 1229 12 I 1112 12 I C 
+: 0.398 0.398 +S K 
+; N 1170 117 M 1196 117 1217 96 1217 71 -c 1217 45 1196 24 1170 24 -c 1145 24 1124 45 1124 71 -c 1124 96 1145 117 1170 117 -c : 0.398 0.398 +S K 
+; N 994 12 M 994 128 I 1111 128 I 1111 12 I 994 12 I C 
+: 0.398 0.398 +S K 
+; N 1053 117 M 1078 117 1099 96 1099 71 -c 1099 45 1078 24 1053 24 -c 1027 24 1006 45 1006 71 -c 1006 96 1027 117 1053 117 -c : 0.398 0.398 +S K 
+; N 1075 931 M 1075 1052 I 1194 1052 I 1194 931 I 1075 931 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1052 M 1194 1052 I 1194 931 I 1075 931 I 1075 1052 I C 
+: 0.398 0.398 +S K 
+; N 1182 991 M 1182 965 1161 944 1134 944 -c 1108 944 1087 965 1087 991 -c 1087 1018 1108 1039 1134 1039 -c 1161 1039 1182 1018 1182 991 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 991 M 1182 965 1161 944 1134 944 -c 1108 944 1087 965 1087 991 -c 1087 1018 1108 1039 1134 1039 -c 1161 1039 1182 1018 1182 991 -c : 0.398 0.398 +S K 
+; N 1075 1051 M 1075 1171 I 1194 1171 I 1194 1051 I 1075 1051 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1171 M 1194 1171 I 1194 1051 I 1075 1051 I 1075 1171 I C 
+: 0.398 0.398 +S K 
+; N 1182 1111 M 1182 1084 1161 1063 1134 1063 -c 1108 1063 1087 1084 1087 1111 -c 1087 1137 1108 1159 1134 1159 -c 1161 1159 1182 1137 1182 1111 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 1111 M 1182 1084 1161 1063 1134 1063 -c 1108 1063 1087 1084 1087 1111 -c 1087 1137 1108 1159 1134 1159 -c 1161 1159 1182 1137 1182 1111 -c : 0.398 0.398 +S K 
+; N 1075 1172 M 1075 1293 I 1194 1293 I 1194 1172 I 1075 1172 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1293 M 1194 1293 I 1194 1172 I 1075 1172 I 1075 1293 I C 
+: 0.398 0.398 +S K 
+; N 1182 1233 M 1182 1206 1161 1185 1134 1185 -c 1108 1185 1087 1206 1087 1233 -c 1087 1259 1108 1280 1134 1280 -c 1161 1280 1182 1259 1182 1233 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 1233 M 1182 1206 1161 1185 1134 1185 -c 1108 1185 1087 1206 1087 1233 -c 1087 1259 1108 1280 1134 1280 -c 1161 1280 1182 1259 1182 1233 -c : 0.398 0.398 +S K 
+; N 1075 1294 M 1075 1414 I 1194 1414 I 1194 1294 I 1075 1294 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1414 M 1194 1414 I 1194 1294 I 1075 1294 I 1075 1414 I C 
+: 0.398 0.398 +S K 
+; N 1182 1354 M 1182 1328 1161 1306 1134 1306 -c 1108 1306 1087 1328 1087 1354 -c 1087 1381 1108 1402 1134 1402 -c 1161 1402 1182 1381 1182 1354 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 1354 M 1182 1328 1161 1306 1134 1306 -c 1108 1306 1087 1328 1087 1354 -c 1087 1381 1108 1402 1134 1402 -c 1161 1402 1182 1381 1182 1354 -c : 0.398 0.398 +S K 
+; N 1075 1416 M 1075 1537 I 1194 1537 I 1194 1416 I 1075 1416 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1537 M 1194 1537 I 1194 1416 I 1075 1416 I 1075 1537 I C 
+: 0.398 0.398 +S K 
+; N 1182 1476 M 1182 1450 1161 1428 1134 1428 -c 1108 1428 1087 1450 1087 1476 -c 1087 1503 1108 1524 1134 1524 -c 1161 1524 1182 1503 1182 1476 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 1476 M 1182 1450 1161 1428 1134 1428 -c 1108 1428 1087 1450 1087 1476 -c 1087 1503 1108 1524 1134 1524 -c 1161 1524 1182 1503 1182 1476 -c : 0.398 0.398 +S K 
+; N 1075 1538 M 1075 1658 I 1194 1658 I 1194 1538 I 1075 1538 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1075 1658 M 1194 1658 I 1194 1538 I 1075 1538 I 1075 1658 I C 
+: 0.398 0.398 +S K 
+; N 1182 1598 M 1182 1571 1161 1550 1134 1550 -c 1108 1550 1087 1571 1087 1598 -c 1087 1625 1108 1646 1134 1646 -c 1161 1646 1182 1625 1182 1598 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1182 1598 M 1182 1571 1161 1550 1134 1550 -c 1108 1550 1087 1571 1087 1598 -c 1087 1625 1108 1646 1134 1646 -c 1161 1646 1182 1625 1182 1598 -c : 0.398 0.398 +S K 
+; N 1499 931 M 1499 1052 I 1618 1052 I 1618 931 I 1499 931 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1052 M 1618 1052 I 1618 931 I 1499 931 I 1499 1052 I C 
+: 0.398 0.398 +S K 
+; N 1606 991 M 1606 965 1585 944 1558 944 -c 1532 944 1511 965 1511 991 -c 1511 1018 1532 1039 1558 1039 -c 1585 1039 1606 1018 1606 991 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 991 M 1606 965 1585 944 1558 944 -c 1532 944 1511 965 1511 991 -c 1511 1018 1532 1039 1558 1039 -c 1585 1039 1606 1018 1606 991 -c : 0.398 0.398 +S K 
+; N 1499 1051 M 1499 1171 I 1618 1171 I 1618 1051 I 1499 1051 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1171 M 1618 1171 I 1618 1051 I 1499 1051 I 1499 1171 I C 
+: 0.398 0.398 +S K 
+; N 1606 1111 M 1606 1084 1585 1063 1558 1063 -c 1532 1063 1511 1084 1511 1111 -c 1511 1137 1532 1159 1558 1159 -c 1585 1159 1606 1137 1606 1111 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 1111 M 1606 1084 1585 1063 1558 1063 -c 1532 1063 1511 1084 1511 1111 -c 1511 1137 1532 1159 1558 1159 -c 1585 1159 1606 1137 1606 1111 -c : 0.398 0.398 +S K 
+; N 1499 1172 M 1499 1293 I 1618 1293 I 1618 1172 I 1499 1172 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1293 M 1618 1293 I 1618 1172 I 1499 1172 I 1499 1293 I C 
+: 0.398 0.398 +S K 
+; N 1606 1233 M 1606 1206 1585 1185 1558 1185 -c 1532 1185 1511 1206 1511 1233 -c 1511 1259 1532 1280 1558 1280 -c 1585 1280 1606 1259 1606 1233 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 1233 M 1606 1206 1585 1185 1558 1185 -c 1532 1185 1511 1206 1511 1233 -c 1511 1259 1532 1280 1558 1280 -c 1585 1280 1606 1259 1606 1233 -c : 0.398 0.398 +S K 
+; N 1499 1294 M 1499 1414 I 1618 1414 I 1618 1294 I 1499 1294 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1414 M 1618 1414 I 1618 1294 I 1499 1294 I 1499 1414 I C 
+: 0.398 0.398 +S K 
+; N 1606 1354 M 1606 1328 1585 1306 1558 1306 -c 1532 1306 1511 1328 1511 1354 -c 1511 1381 1532 1402 1558 1402 -c 1585 1402 1606 1381 1606 1354 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 1354 M 1606 1328 1585 1306 1558 1306 -c 1532 1306 1511 1328 1511 1354 -c 1511 1381 1532 1402 1558 1402 -c 1585 1402 1606 1381 1606 1354 -c : 0.398 0.398 +S K 
+; N 1499 1416 M 1499 1537 I 1618 1537 I 1618 1416 I 1499 1416 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1537 M 1618 1537 I 1618 1416 I 1499 1416 I 1499 1537 I C 
+: 0.398 0.398 +S K 
+; N 1606 1476 M 1606 1450 1585 1428 1558 1428 -c 1532 1428 1511 1450 1511 1476 -c 1511 1503 1532 1524 1558 1524 -c 1585 1524 1606 1503 1606 1476 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 1476 M 1606 1450 1585 1428 1558 1428 -c 1532 1428 1511 1450 1511 1476 -c 1511 1503 1532 1524 1558 1524 -c 1585 1524 1606 1503 1606 1476 -c : 0.398 0.398 +S K 
+; N 1499 1538 M 1499 1658 I 1618 1658 I 1618 1538 I 1499 1538 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1499 1658 M 1618 1658 I 1618 1538 I 1499 1538 I 1499 1658 I C 
+: 0.398 0.398 +S K 
+; N 1606 1598 M 1606 1571 1585 1550 1558 1550 -c 1532 1550 1511 1571 1511 1598 -c 1511 1625 1532 1646 1558 1646 -c 1585 1646 1606 1625 1606 1598 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 1606 1598 M 1606 1571 1585 1550 1558 1550 -c 1532 1550 1511 1571 1511 1598 -c 1511 1625 1532 1646 1558 1646 -c 1585 1646 1606 1625 1606 1598 -c : 0.398 0.398 +S K 
+; 
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83c96750e8a9b60e2e6db7771942b07c037dfb47a09db24b2
+3975aa9c0bc49fce651817d53fee2432b8cb4761949c476cd88e42324749
+e29105fb9f72d1d71d70a8b0506f87adbf5db6e6a6c46224ca9612cd4d55
+d580c0ebec2b4fc3876f6e3be1811bfa183f074f4502c5a8826914635a27
+2a9b29ea1920fa96c6fb7691ad444c812850da0be82754de17d9966bc008
+588674434f753abe54f5366b13ad015e4c9b3a10b832a10fb22ad101616f
+575aa563279c12c713ec93b646066e8f9a832bfc9ef627df7c438c45e212
+74313359545f0b82a23c7b315c6d3273dd374ac0fd76abca1f01a0d4d6eb
+589a8b295861ffa659ae13f2f0ee5fa7156fa844af07d591210e89d9e3da
+1c4a82bdb81c73b3ec0b86f9eae615afda2d7625d3d5a736387620f03227
+0d7ebfb578f333d14021a077e9cf623b324e278048ee030000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 17 /T put
+dup 18 /oslash put
+pop
+958 1867 M <11>S 
+1009 1867 M <12>S  1061 1867 M <07>S  1105 1867 M <09>S  1150 1867 M <0E>S  1195 1867 M <0D>S  1240 1867 M <0B>S  1272 1867 M <06>S  
+
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83ca113e6517101da59391e8a5095014ffea5a00902885523
+547172ba2b70207f3b46d37d8a5c210062d8a4e3b893de15caac4c0d9557
+6c6b9180aa570335096b0f6b5d3ea2c76bf7190d6f0a6f1db870e830de98
+8fbb1e21834f5216363526ffc96ac927d305ddbb4e628940c887d202b2c2
+2bdc64055bb152012b7bb98f3b50cd3ffd1b5dcde1483267b4c1a0b6a270
+33b741a820b8ad57c7e952655c23caeb4d833a9608a933b25618200d17ee
+62c886780e7be36974d650dcf17666afffb9f70f6c080ab3fc5609485143
+69bba4d91bd27f1c45fa977d91c43f3d069013bcf89076f200051216370b
+531e275da361cc45d5795d1c81179835ed8c33f8a3862f65ba669db226e4
+bf273e431ab96ea2abcef1aa287840dd9c21db113efc50a6f19396ac53f5
+1c684672e2f23b4894fcc8330154fd874dad8744e31c10fa3f6a37977ef0
+a2bd54baf13de7015e776805c05a50f989edd8542f771ed7dc73376123c5
+b4302fdc4ad126afede05189c0baa1bc1b678fdaa9c774d0425bf900f9b2
+b37efe731b8c720cc266f15e43c529fd8a5635cf32b1297182dc38c048bf
+f7bbda96fff69f0f8582cf9f26dceae9e400fde151b8d8b7a2a74d119903
+e2eae2aca3493a174770a1b08749298ee26a1f168c2044b500e456a40f0a
+5d23163f5cfacf70cfe0395575d620d1751f1ae160bb35b415a478f141ee
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 19 /c put
+dup 20 /i put
+dup 21 /t put
+dup 22 /y put
+pop
+1464 1867 M <13>S 
+1509 1867 M <14>S  1521 1867 M <15>S  1547 1867 M <16>S  1592 1867 M <10>S  1611 1867 M <07>S  
+21 Lw N 1999 665 M 2542 665 I 2542 394 I 1999 394 I 1999 665 I C 
+: 0.398 0.398 +S K 
+; 2183 564 M <01>S 
+2241 564 M <02>S  2305 564 M <02>S  2363 564 M <03>S  
+16 Lw N 2506 12 M 2506 128 I 2623 128 I 2623 12 I 2506 12 I C 
+: 0.398 0.398 +S K 
+; N 2565 117 M 2590 117 2611 96 2611 71 -c 2611 45 2590 24 2565 24 -c 2539 24 2518 45 2518 71 -c 2518 96 2539 117 2565 117 -c : 0.398 0.398 +S K 
+; N 2391 12 M 2391 128 I 2507 128 I 2507 12 I 2391 12 I C 
+: 0.398 0.398 +S K 
+; N 2449 117 M 2475 117 2495 96 2495 71 -c 2495 45 2475 24 2449 24 -c 2423 24 2402 45 2402 71 -c 2402 96 2423 117 2449 117 -c : 0.398 0.398 +S K 
+; N 2273 12 M 2273 128 I 2389 128 I 2389 12 I 2273 12 I C 
+: 0.398 0.398 +S K 
+; N 2331 117 M 2357 117 2378 96 2378 71 -c 2378 45 2357 24 2331 24 -c 2305 24 2285 45 2285 71 -c 2285 96 2305 117 2331 117 -c : 0.398 0.398 +S K 
+; N 2154 12 M 2154 128 I 2271 128 I 2271 12 I 2154 12 I C 
+: 0.398 0.398 +S K 
+; N 2213 117 M 2239 117 2259 96 2259 71 -c 2259 45 2239 24 2213 24 -c 2187 24 2166 45 2166 71 -c 2166 96 2187 117 2213 117 -c : 0.398 0.398 +S K 
+; N 2036 12 M 2036 128 I 2153 128 I 2153 12 I 2036 12 I C 
+: 0.398 0.398 +S K 
+; N 2095 117 M 2120 117 2141 96 2141 71 -c 2141 45 2120 24 2095 24 -c 2069 24 2048 45 2048 71 -c 2048 96 2069 117 2095 117 -c : 0.398 0.398 +S K 
+; N 1918 12 M 1918 128 I 2035 128 I 2035 12 I 1918 12 I C 
+: 0.398 0.398 +S K 
+; N 1977 117 M 2002 117 2023 96 2023 71 -c 2023 45 2002 24 1977 24 -c 1951 24 1930 45 1930 71 -c 1930 96 1951 117 1977 117 -c : 0.398 0.398 +S K 
+; N 1999 931 M 1999 1052 I 2118 1052 I 2118 931 I 1999 931 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1052 M 2118 1052 I 2118 931 I 1999 931 I 1999 1052 I C 
+: 0.398 0.398 +S K 
+; N 2106 991 M 2106 965 2085 944 2059 944 -c 2032 944 2011 965 2011 991 -c 2011 1018 2032 1039 2059 1039 -c 2085 1039 2106 1018 2106 991 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 991 M 2106 965 2085 944 2059 944 -c 2032 944 2011 965 2011 991 -c 2011 1018 2032 1039 2059 1039 -c 2085 1039 2106 1018 2106 991 -c : 0.398 0.398 +S K 
+; N 1999 1051 M 1999 1171 I 2118 1171 I 2118 1051 I 1999 1051 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1171 M 2118 1171 I 2118 1051 I 1999 1051 I 1999 1171 I C 
+: 0.398 0.398 +S K 
+; N 2106 1111 M 2106 1084 2085 1063 2059 1063 -c 2032 1063 2011 1084 2011 1111 -c 2011 1137 2032 1159 2059 1159 -c 2085 1159 2106 1137 2106 1111 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 1111 M 2106 1084 2085 1063 2059 1063 -c 2032 1063 2011 1084 2011 1111 -c 2011 1137 2032 1159 2059 1159 -c 2085 1159 2106 1137 2106 1111 -c : 0.398 0.398 +S K 
+; N 1999 1172 M 1999 1293 I 2118 1293 I 2118 1172 I 1999 1172 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1293 M 2118 1293 I 2118 1172 I 1999 1172 I 1999 1293 I C 
+: 0.398 0.398 +S K 
+; N 2106 1233 M 2106 1206 2085 1185 2059 1185 -c 2032 1185 2011 1206 2011 1233 -c 2011 1259 2032 1280 2059 1280 -c 2085 1280 2106 1259 2106 1233 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 1233 M 2106 1206 2085 1185 2059 1185 -c 2032 1185 2011 1206 2011 1233 -c 2011 1259 2032 1280 2059 1280 -c 2085 1280 2106 1259 2106 1233 -c : 0.398 0.398 +S K 
+; N 1999 1294 M 1999 1414 I 2118 1414 I 2118 1294 I 1999 1294 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1414 M 2118 1414 I 2118 1294 I 1999 1294 I 1999 1414 I C 
+: 0.398 0.398 +S K 
+; N 2106 1354 M 2106 1328 2085 1306 2059 1306 -c 2032 1306 2011 1328 2011 1354 -c 2011 1381 2032 1402 2059 1402 -c 2085 1402 2106 1381 2106 1354 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 1354 M 2106 1328 2085 1306 2059 1306 -c 2032 1306 2011 1328 2011 1354 -c 2011 1381 2032 1402 2059 1402 -c 2085 1402 2106 1381 2106 1354 -c : 0.398 0.398 +S K 
+; N 1999 1416 M 1999 1537 I 2118 1537 I 2118 1416 I 1999 1416 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1537 M 2118 1537 I 2118 1416 I 1999 1416 I 1999 1537 I C 
+: 0.398 0.398 +S K 
+; N 2106 1476 M 2106 1450 2085 1428 2059 1428 -c 2032 1428 2011 1450 2011 1476 -c 2011 1503 2032 1524 2059 1524 -c 2085 1524 2106 1503 2106 1476 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 1476 M 2106 1450 2085 1428 2059 1428 -c 2032 1428 2011 1450 2011 1476 -c 2011 1503 2032 1524 2059 1524 -c 2085 1524 2106 1503 2106 1476 -c : 0.398 0.398 +S K 
+; N 1999 1538 M 1999 1658 I 2118 1658 I 2118 1538 I 1999 1538 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 1999 1658 M 2118 1658 I 2118 1538 I 1999 1538 I 1999 1658 I C 
+: 0.398 0.398 +S K 
+; N 2106 1598 M 2106 1571 2085 1550 2059 1550 -c 2032 1550 2011 1571 2011 1598 -c 2011 1625 2032 1646 2059 1646 -c 2085 1646 2106 1625 2106 1598 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2106 1598 M 2106 1571 2085 1550 2059 1550 -c 2032 1550 2011 1571 2011 1598 -c 2011 1625 2032 1646 2059 1646 -c 2085 1646 2106 1625 2106 1598 -c : 0.398 0.398 +S K 
+; N 2423 931 M 2423 1052 I 2542 1052 I 2542 931 I 2423 931 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1052 M 2542 1052 I 2542 931 I 2423 931 I 2423 1052 I C 
+: 0.398 0.398 +S K 
+; N 2530 991 M 2530 965 2509 944 2482 944 -c 2456 944 2435 965 2435 991 -c 2435 1018 2456 1039 2482 1039 -c 2509 1039 2530 1018 2530 991 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 991 M 2530 965 2509 944 2482 944 -c 2456 944 2435 965 2435 991 -c 2435 1018 2456 1039 2482 1039 -c 2509 1039 2530 1018 2530 991 -c : 0.398 0.398 +S K 
+; N 2423 1051 M 2423 1171 I 2542 1171 I 2542 1051 I 2423 1051 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1171 M 2542 1171 I 2542 1051 I 2423 1051 I 2423 1171 I C 
+: 0.398 0.398 +S K 
+; N 2530 1111 M 2530 1084 2509 1063 2482 1063 -c 2456 1063 2435 1084 2435 1111 -c 2435 1137 2456 1159 2482 1159 -c 2509 1159 2530 1137 2530 1111 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 1111 M 2530 1084 2509 1063 2482 1063 -c 2456 1063 2435 1084 2435 1111 -c 2435 1137 2456 1159 2482 1159 -c 2509 1159 2530 1137 2530 1111 -c : 0.398 0.398 +S K 
+; N 2423 1172 M 2423 1293 I 2542 1293 I 2542 1172 I 2423 1172 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1293 M 2542 1293 I 2542 1172 I 2423 1172 I 2423 1293 I C 
+: 0.398 0.398 +S K 
+; N 2530 1233 M 2530 1206 2509 1185 2482 1185 -c 2456 1185 2435 1206 2435 1233 -c 2435 1259 2456 1280 2482 1280 -c 2509 1280 2530 1259 2530 1233 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 1233 M 2530 1206 2509 1185 2482 1185 -c 2456 1185 2435 1206 2435 1233 -c 2435 1259 2456 1280 2482 1280 -c 2509 1280 2530 1259 2530 1233 -c : 0.398 0.398 +S K 
+; N 2423 1294 M 2423 1414 I 2542 1414 I 2542 1294 I 2423 1294 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1414 M 2542 1414 I 2542 1294 I 2423 1294 I 2423 1414 I C 
+: 0.398 0.398 +S K 
+; N 2530 1354 M 2530 1328 2509 1306 2482 1306 -c 2456 1306 2435 1328 2435 1354 -c 2435 1381 2456 1402 2482 1402 -c 2509 1402 2530 1381 2530 1354 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 1354 M 2530 1328 2509 1306 2482 1306 -c 2456 1306 2435 1328 2435 1354 -c 2435 1381 2456 1402 2482 1402 -c 2509 1402 2530 1381 2530 1354 -c : 0.398 0.398 +S K 
+; N 2423 1416 M 2423 1537 I 2542 1537 I 2542 1416 I 2423 1416 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1537 M 2542 1537 I 2542 1416 I 2423 1416 I 2423 1537 I C 
+: 0.398 0.398 +S K 
+; N 2530 1476 M 2530 1450 2509 1428 2482 1428 -c 2456 1428 2435 1450 2435 1476 -c 2435 1503 2456 1524 2482 1524 -c 2509 1524 2530 1503 2530 1476 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 1476 M 2530 1450 2509 1428 2482 1428 -c 2456 1428 2435 1450 2435 1476 -c 2435 1503 2456 1524 2482 1524 -c 2509 1524 2530 1503 2530 1476 -c : 0.398 0.398 +S K 
+; N 2423 1538 M 2423 1658 I 2542 1658 I 2542 1538 I 2423 1538 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2423 1658 M 2542 1658 I 2542 1538 I 2423 1538 I 2423 1658 I C 
+: 0.398 0.398 +S K 
+; N 2530 1598 M 2530 1571 2509 1550 2482 1550 -c 2456 1550 2435 1571 2435 1598 -c 2435 1625 2456 1646 2482 1646 -c 2509 1646 2530 1625 2530 1598 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 2530 1598 M 2530 1571 2509 1550 2482 1550 -c 2456 1550 2435 1571 2435 1598 -c 2435 1625 2456 1646 2482 1646 -c 2509 1646 2530 1625 2530 1598 -c : 0.398 0.398 +S K 
+; 
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83cb57426e2718be7515d81321558d33e77449026c62b1446
+6f54eb4f831e07e0bdb8757afd81c75cba1865a17439e668112de7464c0c
+8e2b8edaee1930ccb3edd3f1458fa1debb205c60b6ffc96214720cd0a0fb
+3e91d062d591b137e720324cef1172dea361c498b66abf35b1d2bb4fa644
+05b7cb71a96cd077f6f89fe46a15b5b48915a73585bec23f69ca0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 23 /w put
+pop
+1920 1867 M <02>S 
+1977 1867 M <0F>S  2029 1867 M <0B>S  2054 1867 M <17>S  2118 1867 M <05>S  2163 1867 M <16>S  
+
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83caa55448210888bab00d076b6655466d493ec3581afd781
+b5a09145e654f893a58a6ff07f9a4d24b100d5ade29b7ac410887803d355
+76c500a540fc82bbfa8b8e4d3ed61b26cb9ed0683ced96476ddfe506978b
+bc40b58a0a67c0f1654722590f2c4e7f7abd7f5d84fc999af9bf87565d59
+55ebab1a18d828c92608f54882c573eea0b988d67b1a944174406693854d
+5d8457c753984d051a75b838bba74fa9b8434d5f2e9fb034e0407ada5a08
+ef49d45a43e4b039aab67cc4a5fca5e9711a01e90c7e0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 24 /h put
+dup 25 /L put
+pop
+2234 1867 M <18>S 
+2279 1867 M <05>S  2331 1867 M <09>S  2369 1867 M <19>S  2414 1867 M <05>S  2465 1867 M <07>S  2510 1867 M <06>S  2555 1867 M <08>S  2606 1867 M <05>S  2651 1867 M <06>S  2696 1867 M <0D>S  
+21 Lw N 2923 665 M 3467 665 I 3467 394 I 2923 394 I 2923 665 I C 
+: 0.398 0.398 +S K 
+; 3107 564 M <01>S 
+3165 564 M <02>S  3229 564 M <02>S  3287 564 M <03>S  
+16 Lw N 3431 12 M 3431 128 I 3547 128 I 3547 12 I 3431 12 I C 
+: 0.398 0.398 +S K 
+; N 3489 117 M 3515 117 3535 96 3535 71 -c 3535 45 3515 24 3489 24 -c 3463 24 3443 45 3443 71 -c 3443 96 3463 117 3489 117 -c : 0.398 0.398 +S K 
+; N 3315 12 M 3315 128 I 3432 128 I 3432 12 I 3315 12 I C 
+: 0.398 0.398 +S K 
+; N 3373 117 M 3399 117 3420 96 3420 71 -c 3420 45 3399 24 3373 24 -c 3348 24 3327 45 3327 71 -c 3327 96 3348 117 3373 117 -c : 0.398 0.398 +S K 
+; N 3197 12 M 3197 128 I 3314 128 I 3314 12 I 3197 12 I C 
+: 0.398 0.398 +S K 
+; N 3255 117 M 3281 117 3302 96 3302 71 -c 3302 45 3281 24 3255 24 -c 3229 24 3209 45 3209 71 -c 3209 96 3229 117 3255 117 -c : 0.398 0.398 +S K 
+; N 3078 12 M 3078 128 I 3195 128 I 3195 12 I 3078 12 I C 
+: 0.398 0.398 +S K 
+; N 3137 117 M 3163 117 3183 96 3183 71 -c 3183 45 3163 24 3137 24 -c 3111 24 3090 45 3090 71 -c 3090 96 3111 117 3137 117 -c : 0.398 0.398 +S K 
+; N 2961 12 M 2961 128 I 3077 128 I 3077 12 I 2961 12 I C 
+: 0.398 0.398 +S K 
+; N 3019 117 M 3044 117 3065 96 3065 71 -c 3065 45 3044 24 3019 24 -c 2993 24 2972 45 2972 71 -c 2972 96 2993 117 3019 117 -c : 0.398 0.398 +S K 
+; N 2843 12 M 2843 128 I 2959 128 I 2959 12 I 2843 12 I C 
+: 0.398 0.398 +S K 
+; N 2901 117 M 2927 117 2948 96 2948 71 -c 2948 45 2927 24 2901 24 -c 2875 24 2855 45 2855 71 -c 2855 96 2875 117 2901 117 -c : 0.398 0.398 +S K 
+; N 2923 931 M 2923 1052 I 3042 1052 I 3042 931 I 2923 931 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1052 M 3042 1052 I 3042 931 I 2923 931 I 2923 1052 I C 
+: 0.398 0.398 +S K 
+; N 3030 991 M 3030 965 3009 944 2983 944 -c 2957 944 2935 965 2935 991 -c 2935 1018 2957 1039 2983 1039 -c 3009 1039 3030 1018 3030 991 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 991 M 3030 965 3009 944 2983 944 -c 2957 944 2935 965 2935 991 -c 2935 1018 2957 1039 2983 1039 -c 3009 1039 3030 1018 3030 991 -c : 0.398 0.398 +S K 
+; N 2923 1051 M 2923 1171 I 3042 1171 I 3042 1051 I 2923 1051 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1171 M 3042 1171 I 3042 1051 I 2923 1051 I 2923 1171 I C 
+: 0.398 0.398 +S K 
+; N 3030 1111 M 3030 1084 3009 1063 2983 1063 -c 2957 1063 2935 1084 2935 1111 -c 2935 1137 2957 1159 2983 1159 -c 3009 1159 3030 1137 3030 1111 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 1111 M 3030 1084 3009 1063 2983 1063 -c 2957 1063 2935 1084 2935 1111 -c 2935 1137 2957 1159 2983 1159 -c 3009 1159 3030 1137 3030 1111 -c : 0.398 0.398 +S K 
+; N 2923 1172 M 2923 1293 I 3042 1293 I 3042 1172 I 2923 1172 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1293 M 3042 1293 I 3042 1172 I 2923 1172 I 2923 1293 I C 
+: 0.398 0.398 +S K 
+; N 3030 1233 M 3030 1206 3009 1185 2983 1185 -c 2957 1185 2935 1206 2935 1233 -c 2935 1259 2957 1280 2983 1280 -c 3009 1280 3030 1259 3030 1233 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 1233 M 3030 1206 3009 1185 2983 1185 -c 2957 1185 2935 1206 2935 1233 -c 2935 1259 2957 1280 2983 1280 -c 3009 1280 3030 1259 3030 1233 -c : 0.398 0.398 +S K 
+; N 2923 1294 M 2923 1414 I 3042 1414 I 3042 1294 I 2923 1294 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1414 M 3042 1414 I 3042 1294 I 2923 1294 I 2923 1414 I C 
+: 0.398 0.398 +S K 
+; N 3030 1354 M 3030 1328 3009 1306 2983 1306 -c 2957 1306 2935 1328 2935 1354 -c 2935 1381 2957 1402 2983 1402 -c 3009 1402 3030 1381 3030 1354 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 1354 M 3030 1328 3009 1306 2983 1306 -c 2957 1306 2935 1328 2935 1354 -c 2935 1381 2957 1402 2983 1402 -c 3009 1402 3030 1381 3030 1354 -c : 0.398 0.398 +S K 
+; N 2923 1416 M 2923 1537 I 3042 1537 I 3042 1416 I 2923 1416 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1537 M 3042 1537 I 3042 1416 I 2923 1416 I 2923 1537 I C 
+: 0.398 0.398 +S K 
+; N 3030 1476 M 3030 1450 3009 1428 2983 1428 -c 2957 1428 2935 1450 2935 1476 -c 2935 1503 2957 1524 2983 1524 -c 3009 1524 3030 1503 3030 1476 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 1476 M 3030 1450 3009 1428 2983 1428 -c 2957 1428 2935 1450 2935 1476 -c 2935 1503 2957 1524 2983 1524 -c 3009 1524 3030 1503 3030 1476 -c : 0.398 0.398 +S K 
+; N 2923 1538 M 2923 1658 I 3042 1658 I 3042 1538 I 2923 1538 I C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 2923 1658 M 3042 1658 I 3042 1538 I 2923 1538 I 2923 1658 I C 
+: 0.398 0.398 +S K 
+; N 3030 1598 M 3030 1571 3009 1550 2983 1550 -c 2957 1550 2935 1571 2935 1598 -c 2935 1625 2957 1646 2983 1646 -c 3009 1646 3030 1625 3030 1598 -c C 
+0.02 0.613 0.895 1 scol  O 0 0 0 1 scol N 3030 1598 M 3030 1571 3009 1550 2983 1550 -c 2957 1550 2935 1571 2935 1598 -c 2935 1625 2957 1646 2983 1646 -c 3009 1646 3030 1625 3030 1598 -c : 0.398 0.398 +S K 
+; N 3347 931 M 3347 1052 I 3467 1052 I 3467 931 I 3347 931 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1052 M 3467 1052 I 3467 931 I 3347 931 I 3347 1052 I C 
+: 0.398 0.398 +S K 
+; N 3455 991 M 3455 965 3433 944 3407 944 -c 3380 944 3359 965 3359 991 -c 3359 1018 3380 1039 3407 1039 -c 3433 1039 3455 1018 3455 991 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 991 M 3455 965 3433 944 3407 944 -c 3380 944 3359 965 3359 991 -c 3359 1018 3380 1039 3407 1039 -c 3433 1039 3455 1018 3455 991 -c : 0.398 0.398 +S K 
+; N 3347 1051 M 3347 1171 I 3467 1171 I 3467 1051 I 3347 1051 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1171 M 3467 1171 I 3467 1051 I 3347 1051 I 3347 1171 I C 
+: 0.398 0.398 +S K 
+; N 3455 1111 M 3455 1084 3433 1063 3407 1063 -c 3380 1063 3359 1084 3359 1111 -c 3359 1137 3380 1159 3407 1159 -c 3433 1159 3455 1137 3455 1111 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 1111 M 3455 1084 3433 1063 3407 1063 -c 3380 1063 3359 1084 3359 1111 -c 3359 1137 3380 1159 3407 1159 -c 3433 1159 3455 1137 3455 1111 -c : 0.398 0.398 +S K 
+; N 3347 1172 M 3347 1293 I 3467 1293 I 3467 1172 I 3347 1172 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1293 M 3467 1293 I 3467 1172 I 3347 1172 I 3347 1293 I C 
+: 0.398 0.398 +S K 
+; N 3455 1233 M 3455 1206 3433 1185 3407 1185 -c 3380 1185 3359 1206 3359 1233 -c 3359 1259 3380 1280 3407 1280 -c 3433 1280 3455 1259 3455 1233 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 1233 M 3455 1206 3433 1185 3407 1185 -c 3380 1185 3359 1206 3359 1233 -c 3359 1259 3380 1280 3407 1280 -c 3433 1280 3455 1259 3455 1233 -c : 0.398 0.398 +S K 
+; N 3347 1294 M 3347 1414 I 3467 1414 I 3467 1294 I 3347 1294 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1414 M 3467 1414 I 3467 1294 I 3347 1294 I 3347 1414 I C 
+: 0.398 0.398 +S K 
+; N 3455 1354 M 3455 1328 3433 1306 3407 1306 -c 3380 1306 3359 1328 3359 1354 -c 3359 1381 3380 1402 3407 1402 -c 3433 1402 3455 1381 3455 1354 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 1354 M 3455 1328 3433 1306 3407 1306 -c 3380 1306 3359 1328 3359 1354 -c 3359 1381 3380 1402 3407 1402 -c 3433 1402 3455 1381 3455 1354 -c : 0.398 0.398 +S K 
+; N 3347 1416 M 3347 1537 I 3467 1537 I 3467 1416 I 3347 1416 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1537 M 3467 1537 I 3467 1416 I 3347 1416 I 3347 1537 I C 
+: 0.398 0.398 +S K 
+; N 3455 1476 M 3455 1450 3433 1428 3407 1428 -c 3380 1428 3359 1450 3359 1476 -c 3359 1503 3380 1524 3407 1524 -c 3433 1524 3455 1503 3455 1476 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 1476 M 3455 1450 3433 1428 3407 1428 -c 3380 1428 3359 1450 3359 1476 -c 3359 1503 3380 1524 3407 1524 -c 3433 1524 3455 1503 3455 1476 -c : 0.398 0.398 +S K 
+; N 3347 1538 M 3347 1658 I 3467 1658 I 3467 1538 I 3347 1538 I C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3347 1658 M 3467 1658 I 3467 1538 I 3347 1538 I 3347 1658 I C 
+: 0.398 0.398 +S K 
+; N 3455 1598 M 3455 1571 3433 1550 3407 1550 -c 3380 1550 3359 1571 3359 1598 -c 3359 1625 3380 1646 3407 1646 -c 3433 1646 3455 1625 3455 1598 -c C 
+0.961 0.617 0.336 1 scol  O 0 0 0 1 scol N 3455 1598 M 3455 1571 3433 1550 3407 1550 -c 3380 1550 3359 1571 3359 1598 -c 3359 1625 3380 1646 3407 1646 -c 3433 1646 3455 1625 3455 1598 -c : 0.398 0.398 +S K 
+; 2786 1867 M <02>S 
+2843 1867 M <0F>S  2894 1867 M <0B>S  2920 1867 M <17>S  2984 1867 M <0D>S  3029 1867 M <06>S  3074 1867 M <14>S  3093 1867 M <05>S  3138 1867 M <07>S  
+
+currentfile eexec
+9e67edc6b841302ac89555f0547b6c75575904757a91648026d23c70dfde
+2ffe217d62da081109d5969d7afae85803546ad4388e63d83df79c586092
+24178e7f79f83cb2880243cbfc717b222ec8ec25619eab54b24c06bbc967
+d7f281988a7fac3e58a4fbbcd24127a0132a0f64917b10bd80c61a18705b
+34c917993780225786fbbcd74b0728b29bc2a4e211ce4fa5ba3991460354
+667a7c3db3cac6d593475175dca17d50fa5c1cd84c32def92b6528c90577
+bda7dd88235c023b6b1be11b7ef3fd48ef85d36585743d801d11c71e71f5
+07bb5746ec3529357e925dc4534c572271ce7cfc6b98dcf5043d068d8c49
+dc66b67374ce1dd9676ef31b834d537d9a65bbedef724563363d34521fe2
+7c013d86dbe5731e392514cfc426f7ee238202c196041684e8263f2d9de5
+d916d15028b5d4c248440c86c1f27ea0a727320000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000
+cleartomark
+/TT262o00 findfont /Encoding get
+dup 26 /parenleft put
+dup 27 /parenright put
+pop
+3320 1867 M <1A>S 
+3346 1867 M <07>S  3397 1867 M <08>S  3442 1867 M <0C>S  3461 1867 M <0C>S  3480 1867 M <1B>S  
+N 238 931 M 340 710 I : 0.398 0.398 +S K 
+; N 311 704 M 360 665 I 362 728 I 311 704 I C 
+ O N 606 931 M 505 710 I : 0.398 0.398 +S K 
+; N 482 728 M 484 665 I 533 704 I 482 728 I C 
+ O N 1162 931 M 1264 710 I : 0.398 0.398 +S K 
+; N 1236 704 M 1284 665 I 1286 728 I 1236 704 I C 
+ O N 1531 931 M 1429 710 I : 0.398 0.398 +S K 
+; N 1407 728 M 1409 665 I 1457 704 I 1407 728 I C 
+ O N 2086 931 M 2188 710 I : 0.398 0.398 +S K 
+; N 2160 704 M 2209 665 I 2211 728 I 2160 704 I C 
+ O N 2455 931 M 2353 710 I : 0.398 0.398 +S K 
+; N 2331 728 M 2333 665 I 2382 704 I 2331 728 I C 
+ O N 3010 931 M 3112 710 I : 0.398 0.398 +S K 
+; N 3084 704 M 3133 665 I 3135 728 I 3084 704 I C 
+ O N 3379 931 M 3278 710 I : 0.398 0.398 +S K 
+; N 3255 728 M 3257 665 I 3306 704 I 3255 728 I C 
+ O N 775 71 M 875 71 I 875 530 I 1026 530 I : 0.398 0.398 +S K 
+; N 1019 502 M 1075 530 I 1019 558 I 1019 502 I C 
+ O N 422 394 M 422 177 I : 0.398 0.398 +S K 
+; N 394 184 M 422 128 I 450 184 I 394 184 I C 
+ O N 1347 394 M 1347 177 I : 0.398 0.398 +S K 
+; N 1319 184 M 1347 128 I 1374 184 I 1319 184 I C 
+ O N 2271 394 M 2271 177 I : 0.398 0.398 +S K 
+; N 2243 184 M 2271 128 I 2299 184 I 2243 184 I C 
+ O N 3195 394 M 3195 177 I : 0.398 0.398 +S K 
+; N 3167 184 M 3195 128 I 3223 184 I 3167 184 I C 
+ O N 1699 71 M 1800 71 I 1800 530 I 1950 530 I : 0.398 0.398 +S K 
+; N 1943 502 M 1999 530 I 1943 558 I 1943 502 I C 
+ O N 2623 71 M 2724 71 I 2724 530 I 2874 530 I : 0.398 0.398 +S K 
+; N 2867 502 M 2923 530 I 2867 558 I 2867 502 I C 
+ O LH
+%%PageTrailer
+
+%%Trailer
+%%DocumentNeededResources: 
+%%DocumentSuppliedResources: 
+%%+ procset Pscript_WinNT_VMErrorHandler 5.0 0
+%%+ procset Pscript_FatalError 5.0 0
+%%+ procset Pscript_Win_Basic 5.0 0
+%%+ procset Pscript_Win_Utils_L1 5.0 0
+%%+ procset Pscript_Win_GdiObject 5.0 0
+%%+ procset Pscript_Win_GdiObject_L1 5.0 0
+%%+ procset Pscript_Text 5.0 0
+Pscript_WinNT_Incr dup /terminate get exec
+%%EOF

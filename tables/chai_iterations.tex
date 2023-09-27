@@ -1,0 +1,13 @@
+\begin{table}
+    \begin{center}
+    \begin{tabular}{ M{4cm} | M{1.9cm} | M{2.5cm} } 
+    \centering \textbf{Rule} & \textbf{Fitness value} & \textbf{Meets threshold?} \\
+    \hline
+    $exists_{\KG}~\wedge$ & - & - \\ \hline 
+    $(\,ran_{\KG, created}~\vee$ & 0.80 & No \\ \hline 
+    $dom_{\KG, appears\_in}~\vee$ & 0.92 & No \\ \hline 
+    $dist_{\KG, 2}\,)$ & 0.96 & Yes \\ \hline 
+    \end{tabular}
+    \caption{An example rule being built for the relation \textit{plays}}\label{table:chai-iterations}
+    \end{center}
+\end{table}

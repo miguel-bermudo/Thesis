@@ -1,0 +1,88 @@
+\documentclass[titlepage,openright,twoside,a4paper,12pt]{book}
+
+\input{etc/pkgs}
+\input{etc/macros}
+\input{etc/style}
+
+% Variables
+\newcommand{\titulo}{On Data Engineering and Knowledge Graphs}
+\newcommand{\subtitulo}{A Reinforcement Learning system for Knowledge Graph Reasoning}
+\newcommand{\autor}{Miguel Bermudo Bayo}
+\newcommand{\directores}{Dr. Inma Hernández and Dr. Daniel Ayala}
+\newcommand{\authormail}{mbermudo@us.es}
+\newcommand{\authorweb}{https://deal.us.es/team/mbermudo/}
+    
+\begin{document} 
+    % Portada
+    \pagestyle{empty}
+    \input{sections/0_cover/cover}
+    \input{sections/0_cover/copyright}
+    \input{sections/0_cover/dedicatoria}
+
+
+    % Índices varios
+    \pagenumbering{roman}
+    \frontmatter
+    {
+        \setstretch{1.0} 
+        \tableofcontents
+        \listoffigures
+        \listoftables
+    }
+    \cleardoublepage
+    \pagestyle{drStyle} 
+
+    %ABD: esta porquería hace que no salga "Chapter 0" en los capítulos del frontmatter.
+    % No encuentro otro sitio donde ponerlo y que funcione.
+    \renewcommand{\chaptermark}[1]{%
+    \ifnum\value{chapter}>0
+        \markboth{Chapter \thechapter{}. #1}{}%
+    \else
+        \markboth{#1}{}%
+    \fi}
+
+    \input{sections/0_frontmatter/acknowledgments}
+    \input{sections/0_frontmatter/agradecimientos}
+    \input{sections/0_frontmatter/abstract}
+    \input{sections/0_frontmatter/resumen}
+    
+
+    % Secciones principales
+    \mainmatter
+    \cleardoublepage
+    \pagenumbering{arabic}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \part{Preface}
+    \input{sections/1_preface/introduction}
+    \input{sections/1_preface/motivation.tex}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \part{Background Information}
+    \input{sections/2_background/kgs}
+    \input{sections/2_background/embedding}
+    \input{sections/2_background/paths}
+    \input{sections/2_background/rules}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \part{Our Proposal}
+    \input{sections/3_proposal/framework}
+    \input{sections/3_proposal/chai}
+    \input{sections/3_proposal/cafe}
+    \input{sections/3_proposal/scicheck}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \part{Final Remarks}
+    \input{sections/4_final/conclusions}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    % Bibliografía
+    \bibliographystyle{abbrvnat}
+    \bibliography{bibliography.bib}
+    
+\end{document} 

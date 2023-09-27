@@ -1,0 +1,49 @@
+\begin{table}[!htp]
+    \begin{center}
+        \renewcommand{\arraystretch}{2.0}
+    \begin{tabular}{>{\raggedright\arraybackslash} M{5cm} | M{1cm} | M{1cm} |  M{1cm} |  M{1cm} |  M{1cm}}
+    
+    \specialrule{1.2pt}{3pt}{3pt}
+    \centering \textbf{Proposal} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5}  \\
+    \specialrule{1.2pt}{3pt}{3pt}
+
+    \citet{bordes2013} & \no & \yes & \yes & \no & \yes \\ \hline % TransE 
+    \citet{galarraga2015} & \yes & \yes & \yes & \yes & \no \\ \hline % AMIE
+    \citet{gardner2015} & \yes & \yes & \no & \no & \yes \\ \hline  % SFE
+    \citet{guo2016} & \no & \yes & \no & \no & \yes \\ \hline  % KALE
+    \citet{jiang2016}& \yes & \no & \yes & \yes & \no \\ \hline % ILP
+    \citet{kazemi2018} & \no & \yes & \yes & \no & \yes \\ \hline % SimplE
+    \citet{lao2011} & \yes & \yes & \yes & \no & \yes \\ \hline % PRA
+    \citet{lin2015} & \no & \yes & \yes & \no & \yes \\ \hline % TransR
+    
+    \citet{nickel2011} & \no & \yes & \yes & \yes & \no \\ \hline % RESCAL
+    \citet{shi18} & \no & \no & \yes & \yes & \yes \\ \hline % ConMask
+    \citet{trouillon2016} & \no & \yes & \yes & \yes & \no \\ \hline % ComplEx
+    
+    \citet{wang2014} & \no & \yes & \yes & \no & \yes \\% TransH
+    \specialrule{1.2pt}{3pt}{3pt}
+    
+    
+    
+    
+    
+    
+    
+
+
+
+    \end{tabular}
+
+    \vspace{.5cm}
+    {
+        \flushleft
+        P1 = To rely on embedded representations of entities and/or relations; P2 = To depend on external sources of information; P3 = To need user-provided data or supervision; P4 = To not have any means to automatically generate new knowledge; P5 = To not be applicable to large Knowledge Graphs.\\
+        
+        \flushleft
+        A \yes{} means that the proposal is free from a problem, while \no{} means that it is present.
+    }
+
+    \caption{Comparison of current proposals for KG completion}
+    \label{table:proposals}
+    \end{center}
+\end{table}

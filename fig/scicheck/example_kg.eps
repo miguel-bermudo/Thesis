@@ -1,0 +1,2773 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%Title: 
+%%Creator: PScript5.dll Version 5.2.2
+%%CreationDate: 12/7/2021 13:42:11
+%%For: Agu
+%%BoundingBox: 0 0 234 82
+%%Pages: 1
+%%Orientation: Portrait
+%%PageOrder: Ascend
+%%DocumentNeededResources: (atend)
+%%DocumentSuppliedResources: (atend)
+%%DocumentData: Clean7Bit
+%%TargetDevice: () (52.3) 320
+%%LanguageLevel: 1
+%%EndComments
+
+%%BeginDefaults
+%%PageBoundingBox: 0 0 234 82
+%%ViewingOrientation: 1 0 0 1
+%%EndDefaults
+
+%%BeginProlog
+%%BeginResource: file Pscript_WinNT_VMErrorHandler 5.0 0
+/currentpacking where{pop/oldpack currentpacking def/setpacking where{pop false
+setpacking}if}if/$brkpage 64 dict def $brkpage begin/prnt{dup type/stringtype
+ne{=string cvs}if dup length 6 mul/tx exch def/ty 10 def currentpoint/toy exch
+def/tox exch def 1 setgray newpath tox toy 2 sub moveto 0 ty rlineto tx 0
+rlineto 0 ty neg rlineto closepath fill tox toy moveto 0 setgray show}bind def
+/nl{currentpoint exch pop lmargin exch moveto 0 -10 rmoveto}def/=={/cp 0 def
+typeprint nl}def/typeprint{dup type exec}readonly def/lmargin 72 def/rmargin 72
+def/tprint{dup length cp add rmargin gt{nl/cp 0 def}if dup length cp add/cp
+exch def prnt}readonly def/cvsprint{=string cvs tprint( )tprint}readonly def
+/integertype{cvsprint}readonly def/realtype{cvsprint}readonly def/booleantype
+{cvsprint}readonly def/operatortype{(--)tprint =string cvs tprint(-- )tprint}
+readonly def/marktype{pop(-mark- )tprint}readonly def/dicttype{pop
+(-dictionary- )tprint}readonly def/nulltype{pop(-null- )tprint}readonly def
+/filetype{pop(-filestream- )tprint}readonly def/savetype{pop(-savelevel- )
+tprint}readonly def/fonttype{pop(-fontid- )tprint}readonly def/nametype{dup
+xcheck not{(/)tprint}if cvsprint}readonly def/stringtype{dup rcheck{(\()tprint
+tprint(\))tprint}{pop(-string- )tprint}ifelse}readonly def/arraytype{dup rcheck
+{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}forall(])
+tprint}ifelse}{pop(-array- )tprint}ifelse}readonly def/packedarraytype{dup
+rcheck{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}
+forall(])tprint}ifelse}{pop(-packedarray- )tprint}ifelse}readonly def/courier
+/Courier findfont 10 scalefont def end errordict/handleerror{systemdict begin
+$error begin $brkpage begin newerror{/newerror false store vmstatus pop pop 0
+ne{grestoreall}if initgraphics courier setfont lmargin 720 moveto errorname
+(VMerror)eq{version cvi 2016 ge{userdict/ehsave known{clear userdict/ehsave get
+restore 2 vmreclaim}if vmstatus exch pop exch pop PrtVMMsg}if}if systemdict
+/showpage get exec(%%[ Error: )print errorname =print(; OffendingCommand: )
+print/command load =print( ]%%)= flush}if end end end}dup 0 systemdict put dup
+4 $brkpage put bind readonly put/currentpacking where{pop/setpacking where{pop
+oldpack setpacking}if}if
+%%EndResource
+%%BeginProcSet: Pscript_Res_Emul 5.0 0
+/defineresource where{pop}{userdict begin/defineresource{userdict/Resources 2
+copy known{get begin}{15 dict dup begin put}ifelse exch readonly exch
+currentdict 1 index known not{dup 30 dict def}if load 3 -1 roll 2 index put
+end}bind readonly def/findresource{userdict/Resources get exch get exch get}
+bind readonly def/resourceforall{pop pop pop pop}bind readonly def
+/resourcestatus{userdict/Resources 2 copy known{get exch 2 copy known{get exch
+known{0 -1 true}{false}ifelse}{pop pop pop false}ifelse}{pop pop pop pop false}
+ifelse}bind readonly def end}ifelse
+%%EndProcSet
+userdict /Pscript_WinNT_Incr 230 dict dup begin put
+%%BeginResource: file Pscript_FatalError 5.0 0
+userdict begin/FatalErrorIf{{initgraphics findfont 1 index 0 eq{exch pop}{dup
+length dict begin{1 index/FID ne{def}{pop pop}ifelse}forall/Encoding
+{ISOLatin1Encoding}stopped{StandardEncoding}if def currentdict end
+/ErrFont-Latin1 exch definefont}ifelse exch scalefont setfont counttomark 3 div
+cvi{moveto show}repeat showpage quit}{cleartomark}ifelse}bind def end
+%%EndResource
+userdict begin/PrtVMMsg{vmstatus exch sub exch pop gt{[
+(La impresora no tiene suficiente memoria disponible para este trabajo.)100 500
+(Realice una de las siguientes operaciones e intente imprimir de nuevo:)100 485
+(Escoja "Optimizar para portabilidad" como formato de salida.)115 470
+(En el panel Configuración de dispositivo, compruebe que "Memoria PostScript disponible" tiene el valor correcto.)
+115 455(Reduzca el número de fuentes del documento.)115 440
+(Imprima el documento por partes.)115 425 12/Times-Roman showpage
+(%%[ PrinterError: Low Printer VM ]%%)= true FatalErrorIf}if}bind def end
+version cvi 2016 ge{/VM?{pop}bind def}{/VM? userdict/PrtVMMsg get def}ifelse
+%%BeginResource: file Pscript_Win_Basic 5.0 0
+/d/def load def/,/load load d/~/exch , d/?/ifelse , d/!/pop , d/`/begin , d/^
+/index , d/@/dup , d/+/translate , d/$/roll , d/U/userdict , d/M/moveto , d/-
+/rlineto , d/&/currentdict , d/:/gsave , d/;/grestore , d/F/false , d/T/true ,
+d/N/newpath , d/E/end , d/Ac/arc , d/An/arcn , d/A/ashow , d/D/awidthshow , d/C
+/closepath , d/V/div , d/O/eofill , d/L/fill , d/I/lineto , d/-c/curveto , d/-M
+/rmoveto , d/+S/scale , d/Ji/setfont , d/Lc/setlinecap , d/Lj/setlinejoin , d
+/Lw/setlinewidth , d/Lm/setmiterlimit , d/sd/setdash , d/S/show , d/LH/showpage
+, d/K/stroke , d/W/widthshow , d/R/rotate , d/L2? false/languagelevel where{pop
+languagelevel 2 ge{pop true}if}if d L2?{/xS/xshow , d/yS/yshow , d/zS/xyshow ,
+d}if/b{bind d}bind d/bd{bind d}bind d/xd{~ d}bd/ld{, d}bd/bn/bind ld/lw/Lw ld
+/lc/Lc ld/lj/Lj ld/sg/setgray ld/ADO_mxRot null d/self & d/OrgMx matrix
+currentmatrix d/reinitialize{: OrgMx setmatrix[/TextInit/GraphInit/UtilsInit
+counttomark{@ where{self eq}{F}?{cvx exec}{!}?}repeat cleartomark ;}b
+/initialize{`{/Pscript_Win_Data where{!}{U/Pscript_Win_Data & put}?/ADO_mxRot ~
+d/TextInitialised? F d reinitialize E}{U/Pscript_Win_Data 230 dict @ ` put
+/ADO_mxRot ~ d/TextInitialised? F d reinitialize}?}b/terminate{!{& self eq
+{exit}{E}?}loop E}b/suspend/terminate , d/resume{` Pscript_Win_Data `}b U `
+/lucas 21690 d/featurebegin{countdictstack lucas[}b/featurecleanup{stopped
+{cleartomark @ lucas eq{! exit}if}loop countdictstack ~ sub @ 0 gt{{E}repeat}
+{!}?}b E/snap{transform 0.25 sub round 0.25 add ~ 0.25 sub round 0.25 add ~
+itransform}b/dsnap{dtransform round ~ round ~ idtransform}b/nonzero_round{@ 0.5
+ge{round}{@ -0.5 lt{round}{0 ge{1}{-1}?}?}?}b/nonzero_dsnap{dtransform
+nonzero_round ~ nonzero_round ~ idtransform}b U<04>cvn{}put/rr{1 ^ 0 - 0 ~ -
+neg 0 - C}b/irp{4 -2 $ + +S fx 4 2 $ M 1 ^ 0 - 0 ~ - neg 0 -}b/rp{4 2 $ M 1 ^ 0
+- 0 ~ - neg 0 -}b/solid{[]0 sd}b/g{@ not{U/DefIf_save save put}if U/DefIf_bool
+2 ^ put}b/DefIf_El{if U/DefIf_bool get not @{U/DefIf_save get restore}if}b/e
+{DefIf_El !}b/UDF{L2?{undefinefont}{!}?}b/UDR{L2?{undefineresource}{! !}?}b
+/freeVM{/Courier findfont[40 0 0 -40 0 0]makefont Ji 2 vmreclaim}b/hfRedefFont
+{findfont @ length dict `{1 ^/FID ne{d}{! !}?}forall & E @ ` ~{/CharStrings 1
+dict `/.notdef 0 d & E d}if/Encoding 256 array 0 1 255{1 ^ ~/.notdef put}for d
+E definefont !}bind d/hfMkCIDFont{/CIDFont findresource @ length 2 add dict `{1
+^ @/FID eq ~ @/XUID eq ~/UIDBase eq or or{! !}{d}?}forall/CDevProc ~ d/Metrics2
+16 dict d/CIDFontName 1 ^ d & E 1 ^ ~/CIDFont defineresource ![~]composefont !}
+bind d
+%%EndResource
+%%BeginResource: file Pscript_Win_Utils_L1 5.0 0
+/rf{N rp L}b/fx{1 1 dtransform @ 0 ge{1 sub 1}{1 add -0.25}? 3 -1 $ @ 0 ge{1
+sub 1}{1 add -0.25}? 3 1 $ 4 1 $ idtransform 4 -2 $ idtransform}b/BZ{4 -2 $
+snap + +S fx rf}b/rs{N rp C K}b/rc{N rp clip N}b/UtilsInit{}b/setcolorspace{!}b
+/scol{[/setgray/setrgbcolor/setcolor/setcmykcolor/setcolor/setgray]~ get cvx
+exec}b/colspRefresh{}b/AddFontInfoBegin{/FontInfo 8 dict @ `}bind d/AddFontInfo
+{/GlyphNames2Unicode 16 dict d/GlyphNames2HostCode 16 dict d}bind d
+/AddFontInfoEnd{E d}bind d
+%%EndResource
+end
+%%EndProlog
+
+%%BeginSetup
+[ 1 0 0 1 0 0 ] false Pscript_WinNT_Incr dup /initialize get exec
+1 setlinecap 1 setlinejoin
+/mysetup [ 72 600 V 0 0 -72 600 V 0 81.63779 ] def 
+%%EndSetup
+
+%%Page: 1 1
+%%PageBoundingBox: 0 0 234 82
+%%EndPageComments
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ nonzero_dsnap YStep V ~
+XStep V ~ E +S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L1 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 2 d/RepsV 6 d/RepsH 5 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{}b/PaintProc{` SetBGndFGnd RepsH{Width Height F mx PaintData
+imagemask Width 0 +}repeat E}b E d/GDIpattfill{@ ` BGnd null ne PaintType 2 eq
+and{: BGnd aload ! scol fEOFill{O}{L}? ; FGnd aload ! U/iCol 2 ^ put @ 0 eq{!
+2}{@ 1 eq ~ 2 eq or{4}{5}?}? -1 $}if E @ patterncalc : 4 ^/PaintType get 2 eq
+{iCol 0 eq{6 -1 $}if iCol 1 eq iCol 2 eq or{8 -3 $}if iCol 3 eq iCol 4 eq or{9
+-4 $}if iCol scol}if fEOFill{eoclip}{clip}? N patternfill ; N}b/hbf
+{GDIpattfill}b/hfMain{/fEOFill ~ d ~/iCol ~ d GDIpattfill}b/hf{: hfMain ;}b
+/mpstr 1 string d/mp{~ @ length 12 add dict copy `/PatternCTM matrix
+currentmatrix d/PatternMatrix ~ d/PatWidth XStep mpstr length mul d/PatHeight
+YStep d/FontType 3 d/Encoding 256 array d 3 string 0 1 255{Encoding ~ @ 3 ^ cvs
+cvn put}for !/FontMatrix matrix d/FontBBox BBox d/BuildChar{! @ ` XStep 0
+FontBBox aload ! setcachedevice/PaintProc , E : exec ;}b & E ~ @ 3 -1 $
+definefont}b/build_pattern{: GDIBWPatternDict ` Width Height E dsnap +S
+/GDIBWPatternMx matrix currentmatrix d ; CTMsave GDIBWPatternMx setmatrix
+GDIBWPatternDict @ ` xOrg yOrg E matrix + mp CTMrestore}b/patterncalc{` :
+PatternCTM setmatrix PatternMatrix concat BBox aload ! ! ! + pathbbox ;
+PatHeight V ceiling 4 1 $ PatWidth V ceiling 4 1 $ PatHeight V floor 4 1 $
+PatWidth V floor 4 1 $ 2 ^ sub cvi abs ~ 3 ^ sub cvi abs ~ 4 2 $ PatHeight mul
+~ PatWidth mul ~ E}b/patternfill{5 -1 $ @ ` Ji PatternCTM setmatrix
+PatternMatrix concat 0 2 ^ 2 ^ M 0 1 mpstr length 1 sub{1 ^ mpstr 3 1 $ put}for
+! 2 ^{currentpoint 5 ^{mpstr S}repeat YStep add M}repeat ! ! ! ! E}b/pbf{: 14
+dict `/fGray ~ d/fEOFill ~ d/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/mx xOrg yOrg matrix + d fGray{/PaintProc{` Width Height
+OutputBPP mx PaintData image E}b}{/PaintProc{` Width Height 8 mx PaintData F
+OutputBPP 8 idiv colorimage E}b}? pathbbox fEOFill{eoclip}{clip}?/Top ~ d/Right
+~ d/Bottom ~ d/Left ~ d Top Height neg Bottom 1 sub{Left Width Right 1 sub{1 ^
+2 copy + & PaintProc neg ~ neg ~ +}bind for !}bind for E ;}b
+%%EndResource
+end reinitialize
+N 1029 388 M 1543 388 I 1572 388 1596 364 1596 335 -c 1596 305 1572 282 1543 282 -c 1029 282 I 999 282 975 305 975 335 -c 975 364 999 388 1029 388 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol 1 Lj 1 Lc 16 Lw solid N 1029 388 M 1543 388 I 1572 388 1596 364 1596 335 -c 1596 305 1572 282 1543 282 -c 1029 282 I 999 282 975 305 975 335 -c 975 364 999 388 1029 388 -c C 
+: 0.363 0.363 +S K 
+; Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_T3Hdr 5.0 0
+{version cvi 2016 ge{32/FontType resourcestatus{pop pop true}{false}ifelse}
+{false}ifelse}exec/Is2016andT32? exch def/T32DefSBCMap{/CIDInit/ProcSet
+findresource begin 10 dict begin begincmap/CIDSystemInfo 3 dict dup begin
+/Registry(Adobe)def/Ordering(Identity1)def/Supplement 0 def end def/CMapType 0
+def/WMode 0 def 1 begincodespacerange<00><ff>endcodespacerange 1 begincidrange
+<00><ff>0 endcidrange endcmap/DrvSBCMap currentdict/CMap defineresource pop end
+end}bind def Is2016andT32?{T32DefSBCMap}def/T32RsrcBegin{Is2016andT32?{
+/BitmapFontInit/ProcSet findresource begin}if}bind def/T32RsrcEnd{Is2016andT32?
+{end}if}bind def/AddT32Char{6 1 roll 0 get 7 1 roll pop pop 5 1 roll pop
+findfont/TT32R get addglyph}bind def/AddT3Char{findfont dup 5 2 roll 1 index
+length 0 gt{cvx 1 index exch 4 exch put dup(imagemask)cvx cvn 5 exch put cvx}
+{pop cvx}ifelse 3 -1 roll/CharProcs get 3 1 roll put dup/Encoding get 5 -1 roll
+4 index put/Metrics get 3 1 roll put}bind def/AddT3T32Char Is2016andT32?{
+/AddT32Char}{/AddT3Char}ifelse load def/GreNewFontT32{5 dict begin exch
+/FontMatrix exch def exch/FontBBox exch def exch pop exch pop/CIDFontType 4 def
+dup currentdict end/CIDFont defineresource 3 -1 roll dup/DrvSBCMap dup/CMap
+resourcestatus{pop pop}{T32DefSBCMap}ifelse 5 -1 roll[exch]composefont dup
+length dict copy dup/FID undef begin exch/TT32R exch def currentdict end
+definefont/BitmapFontInit/ProcSet findresource begin/TT32R get[14 0 0 0 0 0]<>0
+4 -1 roll addglyph end}bind def/GreNewFontT3{11 dict begin pop/FontType 3 def
+/FontMatrix exch def/FontBBox exch def/Encoding exch def/CharProcs 257 dict def
+CharProcs/.notdef{}put/Metrics 257 dict def Metrics/.notdef 3 -1 roll put
+AddFontInfoBegin AddFontInfo AddFontInfoEnd/BuildChar{userdict begin/char exch
+def dup/charname exch/Encoding get char get def dup/Metrics get charname 2 copy
+known{get aload pop}{pop/.notdef get aload pop}ifelse setcachedevice begin
+Encoding char get CharProcs exch 2 copy known{get}{pop/.notdef get}ifelse end
+exec end}def currentdict end definefont pop}bind def/GreNewFont{Is2016andT32?
+{GreNewFontT32}{GreNewFontT3}ifelse}bind def/UDF3{Is2016andT32?{/BitmapFontInit
+/ProcSet findresource begin dup/CIDFont findresource removeall/CIDFont
+undefineresource undefinefont end}{pop UDF}ifelse}bind def
+%%EndResource
+end reinitialize
+/TT464b00
+[93 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 93 div 0 0 -1 93 div 0 0 ]
+/__TT464b00
+GreNewFont
+T32RsrcBegin
+
+1
+/n [43 0 5 -50 37 0 ] 
+/n [32 50 true [1 0 0 1 -5 50 ]  0 0]
+[<0001fc00
+fc0fff80
+fc1fffe0
+fc7ffff0
+fcfffff8
+fcfffff8
+fdfffffc
+fffc0ffc
+fff003fe
+ffe001fe
+ffc001fe
+ff8000ff
+ff8000ff
+ff0000ff
+ff00007f
+ff00007f
+ff00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+>
+ ]
+/TT464b00 AddT3T32Char
+
+2
+/e [43 0 2 -50 39 1 ] 
+/e [37 51 true [1 0 0 1 -2 50 ]  0 0]
+[<0001fe0000
+000fffc000
+003fffe000
+00fffff800
+01fffffc00
+03fffffe00
+07ffffff00
+07ff03ff80
+0ffc00ff80
+1ff0007fc0
+1fe0003fc0
+3fc0001fe0
+3fc0000fe0
+3f80000fe0
+7f800007f0
+7f000007f0
+7f000007f0
+7f000003f0
+7f000003f8
+ff000003f8
+fe000003f8
+fffffffff8
+fffffffff8
+fffffffff8
+fffffffff8
+fffffffff8
+fffffffff8
+fffffffff8
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+ff00000000
+7f00000000
+7f00000000
+7f00000780
+7f80000ff0
+3f80000ff0
+3fc0000fe0
+3fc0001fe0
+1fe0003fe0
+1ff0007fc0
+0ff800ffc0
+0fff03ff80
+07ffffff00
+03ffffff00
+01fffffe00
+00fffff800
+003ffff000
+001fffc000
+0003fe0000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+3
+/u [43 0 5 -49 37 1 ] 
+/u [32 50 true [1 0 0 1 -5 49 ]  0 0]
+[<fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0000ff
+fe0001ff
+fe0001ff
+ff0001ff
+ff0003ff
+7f0003ff
+7f8007ff
+7f800fff
+7fc01fff
+3ff07fff
+3fffff7f
+1ffffe7f
+1ffffe7f
+0ffffc7f
+07fff07f
+01ffe07f
+007f8000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+4
+/r [26 0 5 -50 27 0 ] 
+/r [22 50 true [1 0 0 1 -5 50 ]  0 0]
+[<0007c0
+fe1ff0
+fe3ff8
+fe7ffc
+fe7ffc
+fefff8
+fefff8
+fffff8
+fff870
+ffe010
+ffc000
+ff8000
+ff8000
+ff0000
+ff0000
+ff0000
+ff0000
+ff0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+fe0000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+5
+/a [43 0 3 -50 40 1 ] 
+/a [37 51 true [1 0 0 1 -3 50 ]  0 0]
+[<0003ff8000
+003ffff000
+00fffffc00
+01fffffe00
+03ffffff00
+07ffffff80
+0fffffff80
+1ffc03ffc0
+1ff0007fc0
+3fe0003fc0
+3fc0001fe0
+3f80001fe0
+7f80000fe0
+7f00000fe0
+0f00000fe0
+0000000fe0
+0000000fe0
+0000000fe0
+0000001fe0
+000001ffe0
+00001fffe0
+0007ffffe0
+007fffffe0
+01ffffffe0
+03ffffffe0
+0fffffefe0
+1fffff0fe0
+1ffff00fe0
+3ffc000fe0
+3fe0000fe0
+7f80000fe0
+7f80000fe0
+ff00000fe0
+fe00000fe0
+fe00001fe0
+fe00001fe0
+fe00001fe0
+fe00003fe0
+fe00003fe0
+ff00007fe0
+ff0000ffe0
+7f8001ffe0
+7fc007ffe0
+7ff01fffe0
+3fffffefe0
+3fffffcff0
+1fffff87f0
+0fffff07f0
+07fffc07f0
+01fff003f8
+007f800000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+6
+/l [17 0 5 -67 12 0 ] 
+/l [7 67 true [1 0 0 1 -5 67 ]  0 0]
+[<fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+>
+ ]
+/TT464b00 AddT3T32Char
+
+7
+/underscore [43 0 0 7 43 12 ] 
+/underscore [43 5 true [1 0 0 1 0 -7 ]  0 0]
+[<ffffffffffe0
+ffffffffffe0
+ffffffffffe0
+ffffffffffe0
+ffffffffffe0
+>
+ ]
+/TT464b00 AddT3T32Char
+
+8
+/t [21 0 1 -66 21 1 ] 
+/t [20 67 true [1 0 0 1 -1 66 ]  0 0]
+[<001000
+003000
+00f000
+01f000
+03f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+ffffe0
+ffffe0
+ffffe0
+ffffe0
+ffffe0
+ffffe0
+ffffe0
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f000
+07f800
+07fc00
+03ffe0
+03ffe0
+03ffe0
+01fff0
+00fff0
+007ff0
+001ff0
+>
+ ]
+/TT464b00 AddT3T32Char
+
+9
+/w [56 0 1 -49 56 0 ] 
+/w [55 49 true [1 0 0 1 -1 49 ]  0 0]
+[<fe0000fe0000fe
+fe0000ff0001fe
+7f0001ff0001fc
+7f0001ff0001fc
+7f0001ff0001fc
+7f0001ff0001fc
+3f8003ff8003fc
+3f8003ff8003f8
+3f8003ff8003f8
+3f8003ff8003f8
+3f8003ffc003f8
+1fc007efc007f0
+1fc007efc007f0
+1fc007efc007f0
+1fc007efc007f0
+0fc00fefe00ff0
+0fe00fc7e00fe0
+0fe00fc7e00fe0
+0fe00fc7e00fe0
+07e00fc7e00fe0
+07f01f87f01fe0
+07f01f83f01fc0
+07f01f83f01fc0
+03f01f83f01fc0
+03f01f83f83fc0
+03f83f03f83f80
+03f83f01f83f80
+03f83f01f83f80
+01f83f01f83f80
+01f87f01fc7f80
+01fc7e00fc7f00
+01fc7e00fc7f00
+00fc7e00fc7f00
+00fc7e00feff00
+00fefc00fefe00
+00fefc007efe00
+007efc007efe00
+007efc007efe00
+007efc007ffe00
+007ff8003ffc00
+007ff8003ffc00
+003ff8003ffc00
+003ff8003ffc00
+003ff8001ff800
+003ff0001ff800
+001ff0001ff800
+001ff0001ff800
+001ff0001ff800
+001fe0000ff000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+10
+/o [43 0 2 -50 39 1 ] 
+/o [37 51 true [1 0 0 1 -2 50 ]  0 0]
+[<0003fe0000
+001fffc000
+003fffe000
+00fffff800
+01fffffc00
+03fffffe00
+07ffffff00
+0ffe07ff80
+0ff801ff80
+1ff0007fc0
+1fe0003fc0
+3fc0001fe0
+3fc0001fe0
+3f80000fe0
+7f80000ff0
+7f000007f0
+7f000007f0
+7f000007f0
+ff000007f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+fe000003f8
+ff000007f0
+7f000007f0
+7f000007f0
+7f000007f0
+7f80000ff0
+3f80000fe0
+3fc0001fe0
+3fc0001fe0
+1fe0003fc0
+1ff0007fc0
+0ffc00ff80
+0fff03ff80
+07ffffff00
+03fffffe00
+01fffffc00
+00fffff800
+003fffe000
+001fffc000
+0003fe0000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+11
+/k [39 0 5 -67 38 0 ] 
+/k [33 67 true [1 0 0 1 -5 67 ]  0 0]
+[<fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe0003fe00
+fe0007fc00
+fe000ff800
+fe001ff000
+fe001fe000
+fe003fe000
+fe007fc000
+fe00ff8000
+fe01ff0000
+fe01fe0000
+fe03fc0000
+fe07fc0000
+fe0ff80000
+fe1ff00000
+fe1fe00000
+fe3fc00000
+fe7fc00000
+feff800000
+ffff000000
+ffff800000
+ffff800000
+ffffc00000
+ffffe00000
+ffffe00000
+ffeff00000
+ffcff00000
+ffc7f80000
+ff87f80000
+ff03fc0000
+fe03fc0000
+fe01fe0000
+fe01fe0000
+fe00ff0000
+fe007f0000
+fe007f8000
+fe003f8000
+fe003fc000
+fe001fc000
+fe001fe000
+fe000fe000
+fe000ff000
+fe0007f800
+fe0007f800
+fe0003fc00
+fe0003fc00
+fe0001fe00
+fe0001fe00
+fe0000ff00
+fe0000ff00
+>
+ ]
+/TT464b00 AddT3T32Char
+T32RsrcEnd
+Pscript_WinNT_Incr begin
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}b/mF42{15 dict ` @ 4 1 $
+FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add 255
+idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for/FDepVector
+Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1 Encoding
+length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName length 2
+add string}{FontName length 3 add string}?}? @ 0 FontName @ length string cvs
+putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~ putinterval cvn 1 ^
+256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1 $ put}for & @ E
+/FontName get ~ definefont ! ! ! mF}b/mF_OTF_V{~ ! ~ ! 4 -1 $ ! findfont 2 ^ ~
+definefont fM @ @ 4 6 -1 $ neg put 5 0 put 90 matrix R matrix concatmatrix
+makefont Pscript_Windows_Font 3 1 $ put}b/mF_TTF_V{3{~ !}repeat 3 -1 $ !
+findfont 1 ^ ~ definefont Pscript_Windows_Font 3 1 $ put}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+end reinitialize
+F /F0 0 /0 F /TT464b00 mF 
+/F0S5D F0 [93.75 0 0 -93.75 0 0 ] mFS
+F0S5D Ji 
+1026 366 M <01>S 
+1067 366 M <02>S  1114 366 M <03>S  1155 366 M <04>S  1178 366 M <05>S  1225 366 M <06>S  1237 366 M <07>S  1284 366 M <01>S  1325 366 M <02>S  1366 366 M <08>S  1390 366 M <09>S  1442 366 M <0A>S  1489 366 M <04>S  1513 366 M <0B>S  
+N 319 634 M 834 634 I 863 634 887 611 887 581 -c 887 552 863 528 834 528 -c 319 528 I 290 528 266 552 266 581 -c 266 611 290 634 319 634 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol N 319 634 M 834 634 I 863 634 887 611 887 581 -c 887 552 863 528 834 528 -c 319 528 I 290 528 266 552 266 581 -c 266 611 290 634 319 634 -c C 
+: 0.363 0.363 +S K 
+; T32RsrcBegin
+
+12
+/d [43 0 2 -67 37 1 ] 
+/d [35 68 true [1 0 0 1 -2 67 ]  0 0]
+[<0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0000001fe0
+0007f01fe0
+003ffc1fe0
+007ffe1fe0
+01ffff1fe0
+03ffff9fe0
+07ffffdfe0
+07ffffffe0
+0ffe0fffe0
+0ff803ffe0
+1ff001ffe0
+1fe000ffe0
+3fc0007fe0
+3f80003fe0
+3f80003fe0
+7f80001fe0
+7f00001fe0
+7f00001fe0
+7f00001fe0
+ff00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+ff00000fe0
+7f00000fe0
+7f00001fe0
+7f00001fe0
+7f80001fe0
+3f80003fe0
+3fc0003fe0
+3fc0007fe0
+1fe000ffe0
+1ff000ffe0
+0ff803ffe0
+07fe07ffe0
+07ffffefe0
+03ffffefe0
+01ffffcfe0
+00ffff8fe0
+007fff0fe0
+001ffe0fe0
+0007f00000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+13
+/b [43 0 5 -67 40 1 ] 
+/b [35 68 true [1 0 0 1 -5 67 ]  0 0]
+[<ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff00000000
+ff01fc0000
+ff07ff8000
+ff0fffc000
+ff1ffff000
+ff3ffff800
+ff7ffffc00
+fffffffc00
+fffe0ffe00
+fff803ff00
+fff001ff00
+ffe000ff00
+ffc0007f80
+ff80003f80
+ff80003fc0
+ff80003fc0
+ff00001fc0
+ff00001fc0
+ff00001fc0
+fe00001fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00001fc0
+fe00001fc0
+ff00001fc0
+ff00001fc0
+ff00003fc0
+ff80003f80
+ff80007f80
+ffc0007f80
+ffc000ff00
+ffe001ff00
+fff803fe00
+fffe0ffc00
+fefffffc00
+fefffff800
+fe7ffff000
+fe3fffe000
+fe1fffc000
+fe0fff0000
+0001fc0000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+14
+/p [43 0 5 -50 40 19 ] 
+/p [35 69 true [1 0 0 1 -5 50 ]  0 0]
+[<0003fc0000
+fc0fff0000
+fc3fffc000
+fc7fffe000
+fcfffff000
+fcfffff800
+fdfffffc00
+fffc0ffe00
+fff003fe00
+ffe001ff00
+ffc000ff00
+ffc0007f80
+ff80007f80
+ff00003f80
+ff00003fc0
+fe00001fc0
+fe00001fc0
+fe00001fc0
+fe00001fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00000fe0
+fc00001fc0
+fe00001fc0
+fe00001fc0
+fe00001fc0
+fe00003fc0
+ff00003f80
+ff00007f80
+ff80007f80
+ffc000ff00
+ffe001ff00
+fff003fe00
+fffc0ffc00
+fffffffc00
+fefffff800
+fefffff000
+fe7fffe000
+fe3fff8000
+fe0fff0000
+fe03f80000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+15
+/i [17 0 5 -67 12 0 ] 
+/i [7 67 true [1 0 0 1 -5 67 ]  0 0]
+[<fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+00
+00
+00
+00
+00
+00
+00
+00
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+fe
+>
+ ]
+/TT464b00 AddT3T32Char
+T32RsrcEnd
+443 612 M <0C>S 
+484 612 M <0D>S  531 612 M <0E>S  572 612 M <02>S  613 612 M <0C>S  654 612 M <0F>S  671 612 M <05>S  
+N 231 388 M 745 388 I 774 388 798 364 798 335 -c 798 305 774 282 745 282 -c 231 282 I 201 282 177 305 177 335 -c 177 364 201 388 231 388 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol N 231 388 M 745 388 I 774 388 798 364 798 335 -c 798 305 774 282 745 282 -c 231 282 I 201 282 177 305 177 335 -c 177 364 201 388 231 388 -c C 
+: 0.363 0.363 +S K 
+; T32RsrcBegin
+
+16
+/f [21 0 1 -68 24 0 ] 
+/f [23 68 true [1 0 0 1 -1 68 ]  0 0]
+[<0007f8
+001ffe
+007ffe
+00fffe
+00fffc
+01fffc
+01fffc
+01ff00
+03fc00
+03fc00
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+fffff0
+fffff0
+fffff0
+fffff0
+fffff0
+fffff0
+fffff0
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+03f800
+>
+ ]
+/TT464b00 AddT3T32Char
+
+17
+/g [43 0 2 -50 37 20 ] 
+/g [35 70 true [1 0 0 1 -2 50 ]  0 0]
+[<0007f80000
+001ffe07e0
+007fff87e0
+00ffffc7e0
+01ffffe7e0
+03fffff7e0
+07ffffffe0
+0ffe0fffe0
+0ff803ffe0
+1ff001ffe0
+1fe000ffe0
+3fc0007fe0
+3f80003fe0
+3f80003fe0
+7f80003fe0
+7f00001fe0
+7f00001fe0
+7f00001fe0
+fe00001fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+fe00000fe0
+7f00001fe0
+7f00001fe0
+7f00001fe0
+7f00001fe0
+3f80003fe0
+3f80003fe0
+3fc0007fe0
+1fe000ffe0
+1ff001ffe0
+0ff803ffe0
+0ffe0fffe0
+07ffffffe0
+03ffffefe0
+01ffffcfe0
+00ffff8fe0
+007fff0fe0
+001ffe0fe0
+0007f80fe0
+0000000fe0
+0000000fe0
+0000000fe0
+0000000fc0
+0000001fc0
+7800001fc0
+7f00001fc0
+7f00003fc0
+7f80003fc0
+7f80007f80
+3fc000ff80
+3fe001ff00
+3ff807ff00
+1ffffffe00
+0ffffffc00
+07fffff800
+03fffff000
+01ffffe000
+007fff8000
+000ffc0000
+>
+ ]
+/TT464b00 AddT3T32Char
+
+18
+/h [43 0 5 -67 37 0 ] 
+/h [32 67 true [1 0 0 1 -5 67 ]  0 0]
+[<fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe000000
+fe01fe00
+fe0fff80
+fe1fffe0
+fe3ffff0
+fe7ffff8
+fefffff8
+fffffffc
+fffc0ffc
+fff003fe
+ffe001fe
+ffc001fe
+ff8000fe
+ff8000ff
+ff0000ff
+ff00007f
+ff00007f
+ff00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+fe00007f
+>
+ ]
+/TT464b00 AddT3T32Char
+T32RsrcEnd
+326 366 M <04>S 
+350 366 M <0C>S  397 366 M <10>S  414 366 M <07>S  461 366 M <11>S  502 366 M <04>S  526 366 M <05>S  573 366 M <0E>S  614 366 M <12>S  
+N 1228 143 M 1742 143 I 1771 143 1795 120 1795 90 -c 1795 61 1771 37 1742 37 -c 1228 37 I 1199 37 1175 61 1175 90 -c 1175 120 1199 143 1228 143 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol N 1228 143 M 1742 143 I 1771 143 1795 120 1795 90 -c 1795 61 1771 37 1742 37 -c 1228 37 I 1199 37 1175 61 1175 90 -c 1175 120 1199 143 1228 143 -c C 
+: 0.363 0.363 +S K 
+; T32RsrcBegin
+
+19
+/c [39 0 2 -50 37 1 ] 
+/c [35 51 true [1 0 0 1 -2 50 ]  0 0]
+[<0003fc0000
+001fff8000
+007fffe000
+00fffff000
+01fffff800
+03fffffc00
+07fffffe00
+0ffe07ff00
+0ff801ff00
+1ff000ff80
+1fe0007f80
+3fc0007f80
+3f80003f80
+3f80003fc0
+7f80001fc0
+7f00001e00
+7f00000000
+7f00000000
+ff00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+fe00000000
+ff00000f00
+7f00000fe0
+7f00000fe0
+7f00001fe0
+7f80001fc0
+3f80001fc0
+3f80003fc0
+3fc0003f80
+1fe0007f80
+1ff000ff80
+0ff801ff00
+0ffe07ff00
+07fffffe00
+03fffffc00
+01fffff800
+00fffff000
+007fffe000
+001fff8000
+0003fc0000
+>
+ ]
+/TT464b00 AddT3T32Char
+T32RsrcEnd
+1242 122 M <06>S 
+1260 122 M <0F>S  1278 122 M <01>S  1319 122 M <0B>S  1360 122 M <07>S  1401 122 M <0E>S  1442 122 M <04>S  1471 122 M <02>S  1512 122 M <0C>S  1553 122 M <0F>S  1571 122 M <13>S  1612 122 M <08>S  1630 122 M <0F>S  1647 122 M <0A>S  1694 122 M <01>S  
+N 98 143 M 612 143 I 641 143 665 120 665 90 -c 665 61 641 37 612 37 -c 98 37 I 68 37 44 61 44 90 -c 44 120 68 143 98 143 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol N 98 143 M 612 143 I 641 143 665 120 665 90 -c 665 61 641 37 612 37 -c 98 37 I 68 37 44 61 44 90 -c 44 120 68 143 98 143 -c C 
+: 0.363 0.363 +S K 
+; T32RsrcBegin
+
+20
+/y [39 0 1 -49 38 20 ] 
+/y [37 69 true [1 0 0 1 -1 49 ]  0 0]
+[<fe000003f8
+ff000007f8
+7f000007f0
+7f000007f0
+7f80000ff0
+3f80000fe0
+3f80000fe0
+3fc0001fe0
+1fc0001fc0
+1fc0001fc0
+1fc0003fc0
+0fe0003f80
+0fe0003f80
+0fe0007f80
+07f0007f00
+07f0007f00
+07f000ff00
+03f800ff00
+03f800fe00
+03f801fe00
+03f801fe00
+01fc01fc00
+01fc03fc00
+01fc03fc00
+00fe03f800
+00fe07f800
+00fe07f800
+007f07f000
+007f0ff000
+007f0ff000
+003f0fe000
+003f9fe000
+003f9fe000
+001f9fe000
+001f9fc000
+001fffc000
+001fffc000
+000fff8000
+000fff8000
+000fff8000
+0007ff0000
+0007ff0000
+0007ff0000
+0003fe0000
+0003fe0000
+0003fe0000
+0001fc0000
+0001fc0000
+0001fc0000
+0003fc0000
+0003f80000
+0003f80000
+0007f80000
+0007f00000
+0007f00000
+000ff00000
+000fe00000
+000fe00000
+001fe00000
+001fc00000
+087fc00000
+0fffc00000
+0fff800000
+0fff800000
+07ff000000
+07ff000000
+07fe000000
+07fc000000
+03f0000000
+>
+ ]
+/TT464b00 AddT3T32Char
+T32RsrcEnd
+204 122 M <05>S 
+245 122 M <13>S  286 122 M <13>S  321 122 M <03>S  368 122 M <04>S  392 122 M <05>S  433 122 M <13>S  474 122 M <14>S  
+N 991 373 M 868 496 I : 0.363 0.363 +S K 
+; N 890 509 M 836 527 I 854 473 I 890 509 I C 
+ O N 665 90 M 1130 90 I : 0.363 0.363 +S K 
+; N 1124 65 M 1175 90 I 1124 116 I 1124 65 I C 
+ O N 1361 609 M 1875 609 I 1905 609 1928 585 1928 556 -c 1928 527 1905 503 1875 503 -c 1361 503 I 1332 503 1308 527 1308 556 -c 1308 585 1332 609 1361 609 -c C 
+1 1 1 1 scol  O 0 0 0 1 scol N 1361 609 M 1875 609 I 1905 609 1928 585 1928 556 -c 1928 527 1905 503 1875 503 -c 1361 503 I 1332 503 1308 527 1308 556 -c 1308 585 1332 609 1361 609 -c C 
+: 0.363 0.363 +S K 
+; /TT474b00
+[76 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 76 div 0 0 -1 76 div 0 0 ]
+/__TT474b00
+GreNewFont
+T32RsrcBegin
+
+1
+/t [17 0 1 -53 18 1 ] 
+/t [17 54 true [1 0 0 1 -1 53 ]  0 0]
+[<004000
+00c000
+03c000
+07c000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+ffff00
+ffff00
+ffff00
+ffff00
+ffff00
+ffff00
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fc000
+0fe000
+0fff00
+07ff00
+07ff00
+03ff80
+01ff80
+007f80
+>
+ ]
+/TT474b00 AddT3T32Char
+
+2
+/r [21 0 4 -40 22 0 ] 
+/r [18 40 true [1 0 0 1 -4 40 ]  0 0]
+[<003e00
+fc7f80
+fcffc0
+fdffc0
+fdff80
+ffff80
+ffc380
+ff8100
+ff0000
+fe0000
+fe0000
+fe0000
+fe0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+fc0000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+3
+/i [14 0 4 -54 10 0 ] 
+/i [6 54 true [1 0 0 1 -4 54 ]  0 0]
+[<fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+00
+00
+00
+00
+00
+00
+00
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+>
+ ]
+/TT474b00 AddT3T32Char
+
+4
+/p [35 0 4 -40 32 15 ] 
+/p [28 55 true [1 0 0 1 -4 40 ]  0 0]
+[<000fc000
+fc3ff000
+fc7ffc00
+fcfffe00
+fdffff00
+fdffff00
+fff0ff80
+ffc03fc0
+ff801fc0
+ff800fc0
+ff000fe0
+ff0007e0
+fe0007e0
+fe0007e0
+fe0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0007f0
+fe0007e0
+fe0007e0
+fe0007e0
+ff000fe0
+ff000fc0
+ff801fc0
+ffc03f80
+fff0ff80
+ffffff00
+fdfffe00
+fdfffc00
+fcfff800
+fc3ff000
+fc1f8000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+5
+/l [14 0 4 -54 10 0 ] 
+/l [6 54 true [1 0 0 1 -4 54 ]  0 0]
+[<fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+fc
+>
+ ]
+/TT474b00 AddT3T32Char
+
+6
+/e [35 0 2 -40 32 1 ] 
+/e [30 41 true [1 0 0 1 -2 40 ]  0 0]
+[<001fe000
+007ff800
+01fffe00
+03ffff00
+07ffff80
+0fffffc0
+1ff03fe0
+1fc00fe0
+3f8007f0
+3f0003f0
+3f0001f8
+7e0001f8
+7e0001f8
+7e0000f8
+fc0000fc
+fc0000fc
+fffffffc
+fffffffc
+fffffffc
+fffffffc
+fffffffc
+fffffffc
+fc000000
+fc000000
+fc000000
+fc000000
+fe000000
+7e000000
+7e0000e0
+7f0001fc
+7f0001fc
+3f8003f8
+3fc007f8
+1fe00ff0
+1ff81ff0
+0fffffe0
+07ffffc0
+03ffff80
+01ffff00
+007ffc00
+000ff000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+7
+/underscore [35 0 0 6 35 10 ] 
+/underscore [35 4 true [1 0 0 1 0 -6 ]  0 0]
+[<ffffffffe0
+ffffffffe0
+ffffffffe0
+ffffffffe0
+>
+ ]
+/TT474b00 AddT3T32Char
+
+8
+/c [31 0 2 -40 30 1 ] 
+/c [28 41 true [1 0 0 1 -2 40 ]  0 0]
+[<001fe000
+007ff800
+01fffe00
+03ffff00
+07ffff80
+0fffffc0
+1ff03fc0
+1fc01fe0
+3f800fe0
+3f8007e0
+7f0007f0
+7e0003f0
+7e000380
+7e000000
+fe000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000380
+7e0003f0
+7e0003f0
+7e0007f0
+7f0007e0
+3f000fe0
+3f800fe0
+1fc01fc0
+1ff07fc0
+0fffff80
+07ffff00
+03fffe00
+01fffc00
+00fff800
+001fc000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+9
+/a [35 0 3 -40 33 1 ] 
+/a [30 41 true [1 0 0 1 -3 40 ]  0 0]
+[<001ff800
+00ffff00
+03ffff80
+07ffffc0
+0fffffe0
+1ffffff0
+1fe01ff0
+3f8007f0
+3f8003f8
+7f0001f8
+7e0001f8
+0e0001f8
+000001f8
+000001f8
+000003f8
+00001ff8
+0001fff8
+003ffff8
+01fffff8
+07fffff8
+0ffffdf8
+1ffff1f8
+3fff01f8
+7fe001f8
+7f8001f8
+7e0001f8
+fe0001f8
+fc0001f8
+fc0003f8
+fc0003f8
+fc0007f8
+fc0007f8
+fe000ff8
+7f003ff8
+7fc0fff8
+7ffffdf8
+3ffff9f8
+1ffff1f8
+0fffe0fc
+07ff80fc
+01fe0000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+10
+/s [31 0 2 -40 29 1 ] 
+/s [27 41 true [1 0 0 1 -2 40 ]  0 0]
+[<007fc000
+01fff000
+07fffc00
+0ffffe00
+1fffff00
+3fffff00
+3fc0ff80
+3f003f80
+7f001fc0
+7e001fc0
+7e000fc0
+7e000e00
+7e000000
+7f000000
+7f800000
+3fe00000
+3ffc0000
+1fff8000
+1ffff000
+0ffffc00
+03ffff00
+00ffff80
+003fff80
+0007ffc0
+0000ffc0
+00001fe0
+00000fe0
+000007e0
+1c0007e0
+fc0007e0
+fe0007e0
+7e0007e0
+7f000fc0
+7f801fc0
+3fe07fc0
+3fffff80
+1fffff00
+0ffffe00
+07fffc00
+01fff800
+007fc000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+11
+/f [17 0 0 -55 19 0 ] 
+/f [19 55 true [1 0 0 1 0 55 ]  0 0]
+[<003f80
+007fe0
+01ffe0
+01ffe0
+03ffe0
+03ffc0
+07f800
+07f000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+ffff80
+ffff80
+ffff80
+ffff80
+ffff80
+ffff80
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+07e000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+12
+/o [35 0 2 -40 32 1 ] 
+/o [30 41 true [1 0 0 1 -2 40 ]  0 0]
+[<001fe000
+007ff800
+01fffe00
+03ffff00
+07ffff80
+0fffffc0
+1ff03fe0
+1fe01fe0
+3f800ff0
+3f8007f0
+7f0003f8
+7f0003f8
+7e0001f8
+7e0001f8
+fe0001fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fc0000fc
+fe0001fc
+7e0001f8
+7e0001f8
+7f0003f8
+7f0003f8
+3f8007f0
+3fc00ff0
+1fe01fe0
+1ff03fe0
+0fffffc0
+07ffff80
+03ffff00
+01fffe00
+007ff800
+001fe000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+13
+/n [35 0 4 -40 30 0 ] 
+/n [26 40 true [1 0 0 1 -4 40 ]  0 0]
+[<000fe000
+fc3ff800
+fc7ffc00
+fcfffe00
+fdffff00
+fdffff80
+ffe0ff80
+ff803f80
+ff001fc0
+ff001fc0
+fe001fc0
+fe000fc0
+fe000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+>
+ ]
+/TT474b00 AddT3T32Char
+T32RsrcEnd
+F /F1 0 /0 F /TT474b00 mF 
+/F1S4C F1 [76.039 0 0 -76.039 0 0 ] mFS
+F1S4C Ji 
+1352 583 M <01>S 
+1370 583 M <02>S  1393 583 M <03>S  1405 583 M <04>S  1440 583 M <05>S  1458 583 M <06>S  1493 583 M <07>S  1528 583 M <08>S  1558 583 M <05>S  1575 583 M <09>S  1610 583 M <0A>S  1640 583 M <0A>S  1675 583 M <03>S  1687 583 M <0B>S  1704 583 M <03>S  1722 583 M <08>S  1751 583 M <09>S 
+1786 583 M <01>S  1804 583 M <03>S  1822 583 M <0C>S  1857 583 M <0D>S  
+N 1473 391 M 1473 455 I : 0.363 0.363 +S K 
+; N 1499 448 M 1473 499 I 1448 448 I 1499 448 I C 
+ O N 1442 143 M 1357 247 I : 0.363 0.363 +S K 
+; N 1381 258 M 1329 282 I 1342 226 I 1381 258 I C 
+ O N 507 388 M 542 486 I : 0.363 0.363 +S K 
+; N 564 471 M 557 528 I 516 488 I 564 471 I C 
+ O T32RsrcBegin
+
+14
+/v [31 0 0 -39 31 0 ] 
+/v [31 39 true [1 0 0 1 0 39 ]  0 0]
+[<fc00007e
+fc00007e
+7e0000fc
+7e0000fc
+7e0000fc
+7f0001fc
+3f0001f8
+3f0001f8
+3f8003f8
+1f8003f0
+1f8003f0
+1fc007f0
+0fc007e0
+0fc007e0
+0fe00fe0
+07e00fc0
+07e00fc0
+07f01fc0
+07f01fc0
+03f01f80
+03f01f80
+03f83f80
+01f83f00
+01f83f00
+01fc7f00
+00fc7e00
+00fc7e00
+00fefe00
+00fefc00
+007efc00
+007efc00
+007ffc00
+003ff800
+003ff800
+003ff800
+001ff000
+001ff000
+001ff000
+000fe000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+15
+/u [35 0 4 -39 30 1 ] 
+/u [26 40 true [1 0 0 1 -4 39 ]  0 0]
+[<fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc001fc0
+fc001fc0
+fe001fc0
+fe003fc0
+7e007fc0
+7f00ffc0
+7fc1ffc0
+7fffefc0
+3fffefc0
+1fffcfc0
+0fff8fc0
+07fe0fc0
+01f80000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+16
+/T [38 0 2 -54 36 0 ] 
+/T [34 54 true [1 0 0 1 -2 54 ]  0 0]
+[<ffffffffc0
+ffffffffc0
+ffffffffc0
+ffffffffc0
+ffffffffc0
+ffffffffc0
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+0003f00000
+>
+ ]
+/TT474b00 AddT3T32Char
+
+17
+/k [31 0 4 -54 31 0 ] 
+/k [27 54 true [1 0 0 1 -4 54 ]  0 0]
+[<fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc007f80
+fc007f00
+fc00fe00
+fc01fc00
+fc03fc00
+fc07f800
+fc07f000
+fc0fe000
+fc1fc000
+fc3fc000
+fc7f8000
+fcff0000
+fcfe0000
+fdfc0000
+fff80000
+fffc0000
+fffe0000
+fffe0000
+ffff0000
+ffff0000
+ffbf8000
+ff1f8000
+fe1fc000
+fc0fc000
+fc0fe000
+fc07e000
+fc07f000
+fc03f000
+fc03f800
+fc01f800
+fc01fc00
+fc00fe00
+fc00fe00
+fc007f00
+fc007f00
+fc003f80
+fc001f80
+fc001fc0
+fc000fc0
+>
+ ]
+/TT474b00 AddT3T32Char
+T32RsrcEnd
+712 175 M <06>S 
+747 175 M <0E>S  783 175 M <09>S  818 175 M <05>S  830 175 M <0F>S  865 175 M <09>S  900 175 M <01>S  918 175 M <06>S  953 175 M <0A>S  988 175 M <10>S  1023 175 M <09>S  1064 175 M <0A>S  1093 175 M <11>S  
+T32RsrcBegin
+
+18
+/M [52 0 5 -54 48 0 ] 
+/M [43 54 true [1 0 0 1 -5 54 ]  0 0]
+[<ff8000001fe0
+ffc000003fe0
+ffc000003fe0
+ffc000003fe0
+ffc000007fe0
+ffe000007fe0
+ffe000007fe0
+ffe000007fe0
+ffe00000ffe0
+fdf00000ffe0
+fdf00000ffe0
+fdf00001ffe0
+fdf00001f7e0
+fcf80001f7e0
+fcf80001f7e0
+fcf80003e7e0
+fcfc0003e7e0
+fc7c0003e7e0
+fc7c0007e7e0
+fc7c0007c7e0
+fc7e0007c7e0
+fc3e0007c7e0
+fc3e000f87e0
+fc3e000f87e0
+fc1f000f87e0
+fc1f001f87e0
+fc1f001f07e0
+fc1f801f07e0
+fc0f801f07e0
+fc0f803e07e0
+fc0f803e07e0
+fc0fc03e07e0
+fc07c07e07e0
+fc07c07c07e0
+fc07c07c07e0
+fc03e07c07e0
+fc03e0f807e0
+fc03e0f807e0
+fc03f0f807e0
+fc01f1f807e0
+fc01f1f007e0
+fc01f1f007e0
+fc01f9f007e0
+fc00fbe007e0
+fc00fbe007e0
+fc00fbe007e0
+fc00ffe007e0
+fc007fc007e0
+fc007fc007e0
+fc007fc007e0
+fc003f8007e0
+fc003f8007e0
+fc003f8007e0
+fc003f8007e0
+>
+ ]
+/TT474b00 AddT3T32Char
+
+19
+/h [35 0 4 -54 30 0 ] 
+/h [26 54 true [1 0 0 1 -4 54 ]  0 0]
+[<fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc000000
+fc0fe000
+fc3ff800
+fc7ffc00
+fcfffe00
+fdffff00
+ffffff80
+ffe0ff80
+ffc03f80
+ff801f80
+ff001fc0
+fe001fc0
+fe000fc0
+fe000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+fc000fc0
+>
+ ]
+/TT474b00 AddT3T32Char
+
+20
+/d [35 0 2 -54 30 1 ] 
+/d [28 55 true [1 0 0 1 -2 54 ]  0 0]
+[<000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+000003f0
+003f03f0
+00ffc3f0
+03ffe3f0
+07fff3f0
+0ffffbf0
+0ffffff0
+1fe0fff0
+1fc03ff0
+3f801ff0
+3f000ff0
+7f000ff0
+7e0007f0
+7e0007f0
+7e0007f0
+fc0007f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fc0003f0
+fe0003f0
+7e0007f0
+7e0007f0
+7e0007f0
+7f000ff0
+3f000ff0
+3f801ff0
+1fc03ff0
+1ff0fff0
+0ffffff0
+07fffbf0
+03fff3f0
+01ffe3f0
+00ffc3f0
+003f0000
+>
+ ]
+/TT474b00 AddT3T32Char
+T32RsrcEnd
+1425 253 M <0F>S 
+1460 253 M <0A>S  1495 253 M <06>S  1530 253 M <0A>S  1559 253 M <12>S  1612 253 M <06>S  1647 253 M <01>S  1665 253 M <13>S  1700 253 M <0C>S  1735 253 M <14>S  
+T32RsrcBegin
+
+21
+/m [52 0 4 -40 48 0 ] 
+/m [44 40 true [1 0 0 1 -4 40 ]  0 0]
+[<000fc001f800
+fc3ff007ff00
+fc7ffc0fff80
+fcfffc1fffc0
+fdfffe3fffc0
+fdffff7fffe0
+ffe0fffc1fe0
+ff807ff00fe0
+ff003fe007f0
+ff003fe007f0
+fe001fc003f0
+fe001fc003f0
+fe001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+fc001f8003f0
+>
+ ]
+/TT474b00 AddT3T32Char
+T32RsrcEnd
+1514 463 M <04>S 
+1549 463 M <06>S  1584 463 M <02>S  1608 463 M <0B>S  1626 463 M <0C>S  1661 463 M <02>S  1684 463 M <15>S  1737 463 M <0A>S  1766 463 M <10>S  1807 463 M <09>S  1843 463 M <0A>S  1872 463 M <11>S  
+51 508 M <03>S 
+63 508 M <0D>S  104 508 M <08>S  133 508 M <05>S  145 508 M <0F>S  180 508 M <14>S  221 508 M <06>S  256 508 M <0A>S  286 508 M <12>S  338 508 M <09>S  374 508 M <01>S  391 508 M <06>S  426 508 M <02>S  450 508 M <03>S  461 508 M <09>S  503 508 M <05>S  
+903 523 M <0F>S 
+938 523 M <0A>S  974 523 M <06>S  1009 523 M <0A>S  1038 523 M <12>S  1091 523 M <09>S  1126 523 M <01>S  1144 523 M <06>S  1179 523 M <02>S  1202 523 M <03>S  1214 523 M <09>S  1255 523 M <05>S  
+LH
+%%PageTrailer
+
+%%Trailer
+%%DocumentNeededResources: 
+%%DocumentSuppliedResources: 
+%%+ procset Pscript_WinNT_VMErrorHandler 5.0 0
+%%+ procset Pscript_FatalError 5.0 0
+%%+ procset Pscript_Win_Basic 5.0 0
+%%+ procset Pscript_Win_Utils_L1 5.0 0
+%%+ procset Pscript_Win_GdiObject 5.0 0
+%%+ procset Pscript_Win_GdiObject_L1 5.0 0
+%%+ procset Pscript_T3Hdr 5.0 0
+%%+ procset Pscript_Text 5.0 0
+Pscript_WinNT_Incr dup /terminate get exec
+%%EOF

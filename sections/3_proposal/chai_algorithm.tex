@@ -1,0 +1,58 @@
+\begin{algorithm}[!htp]
+    \DontPrintSemicolon
+    \SetKwBlock{Begin}{function}{end function}
+    \KwIn{
+      $\KG_{trn} = (\Eset, \Rset, \Tset_{trn})$ : Training split of the KG\newline
+      $\KG_{tst} = (\Eset, \Rset, \Tset_{tst})$ : Testing split of the KG\newline
+      $candidates$ : Set of potential candidates to be filtered\newline
+      $rel$ : Selected relation in $\Rset$\newline
+      ${\ff}itness$ : Fitness function\newline
+      $N$ : Maximum distance value for distance-based criteria\newline
+      $\theta$ : Fitness threshold value
+    }
+    %\BlankLine
+    \KwOut{
+      $rule$ : Generated rule
+    }
+    \BlankLine
+    \Begin($\text{CHAI} {(} \KG_{trn}, \KG_{tst}, candidates, rel, {\ff}itness, N, \theta {)}$){
+      // Select the candidates in which the relation $rel$ appears\;
+      $rc \gets \{(s, r, t) \in candidates \mid r = rel \}$\;
+      // Initialize the rule to initially contain only $exists_{\KG_{trn}}$\;
+      $rule \gets exists_{\KG_{trn}}$ \;
+      // Obtain a set of initially filtered candidates by applying\;
+      // $exists_{\KG_{trn}}$\;
+      ${\ff}c \gets$ apply $exists_{\KG_{trn}}$ to $rc$\;\label{algo:initial-filter}
+      
+      \BlankLine
+      
+      // Add all possible criteria to the set of available criteria\;
+      // using the training split of the KG\;
+      $criteria \gets \emptyset$\;
+      \ForAll{$r \in \Rset$, $i \in [1..N]$}{
+        $criteria\gets criteria \cup \{dom_{\KG_{trn}, r}, ran_{\KG_{trn}, r}, dist_{\KG_{trn}, i}\}$ \;
+      }
+      
+      %\BlankLine
+      // Sort all criteria by the fitness value obtained on the set of\; 
+      // filtered candidates they generate, using the testing split\;
+      $criteria \gets$ sort $criteria$ by ${\ff}itness(\KG_{tst}, {\ff}c,$ apply $criteria$ to ${\ff}c)$ \;
+  
+      \BlankLine
+      \ForAll{$criterion \in criteria$}{\label{algo:for-main}
+          // Apply the rule to obtain a set of filtered candidates\;
+          $selected\_candidates \gets$ apply $rule$ to ${\ff}c$ \;
+          // Compute the fitness value of the previous set\;
+          // using the testing split\;
+          \If{${\ff}itness(\KG_{tst}, {\ff}c, selected\_candidates) < \theta$}{
+              // Add current criterion if the threshold is not met\;
+              $rule \gets $ add $criterion$ to $rule$\;
+          }
+      }
+      
+      \Return{$rule$}
+    }
+    \caption{CHAI} \label{algo:chai}
+  \end{algorithm}
+  
+  
