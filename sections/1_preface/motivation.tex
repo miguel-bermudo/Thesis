@@ -5,6 +5,12 @@
 % \chapterAbstract{D}{espite Knowledge Graph completion being a very active research topic, the current proposals for carrying it out still have some drawbacks that hinder their applicability in practice, and which should be solved. Our goal in this chapter is to present the problems that arise in practice when completing Knowledge Graphs, and to motivate the need for a new proposal. This chapter is organized as follows: Section~\ref{sec:moti-intro} introduces it and provides the necessary background knowledge, Section~\ref{sec:moti-problems} presents the problems of KG completion in detail, Section~\ref{sec:moti-analysis} analyzes the current approaches and their main problems, Section~\ref{sec:moti-discussion} explains how none of the existing proposals solves all practical problems at a time, Section~\ref{sec:moti-proposal} introduces our contributions and compares them with the existing proposals in the literature; finally, Section~\ref{sec:moti-summary} summarizes the chapter.}
 
 \section{Introduction}\label{sec:moti-intro}
+\begin{itemize}
+    \item Increase in interest by companies like google amazon etc\dots
+    \item they are good for organization of information
+    \item they need to be as complete as possible
+    \item they need to be organized in such a way that the answers they provide have an explanation (explainability)
+\end{itemize}
 % Nowadays, there is an increasing interest of individuals, organizations and
 % companies in Knowledge Graphs, in order to organize, store and publish their data. This, in turn, can support many practical applications in a variety of domains, such as commerce \cite{zhang2021, palumbo2020}, education \cite{chen2018, aliyu2020}, research \cite{wang2018, dessi2020aikg, dessi2022cskg}, or healthcare \cite{zhang2020b, gong2021, wise2020}, to cite a few.
 
@@ -14,6 +20,12 @@
 % completing Knowledge Graphs, e.g., \cite{jiang2016, galarraga2015, wang2015, kuzelka2019, yang2017, sadeghian2019, minervini2018, wei2015, garcia-duran2015, yang2014, tay2017, trouillon2016, lin2015, do2018, gardner2015, nastase2019, gu2015, toutanova2016, jiang2017, lei2019, bansal2019a2n, wang2019}. Unfortunately, these proposals have a number of drawbacks that hinder their applicability in practice. Consequently, it is still necessary to research on the field of Knowledge Graph completion, which is our purpose in this dissertation.
 
 \section{Problems}\label{sec:moti-problems}
+\begin{itemize}
+    \item They require embeddings to work.
+    \item Only specific solutions exist for a particular approach (no general purpose)(no open source).
+    \item little to no reason of included information (low explainability)
+    \item something something reinforcement learning?
+\end{itemize}
 % Completing Knowledge Graphs is not a trivial task and, if not performed correctly, it may reduce the quality of the knowledge contained in them. In this section, we present the problems that must be addressed by proposals that perform this task in order to be useful in practice. These problems are as follows:
 
 % \begin{description}
@@ -31,6 +43,13 @@
 % \end{description}
 
 \section{Analysis of current solutions}\label{sec:moti-analysis}
+
+Here add some tables similar to the ones already presented in ohter papers which evaluate multiple proposals in the topic, then compare why these approaches are not complete and why ours makes strides towards filling the gaps.
+
+Most notably, terminal rewards and retropropagation, use of REINFORCE algorithm, little in the way of Actor-Critic approaches, precomputation and lack of usability.
+
+An enumeration of references is also a possibility for this section, adding the benefits of each proposal in an incremental way and what they are missing.
+
 % There already exist a number of proposals for completing Knowledge Graphs in the literature. In Table~\ref{table:proposals}, we summarize them and the problems they suffer from, and in the following, we discuss them in more detail:
 
 % \input{tables/proposals}
@@ -60,6 +79,10 @@
 % \citet{wang2014} proposed using translation on hyperplanes to change the embedded representation of an entity, depending on which relation is being used to link it with another entity. However, these translations, just like the overall embedding space, must be re-learned whenever a change in the KG occurs.
 
 \section{Discussion}\label{sec:moti-discussion}
+
+This section is not on both Agu's and Inma's thesis(es?), a mixed approach is best I believe, present a table that evaluate each of the proposals shortcomings and a brief explanation for each of them is also good.
+
+In summary remove this section and provide all information on the previous one.
 % The previous proposals have problems that hinder their applicability in practice. Regarding the use of embeddings (P1), most of the existing KG completion techniques in the literature rely on them to some extent \cite{bordes2013,guo2016,kazemi2018,lin2015,nickel2011,shi18,trouillon2016,wang2014}. This is problematic because, as discussed, most KGs are in constant expansion, and adding any entity or relation to the KG must trigger a re-computation of said embeddings, which is not feasible in practice.
 
 % \citet{jiang2016} and \citet{shi18} propose techniques that depend on outside information (P2), making them vulnerable to changes in the sources of external information. Furthermore, the proposals made by \citet{gardner2015} and \citet{guo2016} are not fully automated, and require manual intervention by the users (P3).
@@ -69,7 +92,8 @@
 % Most existing proposals can be applied to large Knowledge Graphs (P5), although there are some exceptions. The proposals made by \citet{galarraga2015} and \citet{jiang2016} rely upon rule mining through ILP, which is known to scale poorly to large collections of facts \cite{shen2022overview}. Additionally, tensor factorization techniques, such as those proposed by \citet{nickel2011} and \citet{trouillon2016}, need to generate tensors that contain $R \cdot E^2$ elements, where $R$ is the number of distinct relations in a KG and $E$ is the amount of different entities. This size can quickly become unmanageable when the KG contains more than a few thousand entities.
 
 \section{Our proposal}\label{sec:moti-proposal}
-% In this dissertation, we present a proposal for Knowledge Graph completion that does not suffer from the previously discussed problems. Our proposal consists of three different elements, each of which solves different problems regarding KG completion:
+In this dissertation, we present a proposal for Knowledge Graph reasoning SpaceRL which...
+
 
 % To determine the correctness of a triple, we introduce CAFE, our triple classification technique. It relies solely on path and entity neighborhood information present in the graph, which, contrary to embeddings, does not require any pre-computation or significant re-generation when the graph changes (P1). It is also able to operate taking only a Knowledge Graph as input, without any additional dependencies on external sources of information (P2). CAFE works by transforming the triples in a KG into a set of labeled feature vectors, using a novel set of context-aware features, and then learning to differentiate between correct and incorrect triples in a completely automated manner, without any user intervention (P3).
 
@@ -78,4 +102,5 @@
 % Finally, to prove the applicability of our proposal, we introduce SciCheck, an extension of CAFE specifically tailored to scientific Knowledge Graphs. We show that SciCheck can be applied to AI-KG, a large scientific KG with over 14 million triples, yielding very satisfactory results and taking considerably less time than other existing approaches in the literature (P5).
 
 \section{Summary}\label{sec:moti-summary}
+Summary of section.
 % In this chapter, we have motivated the reason for this dissertation. We have analyzed the problems of completing Knowledge Graphs and the current proposals in the literature to carry out this task, and we have concluded that none of these proposals solves all of the presented problems at a time.

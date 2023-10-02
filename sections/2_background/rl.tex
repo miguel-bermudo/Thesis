@@ -1,13 +1,16 @@
-\chapter{Path-based approaches}\label{chap:paths}
+\chapter{Reinforcement Learning}\label{chap:reinforcement}
 
 \chapterQuote{
     \textit{``Caminante, no hay camino, se hace camino al andar.''}\\
     \textit{(``Traveler, there is no path, you make your path as you walk.'')}
     }{--- Antonio Machado}
 
-\chapterAbstract{P}{aths between entities are ubiquitous in any Knowledge Graph. For every entity pair, there are most likely a considerable number of distinct paths that connect them together. By analyzing these paths, many existing proposals are able to learn which pairs of entities should be linked together, and which ones have no direct connection whatsoever. Furthermore, paths can be used to navigate the neighborhood of an entity and extract information from it. In this chapter, we summarize the existing proposals for Knowledge Graph completion that leverage path information. It follows this structure: Section~\ref{sec:path-intro} introduces the reader to the basic concepts, Section~\ref{sec:path-relational} presents the proposals that are centered around using only information derived from paths, Section~\ref{sec:path-neighborhood} introduces the methods that analyze entity neighborhoods, Section~\ref{sec:path-hybrid} provides an overview on the proposals that combine latent representations with path-based information and, finally, Section~\ref{sec:path-summary} concludes this chapter.}
+\chapterAbstract{A}{qui hablamos tanto del RL de base y su historia y como funciona hasta de como se plaica en los grafos de conocimiento y porque provee de un razonamiento intrinseco.
 
-\section{Introduction}\label{sec:path-intro}
+Mencionamos tambien metodologia de los diferentes algoritmos como PPO, SAC, reinforce vs Actor critic etc etc...}
+
+\section{Introduction}\label{sec:rl-intro}
+An explanation of how reinforcement learning works and where its usefull.
 % A relational path is a sequence of relations that connect two entities together in a Knowledge Graph. There can be many such paths between any two entities, and they can vary in length and complexity. Given that these paths can provide an interesting insight on how related two entities are, many researchers have developed methods to analyze them to learn what constitutes correct knowledge. 
 
 % Generally, these methods generate features that characterize the information contained in each path, and then train classifiers to predict the existence of missing relations based on these features. Due to the high number of possible paths that can exist between two entities, such methods usually use techniques like random walks to restrict the amount of paths that are analyzed, possibly constraining their effectiveness.
@@ -16,7 +19,9 @@
 
 % In this chapter, we present an overview on the methods that rely on these techniques to complete a Knowledge Graph. We first introduce the methods that rely purely on relational paths and their characterization. Next, we present the methods that analyze entity neighborhoods. Finally, we discuss more advanced methods that combine these approaches with techniques from the previous chapter.
 
-\section{Using relational paths}\label{sec:path-relational}
+\section{Algorithms}\label{sec:rl-algorithms}
+We categorize and evaluate the different algorithms and progress that has been made in the field of reinforcement learning 
+
 % A relational path is simply a concatenation of triples that connect an entity to some other entity through a number of relations. Naturally, any Knowledge Graph has an abundance of possible paths to, from, or between entities. The idea of analyzing such paths to learn what constitutes valid knowledge has led to many research works.
 
 % One of the first approaches that exploited relational paths in a Knowledge Graph was the Path Ranking Algorithm (PRA), proposed by \citet{lao2011}. PRA uses random walks to generate a set of paths between a given pair of entities in a depth-first manner. The generated paths are then transformed into a series of features that aim to characterize the information contained in it. These features are ultimately used to train a binary log-linear classifier, which learns whether a direct relationship should exist between two entities according to the paths that are already present between them. However, PRA is not without limitations. The number of possible paths between a pair of entity can be very high, limiting its scalability. Additionally, the randomly guided paths that it uses may miss information just by mere chance.
@@ -31,28 +36,8 @@
 
 % A number of other authors have also researched alternative ways to select and learn from the best paths in a Knowledge Graph. \citet{jiang2017} proposed the APCM model, which assigns different weights to the found paths and combines them based on these weights. Furthermore, the PRCTA model introduced by \citet{lei2019} employs an attention mechanism \cite{vaswani2017} to construct and select the paths, which allows it to work satisfactorily in more sparse KGs.
 
-% \section{Using entity neighborhoods}\label{sec:path-neighborhood}
-% Considering the possible paths between two entities is undoubtedly helpful, but this concept can be expanded further. Rather than a single path, we can consider the entirety of the region of a Knowledge Graph around a certain entity, in other words, its neighborhood. The concept of entity neighborhood is visually shown in Figure~\ref{fig:path-neighborhood}, which depicts the closest and more extended neighborhoods of an entity shown in the center.
-
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.7\textwidth]{fig/paths/neighborhoods-b.png}
-%     \caption{A visual representation of entity neighborhoods}
-%     \label{fig:path-neighborhood}
-% \end{figure}
-
-
-% Given a pair of entities, their neighborhoods can be analyzed to determine if a relation should be present between them. This idea has been put to practice by a number of authors.
-
-% \citet{bansal2019a2n} proposed the A2N method, which aggregates the entities in a neighborhood together to obtain a more compact representation of said neighborhood. It uses an attention-based mechanism to focus on the most prominent entities, giving a trustworthy representation of the entities surrounding another one. Additionally, it is designed such that the computational cost of the method does not increase greatly with the size of the neighborhoods.
-
-% The use of attention-based mechanisms in this regard has not gone unnoticed by other authors. \citet{wang2019} have proposed LAN, another approach that aggregates the contents of an entity neighborhood together, however, the attention-based technique that they propose uses weights to give more importance to more relevant entities. \citet{kong2019} also proposes using attention to filter out possibly irrelevant relations in the graph, allowing the models to focus only on more meaningful information, which is especially relevant in the case of heterogeneous Knowledge Graphs. Similarly, \citet{nathani2019} introduced the KBAT method, which is able to capture information from both the entities and the relations in a KG neighborhood. 
-
-% \citet{zhang2020} further the previous idea by adding a weighted attention system to both entities and relations, acknowledging that not all knowledge in the KG is equally useful. Two different attention-based mechanisms are used in their proposal. First, the relation-level attention provides an intuition for which connections from an entity may provide more useful information. Then, the reached entities are considered according to their entity-level attention. This composite, hierarchical attention mechanism allows it to outperform other attention-based proposals.
-
-% \citet{ferre2019} proposes finding missing information by finding similar entities in commonly occurring graph patterns, through the application of concepts of nearest neighbors \cite{denoeux1995}. It does not require any sort of pre-processing of the Knowledge Graph, making it very efficient. Furthermore, its reliance on graph patterns makes it a more interpretable method than other similar proposals.
-
-\section{Hybrid approaches}\label{sec:path-hybrid}
+\section{RL in KGs}\label{sec:rl-RLinKGs}
+an overview of all approaches that appeared in the field. tables and all.
 % The previous chapter introduced the main ideas behind how embeddings and neural networks can be applied to Knowledge Graph completion. Some authors have proposed a series of approaches that combine path-based information with these techniques, in order to guide the path finding process towards the most significant path, avoiding having to explore a very large number of them.
 
 % An example of this is the PATH-RNN technique, which was proposed by \citet{neelakantan2015}. In addition to using path-based information, PATH-RNN uses the embedded representations of the relations in a path to further characterize it. It uses a recursive neural network (RNN) to combine these embeddings together, resulting in a single embedding that contains information about the entire path. For this reason, it can operate using paths of any length. Additionally, due to the fact that it operates on the embedded representations of the relations, which in turn capture semantic meanings, it can in theory predict relations that were not present in the KG at the time of training the model. Figure~\ref{fig:path-rnn} graphically illustrates this idea.
@@ -94,6 +79,31 @@
 % Additionally, a number of improvements have been made to the baseline translational models to help them leverage path information in several ways. For instance, \citet{lin2015} have proposed PTransE, an extension of TransE that uses path information in its confidence function. Its goal is to give a higher confidence score to those entities that are well-connected together by means of paths that are semantically similar to the relation in the triple that is being evaluated.
 
 % \citet{garcia-duran2015b} proposed RTransE, which represents paths as a series of translations in the embedded space defined by the TransE model. For efficiency reasons, RTransE is limited to using only paths that contain two relations. Likewise, \citet{xiong2018b} introduced PTransD, an enhancement of TransD that performs subsequent translations to model paths. However, PTransD uses two embeddings to represent each entity, to perform operations in parallel.
+
+\section{Explainability?}\label{sec:rl<REPLACE THIS>}
+this needs some more classification I`m not sure how yet, maybe when I begin writing it...
+
+% Considering the possible paths between two entities is undoubtedly helpful, but this concept can be expanded further. Rather than a single path, we can consider the entirety of the region of a Knowledge Graph around a certain entity, in other words, its neighborhood. The concept of entity neighborhood is visually shown in Figure~\ref{fig:path-neighborhood}, which depicts the closest and more extended neighborhoods of an entity shown in the center.
+
+% \begin{figure}[!htp]
+%     \centering
+%     \includegraphics[width=.7\textwidth]{fig/paths/neighborhoods-b.png}
+%     \caption{A visual representation of entity neighborhoods}
+%     \label{fig:path-neighborhood}
+% \end{figure}
+
+
+% Given a pair of entities, their neighborhoods can be analyzed to determine if a relation should be present between them. This idea has been put to practice by a number of authors.
+
+% \citet{bansal2019a2n} proposed the A2N method, which aggregates the entities in a neighborhood together to obtain a more compact representation of said neighborhood. It uses an attention-based mechanism to focus on the most prominent entities, giving a trustworthy representation of the entities surrounding another one. Additionally, it is designed such that the computational cost of the method does not increase greatly with the size of the neighborhoods.
+
+% The use of attention-based mechanisms in this regard has not gone unnoticed by other authors. \citet{wang2019} have proposed LAN, another approach that aggregates the contents of an entity neighborhood together, however, the attention-based technique that they propose uses weights to give more importance to more relevant entities. \citet{kong2019} also proposes using attention to filter out possibly irrelevant relations in the graph, allowing the models to focus only on more meaningful information, which is especially relevant in the case of heterogeneous Knowledge Graphs. Similarly, \citet{nathani2019} introduced the KBAT method, which is able to capture information from both the entities and the relations in a KG neighborhood. 
+
+% \citet{zhang2020} further the previous idea by adding a weighted attention system to both entities and relations, acknowledging that not all knowledge in the KG is equally useful. Two different attention-based mechanisms are used in their proposal. First, the relation-level attention provides an intuition for which connections from an entity may provide more useful information. Then, the reached entities are considered according to their entity-level attention. This composite, hierarchical attention mechanism allows it to outperform other attention-based proposals.
+
+% \citet{ferre2019} proposes finding missing information by finding similar entities in commonly occurring graph patterns, through the application of concepts of nearest neighbors \cite{denoeux1995}. It does not require any sort of pre-processing of the Knowledge Graph, making it very efficient. Furthermore, its reliance on graph patterns makes it a more interpretable method than other similar proposals.
+
+
 
 \section{Summary}\label{sec:path-summary}
 The contents of this chapter have provided an overview of the methods to perform Knowledge Graph completion that use relational paths. We have first listed the most prominent scientific proposals that extract paths from a KG and characterize them using features, to learn which paths can be predictive of correct knowledge. Afterwards, we have centered on the proposals that use entity neighborhood information in a number of ways. Finally, we have introduced the approaches that merge together path-based information with latent entity representations, entity and relation embeddings, and neural networks.

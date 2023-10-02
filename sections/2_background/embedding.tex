@@ -2,9 +2,17 @@
 
 \chapterQuote{\textit{``All problems in computer science can be solved by another level of indirection, except for the problem of too many layers of indirection.''}}{--- David Wheeler}
 
-\chapterAbstract{A}{ latent representation of a triple is one that exposes previously hidden knowledge, such as semantic similarity to some other triple. Obtaining such a representation is a popular way to perform Knowledge Graph completion, and it can be achieved in a number of ways. In this chapter we introduce the most prominent KG completion methods in the scientific literature that rely on latent representations. This chapter is structured in the following manner: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-tensors} presents the methods that perform  tensor factorization, Section~\ref{sec:emb-translations} introduces the models that are centered around embedded translations, Section~\ref{sec:emb-nn} discusses the number of ways in which neural networks can be used in this regard; finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.}
+I dont like the name of this chapter, but I assume it was changed from Embeddings as to make it easier to non expert readers?
+
+\chapterAbstract{E}{sta seccion habla de embeddings y como funcionan.
+La que acabe estando en la version final de la tesis debe de ser bastante similar a la presentada x agu ya que el mundo de los embeddings no se ha movido mucho y se usan para practicamente lo mismo en ambas propuestas.}
+
+Quizas moveria las prpuestas a una misma categoria mas general y pondria una tabla explicando los progesos de cada una de las ramas y luego entraria en detalles sobre las mas novedosas que hay ( y sobretodo en las que se han usado en el trabajo...)
+% latent representation of a triple is one that exposes previously hidden knowledge, such as semantic similarity to some other triple. Obtaining such a representation is a popular way to perform Knowledge Graph completion, and it can be achieved in a number of ways. In this chapter we introduce the most prominent KG completion methods in the scientific literature that rely on latent representations. This chapter is structured in the following manner: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-tensors} presents the methods that perform  tensor factorization, Section~\ref{sec:emb-translations} introduces the models that are centered around embedded translations, Section~\ref{sec:emb-nn} discusses the number of ways in which neural networks can be used in this regard; finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
 
 \section{Introduction}\label{sec:emb-intro}
+que son y porque se usan en los grafos de conocimiento.
+
 % A popular approach to Knowledge Graph completion consists on changing the representation medium of entities and relations entirely: instead of elements with a semantic meaning in a graph structure, they are represented in a numerical way. This then allows for the application of numerical methods to find missing entities, or missing connection between the existing entities. This is known as a latent representation.
 
 % One such way is by using tensors, a mathematical structure that can hold data in any number of dimensions. Consequently, through a series of transformations, the original tensor representing the Knowledge Graph is turned into another that materializes some knowledge that was not previously readily available.
@@ -12,6 +20,8 @@
 % Another popular latent representation is by creating an N-dimensional space and determining a position in it for every entity in a KG. An entity can then be referred to as the N-dimensional vector that represents its position. Such a space is known as an embedded space, and the position vectors are known as entity embeddings. In the embedded space, the plausibility of any given relation can be checked by performing a series of translations in it and evaluating the result, or by finding more complex relations between the entity embeddings thanks to the use of neural networks.
 
 \section{Tensor factorization models}\label{sec:emb-tensors}
+Rescal, SimplE, ComplEx etc etc...
+
 % Tensors are a generalization of scalar numbers, vectors, matrices, and so on. Broadly, a tensor of order $N$ represents an $N$-dimensional collection of elements, where $N$ indices are necessary to address the position of an element. Any given Knowledge Graph can be represented using a third-order tensor of size $|E| \times |E| \times |R|$, namely $X = \{0, 1\}^{|E| \times |E| \times |R|}$, where $E$ is the set of entities in the KG, and $R$ is the set of possible relations in it. Using this representation, every element of the tensor is a binary number $\{0, 1\}$ denoting whether or not a given relation exists between a pair of entities. This concept is visually represented in Figure~\ref{fig:emb-kg2tensor}.
 
 % \begin{figure}[!htp]
@@ -57,6 +67,9 @@
 
 
 \section{Translational models}\label{sec:emb-translations}
+
+TransE, TransR y un muy larguisimo etc...
+
 % A separate group of models represent entities as vectors in an N-dimensional space, called embeddings, and relations as translations in that space. From this starting point, their main goal is to define the transformations from entities to vectors and the translations in such a way that, for every triple $(s, r, t)$ in the KG, applying the translation defined by $r$ to the entity $s$ should result in a vector as close as possible to that of $t$. These models can then be used to provide a confidence value for the correctness of any triple, by evaluating to what extent this concept holds true.
 
 % \citet{bordes2013} started this line of work with the TransE model. TransE defines a single N-dimensional space to which all entities in a KG are mapped, and in which every relation turns into a translation vector. Thus, it aims to generate this space in such a way that, for any given triple $(s, r, t)$, $v_s + v_r \approx v_t$, where $v_s, v_t$ are the vectors representing the $s$ and $t$ entities respectively, and $v_r$ represents the translation carried out by the relation $r$. The main intuition behind TransE is visually depicted in Figure~\ref{fig:emb-transE} for a simple 2D space.
@@ -95,6 +108,8 @@
 % Perhaps facing the prospect of running out of letters in the English alphabet to continue with the previous naming scheme, \citet{sun2019} proposed the RotatE model, which defines an embedded space that uses complex numbers. Contrary to the previous models, where a translation is defined as a straight movement through the space, RotatE defines each relation as a rotation on the whole embedded space.
 
 \section{Neural network-based models}\label{sec:emb-nn}
+Como se aplican los embeddings a KG reasoning/completion. 
+
 % In parallel to the development of research centered around Knowledge Graphs, the fields of neural networks (NNs) and deep neural networks (DNNs) have also seen significant improvements in the last decade \cite{vaswani2017, brown2020, rombach2022}.
 
 % Consequently, a number of NN and DNN architectures have been applied to the problem of completing a Knowledge Graph, by virtue of transforming a triple into a representation that can be consumed by these models, and training them so that they can learn what constitutes correct knowledge. Contrary to the previously discussed translation-based models, NN models apply non-linear transformations to the data they are provided. This can result in an increased ability to deal with more complex data, however, it also makes their reasoning harder to understand.
@@ -116,4 +131,6 @@
 % In this regard, \citet{schlichtkrull2018} proposed R-GCN, a type of GNN that leverages graph neighborhoods in order to complete them. \citet{shang2019} have proposed SACN, an encoder-decoder method based on this type of NN. For encoding, SACN uses a composition of multiple weighted GNNs that is able to leverage information from the structure of a Knowledge Graph and the attributes contained in its entities. The decoder uses a modified version of the previously mentioned ConvE model. The addition of GNNs allows it to outperform the original ConvE method.
 
 \section{Summary}\label{sec:emb-summary}
-In this chapter, we have presented an overview of the existing methods for Knowledge Graph completion in the literature that rely on latent triple representations. We have introduced and described the models that use tensors to model a KG, and then factorize those tensors to obtain a predictive model. We have also presented the models that embed entities in a higher-order space and perform translations on them to find missing knowledge. Finally, we have enumerated the methods that use neural networks to perform Knowledge Graph completion, and we have presented the neural network architectures that are commonly used for this task.
+% In this chapter, we have presented an overview of the existing methods for Knowledge Graph completion in the literature that rely on latent triple representations. We have introduced and described the models that use tensors to model a KG, and then factorize those tensors to obtain a predictive model. We have also presented the models that embed entities in a higher-order space and perform translations on them to find missing knowledge. Finally, we have enumerated the methods that use neural networks to perform Knowledge Graph completion, and we have presented the neural network architectures that are commonly used for this task.
+
+brief summary of all the facts presented.
