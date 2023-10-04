@@ -1,0 +1,38 @@
+\begin{algorithm}[!h]
+    \label{alg:embeddings}
+    \caption{Embedding-based reward calculation}
+    \KwIn{\\
+    \texttt{// Previous location values.}\\
+    $PrevDot$, $PrevEucDist$, $PrevCosSim$:\textless Float\textgreater\\
+    \texttt{// Embedding of the current node}\\
+    $e_t$: List\textless Float\textgreater\\
+    \texttt{// Embedding of the goal node}\\
+    $e_a$: List\textless Float\textgreater\\
+    }
+    \KwOut{$reward$: Float}
+    
+    $dot \gets e_t \cdot e_a$ // ``·'' is the dot product operator. \\ 
+    $euc\_dist \gets norm(e_t - e_a)$\\
+    $cos\_sim \gets dot ~/~ (norm(e_t) \times norm(e_a))$\\
+    $reward \gets 0.0$\\
+    
+    \uIf{$PrevDot > dot$}{
+        $reward \mathrel{+}= \frac{1}{3}$
+    }\ElseIf{$PrevDot = dot$}{
+       $reward \mathrel{+}= \frac{1}{6}$
+    }
+    
+    \uIf{$PrevEucDist > euc\_dist$}{
+        $reward \mathrel{+}= \frac{1}{3}$
+    }\ElseIf{$PrevEucDist = euc\_dist$}{
+        $reward \mathrel{+}= \frac{1}{6}$
+    }
+    
+    \uIf{$PrevCosSim > cos\_sim$}{
+        $reward \mathrel{+}= \frac{1}{3}$
+    }\ElseIf{$PrevCosSim = cos\_sim$}{
+        $reward \mathrel{+}= \frac{1}{6}$
+    }
+    
+    \Return $reward$
+\end{algorithm}
