@@ -1,11 +1,11 @@
 \chapter{SpaceRL: Our Knowledge graph reasoning proposal.}\label{chap:SpaceRL}
 
-\chapterQuote{\hfill\textit{``Coffee, the finest organic suspension ever devised.''}}{--- Star Trek: Voyager}
+\chapterQuote{\hfill\textit{``Reason has always existed, but not always in a reasonable form.''}}{--- Karl Marx}
 
-\chapterAbstract{S}{oomething something, cool RL words.}
+\chapterAbstract{H}{ere we speak about the main proposal for KG reasoning.}
 % hen a set of candidate triples has been obtained, the next step in Knowledge Graph completion is to classify every triple in said set to determine if it represents correct knowledge or not and, if found to be correct, added back to the KG in order to enrich it. In this chapter we introduce CAFE, our proposal for candidate triple classification. This chapter is structured as follows: Section~\ref{sec:cafe-intro} introduces it, Section~\ref{sec:cafe-proposal} presents the neighborhood-aware features that CAFE uses to discern between correct and incorrect triples, as well as the process it follows to do so, Section~\ref{sec:cafe-architecture} discusses its internal architecture and the design choices behind it, Section~\ref{sec:cafe-evaluation} shows the experiments that we carried out to assess the effectivity of CAFE, as well as their results; Section~\ref{sec:cafe-limitations} discusses its practical limitations; finally, Section~\ref{sec:cafe-summary} summarizes the chapter.
 
-\section{Introduction}\label{sec:cafe-intro}
+\section{Introduction}\label{sec:spacerl-intro}
 % This chapter presents CAFE~\cite{borrego2021}, our proposal for triple classification. CAFE covers the second main step in Knowledge Graph completion: once an adequately small set of candidate triples has been obtained, every triple in it must be carefully evaluated to determine whether or not it represents correct knowledge and, if so, added to the KG to enrich and expand it.
 
 % CAFE works by transforming any possible triple into a numerical vector by using a novel set of neighborhood-aware features, which measure the correctness of a triple leveraging its context in a Knowledge Graph. By transforming all triples into vectors in this manner, CAFE trains and uses a binary classifier to discern between correct and incorrect triples.
@@ -15,12 +15,17 @@
 % Over the course of this chapter, we continue to follow the running example introduced in Section~\ref{sec:theo-intro}.
 
 
-\section{Our proposal}\label{sec:cafe-proposal}
+\section{Our proposal}\label{sec:spacerl-proposal}
+mini resumen de lo que ofrece.
 % As previously described, the second major step when completing a Knowledge Graph consists of analyzing the set of possible candidate triples, assessing which ones represent correct knowledge, and adding them back to the KG in order to augment it. In this step, it is important to achieve a high precision, in order to have a Knowledge Graph completion process that is as trustworthy as possible~\cite{shen2022overview}.
 
 % To carry out this process, we have devised CAFE, a technique that classifies candidate triples into correct or incorrect ones. Given a Knowledge Graph and a set of candidate triples, CAFE evaluates each one of them and assigns them a binary label, denoting whether it should be considered correct and added to the Knowledge Graph, or incorrect and discarded. CAFE does this by defining a set of neighborhood-aware features, which checks for shared neighborhoods at several distance levels and under certain conditions, under the assumption that the entities in correct triples usually have a higher degree of overlap in their neighborhoods. Then, using these features, each candidate triple is converted into a numerical vector. Finally, CAFE trains a number of neural classification models using these vectors to learn to separate correct triples from incorrect ones. In the following subsections, we describe the features and architecture of CAFE in detail.
 
-\subsection{Neighborhood-aware features}\label{sec:cafe-features}
+\subsection{Reinforcement Learning implementation}\label{sec:spacerl-rlimplementation}
+apartado del mismo nombre del paper del eswa
+
+hablamos de los algoritmos que utilizamos
+
 % We propose a set of neighborhood-aware features that takes neighborhood subgraphs, reachable entities and paths into account. Due to the large number of possible variations of each feature, we present our feature set in terms of groups of features. Each group can be parameterized to obtain a specific feature, which we call an instance of the feature group.
 
 % For the sake of example, we illustrate a possible instance of every feature group and its value using the example triple $example = $\tripleSty{(Daniel Radcliffe, plays, Harry Potter)}, and the KG shown in Figure~\ref{fig:kg-potter}.
@@ -118,7 +123,8 @@
 
 % Finally, feature group $f_{12}$ allows CAFE to find the number of paths that exist between two entities for any given relations. It is our intuition that correct triples have more alternative paths between the two entities they contain than false ones.
 
-\subsection{Workflow}
+\subsection{Reward structure}
+mencion a las posibles recompensas implementadas en la herramienta.
 % Our proposal, CAFE, receives a KG and a set of relations from that KG as input, and outputs a classification model for each of the provided relations. These models are able to determine if a given triple that represents an instance of the relation is correct and should belong to the KG. Its workflow is depicted in Figure~\ref{fig:workflow-cafe} and, in the following, we describe each of its steps.
 
 % \begin{figure}[htp]
@@ -150,7 +156,9 @@
 %     It is important to note that we use neural classification models because they have been shown to consistently achieve satisfactory results in many different classification tasks~\cite{aggarwal2012, yadav2019, ayala2020}, although other classification models that make use of our features could be used in this step.
 % \end{itemize}
 
-\section{Software Architecture}\label{sec:cafe-architecture}
+\section{Policy Network}\label{sec:spacerl-policy}
+aqui hablamos de la policy que hemos usado y porque consideramos que es buena practica las LSTM...
+
 % We show the internal class architecture of CAFE in Figure~\ref{fig:cafe-diagram}, and its data workflow is displayed in Figure~\ref{fig:cafe-flow}. We further describe and discuss the architecture of CAFE in the following.
 
 % \begin{figure}[!htp]
@@ -189,7 +197,7 @@
 
 % CAFE has two main dependencies with external libraries: NetworkX \cite{hagberg2008networkx}, which is used to internally store the KG and apply graph-based algorithms to compute the different features; and TensorFlow \cite{tensorflow2015}, which is used to create, train and apply the neural classification models.
 
-\subsection{Design and performance considerations}
+% \subsection{Design and performance considerations}
 % The architecture of CAFE shares some common patterns and design decisions with that of CHAI, described in the previous chapter. Most classes only need to be instantiated once throughout the execution of CAFE and, for this reason, we have decided to turn them into singletons for simplicity of use and to minimize the use of memory.
 
 % There are, nonetheless, a number of classes that clearly must allow multiple instances of them to exist, in order to represent variations of the same concept. A prime example of this is the Feature class: all features share the same interface, since they receive a triple and the KG that contains it and produces a numeric value. However, in order to accommodate all features defined in Section~\ref{sec:cafe-features}, each one of them exists as an instance of Feature.
@@ -200,7 +208,9 @@
 
 % Finally, it is important to note that all features defined by CAFE are deterministic, and will always return the same value for the same triple in a KG. Most features only analyze one of the entities in a triple at a time, and thus are re-computed very often for the same entity. For this reason, we have implemented a thread-shared caching strategy, in which the result of applying a feature to a triple is stored into a cache that is accessed by all threads. This allows CAFE to significantly reduce the number of calculations that must be performed when processing a KG.
 
-\section{Evaluation}\label{sec:cafe-evaluation}
+\section{Evaluation}\label{sec:spacerl-evaluation}
+estructura de evaluacion similar a la vista en otras tesises.
+se puede casi que calcar tal cual del paper del eswa y plantarlo aqui con unas modificaciones pequeñas.
 % In this section, we present the evaluation that we carried out to assess the performance and effectiveness of CAFE. First, we introduce the Knowledge Graphs on which CAFE was applied and an overview of their main characteristics. Next, we explain the methodology that we used to evaluate CAFE. Finally, we show and discuss the results of our evaluation.
 
 \subsection{Experimental data}
@@ -290,7 +300,8 @@
 
 % Regarding the question of how using different neighborhood sizes affects the effectiveness of CAFE, Figure~\ref{fig:cafe-boxes} shows that the metrics under evaluation are generally higher for CAFE$_2$ than for CAFE$_1$, but the same cannot always be said for CAFE$_3$ and CAFE$_2$. Indeed, metrics appear to remain stagnant or even decrease when using larger neighborhoods in some cases. For example, in FB13-A-10 (Figure \ref{fig:box-FB13-A-10}), we do not observe a significant increase in effectiveness when using larger neighborhood subgraphs, which suggests that the most useful information is readily available in the immediate vicinities of the relevant entities. In the cases of WN11-AR-10 (Figure \ref{fig:box-WN11-AR-10}) and WN18-AR-10 (Figure \ref{fig:box-WN18-AR-10}), an improvement is observed when using neighborhoods of size 2, but further expanding the neighborhood size does not seem to have a significant impact. A possible conclusion for this is that, at a certain point, larger neighborhood subgraphs do not provide additional value or predictive power over smaller ones. In a worst-case scenario, the number of features with little to no predictive power would greatly increase by using larger neighborhood sizes, negatively affecting the results. This effect actually occurs in the case of the NELL-AR-10 KG (Figure \ref{fig:box-NELL-AR-10}), where effectiveness decreases when increasing the size of the neighborhood subgraphs for which we compute features. A plausible explanation for this is that it has been noted that NELL contains noisier data~\cite{paulheim2014}, and thus taking larger neighborhoods into account significantly increases the amount of noise that our classification model has to deal with, reducing its effectiveness.
 
-\section{Limitations}\label{sec:cafe-limitations}
+\section{Limitations}\label{sec:spacerl-limitations}
+el apartado de conclusions y future work tiene mucho de lo que podemos poner aqui tambien.
 % Despite our triple classification proposal being generally effective, it has some limitations. It does not work well for relations for which useful predictive information cannot always be found in the neighborhoods of the entities in a triple. In this regard, we identify two types of relations: those that can be predicted using other information present in the KG, and those for which the entities and relations in their neighborhoods do not provide useful information, and thus are much harder to predict. This dichotomy can be observed in the results shown in Table \ref{fig:cafe-table-results}, and it is especially notable in the WN11-AR-10 KG. For the sake of visualization, we display the results of applying CAFE to this Knowledge Graph in Figure~\ref{fig:cafe-wn11-bars}.
 
 % This difference is particularly visible in the \textit{Similar to} and \textit{Domain topic} relations, which have low F1 scores. Upon manual inspection, we found that \textit{Similar to} tends to link words that are generally isolated within the KG and share very little common context. Also, \textit{Domain topic} is extremely broad, causing the two entities in a triple to have few or no relevant common elements in their neighborhoods, e.g., (\textit{Britain}, \textit{Domain topic}, \textit{Surgery}).
@@ -298,4 +309,5 @@
 % In other cases, even if some information is present in the neighborhoods under consideration, it may be not successfully captured by CAFE due to the large amount of irrelevant data surrounding it. In this regard, the NELL-AR-10 KG shows that larger neighborhood sizes are not always better for predictive purposes, since the amount of noise they may include can be detrimental for the performance of CAFE. This can be due to some source or target entities being present in many triples (for example, countries). Therefore, larger neighborhoods of these entities introduce many other entities that are not relevant to the triple under evaluation. In these cases, it is up to the users to decide which maximum neighborhood size best caters to their interests.
 
 \section{Summary}\label{sec:cafe-summary}
-In this chapter we have introduced CAFE, our proposal to classify candidate triples for Knowledge Graph completion. CAFE defines a set of neighborhood-aware features which evaluate several aspects of a triple, by checking for shared neighborhoods at several distances with other triples in a KG, and then combines the values of all features into a feature vector. Once all candidate triples have been transformed into feature vectors, CAFE trains and applies a neural binary classifier to discern between correct and incorrect triples, and provides the user with a set of correct candidate triples to add back to the KG. Our experimental evaluation shows that CAFE is very effective, outperforming other state-of-the-art approaches in a number of well-known Knowledge Graphs of different sizes and domains.
+
+% In this chapter we have introduced CAFE, our proposal to classify candidate triples for Knowledge Graph completion. CAFE defines a set of neighborhood-aware features which evaluate several aspects of a triple, by checking for shared neighborhoods at several distances with other triples in a KG, and then combines the values of all features into a feature vector. Once all candidate triples have been transformed into feature vectors, CAFE trains and applies a neural binary classifier to discern between correct and incorrect triples, and provides the user with a set of correct candidate triples to add back to the KG. Our experimental evaluation shows that CAFE is very effective, outperforming other state-of-the-art approaches in a number of well-known Knowledge Graphs of different sizes and domains.

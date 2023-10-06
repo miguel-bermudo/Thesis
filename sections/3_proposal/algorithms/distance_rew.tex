@@ -1,0 +1,21 @@
+\begin{algorithm}[!h]
+    \label{alg:distance}
+    \caption{Distance reward calculation}
+    \KwIn{\\
+    \texttt{// Current distance to goal node}\\
+    $d_t$: Integer\\
+    \texttt{// Previous distance to goal node}\\
+    $d^{-1t}$: Integer\\
+    }
+    \KwOut{$reward$: Float}
+    
+    $reward \gets 0.0$
+    
+    \uIf{$d_t < d^{-1t}$}{
+        $reward \gets 1$
+    }\ElseIf{$d_t = d^{-1t}$}{
+        $reward \gets \frac{1}{3}$
+    }
+    
+    \Return $reward$
+\end{algorithm}

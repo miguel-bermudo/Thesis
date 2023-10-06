@@ -1,0 +1,54 @@
+\begin{algorithm}[!h]
+    \label{alg:tester}
+    \caption{Testing algorithm}
+    
+    \KwIn{\\
+    $env$: Environment \texttt{// environment instance}\\
+    $agent$: Agent \texttt{// pre-trained agent instance}\\
+    $config$: Map \texttt{//  configuration key-value map}\\
+    $episodes$: Integer \texttt{// total number of episodes}\\
+    }
+    \KwOut{\\
+    $paths$: List\textless path\textgreater \texttt{// map of found paths}\\
+    $hits$: Map\textless Int, Int \textgreater \texttt{// map of raw number of hits per N}\\
+    $mrr$: Float \texttt{// calculated MRR for agent}\\
+    }
+    
+    $hits \gets \{1:0$,  $3:0$,  $5:0$,  $10:0\}$\\
+    $paths \gets$ [ ] \\
+    $ranks \gets$ [ ] \\
+    \For{$1$ to $episodes$}{
+        $found\_target \gets False$\\
+        $local\_paths \gets $ [ ]\\
+        
+        \For{$1$ to $10$}{
+            $triple \gets env.reset()$\\
+            $path \gets $[$triple.head()$]\\
+            \For{$1$ to $config.path\_length$}{
+                $action \gets agent.select\_action()$\\
+                $env.step(action)$\\
+                $path.add(action)$\\
+            }
+        $local\_path.add(path, get\_path\_score(path))$\\
+        }
+        \texttt{// rank paths according to their score}\\
+        $local\_paths \gets sort\_paths\_by\_score(local\_paths)$\\
+        
+        % \texttt{// check for the target entity}\\
+        \For{$n, p \gets enumerate(local\_paths)$}{ 
+            \uIf{$path\_reached\_target(p)$}{
+                $hits \gets add\_to\_hits\_under\_value(hits, n)$\\
+                $found\_target \gets True$\\
+                $ranks.add(1/n)$ \\
+                $break$\\
+            }
+        }
+        \texttt{// if target found, add top path to return list}\\
+        \uIf{$found\_target$}{
+           $paths.add(p)$
+        }
+    }
+    
+    $mrr \gets ranks.sum()/episodes$ \\
+    \Return $paths, hits, mrr$
+\end{algorithm}
