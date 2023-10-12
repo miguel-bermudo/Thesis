@@ -10,16 +10,37 @@ Section~\ref{sec:intro-summary}, focuses on;
 Section~\ref{sec:intro-collabs}, showcases,
 Section~\ref{sec:intro-structure}, describes the structure of the rest of this book.}
 
-% This chapter introduces the reader to the necessary research context behind it, and it is structured as follows: 
-
 \section{Research context}\label{sec:intro-context}
-CONTEXTO DE LOS GRAFOS DE CONOCIMIENTO:
+% CONTEXTO DE LOS GRAFOS DE CONOCIMIENTO:
 
-MENCION DE GARTNER Y DEL INFORME DE SEGUIMIENTO
-EXPLICAR PORQUE LOS KGs SON UNA MANERA GENIAL DE ESTRUCTURAR INFORMACIÓN
+% MENCION DE GARTNER Y DEL INFORME DE SEGUIMIENTO
+% EXPLICAR PORQUE LOS KGs SON UNA MANERA GENIAL DE ESTRUCTURAR INFORMACIÓN
 
 
-% Today, more information is being generated, stored and published than ever before. Among the many means for storing information, Knowledge Graphs (KGs) have risen to popularity due to their ability to hold large amounts of structured knowledge, either about a specific domain or across a range of domains. In a KG, information is represented as triples, which are links between two entities through a certain relation. These links are what confers KGs their graph-like structure, and make them a very appealing option to hold complex, interconnected information in an efficient yet expressive way.
+% What are kgs,
+% Why are they good at storing info, 
+% How are they built,
+% Problems that arise from that,
+ 
+% KG completion and reasoning context.
+
+% Machine Learning
+% Reinforcement Learning as a solution,
+% how Rl applies KG reasoning techniques
+
+
+In recent years available information online has increased 60.000\%, from a modest 2 zettabytes ($10^{12}$ gigabytes) up to an estimate of 120 by the end of 2023. The sheer volume of information generated on a daily basis calls for A structured and networked storage solution made possible by Knowledge Graphs, which rise to popularity was all but inevitable. These knowledge bases hold information from multiple domains by using triples, a relation which links two entities together, either directionally or linearly. This gives them a graph like structure containing a web of facts with a high degree of connectivity, offering complex reasoned chains of information in an effective way.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=\textwidth]{fig/intro/Gartner_2023.png}
+    \caption{Gartner's 2023 hype chart for artificial intelligence.}
+    \label{fig:garter-chart}
+\end{figure}
+
+The Garter institution situates Knowledge Graphs in the middle of their life cycle (cf. Figure \ref{fig:garter-chart}) meaning they can still benefit from activer research and development and are still in their infancy in regards to their applications in different fields.
+
+
 
 % Knowledge Graphs can be constructed in a variety of ways, although the most popular ones generally work by automatically extracting information from non-structured \cite{dong2014,mitchell2018} or semi-structured \cite{glass2018, lehmann2015dbpedia} sources, processing them to add semantic meaning or disambiguate the meaning of some concepts \cite{neumaier2016, ayala2020tesis}, and then making them available online through a web interface, an API, or both \cite{borrego2022silence}, although private and commercial use is also common \cite{dong2014, singhal2012}.
 
@@ -68,11 +89,6 @@ To prove our thesis, we have devised SpaceRL, a XXX YYY program that does stuff.
 %     Regarding this contribution, the article that describes it \cite{borrego2022} was published in the IEEE Access journal.
 
 % \end{itemize}
-
-\section{Collaborations}\label{sec:intro-collabs}
-As no research visits occured during the Thesis period none shall be named here, maybe remove this section alltoghether then?
-
-% Two research visits were carried out, from September 3 to December 4, 2021; and from September 1 to December 1, 2022; to the research group of Dr. Francesco Osborne at the Knowledge Media Institute (KMI), which is a research institution within The Open University (United Kingdom). Dr. Osborne and his colleagues are experts in the creation, refinement, and exploitation of Knowledge Graphs \cite{dessi2020aikg, dessi2021assessment, dessi2021generating, dessi2022cskg, salatino2019, salatino2020, salatino2020CSO, peng2023, angioni2021}. During these stays, we applied our proposal to some of the scientific Knowledge Graphs they had created in order to complete them and find missing research knowledge, resulting in an improved version of our technique specifically tailored for scientific Knowledge Graphs, as well as in a more complete version of one of their scientific KGs. Additionally, we carried out some work to apply KG completion techniques to detect possible future research hypotheses, based on the scientific knowledge available today.
 
 \section{Structure of this dissertation}\label{sec:intro-structure}
 This dissertation is structured as follows:
