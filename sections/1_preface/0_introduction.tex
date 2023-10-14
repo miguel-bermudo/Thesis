@@ -11,15 +11,8 @@ Section~\ref{sec:intro-collabs}, showcases,
 Section~\ref{sec:intro-structure}, describes the structure of the rest of this book.}
 
 \section{Research context}\label{sec:intro-context}
-% CONTEXTO DE LOS GRAFOS DE CONOCIMIENTO:
-
-% MENCION DE GARTNER Y DEL INFORME DE SEGUIMIENTO
-% EXPLICAR PORQUE LOS KGs SON UNA MANERA GENIAL DE ESTRUCTURAR INFORMACIÓN
 
 
-% What are kgs,
-% Why are they good at storing info, 
-% How are they built,
 % Problems that arise from that,
  
 % KG completion and reasoning context.
@@ -29,7 +22,7 @@ Section~\ref{sec:intro-structure}, describes the structure of the rest of this b
 % how Rl applies KG reasoning techniques
 
 
-In recent years available information online has increased 60.000\%, from a modest 2 zettabytes ($10^{12}$ gigabytes) up to an estimate of 120 by the end of 2023. The sheer volume of information generated on a daily basis calls for A structured and networked storage solution made possible by Knowledge Graphs, which rise to popularity was all but inevitable. These knowledge bases hold information from multiple domains by using triples, a relation which links two entities together, either directionally or linearly. This gives them a graph like structure containing a web of facts with a high degree of connectivity, offering complex reasoned chains of information in an effective way.
+In recent years available information online has increased 60.000\%, from a modest 2 zettabytes ($10^{12}$ gigabytes) up to an estimate of 120 by the end of 2023\cite{}. The sheer volume of information generated on a daily basis calls for a structured and networked storage solution made possible by Knowledge Graphs, which rise to popularity was all but inevitable. These data structures hold information from multiple domains by using triples, two information nodes representing concepts connected by an edge representing a relationship between them, this relation can be either directional or linear. This form of representation gives them a graph-like structure containing a web of facts with a high degree of connectivity, offering complex reasoned chains of information in an effective way.
 
 \begin{figure}[!htp]
     \centering
@@ -38,11 +31,24 @@ In recent years available information online has increased 60.000\%, from a mode
     \label{fig:garter-chart}
 \end{figure}
 
-The Garter institution situates Knowledge Graphs in the middle of their life cycle (cf. Figure \ref{fig:garter-chart}) meaning they can still benefit from activer research and development and are still in their infancy in regards to their applications in different fields.
+The Garter institution situates Knowledge Graphs in the middle of their life cycle (cf. Figure \ref{fig:garter-chart}) meaning they can still benefit from active research and development and are still in their infancy in regards to their widespread applications in a multitude of fields. Some of the most notable fields and Knowledge Graphs corresponding to each of them are:
+\begin{itemize}
+    \item \textbf{Enciclopedic} KGs compile factual knowledge facts or events sourced from different domains, some examples are DBpedia\cite{auer2007dbpedia} which compiles the knowledge found in Wikipedia articles, Freebase\cite{bollacker2007freebase} which combines automatic processes from multiple sources as well as user contributions to wrangle up its data or YAGO\cite{suchanek2007yago} which adds a layer of complexity by adding temporal and geographical information to Wikipedia facts.
+    \item \textbf{Linguistic} KGs compile facts about language and add a layer of information in the form of ontologies or external features on top, the most notable of these is WordNet\cite{miller1995wordnet} which provides hyponym and synonym relationships between words of the English language.
+    \item \textbf{Enterprise} KGs support tech sector companies in their endeavors. The origin of Knowledge Graphs is found in this classification; the Google Knowledge Graph (GKG) \cite{steiner2012adding} boasting an impressive 800 billion facts on 8 billion entities. It compiles multi-domain information in order to rapidly respond to one of the many user queries made through their browser per day. 
+    % Some other notable examples are Facebook's propietary KG, which holds information about its userbase's connections and likes in order to suggest new friends or groups.
+\end{itemize}
+
+Knowledge Graph construction is generally an automatic task since the large volume of data they hold is put off the range of human processing without it being an exceptionally arduous process, however, there are some notable exceptions such as the high-quality datasets that were constructed through crowdfunding efforts, Freebase\cite{bollacker2007freebase} and Wikidata\cite{vrandevcic2014wikidata}, automatic KG construction typically relies on semi-structured\cite{lehmann2015dbpedia} information ranging from XML type documents and html tables to plain text articles with a well-organized title structure.
+Data Extraction from these sources has evolved over time from information extraction systems driven by designated rules or clustering \cite{yates2007textrunner, etzioni2004web}, to the current approaches such as, entity recognition\cite{huang2015bidirectional, ma2016end}, typing\cite{xu2018neural, ren2016label} and linking\cite{ganea2017deep, le2018improving} or relation extraction and curation\cite{zeng2015distant, zhou2016attention}. 
+
+These methods of automated construction allow for a massive volume of data to be processed, however, they present several limitations.
+First, the information they are built upon may be interpreted and linked erroneously or simply by being demonstrably wrong \cite{martinez2020information}, leading to incorrect facts being present in a KG. Second, Knowledge Graphs built from the same source might not be equal rendering them incompatible, they could represent the same facts with different nomenclature because they used a different schema to link that information \cite{choi2006survey}, meaning that joining Knowledge Graphs is never a trivial task.
+Finally KGs are generally missing information since....
+
+\todo{go into depth about kg completion here.}
 
 
-
-% Knowledge Graphs can be constructed in a variety of ways, although the most popular ones generally work by automatically extracting information from non-structured \cite{dong2014,mitchell2018} or semi-structured \cite{glass2018, lehmann2015dbpedia} sources, processing them to add semantic meaning or disambiguate the meaning of some concepts \cite{neumaier2016, ayala2020tesis}, and then making them available online through a web interface, an API, or both \cite{borrego2022silence}, although private and commercial use is also common \cite{dong2014, singhal2012}.
 
 % Those automated means of construction allow KGs to contain very large amounts of information, however, they introduce a number of issues. First, two Knowledge Graphs that are constructed separately are generally not mutually compatible, either because they represent the same concepts in different ways \cite{ren2022}, or just because they have a different language or modality \cite{javed2021,guo2021}. Second, the information they are built upon may be incorrectly interpreted or simply factually wrong \cite{paulheim2017}, leading to incorrect facts being present in a KG. Finally, fully automated KG construction methods are prone to missing information present in the original source \cite{bordes2014b}. Additionally, no single source of information, or combination of them, explicitly contains all pieces of information about a single domain. For these reasons, Knowledge Graphs are fundamentally incomplete. The process of finding facts missing from a KG and using them to complete it is a task known as Knowledge Graph completion, and it is the focus of this dissertation.
 
@@ -51,7 +57,7 @@ The Garter institution situates Knowledge Graphs in the middle of their life cyc
 % Regardless of how they are classified, most existing KG completion proposals have a very limited ability to actually generate new knowledge: they either rely on a set of candidate facts being provided to them for evaluation, or require a pre-made combination of one entity and one relation to be specified \cite{shen2022overview}. For this reason, although they may yield satisfactory metrics in a theoretical evaluation, they are of little practical use. A separate challenge in KG completion is to efficiently materialize a set of candidate triples of a reasonable size, that aims to minimize the amount of clearly incorrect triples it contains while retaining as many correct ones as possible. A much smaller body of work can be found in this regard \cite{shi18, zhang2019, omran2018}, even though it is a key step for completing a Knowledge Graph.
 
 \section{Research rationale}\label{sec:intro-rationale}
-In this section, we present the hypothesis that has motivated our research work in the context of Knowledge Graph reasoning, and state our thesis, which we prove in the rest of the dissertation.
+In this section, we present the hypothesis that has motivated our research work in the context of Knowledge Graph reasoning and state our thesis, which we prove in the rest of the dissertation.
 
 \subsection{Hypothesis}
 % Nowadays, there is an increasing interest of individuals, organizations and companies in using Knowledge Graphs to represent information about a certain domain and to exploit said KGs to provide services. In the present day, practical applications such as question answering \cite{singhal2012}, product recommendations \cite{zhang2021, palumbo2020}, data retrieval \cite{wise2020} and meta-research \cite{dessi2022cskg,angioni2021} already rely on Knowledge Graphs. However, these applications need the data present in KGs to be as complete as possible, which makes it necessary to expand them after their creation.
