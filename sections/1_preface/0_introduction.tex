@@ -12,16 +12,6 @@ Section~\ref{sec:intro-structure}, describes the structure of the rest of this b
 
 \section{Research context}\label{sec:intro-context}
 
-
-% Problems that arise from that,
- 
-% KG completion and reasoning context.
-
-% Machine Learning
-% Reinforcement Learning as a solution,
-% how Rl applies KG reasoning techniques
-
-
 In recent years available information online has increased 60.000\%, from a modest 2 zettabytes ($10^{12}$ gigabytes) up to an estimate of 120 by the end of 2023\cite{}. The sheer volume of information generated on a daily basis calls for a structured and networked storage solution made possible by Knowledge Graphs, which rise to popularity was all but inevitable. These data structures hold information from multiple domains by using triples, two information nodes representing concepts connected by an edge representing a relationship between them, this relation can be either directional or linear. This form of representation gives them a graph-like structure containing a web of facts with a high degree of connectivity, offering complex reasoned chains of information in an effective way.
 
 \begin{figure}[!htp]
@@ -43,18 +33,28 @@ Knowledge Graph construction is generally an automatic task since the large volu
 Data Extraction from these sources has evolved over time from information extraction systems driven by designated rules or clustering \cite{yates2007textrunner, etzioni2004web}, to the current approaches such as, entity recognition\cite{huang2015bidirectional, ma2016end}, typing\cite{xu2018neural, ren2016label} and linking\cite{ganea2017deep, le2018improving} or relation extraction and curation\cite{zeng2015distant, zhou2016attention}. 
 
 These methods of automated construction allow for a massive volume of data to be processed, however, they present several limitations.
-First, the information they are built upon may be interpreted and linked erroneously or simply by being demonstrably wrong \cite{martinez2020information}, leading to incorrect facts being present in a KG. Second, Knowledge Graphs built from the same source might not be equal rendering them incompatible, they could represent the same facts with different nomenclature because they used a different schema to link that information \cite{choi2006survey}, meaning that joining Knowledge Graphs is never a trivial task.
-Finally KGs are generally missing information since....
+First, the information they are built upon may be interpreted and linked erroneously or simply by being demonstrably wrong \cite{martinez2020information}, leading to incorrect facts being present in a KG. 
+Second, Knowledge Graphs built from the same source might not be equal rendering them incompatible, they could represent the same facts with different nomenclature because they used a different schema to link that information \cite{choi2006survey}, meaning that joining Knowledge Graphs is never a trivial task.
+Finally, Knowledge Graphs constructed in this manner will most likely be lacking information that was originally contained within the source material it used \cite{bordes2014constructing}. In addition, information sources generally do not include knowledge that the intended reader should already be aware of, in other words, no source will explicitly hold all information required for a single domain, therefore, Knowledge Graphs inherently lack triples that could otherwise exist in them.
+Some techniques aim to fill this information gap in automatically constructed Knowledge Graphs, known as KG completion, and their focus is on finding links between existing entities that are not present in the KG but should be. However, KG completion efforts have a limitation shared by multiple binary classifiers in the literature, they generally provide an answer to a query that can be accompanied by a degree of confidence in the form of a percentage. This lack of explainability of their answers is a limitation in KG completion that KG reasoning aims to complement by providing reasoned paths to accompany their responses. In this way, a provided answer can be human-friendly as well as serve the same purpose in regards to KG completion.
 
-\todo{go into depth about kg completion here.}
+Existing literature displays the multiple ways in which KG completion and reasoning have been tackled. Completion efforts can be separated into one of four existing categories\cite{shen2022comprehensive}, they are as follows.
+\textbf{Semantic matching models}, compute a scoring function by measuring the semantic similarities of entity or relation embeddings in latent embedding space, they do so by applying \textbf{Neural Network} or \textbf{Tensor Factorization} models. 
+NN models \cite{} present a challenging problem as they require the effective encoding of world knowledge using powerful models. However, research has shown that neural networks can capture the semantic features of entities and relations intelligently and model the semantic relationships between discrete entities, ultimately leading to more accurate embeddings of KGs.
+Tensors\cite{} and their decompositions are widely used in data mining and machine learning problems. their usefulness comes from the representation they offer as KG entities and triples can be represented as tensors, KG completion can be tackled as a binary tensor completion problem\cite{shen2022comprehensive}.
+\textbf{Translational models}\cite{} encode KG entities and relations as low-dimensional numerical vectors. a distance scoring function is then applied in the N-dimensional vectorial space reflecting the correctness of a proposed triple, then a ranking loss function is applied to learn the top translation relation between the entities in question.
+\textbf{Structural models}\cite{} The inherent rich information inside KGs plays an important role in capturing useful features of knowledge embeddings for KG completion. the common internal information inside KGs includes node attribute information\cite{}, entity-related information\cite{}, relation-related information\cite{}, neighborhood information\cite{}, and relational path information\cite{}. This dissertation's proposal expands on relational path reasoning combined with translational elements as part of the contribution.
 
+% this needs to be formalised, cited, completed and improved...
+Obtaining information from relational paths contained within a KG is usually performed by applying machine learning algorithms; path capture\cite{}, path classification, path augmentation or multi-hop KG reasoning, all but the latter have a problem, they use a path ranking NN as a binary classifier which causes feature explosion for large KGs. In our work we chose to develop a multi-hop reasoning approach for this reason and for explainability of the decisions taken.
+We also chose Reinforcement Learning to create intelligent agents tasked with solving this task. In practice this focuses on solving a stochastic gradient descent problem, that will be described in depth in future sections.
+The RL agents traverse through the graph nodes as states by using connected relations as the action space.
+Existing approaches that follow this methodology already exist, however, they generally apply rewards based in REINFORCE algorithm and blah blah blah...
 
+% Machine Learning
+% Reinforcement Learning as a solution,
+% how Rl applies KG reasoning techniques
 
-% Those automated means of construction allow KGs to contain very large amounts of information, however, they introduce a number of issues. First, two Knowledge Graphs that are constructed separately are generally not mutually compatible, either because they represent the same concepts in different ways \cite{ren2022}, or just because they have a different language or modality \cite{javed2021,guo2021}. Second, the information they are built upon may be incorrectly interpreted or simply factually wrong \cite{paulheim2017}, leading to incorrect facts being present in a KG. Finally, fully automated KG construction methods are prone to missing information present in the original source \cite{bordes2014b}. Additionally, no single source of information, or combination of them, explicitly contains all pieces of information about a single domain. For these reasons, Knowledge Graphs are fundamentally incomplete. The process of finding facts missing from a KG and using them to complete it is a task known as Knowledge Graph completion, and it is the focus of this dissertation.
-
-% In the literature, KG completion has been approached in a number of different ways, however, most existing proposals can be classified in one of three ways \cite{shen2022overview}. Some authors propose using logical rules to find missing facts, which analyze the existing information patterns in a Knowledge Graph to deduce rules that can then be used to generate further knowledge \cite{jiang2016, galarraga2015, galarraga2013, wang2015, richardson2006, kuzelka2019, yang2017, sadeghian2019, minervini2018, wei2015}. Other authors have proposed using a variety of embedded knowledge representations, which provide a more compact way to represent the information in a KG and can be leveraged to generate more knowledge \cite{nickel2011, jenatton2012, garcia-duran2015, yang2014, tay2017, trouillon2016, bordes2013, wang2014, lin2015, do2018}. A third line of techniques focuses on using information that can be found in the paths that exist between entities in a KG, and in the contexts of the entities themselves \cite{lao2011, gardner2015, gardner2013, nastase2019, gu2015, toutanova2016, jiang2017, lei2019, bansal2019a2n, wang2019}. In our proposal, we extend this third line of work.
-
-% Regardless of how they are classified, most existing KG completion proposals have a very limited ability to actually generate new knowledge: they either rely on a set of candidate facts being provided to them for evaluation, or require a pre-made combination of one entity and one relation to be specified \cite{shen2022overview}. For this reason, although they may yield satisfactory metrics in a theoretical evaluation, they are of little practical use. A separate challenge in KG completion is to efficiently materialize a set of candidate triples of a reasonable size, that aims to minimize the amount of clearly incorrect triples it contains while retaining as many correct ones as possible. A much smaller body of work can be found in this regard \cite{shi18, zhang2019, omran2018}, even though it is a key step for completing a Knowledge Graph.
 
 \section{Research rationale}\label{sec:intro-rationale}
 In this section, we present the hypothesis that has motivated our research work in the context of Knowledge Graph reasoning and state our thesis, which we prove in the rest of the dissertation.
@@ -79,7 +79,7 @@ In this section, we present the hypothesis that has motivated our research work 
 
 
 \section{Summary of contributions}\label{sec:intro-summary}
-To prove our thesis, we have devised SpaceRL, a XXX YYY program that does stuff.:
+To prove our thesis, we have devised SpaceRL %a XXX YYY program that does stuff.:
 
 % \begin{itemize}
 %     \item \textbf{CHAI}, a technique that is able to quickly filter out a large amount of candidate triples, leaving only the most promising ones. To do this, CHAI generates a number of rules that determine which triples have a higher chance of representing correct facts and deserve further evaluation, and which ones are most likely wrong and should be discarded immediately. Each of these rules is generated in an iterative manner, evaluating which continuation for it is the most promising. After a rule has been expanded, it is assessed again to determine whether it needs to be expanded further or not.\\
