@@ -6,14 +6,12 @@
 
 % espite Knowledge Graph completion being a very active research topic, the current proposals for carrying it out still have some drawbacks that hinder their applicability in practice, and which should be solved. Our goal in this chapter is to present the problems that arise in practice when completing Knowledge Graphs, and to motivate the need for a new proposal. This chapter is organized as follows: Section~\ref{sec:moti-intro} introduces it and provides the necessary background knowledge, Section~\ref{sec:moti-problems} presents the problems of KG completion in detail, Section~\ref{sec:moti-analysis} analyzes the current approaches and their main problems, Section~\ref{sec:moti-discussion} explains how none of the existing proposals solves all practical problems at a time, Section~\ref{sec:moti-proposal} introduces our contributions and compares them with the existing proposals in the literature; finally, Section~\ref{sec:moti-summary} summarizes the chapter.
 
-
-
 \section{Introduction}\label{sec:moti-intro}
 \begin{itemize}
     \item Increase in interest by companies like google amazon etc\dots
     \item they are good for organization of information
     \item they need to be as complete as possible
-    \item they need to be organized in such a way that the answers they provide have an explanation (explainability)
+    \item they need to be organized in such a way that they allow algorithms to obtain answers to queries in a way that they provide have an explanation (explainability)
 \end{itemize}
 % Nowadays, there is an increasing interest of individuals, organizations and
 % companies in Knowledge Graphs, in order to organize, store and publish their data. This, in turn, can support many practical applications in a variety of domains, such as commerce \cite{zhang2021, palumbo2020}, education \cite{chen2018, aliyu2020}, research \cite{wang2018, dessi2020aikg, dessi2022cskg}, or healthcare \cite{zhang2020b, gong2021, wise2020}, to cite a few.
@@ -25,9 +23,9 @@
 
 \section{Problems}\label{sec:moti-problems}
 \begin{itemize}
-    \item They require embeddings to work.
-    \item Only specific solutions exist for a particular approach (no general purpose)(no open source).
-    \item little to no reason of included information (low explainability)
+    \item the algorithm require embeddings to work.
+    \item Only specific solutions exist for a particular approach (no general purpose)(no open source).(hardcoded implementations of specific approaches) basado el dani
+    \item little to no justification of provided predictions/answers (low/no explainability)
     \item something something reinforcement learning?
 \end{itemize}
 % Completing Knowledge Graphs is not a trivial task and, if not performed correctly, it may reduce the quality of the knowledge contained in them. In this section, we present the problems that must be addressed by proposals that perform this task in order to be useful in practice. These problems are as follows:

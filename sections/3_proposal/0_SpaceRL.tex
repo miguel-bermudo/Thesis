@@ -3,315 +3,514 @@
 \chapterQuote{\hfill\textit{``Reason has always existed, but not always in a reasonable form.''}}{--- Karl Marx}
 
 \chapterAbstract{H}{ere we speak about the main proposal for KG reasoning.}
+
 % When a set of candidate triples has been obtained, the next step in Knowledge Graph completion is to classify every triple in said set to determine if it represents correct knowledge or not and, if found to be correct, added back to the KG in order to enrich it. In this chapter we introduce CAFE, our proposal for candidate triple classification. This chapter is structured as follows: Section~\ref{sec:cafe-intro} introduces it, Section~\ref{sec:cafe-proposal} presents the neighborhood-aware features that CAFE uses to discern between correct and incorrect triples, as well as the process it follows to do so, Section~\ref{sec:cafe-architecture} discusses its internal architecture and the design choices behind it, Section~\ref{sec:cafe-evaluation} shows the experiments that we carried out to assess the effectivity of CAFE, as well as their results; Section~\ref{sec:cafe-limitations} discusses its practical limitations; finally, Section~\ref{sec:cafe-summary} summarizes the chapter.
 
 \section{Introduction}\label{sec:spacerl-intro}
-% This chapter presents CAFE~\cite{borrego2021}, our proposal for triple classification. CAFE covers the second main step in Knowledge Graph completion: once an adequately small set of candidate triples has been obtained, every triple in it must be carefully evaluated to determine whether or not it represents correct knowledge and, if so, added to the KG to enrich and expand it.
+This chapter introduces SpaceRL-KG our KG reasoning proposal using Reinforcement Learning with embedding-based rewards.
 
-% CAFE works by transforming any possible triple into a numerical vector by using a novel set of neighborhood-aware features, which measure the correctness of a triple leveraging its context in a Knowledge Graph. By transforming all triples into vectors in this manner, CAFE trains and uses a binary classifier to discern between correct and incorrect triples.
+\begin{figure}[htp]
+    \centering
+    \includesvg[inkscapelatex=false, width=\textwidth]{fig/SpaceRL-KG/Example_KG}
+    \caption{An example Knowledge Graph with possible new relations as dotted lines.}
+    \label{fig:kg-example}
+\end{figure}
 
-% We thoroughly evaluate CAFE using several well-known Knowledge Graphs, and our evaluation shows that it is able to achieve a high precision in challenging, real-world scenarios, thus allowing for a trustworthy KG completion process.
+To apply RL to Knowledge Graph Completion, we train a Reinforcement Learning agent that learns how to navigate through the graph and generate new reasoned paths that can be applied back as new triples.
 
-% Over the course of this chapter, we continue to follow the running example introduced in Section~\ref{sec:theo-intro}.
+Using the graph from Figure~\ref{fig:kg-example} as an example we will overview how the agent would infer the new knowledge (``Alexandra Grant'', ``speaks'', ``English'').
 
-This chapter introduces SpaceRL, our Reinforcement Learning based proposal for Knoledge Graph applications. SpaceRL
+The agent would start at the subject node (``Alexandra Grant'') and decide what edges should be traversed to reach the target node (``English''), these edges are represented as triples ($node_0$, $relation$, $node_1$) indicating directionality.
+In this case, the agent could deduce that Alexandra Grant speaks English by navigating through several paths, such as:
+
+\begin{center}
+(Alexandra Grant, ¬is\_partner, Keanu Reeves) $\rightarrow$ \\
+(Keanu Reeves, speaks, English) 
+\end{center}
+
+\begin{center}
+(Alexandra Grant, ¬is\_partner, Keanu Reeves) $\rightarrow$ \\
+(Keanu Reeves, lives\_in, Toronto) $\rightarrow$ \\
+(Toronto, official\_lang, English)
+\end{center}
+
+The relational paths are then registered as possible answers to the query (``Alexandra Grant'', ``speaks'', ``?'') where the sum of the relations of the path would equal the missing target relation ``speaks'', in this case, the relational paths are the following.
+
+\begin{center}
+    ($e_0$, ¬is\_partner, $e_1$, lives\_in, $e_2$, official\_lang, $e_q$) = ($e_0$, speaks, $e_q$)\\
+    ($e_0$, ¬is\_partner, $e_1$, speaks, $e_q$) = ($e_0$, speaks, $e_q$)
+\end{center}
+
+In this example it is confirmed by two separate paths that Alexandra Grant speaks English, the more this relation chain appears in the graph, the more trustworthy it becomes. These reasoned paths can be directly translated into new graph triples or presented to users for human-in-the-loop relation classification operations.
+
+The application of RL to KG reasoning tasks requires that the entities and edges of the graph be transformed into numerical vectors that can be provided to the agents as a representation of the state and its available actions at every step.
+
+SpaceRL-KG focuses on an improved set of rewards and the application of novel algorithms to these processes.
+The evaluation of our technique is performed by applying it to several widely accepted Knowledge Graphs and shows that our novel reward functions significantly improve performance when compared to more traditional ones, especially when node embeddings are used
+Throughout this chapter, we will expand on the running example in Section~\ref{sec:spacerl-intro}.
 
 \section{Formal Description}\label{sec:spacerl-formal_description}
-la descripción formulomatemática del problema.
+
+\todo{ se ha separado cada parte de la estructura formal del problema y solucion en los diferentes apartados y este se ha reservado tan solo para la descripcion formal del problema.}
+
+Knowledge graphs $\mathcal{K}$ are formally represented as a set of entities $\mathcal{E}$ and relations $ \mathcal{R}$ Where ($s, r, o$) denotes a triple in the graph, representing a fact that connects entity $s$ to $o$ via a relation $r$ formally described by equation \ref{eq:formalKG}. 
+
+\begin{equation}
+\label{eq:formalKG}
+\mathcal{K} = \{ (s, r, o) ~|~ s, o \in \mathcal{E}, r \in \mathcal{R} \}
+\end{equation}
+
+We assume that, due to its nature, \( \mathcal{K} \) is inherently incomplete concerning the information that we know to be true in the real world.
+
+In order to find missing edges in these Knowledge Graphs we perform a multi-hop approach where the input is a query represented by a source node and a relation $(e_0,r_q)$ and the output is a path of predetermined length $n$ that should reach the answer node of the missing edge, $e_a$. This path can be represented as:
+
+\begin{equation}
+\label{eq:formalPath}
+p_k(e_0,e_k) =  \Bigl\{ e_0 \xrightarrow[]{r_0} e_1 \xrightarrow[]{r_1} ... \xrightarrow[]{r_n} e_n \Bigl\}
+\end{equation}
+
+And it is considered to be correct if $e_n = e_a$, where $e_n$ is the node in step n, the last step in the path. We could then infer a new relation ($e_0\xrightarrow[]{r_q}e_n$).
+
 
 \section{Our proposal}\label{sec:spacerl-proposal}
-mini resumen de lo que ofrece.
-% As previously described, the second major step when completing a Knowledge Graph consists of analyzing the set of possible candidate triples, assessing which ones represent correct knowledge, and adding them back to the KG in order to augment it. In this step, it is important to achieve a high precision, in order to have a Knowledge Graph completion process that is as trustworthy as possible~\cite{shen2022overview}.
+As we have already seen in previous sections SpaceRL-KG focuses on acquiring reasoned knowledge in the form of paths in order to determine if a particular set of triples are missing on the KG.
+It does so by training intelligent agents by way of applying novel reward functions and algorithms in a Reinforcement Learning setup, where the Knowledge Graph acts as the environment and each node as the state.
 
-% To carry out this process, we have devised CAFE, a technique that classifies candidate triples into correct or incorrect ones. Given a Knowledge Graph and a set of candidate triples, CAFE evaluates each one of them and assigns them a binary label, denoting whether it should be considered correct and added to the Knowledge Graph, or incorrect and discarded. CAFE does this by defining a set of neighborhood-aware features, which checks for shared neighborhoods at several distance levels and under certain conditions, under the assumption that the entities in correct triples usually have a higher degree of overlap in their neighborhoods. Then, using these features, each candidate triple is converted into a numerical vector. Finally, CAFE trains a number of neural classification models using these vectors to learn to separate correct triples from incorrect ones. In the following subsections, we describe the features and architecture of CAFE in detail.
+To obtain these paths the graph nodes and relations must be encoded as numerical vectors representing their position in a N-dimensional space. 
+These numerical vectors are then combined in a way where they represent the current state, a possible action and the context of the episode. this information is then fed to a Neural Network which represents the agent policy, responsible for selecting the best-estimated action for every episode step.
+
+This is done by evaluating every possible action for every step of the path and then stochastically selecting one based on the policy scores provided, the agent is then rewarded based on several metrics and updated after every episode.
+
 
 \subsection{Reinforcement Learning implementation}\label{sec:spacerl-rlimplementation}
-apartado del mismo nombre del paper del eswa
 
-hablamos de los algoritmos que utilizamos
+Any application of Reinforcement Learning to knowledge graphs can be formalized as a Markov decision process, assuming that several conditions are met beforehand. By adding inverse edges to the graph, path connectivity is guaranteed: if the edge $(e_i,r,e_{i+1})$ exists in the graph, so does $(e_{i+1},\neg r,e_i)$, where $\neg r$ denotes the inverse relation to $r$. During the training of the model, we remove the edges that are used to create queries in order to simulate the absence of their direct answers and prevent the agent from taking the direct path to the target entity. Self-loop edges are also added beforehand; these represent the NO-OP action, which entails that an agent chooses to stay in the current node, which is desirable if the answer node is reached before advancing $n$ steps. This introduces a new edge $(e_i,r_{NO-OP},e_i)$ per entity. Staying in the current node might cause local minimum stagnation, which is undesired behavior and should be accounted for by the reward function.
 
-% We propose a set of neighborhood-aware features that takes neighborhood subgraphs, reachable entities and paths into account. Due to the large number of possible variations of each feature, we present our feature set in terms of groups of features. Each group can be parameterized to obtain a specific feature, which we call an instance of the feature group.
+We can define the following elements typical of a Markov process that, in turn, make up the agent and the environment:
 
-% For the sake of example, we illustrate a possible instance of every feature group and its value using the example triple $example = $\tripleSty{(Daniel Radcliffe, plays, Harry Potter)}, and the KG shown in Figure~\ref{fig:kg-potter}.
+\textbf{State:} The state $S_t$ at a certain step $t \in 0..n$ is defined as the combination of the query $(e_0, r_q)$, the destination node $e_n$ and the current location $e_t$. We can formally define the state as follows: $S_t \in \mathcal{S} ~\|~ S_t = (e_t, e_0, r_q, e_a)$ where $\mathcal{S}$ is the set of all possible states.
 
-% \featgroup{Number of entities in the neighborhood subgraph of size \texorpdfstring{$n$}{n} of the source entity in the triple.}
-% {n}
-% {|\Eset{}_s^n|}
-% {fig:kg-potter}
-% {2}
-% {$|\{$\textit{Daniel Radcliffe, Harry Potter and the Goblet of Fire (movie), Harry Potter and the Prisoner of Azkaban (movie), Harry Potter and the Goblet of Fire (book), Harry Potter and the Prisoner of Azkaban (book)}$\}| = 5$}
+\textbf{Observations:} The environment is not fully observed by the agent: in any given state $S_t$ the agent is only aware of its current location $e_t$ and the query $(e_0,r_q)$. Formally, $O_t \in \mathcal{O} ~\|~ O_t = (e_t, e_0, r_q)$ where $\mathcal{O}$ is the set of all possible agent observations.
 
+\textbf{Actions:} The set of all actions an agent can take in a given state $t$ depends on the current location, $e_t$. Since the location represents a node in the graph with one or more connected edges, these edges are the possible actions of the agent. Formally we describe the action space for a given location $e_t$ with 
 
-% \featgroup{Number of entities in the neighborhood subgraph of size \texorpdfstring{$n$}{n} of the target entity in the triple.}
-% {n}
-% {|\Eset{}_t^n|}
-% {fig:context-examples-b}
-% {3}
-% {$|\{$\textit{Harry Potter, J.K. Rowling, Harry Potter and the Goblet of Fire (book), Harry Potter and the Prisoner of Azkaban (book), Robin Ellacott, Hermione Granger}$\}| = 6$}
-
-% \featgroup{Degree of N-path centrality of the source entity in the triple.}
-% {n}
-% {\frac{|\Eset{}_s^n|}{|\Eset| - 1}}
-% {fig:context-examples-a}
-% {1}
-% {$|\{$\textit{Harry Potter and the Goblet of Fire (movie), Harry Potter and the Prisoner of Azkaban (movie)}$\}| / (13 - 1) = 2 / 12 \approx 0.17$}
-
-% \featgroup{Degree of N-path centrality of the target entity in the triple.}
-% {n}
-% {\frac{|\Eset{}_t^n|}{|\Eset| - 1}}
-% {fig:context-examples-b}
-% {1}
-% {$|\{$\textit{Harry Potter and the Goblet of Fire (book), Harry Potter and the Prisoner of Azkaban (book)}$\}| / (13 - 1) = 2 / 12 \approx 0.17$}
-
-% \featgroup{Number of common entities between the neighborhood subgraph of size \texorpdfstring{$n$}{n} of the source entity and the neighborhood subgraph of size \texorpdfstring{$m$}{m} of the target entity in the triple.}
-% {n, m}
-% {|\Eset{}_s^n \cap \Eset{}_t^m|}
-% {fig:context-examples}
-% {2, 3}
-% {$|\{$\textit{Harry Potter and the Goblet of Fire (book)}, \textit{Harry Potter and the Prisoner of Azkaban (book)}$\}| = 2$}
-
-% \featgroup{Jaccard index of similarity between the entities in the neighborhood subgraph of size \texorpdfstring{$n$}{n} of the source entity and the neighborhood subgraph of size \texorpdfstring{$m$}{m} of the target entity in the triple.}
-% {n, m}
-% {jaccard(\Eset{}_s^n, \Eset{}_t^m)}
-% {fig:context-examples}
-% {2, 3}
-% {$|\{$\textit{Harry Potter and the Goblet of Fire (book), Harry Potter and the Prisoner of Azkaban (book)}$\}|$~$/$~$|\{$\textit{Daniel Radcliffe, Harry Potter and the Goblet of Fire (movie), Harry Potter and the Prisoner of Azkaban (movie), Harry Potter and the Goblet of Fire (book), Harry Potter and the Prisoner of Azkaban (book), Harry Potter, J.K. Rowling, Robin Ellacott, Hermione Granger}$\}| = 2~/~9 = 0.22$}
-
-% \featgroup{Adamic-Adar index of closeness between the neighborhood subgraphs of size \texorpdfstring{$n$}{n} of the source and target entities in the triple.}
-% {n}
-% {\sum_{e \in \nearby{s}{n} \cap \nearby{t}{n}}{\frac{1}{log |\nearby{e}{n}|}}}
-% {fig:context-examples}
-% {2}
-% {$\frac{1}{log |\nearby{\textit{\footnotesize Harry Potter and the Goblet of Fire (book)}}{2}|} = \frac{1}{log |3|} \approx 2.09$}
-
-% \featgroup{Number of reachable entities through the relation \texorpdfstring{$r$}{r} at distance \texorpdfstring{$n$}{n} from the source entity in the triple.}
-% {r, n}
-% {|Reachable(s, r, n)|}
-% {fig:context-examples-a}
-% {\textit{hasPrequel}, 2}
-% {$|\{$\textit{Daniel Radcliffe, Harry Potter and the Prisoner of Azkaban (movie)}$\}| = 2$}
-
-% \featgroup{Number of reachable entities through the relation \texorpdfstring{$r$}{r} at distance \texorpdfstring{$n$}{n} from the target entity in the triple.}
-% {r, n}
-% {|Reachable(t, r, n)|}
-% {fig:context-examples-b}
-% {\textit{created}, 2}
-% {$|\{$\textit{Harry Potter,Hermione Granger, Robin Ellacott}$\}| = 3$}
-
-% \featgroup{Number of common reachable entities through the relation \texorpdfstring{$r$}{r} from the source entity at distance \texorpdfstring{$n$}{n} and from the target entity at distance \texorpdfstring{$m$}{m}.}
-% {r, n, m}
-% {\\|Reachable(s, r, n) \cap Reachable(t, r, m)|}
-% {fig:context-examples}
-% {\textit{created}, 2, 3}
-% {$|\{$\textit{Daniel Radcliffe}$\} \cap \{$\textit{Harry Potter, Hermione Granger, Robin Ellacott}$\}| = 0$}
-
-% \featgroup{Jaccard index of similarity between the reachable entities through the relation \texorpdfstring{$r$}{r} from the source entity at distance \texorpdfstring{$n$}{n}, and those reachable through the relation \texorpdfstring{$r$}{r} from the target entity at distance \texorpdfstring{$m$}{m}.}
-% {r, n, m}
-% {\\jaccard(Reachable(s, r, n), Reachable(t, r, m))}
-% {fig:context-examples}
-% {\textit{created}, 2, 3}
-% {$|\emptyset|$~$/$~$|\{$\textit{Harry Potter, Hermione Granger, Robin Ellacott}$\}| = 0~/~3 = 0$}
+\begin{equation}
+\label{eq:ActionSpace}
+\mathcal{A}_t  = \Bigl\{ (e_t,r_i,e_i)  \|  S_t = (e_t,e_0,r,e_a) , r_i \in   \mathcal{R}_i ,  e_i \in   \mathcal{E}_i  \Bigl\}
+\end{equation}
 
 
-% \featgroup{Number of distinct paths of length \texorpdfstring{$n$}~ between the source and the target entity in the triple, using  relations \texorpdfstring{$r_1, \ldots, r_n$}{r1, ..., rn}.}
-% {n, r\textsubscript{1}, \ldots, r\textsubscript{n}}
-% {|\kgpathP{s}{t}{r_1,\ldots, r_n}|}
-% {fig:kg-example}
-% {4, \textit{starred\_in, based\_on, writer, created}}
-% {$1$, as there is one path of length 4 between the entities \textit{Daniel Radcliffe} and \textit{Harry Potter} that matches the given relations}
+where $\mathcal{R}_i,\mathcal{E}_i$ denote the subset of relations and entities from the edges connected to $e_{t}$ respectively. In simpler terms the agent can select any of the outgoing edges, being aware of the node it reaches.
 
-% % Discussion of features
-% The rationale behind this set of features is manifold. Regarding $f_1$ and $f_2$, knowing the size of the neighborhood of an entity can be helpful to determine whether said neighborhood encompasses relevant information. For instance, our hypothesis is that very large neighborhoods tend to contain a higher amount of unrelated information. The same idea is leveraged in $f_3$ and $f_4$, which provide normalized indices of centrality with respect to the total amount of entities in the KG. Following the previous reasoning, we hypothesize that entities with large indices of centrality (i.e. highly connected to other entities) will yield less useful information. Meanwhile, feature groups $f_5$, $f_6$ and $f_7$ measure the degree of overlap that exists in the neighborhoods of the two entities, both in absolute and in relative terms, under the assumption that correct triples have a higher degree of overlap between the neighborhoods of their entities.
+\textbf{Transition:} The transition refers to how the environment evolves after the agent takes an action. In this case this happens in a deterministic manner as previously mentioned, updating the set of available actions to those of the new node that the agent reached through the selected action. The new state remains the same except for the location, which becomes the node reached by the chosen action. Formally, this is represented by a transition function involving the state and the action space such as $\mathcal{P}( \mathcal{S,A} ) = \mathcal{P}(e_t ,(e_0,r_q), \mathcal{A} _t))$, where $(e_0,r_q)$ denotes the query, $e_t$ the current location, and  $\mathcal{A}_t$ the action space for that location.
 
-% The previously discussed feature groups do not consider the specific relations involved. However, we deem it reasonable to assume that some relations may be more useful than others to determine whether a triple is correct, depending on their specific semantics. For example, having one or more children in common can be an indication of a marriage, while having the same nationality is not. In order to exploit this fine-grained information, feature groups $f_8$, $f_9$, $f_{10}$ and $f_{11}$ are similar to the previously discussed groups but restrict themselves to only one relation. These groups are computed for every relation in a KG.
+\textbf{Rewards:} For the computation of the reward, we have defined several components that can be toggled or applied with lesser or greater weights:
 
-% Finally, feature group $f_{12}$ allows CAFE to find the number of paths that exist between two entities for any given relations. It is our intuition that correct triples have more alternative paths between the two entities they contain than false ones.
+\begin{itemize}
+    \item \textbf{Terminal}: a binary \{1,0\} reward that is given to the agent whenever it is located in the answer node $e_a$. If triggered, this reward overrides all other reward components.
+    \item \textbf{Distance}: a reward component based on the distance to the answer node (length of the shortest path). Shorter distances lead to higher rewards.
+    \item \textbf{Embedding}: a reward component based on several properties of the embedding representation of nodes and relations, representing semantic similarity. Higher semantic similarity leads to higher rewards.
+    \item \textbf{Shaped}: a variant of the terminal reward function that replaces the 0 score associated with not reaching the target node with an embedding-based score computed from the starting node, the relation representing the question, and the reached node. Note that this reward does not compare the reached node with the target one, but uses traditional embedding-based score as a fallback function.
+    \item \textbf{NO-OP}: a negative reward that aims to discourage the use of the no-op action outside the answer node. This reward overrides all other reward components, and cannot be triggered in the same step as the terminal reward.
+\end{itemize}
 
-\subsection{Reward structure}
-mencion a las posibles recompensas implementadas en la herramienta.
-% Our proposal, CAFE, receives a KG and a set of relations from that KG as input, and outputs a classification model for each of the provided relations. These models are able to determine if a given triple that represents an instance of the relation is correct and should belong to the KG. Its workflow is depicted in Figure~\ref{fig:workflow-cafe} and, in the following, we describe each of its steps.
+Detailed information regarding the distance and embedding rewards can be found in Section
+% ~\ref{sec:rewards}
+ 
+Shaped reward were implemented as seen in approaches
+%  ~\cite{cui2023incorporating, lin2018multi}
+for comparison purposes; they use embeddings, however, they do so in a different manner, only using them as an anticipation or guiding factor and relying in terminal rewards.
 
-% \begin{figure}[htp]
-%     \centering
-%     \includegraphics[width=\textwidth]{fig/cafe/workflow}
-%     \caption{In-depth view of the CAFE workflow}
-%     \label{fig:workflow-cafe}
-% \end{figure}
+\begin{figure*}[!h]
+    \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{fig/SpaceRL-KG/Agent_Policy.eps}}
+    \caption{Policy architecture.}
+    \label{fig:policy}
+\end{figure*}
 
-% \begin{itemize}
-%     \item \textbf{Loading the Knowledge Graph:} CAFE internally stores the input KG in the form of \triple{} triples, using an efficient data structure based on hash tables, which is suitable for a high frequency of read operations due to its O(1) lookup times. The triples that contain relations for which a predictive model does not need to be generated are still taken into account when computing features, since they may provide valuable predictive information, but they are not transformed into feature vectors in the following steps.\\
-    
-%     \item \textbf{Generating negative examples:} A Knowledge Graph contains only positive information, i.e., it contains examples of the occurrence of a relation $r$ between two entities. However, it does not contain explicit information about pairs of entities for which $r$ does not hold. Our proposal relies on a classification model that requires negative examples for training, which means that a number of negatives for each positive triple must be produced. To accomplish this, we follow the type-constrained local closed world assumption \cite{bansal2020negatives}, i.e., we generate negative examples from every triple \triple{} present in a KG by replacing their target entity $t$ with a different one, $t'$, such that the resulting triple \negtriple{} does not exist in the KG. Furthermore, to preserve the range of each relation, we randomly choose $t'$ such that there exists some other triple in the KG where $t'$ appears as the target entity for the relation $r$. This is known as type constraint.\\
+\subsection{Policy Network}
+\label{sec:policy}
+The policy used to determine which action will be taken at each step is based on the neural network architecture described in Figure~\ref{fig:policy}. The network receives state information in the form of the query $(e_0,r_q)$, the current location node $e_t$ as well as the action which is being evaluated $(r_{t+1}, e_{t+1})$. These actions are all the possible relations connected to the current node $e_t$. It is necessary to evaluate each action individually since the number of edges connected to a node is variable.
 
-%     In the example depicted in Figure \ref{fig:kg-potter}, a valid negative example is \tripleSty{(Hermione Granger, appears\_in, The Cuckoo's Calling)}, since we know that \tripleSty{The Cuckoo's Calling} is a valid target for the relation \tripleSty{appears\_in}. However, \tripleSty{(Hermione Granger, appears\_in, Daniel Radcliffe)} would not be allowed as a negative example, because \tripleSty{Daniel Radcliffe} never appears as the target of the relation $appears\_in$.\\
-    
-%     It can be argued that generating negative evidence in this manner can produce false negatives by mere chance, i.e., statements that are deemed incorrect but that are true in the real world. While this is indeed plausible, it is generally accepted~\cite{ji2015, lin2015, socher2013} that the chances of this happening are very low and, as a consequence, the possible effects on the final results are not significant.\\
+For the neural network to receive this information, it is encoded using translation embedding representations for each of the entities and relations so that  $\textbf{r} \in \mathbb{R}$, $\textbf{e} \in \mathbb{E}$ where $\mathbb{R}$ and $\mathbb{E}$ are the vectorial spaces containing all possible representations in the graph. The chosen size for these embedded representations was $200$ as it is a common in literature for these set of knowledge graphs and embedding combinations, making the networks input size $1000$ units.
 
-%     \item \textbf{Converting triples into feature vectors:} Once negative examples have been generated, our feature set is instantiated and applied to all triples. For all feature groups, we obtain all possible feature instances by applying all possible combinations of the values of their parameters. Each feature instance assigns a real number to each triple. Therefore, applying several features to a triple results in a feature vector. Each position of the feature vector represents that real number that the corresponding feature assigned to the triple.\\
+The embedding vectors are concatenated and fed to the network as $[e_q,r_q,$ \\$e_t,r_{t+1},e_{t+1}]$. The input is passed on to a densely connected layer for pre-processing, whose output is connected to a multi-layered Long short-term memory (LSTM)
+% ~\cite{hochreiter1997Long}
+ block with 3 layers. The result is post-processed with 2 more dense layers that produce a numerical answer representing the quality of the selected action. The final output is produced by a sigmoid function(~\ref{eq:sigmoid}) that produces a [0,1] output that is adequate for an action evaluator.
 
-%     It is important to note that, to compute features on a positive training triple, we temporarily remove it from the KG, since not doing so would result in trivial prediction models such as ``a person plays a character if there exists a triple in the KG stating that the person plays that character''.\\\newpage
+\begin{equation}
+\label{eq:sigmoid}
+    \sigma(z) = \frac{1} {1 + e^{-z}}
+\end{equation}
 
-%     \item \textbf{Grouping feature vectors:} The previous step computes feature vectors of triples. Since these triples can be either positive or negative, the feature vectors are accordingly labeled as positive or negative. Based on the labeled feature vectors, we train a classification model for each relation that predicts whether a triple should be added to the KG. We do this in order to allow the models to capture meaningful and distinctive information for every relation: even though the same set of features is applied to all triples, some features might have more predictive power for a relation, and other features may be more helpful for a different one.\\
-    
-%     \item \textbf{Training and evaluating the models:} For every relation that we predict, we create one or more neural models, where each model focuses only on the features that are obtained from a certain neighborhood size. Thus, using only neighborhood subgraphs of size 1 results in one model, using neighborhood subgraphs of size of up to 2 results in two models, and so on. This allows each model to capture the specific information that every neighborhood size may yield. To combine two or more models, we use an additional combination layer to produce a single output.
+The activation function in intermediate layers was chosen to be leaky ReLU to avoid gradient explosion
+% ~\cite{bengio1994learning}
+, which is common in deep neural approaches. Batch normalization is applied to the embedding representations, and ADAM
+% ~\cite{kingma2014adam}
+is used as optimizer. 
 
-%     The neural models are trained using the labeled feature vectors in the training split for the desired relation, where each model receives only the features corresponding to its assigned neighborhood size, and the label or ground truth is shared among them. Prior to training our models, we first remove any individual features that have the exact same value in every feature vector and thus lack any predictive power. An example of this are path-based features ($f_{12}$), since only a small subset of all possible paths of fixed length occur between two given entities, and as a consequence most of them have a value of 0.
-    
-%     It is important to note that we use neural classification models because they have been shown to consistently achieve satisfactory results in many different classification tasks~\cite{aggarwal2012, yadav2019, ayala2020}, although other classification models that make use of our features could be used in this step.
-% \end{itemize}
+The historical values $h_t = (e_0,r_1,e1,...,r_n,e_n)$ can be formally defined by equation(~\ref{eq:ht}) for the hidden state layer of LSTMs at instant t.
 
-\section{Policy Network}\label{sec:spacerl-policy}
-aqui hablamos de la policy que hemos usado y porque consideramos que es buena practica las LSTM...
+\begin{equation}
+\label{eq:ht}
+    h_t = LSTM_{enc}((r_t,e_t), h_{t-1})
+\end{equation}
 
-% We show the internal class architecture of CAFE in Figure~\ref{fig:cafe-diagram}, and its data workflow is displayed in Figure~\ref{fig:cafe-flow}. We further describe and discuss the architecture of CAFE in the following.
+Finally the policy network can be formalized as:
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includesvg[width=1.0\textwidth]{fig/cafe/CAFE-classes}
-%     \caption{Architecture of CAFE}
-%     \label{fig:cafe-diagram}
-% \end{figure}
+\begin{equation}
+\label{eq:pn}
+\begin{split}
+    & \pi_s(a_t|s_t) = \sigma(\mathcal{A}_t \text{x} \mathcal{S}_t [W_6;W_5]ReLU([W_4-W_2]\text{x}[e_t;r_t;h_t]ReLU(W_1[e_t;r_t])))
+\end{split}
+\end{equation}
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.45\textwidth]{fig/cafe/CAFE-flow}
-%     \caption{Workflow of CAFE}
-%     \label{fig:cafe-flow}
-% \end{figure}
 
-% The main flow of CAFE is coordinated by the class \textit{ParallelWorker}. This class can be configured to use a certain number of threads, and then internally spawns processes to parallelize the different tasks done by CAFE. This is done by splitting the total number of triples in the KG between the different threads, since the processing of triples can be done concurrently for the most part, as shown in Figure~\ref{fig:cafe-flow}. 
+\subsection{Embedding \& Distance rewards}
+\label{sec:rewards}
 
-% The method \textit{genNegs} produces negative triples using the \textit{NegativeGenerator} class and a generation strategy, since they are necessary to train the classification models.
+\begin{algorithm}[!h]
+\label{alg:embeddings}
+\caption{Embedding-based reward calculation}
+\KwIn{\\
+\texttt{// Previous location values.}\\
+$PrevDot$, $PrevEucDist$, $PrevCosSim$:\textless Float\textgreater\\
+\texttt{// Embedding of the current node}\\
+$e_t$: List\textless Float\textgreater\\
+\texttt{// Embedding of the goal node}\\
+$e_a$: List\textless Float\textgreater\\
+}
+\KwOut{$reward$: Float}
 
-% Then, the method \textit{compFeats} transforms every triple in the KG into a labeled feature vector, using a series of neighborhood-aware features that leverage the similarities of the neighborhoods of two entities in a KG. This is done by measuring the similarities of the entity neighborhoods of the source and target of a triple, using measures such as the Jaccard index of similarity, analyzing the size of such neighborhoods using measures such as the Adamic-Adar index; as well as assessing the overall connectivity of the entities of a triple using the N-path centrality index.
+$dot \gets e_t \cdot e_a$ // ``·'' is the dot product operator. \\ 
+$euc\_dist \gets norm(e_t - e_a)$\\
+$cos\_sim \gets dot ~/~ (norm(e_t) \times norm(e_a))$\\
+$reward \gets 0.0$\\
 
-% The method \textit{filtFeats} removes the features that have the same value in all labeled vectors, since they have no predictive power. Finally, method \textit{getClassifier} trains and returns a neural classifier for a given set of labeled vectors, corresponding to a certain relation in the KG. Given that the work done by these methods is usually carried out in an independent manner for each triple, it is parallelized among different execution threads.
+\uIf{$PrevDot > dot$}{
+    $reward \mathrel{+}= \frac{1}{3}$
+}\ElseIf{$PrevDot = dot$}{
+   $reward \mathrel{+}= \frac{1}{6}$
+}
 
-% Class \textit{ParallelWorker} uses other classes by means of composition to perform specialized tasks: Class \textit{NegativeGenerator} provides a unified interface to easily generate a negative triple in a KG following one of the available strategies, which are implemented using \textit{NegGenerationStrategy} classes.
+\uIf{$PrevEucDist > euc\_dist$}{
+    $reward \mathrel{+}= \frac{1}{3}$
+}\ElseIf{$PrevEucDist = euc\_dist$}{
+    $reward \mathrel{+}= \frac{1}{6}$
+}
 
-% Class \textit{KGLoader}, through its \textit{load} method, is used to read and write KGs in different formats, namely: N3, Turtle, and RDF/XML.
+\uIf{$PrevCosSim > cos\_sim$}{
+    $reward \mathrel{+}= \frac{1}{3}$
+}\ElseIf{$PrevCosSim = cos\_sim$}{
+    $reward \mathrel{+}= \frac{1}{6}$
+}
 
-% Class \textit{FeatureVectorCalculator} is responsible for applying the previously discussed catalogue of features to any given triple using the method \textit{getVec}, resulting in a labeled vector for that triple. The catalogue of available features can be easily expanded thanks to the \textit{Feature} class, since each individual feature is implemented as an instance of that class.
+\Return $reward$
+\end{algorithm}
 
-% Class \textit{FeatureFilterer} specializes in removing useless features from a feature vector, i.e., those that share the same value in all vectors and thus have no predictive power. Method \textit{filtFeat} receives the labeled vector to be processed and a set of all other labeled vectors, to allow for the multithreaded processing of different labeled vectors simultaneously.
+These reward functions act on a step by step basis, that is, they are calculated at every step independently of whether or not the answer node was reached. The embedding reward is based on the property of translational embeddings according to which the combination of an entity and a connecting relation results in a very similar vector to the target entity. We leverage this information to define a new reward component, as shown in Algorithm~\ref{alg:embeddings}. This function intends to reward the semantic similarity between the reached node and the answer node. This is done by measuring the distance between their embedding representations using several distance functions and checking whether such distance has decreased with respect to the former step.
 
-% Finally, the \textit{NeuralClassifier} class produces, trains and evaluates the neural models that determine whether a triple is correct. These models receive as input the feature vector generated from the triple in question, and outputs a confidence value between 0 and 1. The models used by CAFE have three feed-forward layers with 1024, 512 and 256 neurons each. The method \textit{initialize} produces a new model for a certain relation, to allow it to specialize in the specific details of said relation, which may be different to other relations present in the KG. The method \textit{train} receives the training set of labeled vectors resulting from processing a KG with the \textit{ParallelWorker}, and uses them to train the classification model. This method uses a learning rate of 0.001, a dropout of 0.1 for all layers, a batch size of 16 and 100 epochs, as these parameters have been proven to yield satisfactory results in some of our previous work \cite{borrego2021}. Then, all vectors in the testing set are evaluated using the \textit{predict} method.
+\newcommand{\pluseq}{\mathrel{+}=}
 
-% Throughout the whole process, the \textit{Settings} class is queried to retrieve the configuration parameters set by the user, e.g., the relative sizes of the training and testing splits, or the negative generation strategy to use.
+\begin{algorithm}[!h]
+\label{alg:distance}
+\caption{Distance reward calculation}
+\KwIn{\\
+\texttt{// Current distance to goal node}\\
+$d_t$: Integer\\
+\texttt{// Previous distance to goal node}\\
+$d^{-1t}$: Integer\\
+}
+\KwOut{$reward$: Float}
 
-% CAFE has two main dependencies with external libraries: NetworkX \cite{hagberg2008networkx}, which is used to internally store the KG and apply graph-based algorithms to compute the different features; and TensorFlow \cite{tensorflow2015}, which is used to create, train and apply the neural classification models.
+$reward \gets 0.0$
 
-% \subsection{Design and performance considerations}
-% The architecture of CAFE shares some common patterns and design decisions with that of CHAI, described in the previous chapter. Most classes only need to be instantiated once throughout the execution of CAFE and, for this reason, we have decided to turn them into singletons for simplicity of use and to minimize the use of memory.
+\uIf{$d_t < d^{-1t}$}{
+    $reward \gets 1$
+}\ElseIf{$d_t = d^{-1t}$}{
+    $reward \gets \frac{1}{3}$
+}
 
-% There are, nonetheless, a number of classes that clearly must allow multiple instances of them to exist, in order to represent variations of the same concept. A prime example of this is the Feature class: all features share the same interface, since they receive a triple and the KG that contains it and produces a numeric value. However, in order to accommodate all features defined in Section~\ref{sec:cafe-features}, each one of them exists as an instance of Feature.
+\Return $reward$
+\end{algorithm}
 
-% Another example is the possible existence of multiple negative generation strategies, where one must be chosen at runtime according to the selection of the user. In both cases, they are accessed through auxiliary classes that act as catalogues, automatically detecting and loading all instances of the catalogued classes. 
 
-% Given that CAFE is a very computationally intensive system, several optimizations have been made to make the best possible use of the resources of the system it runs on. Due to the fact that computing a feature vector for a triple can be done independently of all other triples in a KG, this task is parallelized and evenly distributed among all available cores in a CPU. This, however, comes at the cost of ensuring that all singletons in the system are thread-safe, given that they will be accessed by multiple processes at the same time.
+The distance reward is computed according to the length of the shortest path from the currently explored node $e_t$ to the answer node $e_a$. The distance is calculated by performing a tree exploration of the graph, which is an expensive operation. This is why we opted for caching computed distances in order to share these data between training episodes. The calculated distance $d$ is then compared against the previously computed distance $d^{-1}$ at $e_{t-1}$ to check if the chosen action got the agent closer to the end node. This way, the agent is rewarded by moving faster towards the answer node, which results in shorter paths without the need of limiting their length excessively by reducing $n$.
+% Calculating the distance reward implies that all paths of length $n$ could be known, however this does not make every path valid. Applying this method to KGC would simply fill the graph with new triples which in most cases wouldn't be new facts and would only dilute the existing ones.
+The distance reward function is shown in detail in Algorithm~\ref{alg:distance}.
 
-% Finally, it is important to note that all features defined by CAFE are deterministic, and will always return the same value for the same triple in a KG. Most features only analyze one of the entities in a triple at a time, and thus are re-computed very often for the same entity. For this reason, we have implemented a thread-shared caching strategy, in which the result of applying a feature to a triple is stored into a cache that is accessed by all threads. This allows CAFE to significantly reduce the number of calculations that must be performed when processing a KG.
+
+\subsection{Reinforcement Learning algorithms}
+\label{sec:RLalgorithms}
+
+As it can be seen in Table~\ref{tab:SoTA_approaches}, all previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
+
+\begin{equation}
+\label{eq:reinforce}
+    \Delta_{\theta}\mathcal{J}(\theta) =\Delta_{\theta}log\pi_{\theta}(s,a)\mathcal{G}(s,a) 
+\end{equation}
+
+where $\mathcal{J}$ can be any loss function and $\mathcal{G}$ is the propagated reward in the action state pair (a,s).
+
+This approach, however, suffers from some known shortcomings:
+\begin{itemize}
+    \item {Since the agent takes several actions during the episode, specially if several episodes take place during the same learning loop for faster training times, the variance of the method increases (that is, a single reward is used to influence many different actions), and it becomes less likely to assign proper credit to the actually useful actions. Because of this, it takes more time for the gradients of the agent to converge, increasing the training time needed to stabilize the value of the loss function.}
+    \item {REINFORCE only produces training data when episodes conclude, meaning that it is not possible to train an agent with a single, longer episode. This, however, has no effect in our context since all episodes are limited to a number of steps N.}
+    \item {REINFORCE is very sensitive to hyperparameters, making it crucial to tune them for each approach, as seen in MINERVA
+    % ~\cite{das2017go}
+    , where a hyperparameters table is specified for the performed tasks.}
+\end{itemize}
+
+To overcome REINFORCE's limitations, several other paradigms have been developed. We have identified as particularly promising the Proximal Policy Optimization (PPO)
+% ~\cite{schulman2017proximal}
+and Actor-Critic
+% ~\cite{castro2010convergent}
+ approaches, in particular the soft variant
+% ~\cite{haarnoja2018soft}.
+ These algorithms mitigate the aforementioned problems.
+Their combination benefits from the advantages typical of Temporal-Diference Learning
+% ~\cite{sutton1988learning}
+ by defining a critic: a neural network tasked with predicting the value of the long-term reward associated to an action-state pair $(a,s)$. This value is used in a similar fashion to how Q-learning
+% ~\cite{watkins1992q}
+ uses the Q-value in its learning process. The values provided by the critic $\mathcal{C}(s,a)$ replace $\mathcal{G}(s,a)$ in equation
+~\ref{eq:reinforce}, which results in the following equation:
+
+\begin{equation}
+\label{eq:ActorCritic}
+    \Delta_{\theta}\mathcal{J}(\theta) =\Delta_{\theta}log\pi_{\theta}(s,a)\mathcal{C}(s,a) 
+\end{equation}
+
+We then learn the equivalent Q-value through the aforementioned TD-learning techniques, formally described as:
+
+\begin{equation}
+\label{eq:TemporalDifference}
+\begin{split}
+    \mathcal{C}(s,a) \gets \mathcal{Q}(s,a) + \alpha(r(s,a) + max_{a+1} \gamma \mathcal{Q}(s^{-1},a^{-1}) - \mathcal{Q}(s,a))
+\end{split}
+\end{equation}
+
+where $a+1$ denotes the possible action values in the next step, $\alpha$ and $\gamma$ are numerical hyperparameters, and $\mathcal{Q}(s,a)$ denotes the output given by the actor from the action value pair $(s,a)$.
+
+This approach reduces the variance significantly as we can update the parameters in a step by step basis by using the Q-value-like method, ensuring faster convergence of the policy gradient and making it possible to run a non-episodic method.
+
 
 \section{Evaluation}\label{sec:spacerl-evaluation}
-estructura de evaluacion similar a la vista en otras tesises.
-se puede casi que calcar tal cual del paper del eswa y plantarlo aqui con unas modificaciones pequeñas.
+% estructura de evaluacion similar a la vista en otras tesises.
+% se puede casi que calcar tal cual del paper del eswa y plantarlo aqui con unas modificaciones pequeñas.
+
+
+In this section, we describe in detail the experiments we carried out to evaluate our contributions and their results. First, we introduce the datasets we use in our experiments. Then, we describe the experimental setup, that is, the techniques that are evaluated and under what conditions. Finally, we provide a discussion of the results obtained in our experiments.
+
 % In this section, we present the evaluation that we carried out to assess the performance and effectiveness of CAFE. First, we introduce the Knowledge Graphs on which CAFE was applied and an overview of their main characteristics. Next, we explain the methodology that we used to evaluate CAFE. Finally, we show and discuss the results of our evaluation.
 
 \subsection{Experimental data}
+
+We selected five benchmark datasets, which are often used in the literature, and which can help discern the strengths of the techniques under evaluation:
+
+\begin{itemize}
+    \item \textbf{COUNTRIES}
+    % ~\cite{bouchard2015approximate}
+    , a small, low-connectivity dataset that contains relations between geographical regions and the countries inside them.
+    
+    \item \textbf{Unified Medical Language System (UMLS)}
+    % ~\cite{kok2007statistical}
+    , a highly connected dataset that consists of biomedical data, with entities representing different diseases, bacteria, treatments and diagnoses.
+    
+    \item \textbf{FreeBase (FB15K-237)}
+    % ~\cite{toutanova2015representing}
+    , a subset of the FreeBase Knowledge Graph in which inverse relations have been removed to avoid leakage from the training to testing validation splits.
+    
+    \item \textbf{Never Ending Language Learning (NELL-995)}
+    % ~\cite{xiong2017deeppath}
+    , a particular version of the NELL dataset, built by web crawlers automatically by extracting triples from plain text from several sources.
+    
+    \item \textbf{WordNet (WN18RR)}
+    % ~\cite{miller1995wordnet}
+    , a subset of WordNet in which originally many text triples are obtained by inverting triples from the training set.
+    % ~\cite{dettmers2018convolutional}
+    This lead to these datasets being able to be completed by using simple ruling, by removing these inverse triples, WN18RR, avoids leakage of inverse relations into the testing split, thus making it necessary to have knowledge of the entire dataset.
+\end{itemize}
+
+Table~\ref{tab:datasets} contains a statistical summary of the aforementioned datasets.
+
+\input{tables/SpaceRL-KG/datasets}
+
 % We evaluated our proposal using four KGs provided by the freely available AYNEC-DataGen~\cite{ayala2019} tool: FB13-A, WN11-AR, WN18-AR and NELL-AR. These KGs are based on the well-known FB13, WN11 \cite{socher2013}, WN18~\cite{bordes2014}, and a subset of NELL proposed in \cite{gardner2015}. However, they have been processed to remove reciprocal relations detected by AYNEC, i.e., relations $r$ and $r'$ such that, if $(s, r, t)$ exists, then $(t, r', s)$ also exists very frequently. Additionally, relations that amount to less than 5\% of the total number of triples in the graph have been removed.
 
-% These evaluation KGs originally contained one negative example per each positive triple in both their training and testing splits. In order to study how the KG completion techniques perform when presented with a much higher volume of negative evidence, we created versions of these graphs whose testing splits contained 10 negative examples per positive, using the AYNEC-DataGen tool. We believe that this is a more realistic scenario, since a much higher number of negative examples per positive triple is typically expected in real-world KG completion tasks~\cite{borrego2019}. To avoid confusion, we denote these versions as FB13-A-10, WN11-AR-10, WN18-AR-10 and NELL-AR-10.
-
-% For FB13-A-10, WN11-AR-10 and WN18-AR-10, we aimed to predict all possible relations, and for NELL-AR-10 we focused on the same subset of 10 relations that were used to evaluate SFE~\cite{gardner2015}. However, in the latter KG, one relation was removed by AYNEC for being the reciprocal of another relation, leaving 9 relations for evaluation. In the specific case of FB13-A-10, we transferred 25\% of the training triples over to the testing set in order to provide testing examples for some relations, as they were not available in the original KG as introduced in \cite{socher2013}. Table \ref{table:cafe-datasets} provides an overview of the aforementioned KGs. In the case of NELL-AR-10, we show in parentheses the amount of triples and relations that were considered for evaluation, although the entire graph was used for computing features.
-
-% \input{tables/cafe_datasets}
-
 \subsection{Experimental setup}
-% A neural prediction model was created for every relation of interest and trained using its corresponding training set. Then, the model was applied to all feature vectors in the test set, and we compared the expected label (which denotes whether it represents a correct triple or not) against the label that was produced by our model. We report our results in terms of precision, recall and F1, in order to determine how effective our proposal is when determining the correctness of a given triple.
+\input{tables/SpaceRL-KG/emb_comparison}
 
-% We evaluated three versions of CAFE, denoted CAFE$_1$ to CAFE$_3$, which were limited to using feature instances that exploited neighborhood subgraphs and paths of a maximum size of 1, 2, and 3, respectively. This was done in order to study how using larger neighborhoods affects the effectiveness of CAFE.
+First, in order to limit our experimentation to a single type of embedding, we carried out a preliminary experimental study to determine which embeddings offered the best results. The results of this study are shown in Table ~\ref{tab:embedding_comparison}. It can be observed that TransE, despite its simplicity, leads to the best results in the COUNTRIES and UMLS dataset. Consequently, we use TransE for all of our experiments over the other three types that were tested (DistMult, ComplEx and TransR).
 
-% There exist many different KG completion proposals, and they often use different evaluation metrics \cite{speranskaya2020}. Due to this, it is very difficult to perform a comparison across a large number of them in a manner that is fair and rigorous. For this reason, we used TransE~\cite{bordes2013}, TransD~\cite{ji2015}, TransH~\cite{wang2014}, TransR~\cite{lin2015}, Analogy~\cite{liu2017}, SimplE~\cite{kazemi2018} and RotatE~\cite{sun2019} as baselines for our evaluation, since they are some of the most well-known state-of-the-art KG completion proposals. In order to provide a common evaluation environment for these different proposals, we used the OpenKE \cite{han2018} framework to train and evaluate these proposals using the previously discussed Knowledge Graphs. Additionally, since these proposals usually report metrics like MRR and Precision@N, we used the utilities provided by OpenKE to obtain binary labels for the testing triples, by setting a likelihood threshold in a way that optimized the classification results.
+Previous to every training loop we make sure that the vectorial space of the embeddings is normalized, to avoid vanishing gradients or gradient explosions as previously mentioned. We set the hyperparameters to the following values: $\alpha=0.9$, $\gamma=0.99$, path exploration to a maximum of $5$, and hidden size of intermediate layers to $400$. These values were selected on an empirical basis, as to the best of our knowledge there is no way to systematically find the optimal ones for a given architecture.
+For the Policy network, we set the kernel initializer to Glorot/Xavier~\cite{glorot2010understanding} for general purpose or LeCun~\cite{lecun2012efficient} for incompatible activation functions. We chose LReLU with a factor of $0.01$ as the activation for the intermediate layers to prevent gradient vanishing, which would lead to the Glorot activation being prevalent. We used L1 and L2 regularisation with L1 having a factor of $10^{-5}$ and L2 having $10^{-4}$. We selected RSMprop~\cite{hinton2012neural} as an optimiser for the PPO network and Adam~\cite{kingma2014adam} as default. The previous choices, were based on empirical testing performed by previous approaches~\cite{jomaa2019hyp}.
+
+
+We performed a preliminary evaluation of several techniques to select the most promising ones for further experimentation:
+
+\begin{itemize}
+    \item\textbf{Simple Terminal:} A non-retropropagated training with terminal reward and direct transmission of rewards, the simplest algorithm possible, that serves as a baseline.
+    \item\textbf{Retropropagated Terminal:} A REINFORCE algorithm training with just a terminal reward. This strategy represents the current trends in the state-of-the-art.
+    \item\textbf{Simple Embedding:} An embedding-based reward training with a simple algorithm.
+    \item\textbf{Simple Distance:} A distance reward training with a simple algorithm.
+    \item\textbf{Simple Combined:} A combinational reward training which uses both the embedding rewards (70\%) and the distance rewards (30\%), and a simple algorithm. The factor for each of the rewards is based on their previous performance when used individually.
+    \item\textbf{Simple Distance (PPO):} A distance reward training with the PPO algorithm.
+    \item\textbf{Simple Embedding (PPO):} An embedding reward training with the PPO algorithm.
+\end{itemize}
+
+\begin{figure*}[!h]
+    \centering
+    \includesvg[inkscapelatex=false, width=\textwidth]{fig/SpaceRL-KG/graphs/countries_trans_e.svg}
+    \caption{comparison of metrics and techniques employed}
+    \label{fig:metricsbarchart}
+\end{figure*}
+
+We generate a test and a training set from the triples in the dataset by following a 1-to-7 rotary rule, where $7$/$8$ of the total set would be selected at random and the remainder $1$/$8$ would be used as the test set. We evaluate the quality of the generated model by using two widely accepted performance measures: Mean Reciprocal Rank (MRR) of all correct entities, which is calculated as the mean of $1/rank_{e}$, with $rank_{e}$ being the ranking position of the target entity, and Hits@N, which is the percentage of cases in which $rank_{e}$ is above N. 
+
+\input{tables/SpaceRL-KG/strategies}
+
+All our experiments were conducted on a computer equipped with an Intel Core i9-9900K CPU, 64GB of DDR4 RAM and an Nvidia RTX 3080-Ti GPU.
 
 % We selected the following values for the hyperparameters of our neural models: 3 layers with 1024, 512 and 256 neurons each, learning rate of 0.001, batch size of 16, dropout of 0.1 for all layers, 100 epochs and validation ratio of 10\%. When two or more models were to be combined, we joined their results using a hidden layer with 3 neurons and an output layer with a single neuron. These values for the hyperparameters were chosen using a hold-out or ``dev'' set for the FB13-A-10 KG, and all KGs were then evaluated using the same hyperparameters. We chose them because they provided satisfactory results in our empirical tests.
 
 % All our experiments were conducted on a computer equipped with an Intel Core i9-9900K CPU, 32GB of RAM and an Nvidia RTX 2080 Ti GPU.
 
 \subsection{Results and discussion}
-% In Figure \ref{fig:cafe-boxes}, we show the evaluation results for CAFE$_1$, CAFE$_2$, CAFE$_3$, and the related state-of-the-art proposals. For the sake of clarity, this Figure only displays the F1 values for each technique. Additionally, Table \ref{fig:cafe-table-results} shows the detailed results for all relations in every KG and for all metrics under evaluation.
 
-% \begin{figure}[!htp]
-%     \centering
-%     \def\subfigscale{0.6\textwidth}
+Our results are separated into two categories depending on the size of the datasets they were obtained from. UMLS and COUNTRIES are classified as small datasets, they provide useful information used for experimentation on larger datasets such as FreeBase, WordNet or NELL which are costlier to train and evaluate agents on.
+
+\subsubsection{Small datasets} \label{sssec:smalldatasets}
+Figure~\ref{fig:metricsbarchart} shows the results of applying the different strategies mentioned to the agents trained in the COUNTRIES dataset. We can see the improvement from leveraging embeddings and distance rewards over relying on backpropagations of rewards as a measure for good performance in the episode. It is also noteworthy that the combination of the rewards results in a worse performance than using them separately as it confuses the agent into navigating conflicting paths based on the weight given to each of the reward components.
+
+As shown in Table~\ref{tab:strategies}, the different combination of strategies resulted in a notably higher MRR in four of them (highlighted in black). Therefore, we focused on further studying these approaches by using larger and more complex datasets: NELL, FreeBase and WordNet, and performed a number of experiments on them. 
+
+For the UMLS dataset, we trained two agents for a low epoch count to show their ability for fast convergence. Specifically, we trained a distance-based and an embedding-based reward agent with the PPO algorithm relying on the Actor-Critic implementation for them. 
+
+\input{tables/SpaceRL-KG/meanpath}
+
+Table~\ref{tab:meanpath} shows the mean values of the ranking given by the agents to the inferred paths up to a maximum of 5. The majority of the generated paths are close to the top (value of 1) on average, and not even the base algorithm performs under 3. It is also noticeable how the standard deviation for both Actor-Critic methods is significantly lower than for the other models; as expected, the critic allows the method to converge faster, so for agents that train in the same conditions they offer a safer alternative that would generally perform better at any task.
+
+\input{tables/SpaceRL-KG/umls_metric}
+
+Table~\ref{tab:umls} displays the results from the two PPO agents trained for the UMLS dataset with embedding and distance rewards respectively. This training was conducted for a small epoch count (52,160 iterations, 17,386 epochs) to test the convergence rate of the agents, which for a highly connected dataset such as UMLS indicates that PPO can obtain satisfactory results even in disadvantageous conditions. If we compare these results to those in Table ~\ref{tab:embedding_comparison}, in which agents were trained up to gradient convergence, we find that the results are similar. However, it took merely $1/50th$ of the time to obtain them, since REINFORCE with terminal reward takes orders of magnitude more epochs to train.
+
+\subsubsection{Large datasets}
+%Large datasets provide a closer look at how trained agents would behave in a real world environment focusing on table~\ref{tab:datasets} we can see the number of relations and the degree of connectivity of these datasets is much larger than the ones presented in ~\ref{sssec:smalldatasets}. 
+We trained several agents to compare algorithm and reward implementation combinations using the FreeBase
+% ~\cite{toutanova2015representing}
+ and NELL
+%  ~\cite{carlson2010toward}
+datasets, and compared generalist agent performance versus relation-specific agents using the WordNet~\cite{miller1995wordnet} dataset. These results show that our proposal is able to deal with web-scale datasets.
+
+When using FreeBase, we trained four agents per algorithm and reward combinations with ``film/film/genre'' as the selected relation for a total of 159,896 episodes, or 53,299 epochs.
+
+We trained a total of 12 NELL agents, four for each of the following relations: ``thing\_has\_color'', ``is\_taller'' and ``music\_artist\_genre'' trained for 57,500, 64750 and 115,950 episodes respectively, as shown in column \#ep from Tables ~\ref{tab:FB_film} and ~\ref{tab:NELL_all}.
+
+In these tables, \#rel denotes the frequency of appearance of these relations for each dataset, and \#laps indicates the number of times the dataset was iterated during training.
+
+\input{tables/SpaceRL-KG/FB_film}
+
+% \addimage{fb_film_genre.svg}{Algorithm and reward comparison for FreeBase ``film genre'' relation}{fb_film_genre}{0.75}
+
+\begin{figure*}[!h]
+    \centering
+    \includesvg[inkscapelatex=false, width=\textwidth]{fig/SpaceRL-KG/graphs/countries_trans_e.svg}
+    \caption{comparison of metrics and techniques employed}
+    \label{fig:metricsbarchart}
+\end{figure*}
+
+
+Table~\ref{tab:FB_film} shows a comparatively low accuracy in juxtaposition to the small datasets for the ``film/film/genre'' relation, however the difference in accuracy for for the PPO Agents is notable: when compared to the Baseline algorithm and distance reward hits@1 increases by 87.97\%, and the Mean Reciprocal Rank by 59.02\%.
+
+Additionally, the use of embeddings with the PPO algorithm leads to an improvement of 7.76\% and 6.2\% for hits@1 and MRR respectively, which also shows the increase in accuracy for embedding-based rewards in highly connective datasets such as FreeBase.
+
+In this case the application of PPO shows a remarkably larger improvement in the agents results which is to be expected given the results in the former experiments. Embedding-based rewards also show improvement against the baseline of euclidean distance, which confirms our intuition. %is what we strive to prove.
+
+\input{tables/SpaceRL-KG/NELL_all}
+
+NELL dataset agents were trained in relations with fewer instances than their FreeBase counterparts: 230, 259, and 773 instances of "thing\_has\_color", "is\_taller" and "music\_artist\_genre" respectively against 7268 instances of "film/film/genre" in FreeBase, meaning the agents are effectively trained faster due to converging earlier.
+% as seen in figure ~\ref{fig:HEREGOESAFIGUREOFLOSS.}. 
+
+Even if FreeBase agents are trained for more episodes than NELL agents (159,896 in FreeBase versus 57,500, 64,750, and 115,950 in NELL), NELL agents better assimilated the structure of the dataset. This happens since the exploration triples $(e_0, r_p, e_1)$, which are the ones that contain the relations they are tasked to predict ($r_p$), are used ten times as often for the same amount of episodes, as denoted by the \#laps column in Tables~\ref{tab:FB_film} and~\ref{tab:NELL_all}.
+
+\begin{figure*}[!h]
+    \centering
+    \def\subfigscale{0.5\columnwidth}
+    \subfigure[NELL - is\_taller]{
+        \includesvg[inkscapelatex=false, width=\subfigscale]{fig/SpaceRL-KG/graphs/nell_is_taller.svg}
+        \label{fig:nellistaller}
+    }~
+    \subfigure[NELL - music\_artist\_genre]{
+        \includesvg[inkscapelatex=false, width=\subfigscale]{fig/SpaceRL-KG/graphs/nell_music_artist_genre.svg}
+        \label{fig:nellmusicartistgenre}
+    }\\
+    \subfigure[NELL - thing\_has\_color]{
+        \includesvg[inkscapelatex=false, width=\subfigscale]{fig/SpaceRL-KG/graphs/nell_thing_has_color.svg}
+        \label{fig:nellthinghascolor}
+    }\\
+    \caption{Metrics comparison for NELL dataset relations.}
+    \label{fig:nellcomparison}
+\end{figure*}
+
+In this context, we make the following observations regarding improvements in performance for the ``PPO + Embedding'' (Best performance) versus the ``Base + Distance'' (Worst Performance) approach:
+
+\begin{itemize}
+    \item{In \textbf{"thing\_has\_color"} we see an improvement of 29.81\% for the hits@1 and 16.23\% for MRR}
     
-%     \subfigure[FB13-A-10]{
-%         \includegraphics[width=\subfigscale]{fig/cafe/boxes/FB13-A-10}
-%         \label{fig:box-FB13-A-10}
-%     }\\
-%     \subfigure[NELL-AR-10]{
-%         \includegraphics[width=\subfigscale]{fig/cafe/boxes/NELL-AR-10}
-%         \label{fig:box-NELL-AR-10}
-%     }\\
-%     \subfigure[WN11-AR-10]{
-%         \includegraphics[width=\subfigscale]{fig/cafe/boxes/WN11-AR-10}
-%         \label{fig:box-WN11-AR-10}
-%     }
-
-%     \caption{F1 comparison between CAFE and other proposals}
-%     \label{fig:cafe-boxes}
-% \end{figure}
-
-% \begin{figure}[!htp]\ContinuedFloat
-%     \centering
-%     \def\subfigscale{0.6\textwidth}
+    \item{In \textbf{"is\_taller"}, there is an improvement of 34.92\% for the hits@1 and 13.02\% for MRR}
     
-%     \subfigure[WN18-AR-10]{
-%         \includegraphics[width=\subfigscale]{fig/cafe/boxes/WN18-AR-10}
-%         \label{fig:box-WN18-AR-10}
-%     }\\
+    \item{In \textbf{"music\_artist\_genre"} the improvement is of 34.98\% for hits@1 and 13.04\% for MRR}
+\end{itemize}
+
+% The following is the improvement for Embedding vs Distance reward types, using the PPO algorithm, to focus only in reward improvements instead of in overall improvement.
+
+The following listing shows the embedding versus distance reward improvement for the PPO algorithm. By leaving the algorithm unchanged, we focus only on the influence that the reward structure made on the experiments.
+
+\begin{itemize}
+    \item{For \textbf{"thing\_has\_color"} the improvement is 13.09\% for hits@1 and 7.02\% for MRR}
     
-%     \caption{F1 comparison between CAFE and other proposals (cont.)}
-% \end{figure}
+    \item{In \textbf{"is\_taller"} we observe an increase of 12.19\% for hits@1 and 6.77\% for MRR}
+    
+    \item{In \textbf{"music\_artist\_genre"} the change was 16.23\% for hits@1 and 3.8\% for MRR}
+\end{itemize}
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.75\textwidth]{fig/cafe/wn11_bars}
-%     \caption{F1 scores in the WN11-AR-10 KG}
-%     \label{fig:cafe-wn11-bars}
-% \end{figure}
+We can observe a general increase of 33.24 \% for hits@1 and 13.82\% for MRR in Base + Dist. versus PPO + Embeddings; in this case all agents reach convergence so the improvement is less noticeable than in the FreeBase scenario. The improvement achieved by selecting embedding-based rewards as opposed to distance-based ones (within PPO) is 14.11\% for hits@1 and 5.86\% for MRR, which shows that embedding-based rewards help increase the agents accuracy and reduces the variance significantly versus Distance based rewards.
 
-% Our results show that CAFE is able to match the performance of state-of-the-art proposals, and in many cases achieve higher values on the metrics under evaluation. In the cases of FB13-A-10 (Figure \ref{fig:box-FB13-A-10}) and WN18-AR-10 (Figure \ref{fig:box-WN18-AR-10}), CAFE can reach or surpass the F1 scores achieved by other proposals in a consistent manner. CAFE also provides better results in the WN11-AR-10 (Figure \ref{fig:box-WN11-AR-10}) KG, although with a higher degree of variability, and matches the performance of the rest of the analyzed techniques in the NELL-AR-10 (Figure \ref{fig:box-NELL-AR-10}) KG. These results show that CAFE can be more effective than other proposals in challenging classification scenarios.
+\input{tables/SpaceRL-KG/WN18RR_results}
+% \addimage{MRRvsRelNum.svg}{asd}{test3}{0.33}
 
-% \newpage
-% \clearpage
+\begin{figure*}[!h]
+    \centering
+    \subfigure[WN18RR - is taller]{
+        \includesvg[inkscapelatex=false, width=0.265\columnwidth]{fig/SpaceRL-KG/graphs/relation_appearances.svg}
+        \label{fig:relnum}
+    }~
+    \subfigure[WN18RR - music]{
+        \includesvg[inkscapelatex=false, width=0.23\columnwidth]{fig/SpaceRL-KG/graphs/MRR_relations.svg}
+        \label{fig:relMRR}
+    }\\
+    
+    \caption{inverse relation for number of relations and MRR metrics for WordNet dataset.}
+    \label{fig:regrbarchart}
+    \footnotesize{*derivationally related from}
+\end{figure*}
 
-% \begin{table}[H]
-%     \centering
-%     \includegraphics[height=0.8\paperheight,right]{fig/cafe/table-cafe-left}%
-%     \caption{Detailed CAFE results}
-%     \label{fig:cafe-table-results}
-% \end{table}  
-% \begin{table}[H]\ContinuedFloat
-%     \centering
-%     \includegraphics[height=0.8\paperheight,left]{fig/cafe/table-cafe-right}%
-%     \caption{Detailed CAFE results (cont.)}
-% \end{table}
+We used the WordNet dataset to test the accuracy of a general model against a relation specific model, as well as to offer a comparison against the previously trained agents. We focused solely on embedding-based rewards and PPO algorithm model in this case, since they have achieved the highest performance in the previous experiments.
 
+Table~\ref{tab:WN18RR_results} shows that even when all agents have reached convergence, their accuracy drops depending on the frequency of appearance of the relations in the graph. We can further visualize this phenomenon by focusing on the inverse co-relation shown by the regression lines in Figure~\ref{fig:regrbarchart}, where we see a downwards trend on MRR~\ref{fig:relMRR} when the number of appearances of a relation is ascending in Figure~\ref{fig:relnum}.
 
-% \newpage
+This tells us that whenever the number of relations increases, the MRR (which shows the stability of the agent) drops, meaning it is harder for the agent to determine a good result from the pool of possibilities . However, we see that the increase is logarithmic in nature, so it is reasonable to assume that it would still perform satisfactorily in adverse conditions.
 
-% Table \ref{fig:cafe-table-results} displays that, in general, both a satisfactory precision and recall can be achieved, and thus we consider that CAFE is generally effective. However, there exists a number of relations for which a very high precision value is obtained at the expense of a lower recall or vice-versa, resulting in a typical precision-recall trade-off. We also observe that the nature of every individual relation has a significant impact in the results, since some of them are harder to predict than others. Such is the case of the relation \textit{cause\_of\_death}, since learning to predict the cause of the death of a person with a very high effectiveness would be a remarkable achievement that unfortunately falls out of the scope of this work. We further discuss this limitation in Section \ref{sec:cafe-limitations}.
-
-% Regarding the question of how using different neighborhood sizes affects the effectiveness of CAFE, Figure~\ref{fig:cafe-boxes} shows that the metrics under evaluation are generally higher for CAFE$_2$ than for CAFE$_1$, but the same cannot always be said for CAFE$_3$ and CAFE$_2$. Indeed, metrics appear to remain stagnant or even decrease when using larger neighborhoods in some cases. For example, in FB13-A-10 (Figure \ref{fig:box-FB13-A-10}), we do not observe a significant increase in effectiveness when using larger neighborhood subgraphs, which suggests that the most useful information is readily available in the immediate vicinities of the relevant entities. In the cases of WN11-AR-10 (Figure \ref{fig:box-WN11-AR-10}) and WN18-AR-10 (Figure \ref{fig:box-WN18-AR-10}), an improvement is observed when using neighborhoods of size 2, but further expanding the neighborhood size does not seem to have a significant impact. A possible conclusion for this is that, at a certain point, larger neighborhood subgraphs do not provide additional value or predictive power over smaller ones. In a worst-case scenario, the number of features with little to no predictive power would greatly increase by using larger neighborhood sizes, negatively affecting the results. This effect actually occurs in the case of the NELL-AR-10 KG (Figure \ref{fig:box-NELL-AR-10}), where effectiveness decreases when increasing the size of the neighborhood subgraphs for which we compute features. A plausible explanation for this is that it has been noted that NELL contains noisier data~\cite{paulheim2014}, and thus taking larger neighborhoods into account significantly increases the amount of noise that our classification model has to deal with, reducing its effectiveness.
 
 \section{Limitations}\label{sec:spacerl-limitations}
-el apartado de conclusions y future work tiene mucho de lo que podemos poner aqui tambien.
-% Despite our triple classification proposal being generally effective, it has some limitations. It does not work well for relations for which useful predictive information cannot always be found in the neighborhoods of the entities in a triple. In this regard, we identify two types of relations: those that can be predicted using other information present in the KG, and those for which the entities and relations in their neighborhoods do not provide useful information, and thus are much harder to predict. This dichotomy can be observed in the results shown in Table \ref{fig:cafe-table-results}, and it is especially notable in the WN11-AR-10 KG. For the sake of visualization, we display the results of applying CAFE to this Knowledge Graph in Figure~\ref{fig:cafe-wn11-bars}.
+% el apartado de conclusions y future work tiene mucho de lo que podemos poner aqui tambien.
 
-% This difference is particularly visible in the \textit{Similar to} and \textit{Domain topic} relations, which have low F1 scores. Upon manual inspection, we found that \textit{Similar to} tends to link words that are generally isolated within the KG and share very little common context. Also, \textit{Domain topic} is extremely broad, causing the two entities in a triple to have few or no relevant common elements in their neighborhoods, e.g., (\textit{Britain}, \textit{Domain topic}, \textit{Surgery}).
 
-% In other cases, even if some information is present in the neighborhoods under consideration, it may be not successfully captured by CAFE due to the large amount of irrelevant data surrounding it. In this regard, the NELL-AR-10 KG shows that larger neighborhood sizes are not always better for predictive purposes, since the amount of noise they may include can be detrimental for the performance of CAFE. This can be due to some source or target entities being present in many triples (for example, countries). Therefore, larger neighborhoods of these entities introduce many other entities that are not relevant to the triple under evaluation. In these cases, it is up to the users to decide which maximum neighborhood size best caters to their interests.
+In this paper we have presented a novel approach to the application of Reinforcement Learning to Knowledge Graph Completion. The performance of RL proposals heavily depends on the measurements of action performance (reward function) and the application of different policies that determine how the reward is ultimately assigned to the actions. However, existing proposals have merely scratched the surface when it comes to these aspects, applying unanimously terminal-based reward functions and the backpropagation-focused REINFORCE algorithm.
 
-\section{Summary}\label{sec:cafe-summary}
+Our novel alternative consists of a new set of reward-functions and the application of RL algorithms whose potential remained unexplored. Our reward functions seek to use graph-specific information that is available before reaching the end of an episode: the distance to the answer node, and the semantic similarity to it computed from node embeddings. The implemented technique makes use of Proximal Policy Optimization and the Actor-Critic paradigm, resulting in faster training.
+
+Both the new reward functions and policies have resulted in improvements over the state-of-the-art standard practices, particularly when using embedding-based reward functions on five widely used datasets. These results should motivate the development and evaluation of more variants of these aspects, since there is margin for improvement. Therefore, two trends of future work could be developed: 1) evaluating existing context-independent RL techniques, which are often already implemented by existing libraries but mainly remain untested in this context; 2) implementing new reward functions that make use of additional information in the graph, e.g. node attributes, which provide additional rich data.
+
+\section{Summary}\label{sec:spacerl-summary}
 
 % In this chapter we have introduced CAFE, our proposal to classify candidate triples for Knowledge Graph completion. CAFE defines a set of neighborhood-aware features which evaluate several aspects of a triple, by checking for shared neighborhoods at several distances with other triples in a KG, and then combines the values of all features into a feature vector. Once all candidate triples have been transformed into feature vectors, CAFE trains and applies a neural binary classifier to discern between correct and incorrect triples, and provides the user with a set of correct candidate triples to add back to the KG. Our experimental evaluation shows that CAFE is very effective, outperforming other state-of-the-art approaches in a number of well-known Knowledge Graphs of different sizes and domains.

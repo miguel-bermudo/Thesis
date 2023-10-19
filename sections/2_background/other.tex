@@ -5,6 +5,18 @@
 \chapterAbstract{S}{hould I provide context for other existing KG completion approaches? Not sure either.}
 % ogical rules are commonly used to perform Knowledge Graph completion. The proposals that employ these kinds of rules usually mine them first using the triples present in the graph, to generalize specific knowledge stored in it. Then, the extracted rules are used to materialize knowledge in the form of new triples, which can be added back to the KG. In this chapter, we provide an overview of the various ways in which this has been carried out by previous works. It is organized as follows: Section~\ref{sec:rule-intro} lays out the foundational concepts, Section~\ref{sec:rule-ilp} presents the existing methods for mining logical rules from a Knowledge Graph, Section~\ref{sec:rule-cands} introduces the proposals that aim to reduce a set of possible candidate triple using rules, Section~\ref{sec:rule-hybrid} enumerates the approaches that combine rules with other popular ways to complete KGs, and Section~\ref{sec:rule-summary} concludes the chapter.
 
+%LO QUE DANI DICE AQUI ES MUY INTERESANTE.
+% Obviamente aquí no se discuten en profundidad los otros métodos, pero no hablaría de candidate mining, sino de:
+
+% 1) Rule mining, que intentan buscar algún patrón que se correlacione con la aparición de las relaciones (por ejemplo, tener parte del contexto común, la presencia de alguna otra relación etc.) Puedes mencionar que su ventaja es que no requieren el uso de embeddings, por lo que son aplicables fácilmente a nodos nuevos, y además ofrecen un completado con explicación. La desventaja es que las reglas pueden estar basadas en calculos más costosos (por ejemplo el solapamiento del contexto de dos nodos, como hace CAFE) si se quieren aplicar a toooodos los posibles hechos de un grafo, aunque entonces se puede aplicar una técnica simplificada que de forma rápida haga una primera criba (candidate filtering).
+
+% 2) Neural-embeddings based, que usan los embeddings de redes neuronales mencionados en la sección anterior para evaluar las posibles tripletas, normalmente o aplicando una red neuronal a los embeddings, o realizando una simple operación con los embeddings y comprobando si el valor resultante es alto o bajo. Por ejemplo TransE coge el embedding de la entidad 1, le suma el de la relación, y mira si el resultado es cercano al embedding de la relación 2. Son rápidas de aplicar pero requiere el entrenamiento de todos los embeddings cada vez que se actualiza el grafo. Además no son explicables.
+
+% 3) Los métodos basados en reinforcement learning, que se parecen a la primera categoría en tanto que la predicción es explicable y basada en la presencia de ciertas relaciones, y a la segunda en tanto que se usan los embeddings de nodos y relaciones
+
+% Entiendo que la mayoría de lo que decir de las dos primeras categorías es básicamente cosas que puso Agustín. Para lo tercero ya lo que hace es introducir un poco lo que se detallará en la siguiente sección.
+
+
 please ignore the Sections...
 
 \section{Introduction}\label{sec:rule-intro}

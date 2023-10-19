@@ -1,0 +1,17 @@
+\begin{table}[h!]
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ll|ccccc|ccc}
+\hline
+\textbf{Alg.} & \textbf{Rew.} & \textbf{Hits@1} & \textbf{Hits@3} & \textbf{Hits@5} & \textbf{Hits@10} & \textbf{MRR} & \textbf{\# rel.} & \textbf{\# laps} & \textbf{\# ep.}\\
+\hline
+Base & Dist & 0.133 & 0.252 & 0.315 & 0.38 & 0.2567 &\multirow{4}{*}{7268} & \multirow{4}{*}{22} & \multirow{4}{*}{159896}\\
+Base & Emb & 0.167 & 0.282 & 0.348 & 0.405 & 0.2672 &  \\
+PPO & Dist & 0.232 & 0.376 & 0.423 & 0.516 & 0.3829 &  \\
+\textbf{PPO} & \textbf{Emb} & 0.25 & 0.395 & 0.447 & 0.552 & 0.4082 &  \\
+\hline
+\end{tabular}
+}
+\caption{Algorithm and embedding comparison for FreeBase dataset and ``film genre'' relation}
+\label{tab:FB_film}
+\end{table}

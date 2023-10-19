@@ -1,0 +1,36 @@
+% \begin{table}[!h]
+% \centering
+% \resizebox{0.5\columnwidth}{!}{
+% \begin{tabular}{l|ccc}
+% \toprule
+% Metric & Embeddings & Distance &  $\Delta$ \\ 
+% \hline
+% HITS@1 & 0.148 & 0.116 & 0.032 \\ 
+% HITS@3 & 0.424 & 0.396 & 0.028 \\ 
+% HITS@5 & 0.62 & 0.608 & 0.012 \\ 
+% HITS@10 & 0.852 & 0.836 & 0.016 \\ 
+% MRR & 0.339 & 0.312 & 0.027 \\ 
+% \bottomrule
+% \end{tabular}
+% }
+% \caption{UMLS dataset metrics on a short training cycle.}
+% \label{tab:umls}
+% \end{table}
+
+\begin{table}[!h]
+\centering
+\resizebox{0.8\columnwidth}{!}{
+    \begin{tabular}{l|ccccc}
+    \toprule
+     & Hits@1 & Hits@3 & Hits@5 & Hits@10 & MRR \\ 
+    \hline
+    Embedding & 0.148 & 0.424 & 0.620 & 0.852 & 0.339 \\
+    Distance & 0.116 & 0.396 & 0.608 & 0.836 & 0.312 \\
+    \hline
+    Improvement(\%) & 27.586 & 6.604 & 1.935 & 1.878 & 7.965 \\
+    \bottomrule
+    \end{tabular}
+}
+\caption{UMLS dataset metrics on a short training cycle.}
+\label{tab:umls}
+\end{table}

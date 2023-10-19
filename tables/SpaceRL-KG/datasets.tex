@@ -1,0 +1,19 @@
+\begin{table}[!h]
+    \centering
+    \resizebox{0.75\columnwidth}{!}{
+        \begin{tabular}{l|ccccc}
+            \toprule
+            \multirow{2}{*}{Dataset} & \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Entities}}} &\multicolumn{1}{c}{\multirow{2}{*}{\textbf{Relations}}} & \multirow{2}{*}{\textbf{Triples}} &\multicolumn{2}{l}{\hfill\textbf{Degree }} \\& \multicolumn{1}{c}{}& \multicolumn{1}{c}{}&& Mean& Median\\
+            \bottomrule
+            COUNTRIES& 272& 2& 1,159& 4.35& 4\\
+            UMLS& 135& 49& 5,216& 38.63& 28\\
+            FB15K-237& 14,505& 237& 272,115& 19.74& 14\\
+            NELL-995& 75,492& 200& 154,213& 4.07& 1\\
+            WN18RR& 40,945& 11& 86,835& 2.19& 2\\
+            
+            \bottomrule
+        \end{tabular}
+    }
+    \caption{Datasets (Degree = degree of connectivity)}
+    \label{tab:datasets}
+\end{table}

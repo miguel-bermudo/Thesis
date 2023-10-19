@@ -1,0 +1,46 @@
+% \begin{table*}[!h]
+    
+% \resizebox{\columnwidth}{!}{
+%     \begin{tabular}{l|ccccccc}
+%         \hline
+%         \textbf{Algorithm} & \multicolumn{5}{|c|}{\textbf{Base}} & \multicolumn{2}{|c}{\textbf{PPO}} \\
+%         \hline
+%         \textbf{Rewards} $\rightarrow$ & \multicolumn{1}{r}{\textbf{Retroprop}} & \multicolumn{6}{|c}{\textbf{Simple}} \\
+%         \hline
+%         \textbf{Metrics} $\downarrow$ & Terminal & Terminal & Embedding & Distance & Combined & Distance & Embedding \\
+%         \hline
+%         hits@1 & 0.568 & 0.355 & 0.758 & 0.682 & 0.592 & 0.792 & 0.830 \\
+%         hits@3 & 0.912 & 0.732 & 0.982 & 0.974 & 0.86 & 0.965 & 0.989 \\
+%         hits@5 & 0.984 & 0.892 & 0.998 & 1.0 & 0.956 & 1.0 & 1.0 \\
+%         hits@10 & 1.0 & 0.988 & 1.0 & 1.0 & 1.0 & 1.0 & 1.0 \\
+%         MRR & 0.7445 & 0.5601 & \textbf{0.8626} & \textbf{0.8235} & 0.6860 & \textbf{0.8626} & \textbf{0.9029} \\
+%         \hline
+%     \end{tabular}
+% }
+%     \caption{Algorithms, reward and propagation techniques comparison.}
+%     \label{tab:strategies}
+% \end{table*}
+
+
+\begin{table*}[!h]
+    
+\resizebox{\columnwidth}{!}{
+    \begin{tabular}{l|cccccccc}
+        \hline
+        \textbf{Algorithm} & \multicolumn{5}{c|}{\textbf{Base}} & \multicolumn{3}{|c}{\textbf{PPO}} \\
+        \hline
+        \textbf{Rewards} $\rightarrow$ & \multicolumn{1}{r|}{\textbf{Retroprop}} & \multicolumn{7}{c}{\textbf{Simple}} \\
+        \hline
+        \textbf{Metrics} $\downarrow$ & \multicolumn{1}{r|}{Terminal} & Terminal & Embedding & Distance & Combined & Shaping & Distance & Embedding \\
+        \hline
+        hits@1 & 0.568 & 0.355 & 0.758 & 0.682 & 0.592 & 0.575 & 0.792 & 0.830 \\
+        hits@3 & 0.912 & 0.732 & 0.982 & 0.974 & 0.860 & 0.759 & 0.965 & 0.989 \\
+        hits@5 & 0.984 & 0.892 & 0.998 & 1.000 & 0.956 & 0.899 & 1.000 & 1.000 \\
+        hits@10 & 1.000 & 0.988 & 1.000 & 1.000 & 1.000 & 0.991 & 1.000 & 1.000 \\
+        MRR & 0.745 & 0.560 & \textbf{0.863} & \textbf{0.824} & 0.686 & 0.657 & \textbf{0.863} & \textbf{0.903} \\
+        \hline
+    \end{tabular}
+}
+    \caption{Algorithms, reward and propagation techniques comparison.}
+    \label{tab:strategies}
+\end{table*}

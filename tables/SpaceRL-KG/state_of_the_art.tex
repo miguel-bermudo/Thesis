@@ -1,0 +1,107 @@
+
+\begin{sidewaystable}{
+\footnotesize
+\centering
+  % mierda para que la columna se coloree bien
+  \setlength\aboverulesep{0pt}
+  \setlength\belowrulesep{0pt}
+  
+  % \begin{tabular}{ll|ccccc}
+  \begin{tabular}{ M{2.5cm}  M{4.5cm} | M{2cm} M{4.5cm} M{2.5cm} M{2cm} M{2cm} }
+  
+    \toprule
+
+    \textbf{RL Algorithm} &
+    \textbf{Reward type} &
+    Approach &
+    Overview &
+    Datasets &
+    Embeddings &
+    Precomp \\
+    
+    \midrule
+    
+    \textbf{REINFORCE (tested DQN)} &
+    \textbf{\makecell{Terminal [1, -1]\\Path efficiency [1,  1/p]\\(where p = path length)\\Path diversity}} &
+    DeepPath~\cite{xiong2017deeppath} &
+    \makecell{Supervised policy learning\\Pre-computed paths\\Post processing verification} &
+    \makecell{FB15k-237 \\ NELL-995} &
+    \makecell{TransE \\ TransH} &
+    Yes \\
+    
+    \midrule
+    
+    \textbf{REINFORCE} &
+    \textbf{Binary Terminal \{0, 1\}} &
+    MINERVA~\cite{das2017go} &
+    \makecell{Paths of variable length\\Stopping conditions\\No pre-computing} &
+    \makecell{COUNTRIES\\UMLS\\Kinship\\FB15k-237\\WN18RR\\NELL-995} &
+    \makecell{ComplEx\\ConvE\\DistMult} &
+    No \\
+    
+    \midrule
+    
+    \textbf{REINFORCE} &
+    \textbf{\makecell{Terminal [0, 1] \\Computed pre-\\trained reward\\(reward shaping)}} &
+    Reward Shaping~\cite{lin2018multi} &
+    \makecell{Random action dropout\\Soft reward based on \\embedding models} &
+    \makecell{UMLS\\Kinship\\FB15k-237\\WN18RR\\NELL-995} &
+    \makecell{ComplEx\\ConvE} &
+    Yes (reward shaping) \\
+    
+    \midrule
+    
+    \textbf{REINFORCE} &
+    \textbf{\makecell{Soft Terminal [0-1]\\Learned reward \\ through training}} &
+    PGPR~\cite{xian2019reinforcement} & 
+    \makecell{Soft reward strategy\\User-conditional action \\pruning a multi-hop \\scoring function specialized \\in product datasets} &
+    Amazon (CD, Clothing, Cell Phones, Beauty) & Unspecified one-hot (precomputed) & 
+    Yes (embeddings) \\
+   
+    \midrule
+    
+    % \makecell{
+    % Distance-terminal: \\  
+    % $(p(i) \cdot g(n)) \cdot r_{global}$\\  
+    % $p(i) = K1 \cdot ln(i)+b$ \\  
+    % $g(n)= K2 \cdot [\sum p(i)]\tau$ \\  
+    % \makecell{*$K1$, $K2$, $\tau$ \& $b$ are \\hyperparameters} \\  
+    % \makecell{$r_{global}$ [0, 1] terminal reward}
+    % } &
+    \textbf{REINFORCE} &
+    \textbf{Distance terminal} $r_{global} \times [0, 1]$ &
+    DAPath~\cite{tiwari2021dapath} & 
+    Distance-aware reward & 
+    \makecell{NELL-995 \\ FB15K-23} &
+    TransE &
+    No \\  
+
+    \midrule
+
+    \textbf{A3C (Actor-critic)} &
+    \textbf{\makecell{Soft Terminal reward [0-1] \\ for anticipation network.}} &
+    Anticipation Embeddings ~\cite{cui2023incorporating} & 
+    \makecell{Anticipate next path \\ step using QA embeddings \\ to influence agent decisions} &
+    \makecell{WebQSP \\ PQ \\ PQL \\ MetaQA}  & 
+    \makecell{DistMult \\ ComplEx \\ ConvE \\ TuckER} &
+    Yes (KGE and KGQA modules.) \\
+   
+    \midrule
+    
+    \textbf{\makecell{A3C - policy \\ REINFORCE -\\ reward}} &
+    \textbf{\makecell{Terminal [0, 1]}} &
+    Dynamic Completion ~\cite{cui2023reinforcement} & 
+    \makecell{Dynamically augment action \\ space to enrich agent options} &
+    \makecell{WebQSP \\ MetaQA \\ CWQ} & 
+    \makecell{Glove (rel-selector) \\ DistMult \\ ConvE \\ ComplEX\\ TuckER} &
+    Yes (embeddings) \\
+   
+    \midrule
+
+  \end{tabular}
+  }
+
+    \caption{RL algorithms and reward types comparison.}
+    \label{tab:SoTA_approaches}
+  
+\end{sidewaystable}

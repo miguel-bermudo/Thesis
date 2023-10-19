@@ -1,0 +1,40 @@
+\begin{table}[!h]
+\centering
+\resizebox{0.85\columnwidth}{!}{
+\begin{tabular}{>{}l|>{}c*{4}{>{}c}c}
+\toprule
+\multirow{2}{*}{\textbf{Metric}} & \multirow{2}{*}{\textbf{Embedding}} & \multicolumn{4}{c}{\textbf{Evaluation}} \\
+\cmidrule(lr){3-6}
+& & \textbf{COUNTRIES} & \textbf{UMLS} & \textbf{C-Normal} & \textbf{U-Normal} \\
+\midrule
+\multirow{4}{*}{HITS @1} & \textbf{TransE} & 0.819 & 0.298 & \textbf{1.000} & \textbf{1.000} \\
+ & DistMult & 0.799 & 0.271 & 0.732 & 0.693 \\
+ & ComplEx & 0.743 & 0.284 & 0.000 & 0.845 \\
+ & TransR & 0.795 & 0.212 & 0.685 & 0.000 \\
+\midrule
+\multirow{4}{*}{HITS @3} & \textbf{TransE} & 0.996 & 0.656 & \textbf{1.000} & \textbf{1.000} \\
+ & DistMult & 0.991 & 0.604 & 0.676 & 0.628 \\
+ & ComplEx & 0.981 & 0.646 & 0.000 & 0.927 \\
+ & TransR & 0.992 & 0.517 & 0.716 & 0.000 \\
+\midrule
+\multirow{4}{*}{HITS @5} & \textbf{TransE} & 1.000 & 0.832 & 0.000 & \textbf{1.000} \\
+ & DistMult & 1.000 & 0.787 & 0.000 & 0.632 \\
+ & ComplEx & 0.999 & 0.823 & 0.000 & 0.925 \\
+ & TransR & 0.999 & 0.711 & \textbf{1.000} & 0.000 \\
+\midrule
+\multirow{4}{*}{HITS @10} & \textbf{TransE} & 1.000 & 0.973 & \textbf{1.000} & \textbf{1.000} \\
+ & DistMult & 1.000 & 0.956 & 1.000 & 0.704 \\
+ & ComplEx & 1.000 & 0.969 & 1.000 & 0.926 \\
+ & TransR & 1.000 & 0.916 & 1.000 & 0.000 \\
+\midrule
+\multirow{4}{*}{MRR} & \textbf{TransE} & 0.904 & 0.520 & \textbf{1.000} & \textbf{1.000} \\
+ & DistMult & 0.891 & 0.480 & 0.733 & 0.618 \\
+ & ComplEx & 0.856 & 0.502 & 0.000 & 0.831 \\
+ & TransR & 0.890 & 0.415 & 0.693 & 0.000 \\
+ \bottomrule
+\end{tabular}
+}
+
+\caption{Embedding comparison for the UMLS and COUNTRIES datasets}
+\label{tab:embedding_comparison}
+\end{table}
