@@ -1,0 +1,1 @@
+(`concept_ceo_alan_greenspan', `concept:topmemberoforganization', `concept_bank_u_s__federal_reserve', `$\neg$concept:topmemberoforganization',  `concept_politicianus_ben_bernanke', `concept:worksfor', `concept_bank_federal_reserve')

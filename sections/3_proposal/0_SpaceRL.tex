@@ -73,7 +73,7 @@ And it is considered to be correct if $e_n = e_a$, where $e_n$ is the node in st
 
 
 \section{Our proposal}\label{sec:spacerl-proposal}
-As we have already seen in previous sections SpaceRL-KG focuses on acquiring reasoned knowledge in the form of paths in order to determine if a particular set of triples are missing on the KG.
+As we have already seen in previous sections SpaceRL-KG focuses on acquiring reasoned knowledge in the form of paths in order to determine if a particular relation should exist between two nodes of the graph.
 It does so by training intelligent agents by way of applying novel reward functions and algorithms in a Reinforcement Learning setup, where the Knowledge Graph acts as the environment and each node as the state.
 
 To obtain these paths the graph nodes and relations must be encoded as numerical vectors representing their position in a N-dimensional space. 
@@ -81,6 +81,7 @@ These numerical vectors are then combined in a way where they represent the curr
 
 This is done by evaluating every possible action for every step of the path and then stochastically selecting one based on the policy scores provided, the agent is then rewarded based on several metrics and updated after every episode.
 
+\subsection{Embedding representations}\label{sec:spacerl-embeddings}
 
 \subsection{Reinforcement Learning implementation}\label{sec:spacerl-rlimplementation}
 
@@ -129,6 +130,7 @@ for comparison purposes; they use embeddings, however, they do so in a different
 
 \subsection{Policy Network}
 \label{sec:policy}
+
 The policy used to determine which action will be taken at each step is based on the neural network architecture described in Figure~\ref{fig:policy}. The network receives state information in the form of the query $(e_0,r_q)$, the current location node $e_t$ as well as the action which is being evaluated $(r_{t+1}, e_{t+1})$. These actions are all the possible relations connected to the current node $e_t$. It is necessary to evaluate each action individually since the number of edges connected to a node is variable.
 
 For the neural network to receive this information, it is encoded using translation embedding representations for each of the entities and relations so that  $\textbf{r} \in \mathbb{R}$, $\textbf{e} \in \mathbb{E}$ where $\mathbb{R}$ and $\mathbb{E}$ are the vectorial spaces containing all possible representations in the graph. The chosen size for these embedded representations was $200$ as it is a common in literature for these set of knowledge graphs and embedding combinations, making the networks input size $1000$ units.
@@ -169,8 +171,8 @@ Finally the policy network can be formalized as:
 \label{sec:rewards}
 
 \begin{algorithm}[!h]
-\label{alg:embeddings}
 \caption{Embedding-based reward calculation}
+\label{alg:embeddings}
 \KwIn{\\
 \texttt{// Previous location values.}\\
 $PrevDot$, $PrevEucDist$, $PrevCosSim$:\textless Float\textgreater\\
@@ -212,25 +214,25 @@ These reward functions act on a step by step basis, that is, they are calculated
 \newcommand{\pluseq}{\mathrel{+}=}
 
 \begin{algorithm}[!h]
-\label{alg:distance}
-\caption{Distance reward calculation}
-\KwIn{\\
-\texttt{// Current distance to goal node}\\
-$d_t$: Integer\\
-\texttt{// Previous distance to goal node}\\
-$d^{-1t}$: Integer\\
-}
-\KwOut{$reward$: Float}
+    \caption{Distance reward calculation}
+    \label{alg:distance}
+    \KwIn{\\
+    \texttt{// Current distance to goal node}\\
+    $d_t$: Integer\\
+    \texttt{// Previous distance to goal node}\\
+    $d^{-1t}$: Integer\\
+    }
+    \KwOut{$reward$: Float}
 
-$reward \gets 0.0$
+    $reward \gets 0.0$
 
-\uIf{$d_t < d^{-1t}$}{
-    $reward \gets 1$
-}\ElseIf{$d_t = d^{-1t}$}{
-    $reward \gets \frac{1}{3}$
-}
+    \uIf{$d_t < d^{-1t}$}{
+        $reward \gets 1$
+    }\ElseIf{$d_t = d^{-1t}$}{
+        $reward \gets \frac{1}{3}$
+    }
 
-\Return $reward$
+    \Return $reward$
 \end{algorithm}
 
 
@@ -242,7 +244,9 @@ The distance reward function is shown in detail in Algorithm~\ref{alg:distance}.
 \subsection{Reinforcement Learning algorithms}
 \label{sec:RLalgorithms}
 
-As it can be seen in Table~\ref{tab:SoTA_approaches}, all previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
+% As it can be seen in Table~\ref{tab:SoTA_approaches}, all previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
+
+\todo{re-wrie this without making references to the table of SoTa approaches.}
 
 \begin{equation}
 \label{eq:reinforce}
@@ -264,10 +268,10 @@ To overcome REINFORCE's limitations, several other paradigms have been developed
 % ~\cite{schulman2017proximal}
 and Actor-Critic
 % ~\cite{castro2010convergent}
- approaches, in particular the soft variant
+ approaches, in particular, the soft variant
 % ~\cite{haarnoja2018soft}.
  These algorithms mitigate the aforementioned problems.
-Their combination benefits from the advantages typical of Temporal-Diference Learning
+Their combination benefits from the advantages typical of Temporal-Difference Learning
 % ~\cite{sutton1988learning}
  by defining a critic: a neural network tasked with predicting the value of the long-term reward associated to an action-state pair $(a,s)$. This value is used in a similar fashion to how Q-learning
 % ~\cite{watkins1992q}
@@ -327,7 +331,7 @@ We selected five benchmark datasets, which are often used in the literature, and
     % ~\cite{miller1995wordnet}
     , a subset of WordNet in which originally many text triples are obtained by inverting triples from the training set.
     % ~\cite{dettmers2018convolutional}
-    This lead to these datasets being able to be completed by using simple ruling, by removing these inverse triples, WN18RR, avoids leakage of inverse relations into the testing split, thus making it necessary to have knowledge of the entire dataset.
+    This leads to these datasets being able to be completed by using simple ruling, by removing these inverse triples, WN18RR, avoids leakage of inverse relations into the testing split, thus making it necessary to have knowledge of the entire dataset.
 \end{itemize}
 
 Table~\ref{tab:datasets} contains a statistical summary of the aforementioned datasets.
@@ -339,10 +343,19 @@ Table~\ref{tab:datasets} contains a statistical summary of the aforementioned da
 \subsection{Experimental setup}
 \input{tables/SpaceRL-KG/emb_comparison}
 
-First, in order to limit our experimentation to a single type of embedding, we carried out a preliminary experimental study to determine which embeddings offered the best results. The results of this study are shown in Table ~\ref{tab:embedding_comparison}. It can be observed that TransE, despite its simplicity, leads to the best results in the COUNTRIES and UMLS dataset. Consequently, we use TransE for all of our experiments over the other three types that were tested (DistMult, ComplEx and TransR).
+First, in order to limit our experimentation to a single type of embedding, we carried out a preliminary experimental study to determine which embeddings offered the best results. The results of this study are shown in Table ~\ref{tab:embedding_comparison}. It can be observed that TransE, despite its simplicity, leads to the best results in the COUNTRIES and UMLS datasets. Consequently, we use TransE for all of our experiments over the other three types that were tested (DistMult, ComplEx and TransR).
 
 Previous to every training loop we make sure that the vectorial space of the embeddings is normalized, to avoid vanishing gradients or gradient explosions as previously mentioned. We set the hyperparameters to the following values: $\alpha=0.9$, $\gamma=0.99$, path exploration to a maximum of $5$, and hidden size of intermediate layers to $400$. These values were selected on an empirical basis, as to the best of our knowledge there is no way to systematically find the optimal ones for a given architecture.
-For the Policy network, we set the kernel initializer to Glorot/Xavier~\cite{glorot2010understanding} for general purpose or LeCun~\cite{lecun2012efficient} for incompatible activation functions. We chose LReLU with a factor of $0.01$ as the activation for the intermediate layers to prevent gradient vanishing, which would lead to the Glorot activation being prevalent. We used L1 and L2 regularisation with L1 having a factor of $10^{-5}$ and L2 having $10^{-4}$. We selected RSMprop~\cite{hinton2012neural} as an optimiser for the PPO network and Adam~\cite{kingma2014adam} as default. The previous choices, were based on empirical testing performed by previous approaches~\cite{jomaa2019hyp}.
+For the Policy network, we set the kernel initializer to Glorot/Xavier
+% ~\cite{glorot2010understanding}
+for general purpose or LeCun
+% ~\cite{lecun2012efficient}
+for incompatible activation functions. We chose LReLU with a factor of $0.01$ as the activation for the intermediate layers to prevent gradient vanishing, which would lead to the Glorot activation being prevalent. We used L1 and L2 regularisation with L1 having a factor of $10^{-5}$ and L2 having $10^{-4}$. We selected RSMprop
+% ~\cite{hinton2012neural}
+as an optimiser for the PPO network and Adam
+% ~\cite{kingma2014adam}
+as default. The previous choices, were based on empirical testing performed by previous approaches
+% ~\cite{jomaa2019hyp}.
 
 
 We performed a preliminary evaluation of several techniques to select the most promising ones for further experimentation:
@@ -413,17 +426,17 @@ In these tables, \#rel denotes the frequency of appearance of these relations fo
 
 \begin{figure*}[!h]
     \centering
-    \includesvg[inkscapelatex=false, width=\textwidth]{fig/SpaceRL-KG/graphs/countries_trans_e.svg}
-    \caption{comparison of metrics and techniques employed}
-    \label{fig:metricsbarchart}
+    \includesvg[inkscapelatex=false, width=\textwidth]{fig/SpaceRL-KG/graphs/fb_film_genre.svg}
+    \caption{Algorithm and reward comparison for FreeBase ``film genre'' relation}
+    \label{fig:fb_film_genre}
 \end{figure*}
 
 
-Table~\ref{tab:FB_film} shows a comparatively low accuracy in juxtaposition to the small datasets for the ``film/film/genre'' relation, however the difference in accuracy for for the PPO Agents is notable: when compared to the Baseline algorithm and distance reward hits@1 increases by 87.97\%, and the Mean Reciprocal Rank by 59.02\%.
+Table~\ref{tab:FB_film} shows a comparatively low accuracy in juxtaposition to the small datasets for the ``film/film/genre'' relation, however the difference in accuracy for the PPO Agents is notable: when compared to the Baseline algorithm and distance reward hits@1 increases by 87.97\%, and the Mean Reciprocal Rank by 59.02\%.
 
 Additionally, the use of embeddings with the PPO algorithm leads to an improvement of 7.76\% and 6.2\% for hits@1 and MRR respectively, which also shows the increase in accuracy for embedding-based rewards in highly connective datasets such as FreeBase.
 
-In this case the application of PPO shows a remarkably larger improvement in the agents results which is to be expected given the results in the former experiments. Embedding-based rewards also show improvement against the baseline of euclidean distance, which confirms our intuition. %is what we strive to prove.
+In this case, the application of PPO shows a remarkably larger improvement in the agents results which is to be expected given the results in the former experiments. Embedding-based rewards also show improvement against the baseline of Euclidean distance, which confirms our intuition. %is what we strive to prove.
 
 \input{tables/SpaceRL-KG/NELL_all}
 
@@ -494,18 +507,19 @@ We can observe a general increase of 33.24 \% for hits@1 and 13.82\% for MRR in 
     \footnotesize{*derivationally related from}
 \end{figure*}
 
-We used the WordNet dataset to test the accuracy of a general model against a relation specific model, as well as to offer a comparison against the previously trained agents. We focused solely on embedding-based rewards and PPO algorithm model in this case, since they have achieved the highest performance in the previous experiments.
+We used the WordNet dataset to test the accuracy of a general model against a relation-specific model, as well as to offer a comparison against the previously trained agents. We focused solely on embedding-based rewards and PPO algorithm model in this case, since they have achieved the highest performance in the previous experiments.
 
-Table~\ref{tab:WN18RR_results} shows that even when all agents have reached convergence, their accuracy drops depending on the frequency of appearance of the relations in the graph. We can further visualize this phenomenon by focusing on the inverse co-relation shown by the regression lines in Figure~\ref{fig:regrbarchart}, where we see a downwards trend on MRR~\ref{fig:relMRR} when the number of appearances of a relation is ascending in Figure~\ref{fig:relnum}.
+Table~\ref{tab:WN18RR_results} shows that even when all agents have reached convergence, their accuracy drops depending on the frequency of appearance of the relations in the graph. We can further visualize this phenomenon by focusing on the inverse co-relation shown by the regression lines in Figure~\ref{fig:regrbarchart}, where we see a downward trend on MRR~\ref{fig:relMRR} when the number of appearances of a relation is ascending in Figure~\ref{fig:relnum}.
 
-This tells us that whenever the number of relations increases, the MRR (which shows the stability of the agent) drops, meaning it is harder for the agent to determine a good result from the pool of possibilities . However, we see that the increase is logarithmic in nature, so it is reasonable to assume that it would still perform satisfactorily in adverse conditions.
+This tells us that whenever the number of relations increases, the MRR (which shows the stability of the agent) drops, meaning it is harder for the agent to determine a good result from the pool of possibilities. However, we see that the increase is logarithmic in nature, so it is reasonable to assume that it would still perform satisfactorily in adverse conditions.
 
 
 \section{Limitations}\label{sec:spacerl-limitations}
 % el apartado de conclusions y future work tiene mucho de lo que podemos poner aqui tambien.
 
+% In this paper, we have presented a novel approach to the application of Reinforcement Learning to Knowledge Graph Completion.
 
-In this paper we have presented a novel approach to the application of Reinforcement Learning to Knowledge Graph Completion. The performance of RL proposals heavily depends on the measurements of action performance (reward function) and the application of different policies that determine how the reward is ultimately assigned to the actions. However, existing proposals have merely scratched the surface when it comes to these aspects, applying unanimously terminal-based reward functions and the backpropagation-focused REINFORCE algorithm.
+The performance of RL proposals heavily depends on the measurements of action performance (reward function) and the application of different policies that determine how the reward is ultimately assigned to the actions. However, existing proposals have merely scratched the surface when it comes to these aspects, applying unanimously terminal-based reward functions and the backpropagation-focused REINFORCE algorithm.
 
 Our novel alternative consists of a new set of reward-functions and the application of RL algorithms whose potential remained unexplored. Our reward functions seek to use graph-specific information that is available before reaching the end of an episode: the distance to the answer node, and the semantic similarity to it computed from node embeddings. The implemented technique makes use of Proximal Policy Optimization and the Actor-Critic paradigm, resulting in faster training.
 

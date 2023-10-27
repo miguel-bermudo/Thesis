@@ -1,0 +1,6 @@
+newspaper_daily_record  newspaperincity city_baltimore
+city_baltimore  citylocatedinstate  stateorprovince_maryland
+sportsteam_coppin_state_lady_eagles teamplaysincity city_baltimore
+sportsteam_johns_hopkins  teamplaysincity city_baltimore
+athlete_don_zimmerman athleteplaysinteam  sportsteam_johns_hopkins
+politician_sheila_dixon personhasresidencein  city_baltimore

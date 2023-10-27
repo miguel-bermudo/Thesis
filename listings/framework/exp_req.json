@@ -1,0 +1,8 @@
+{
+  "name": "My_new_NELL_Agent",
+  "dataset": "NELL-995",
+  "single_relation": false,
+  "embedding": "TransE_l2",
+  "laps": 150,
+  "relation_to_train": ""
+}

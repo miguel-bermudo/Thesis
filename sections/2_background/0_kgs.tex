@@ -3,77 +3,128 @@
 \chapterQuote{\hfill\textit{``Knowledge is hot water on wool. It shrinks time and space.''}}{--- \textit{House of Leaves}, Mark Z. Danielewski}
 
 \chapterAbstract{K}{nowledge Graphs (KGs) are ...}
-how the chapter is structured
 
 % are collections of facts that are represented in a graph-like structure, with entities and connections between them. This chapter provides an introduction to KGs, and it is structured as follows: Section~\ref{sec:kgs-intro} introduces the reader to their history and main characteristics. Section~\ref{sec:kgs-current} provides an overview of the most prominent KGs in use nowadays. Section~\ref{sec:kgs-applications} presents some of the many practical applications of Knowledge Graphs. Section~\ref{sec:kgs-challenges} reflects on the main current challenges regarding KGs. At last, Section~\ref{sec:kgs-summary} summarizes and concludes this chapter.
 
 \section{Introduction}\label{sec:kgs-intro}
-knowledge graphs are so cool blah blah blah...
-
 % METER ESTA IDEA AQUI.
 % Es gracioso que los grafos de conocimiento al fin y al cabo no representan nada "nuevo" ya que una base de datos relacional puede implementar grafos etc. Se puede mencionar la idea de que los grafos de conocimiento permiten quitar bagaje y tener algo simple de implementar, expandir, y al que aplicar algoritmos.
+
+Before the emergence of knowledge graphs, information was predominantly stored in traditional databases and represented in tabular formats. While these databases were effective at storing structured data, they lacked the capacity to capture the complex relationships and semantics inherent in real-world information.
+
+The concept of knowledge graphs can be traced back to the early days of Artificial Intelligence (AI) research. In the 1960s and 1970s, researchers began exploring methods to represent knowledge in a form that could be understood and utilized by computers. Early endeavors focused on semantic networks, which used nodes to represent concepts and edges to denote relationships between them.
+
+The advent of the World Wide Web in the 1990s brought about an explosion of digital information. As the volume of web content grew, so did the need for more sophisticated methods of organizing and extracting knowledge from this vast repository. This led to the development of the Semantic Web, a vision championed by Sir Tim Berners-Lee, which aimed to make web content machine-understandable.
+
+A pivotal milestone in the evolution of knowledge graphs was the introduction of the Resource Description Framework (RDF) in the late 1990s. RDF provided a standardized way to describe resources on the web and establish links between them. This laid the foundation for the creation of linked data, which allows for the interconnection of disparate datasets on the web.
+
+In 2012, Google introduced the term "Knowledge Graph" as a central element of their search engine. Google's Knowledge Graph aimed to enhance search results by providing contextual information about entities and their relationships. This marked a significant shift towards a more semantically enriched approach to information retrieval.
+
+Rather than a simple collection of relations between names of entities, they started to be seen as a rich, interconnected structure of elements (\textit{``things, not strings''}) with an enormous potential for practical and commercial applications. Many other large companies of the likes of Amazon, Facebook, Microsoft and eBay soon followed suit 
+% \cite{shrivastava2017, krishnan2018, pittman2017, noy2019},
+and the term Knowledge Graph (KG) rose to the popularity it still enjoys nowadays, replacing the denomination ``Knowledge Base''.
+
+Today, knowledge graphs have become a cornerstone of various AI applications, including natural language processing, recommendation systems, and data integration. Their ability to represent complex relationships and semantic context has made them an invaluable tool in the era of big data and advanced machine learning techniques.
+
+% kept this here for the citations...
 
 % Representing and storing structured domain-specific knowledge has been an active research topic since at least 1970, when the first relational databases were introduced \cite{codd1970}. Given their indisputable success, many alternative means of representing knowledge in an structured manner have been proposed over the years. One of such proposals was using what was coined as a \textit{Knowledge Base} (KB) \cite{hayes-roth1983}, a collection of facts that are stored as direct relations between concepts. Contrary to relational databases, which need to go through a normalization process that introduces a number of indirections to represent a piece of knowledge, KBs were considered more straightforward to operate and reason about \cite{russell2020}. A number of Knowledge Bases were thus created and maintained throughout the subsequent years by multiple organizations and research entities, which were both general-purpose~\cite{mahdisoltani2014,lehmann2015dbpedia, rebele2016, carlson2010, bollacker2008, vrandevcic2014} and domain-specific~\cite{chakravarty2017, thorn2013pharmgkb, wishart2009, wishart2008, kanehisa2010}.
 
 % The information inside a Knowledge Base was stored in the form of entities, which represented real-world or domain-specific concepts, and relations that link these entities together. This is known as a triple: a combination of two entities by means of a relation, which usually contains a verb. For example, a KB can represent the fact that Magnus Carlsen is a chess player using the triple \textit{(Magnus Carlsen, plays, Chess)}. Such triples were generally encoded in a KB using the RDF/XML format \cite{decker2000}, or an extension of it called RDFS, which allows for a higher degree of expressivity. However, since RDF/XML is mainly intended for machine use, later KBs also used other formats, like N3, Turtle, or RDF/JSON, which are more human-readable.
 
-% However, the introduction of the Google Knowledge Graph in 2012 \cite{singhal2012} was a pivotal point for both the industrial use and academic research of Knowledge Bases. Rather than a simple collection of relations between names of entities, they started to be seen as a rich, interconnected structure of elements (\textit{``things, not strings''}) with an enormous potential for practical and commercial applications. Many other large companies of the likes of Amazon, Facebook, Microsoft and eBay soon followed suit \cite{shrivastava2017, krishnan2018, pittman2017, noy2019}, and the term Knowledge Graph (KG) rose to the popularity it still enjoys nowadays, replacing the denomination ``Knowledge Base''.
+% However, the introduction of the Google Knowledge Graph in 2012 \cite{singhal2012} was a pivotal point for both the industrial use and academic research of Knowledge Bases.
+
 
 % In the following sections, we present the most popular Knowledge Graphs that are under active use today and the ways in which they are constructed. We then discuss the many practical applications that can, and have been, derived from the usage of KGs in commercial and academical contexts. However, despite their many benefits, Knowledge Graphs still present several challenges that must be addressed to improve their functionality and usefulness. Therefore, we also provide an overview of the main open challenges that need to be addressed to refine and improve Knowledge Graphs.
 
-\section{Current Knowledge Graphs}\label{sec:kgs-current}
-esta seccion la tenia agu para hablar de los grafos actuales, no la veo mal para comentar cuales se usan para investigacion y tal.
-
-pero le cambiaria el nombre a Notable Examples o Modern KGs o algo del palo.
-
-hablar de los que se han usado obv.
-
+\section{Modern Knowledge Graphs}\label{sec:kgs-current}
 
 % Nowadays, there are a number of popular Knowledge Graphs under active use, either commercial or academical. Some of the most prominent ones are as follows:
 
-% \begin{itemize}
-%     \item \textbf{DBpedia \cite{lehmann2015dbpedia}:} Initially, the DBpedia project aimed to obtain a graph-like structure from semi-structured information sources, mainly, from the infoboxes present in Wikipedia articles (see Figure~\ref{fig:kgs-infobox}). Once this was achieved, DBpedia was further enhanced by adding links to external KGs and general open resources. DBpedia is both a multi-domain and multi-language KG, with a rich and publicly available ontology that enhances the contents in it. It also supports live synchronization with dynamic Wikipedia articles, to ensure that its knowledge is consistently up-to-date.
+\begin{itemize}
+    \item \textbf{DBpedia} is a community-driven knowledge graph that extracts structured information from Wikipedia articles. It covers a wide range of topics and provides structured data about entities, their attributes, and relationships. DBpedia utilizes natural language processing and information extraction techniques to parse Wikipedia articles and convert unstructured text into a structured RDF format.
     
-%     \begin{figure}[!htp]
-%         \centering
-%         \includegraphics[width=\textwidth]{fig/kgs/dbpedia.png}
-%         \caption{The entity \textit{Magnus Carlsen} in DBpedia}
-%         \label{fig:kgs-dbpedia}
-%     \end{figure}
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=\textwidth]{fig/kgs/Keanu_DBpedia.png}
+        \caption{The ontology \textit{Keanu Reeves} in DBpedia}
+        \label{fig:kgs-dbpedia}
+    \end{figure}
+    
+    \item \textbf{YAGO} (Yet Another Great Ontology) is a knowledge graph that combines data from Wikipedia, WordNet, and GeoNames. It provides a comprehensive representation of entities and their relationships. Created using automated extraction techniques and ontological alignment to integrate information from multiple sources.
+    
+    \item \textbf{Wikidata} is a collaborative, multilingual knowledge graph maintained by the Wikimedia Foundation. It serves as a central repository of structured data for Wikimedia projects and beyond, containing information about a diverse set of topics it is built by a global community of volunteers who contribute, edit, and curate data using a web-based user interface.
+    
+    \begin{figure}[!h]
+        \centering
+        \includegraphics[width=\textwidth]{fig/kgs/Keanu_Wikidata.png}
+        \caption{The entity \textit{Keanu Reeves} in Wikidata}
+        \label{fig:kgs-wikidata}
+    \end{figure}
 
-%     \item \textbf{YAGO \cite{rebele2016}:} A Knowledge Graph that shares a number of similarities with DBpedia. Just like it, YAGO is also a KG that extracts semi-structured information from Wikipedia to create, as its authors put it, a \textit{``light-weight and extensible ontology with high quality and coverage''} \cite{suchanek2007}. A number of refinements are applied to the knowledge stored in YAGO, such as canonicalization, which removes possibly duplicate elements from the graph; or type checking, which prevents invalid combinations of entities from being formed.
-    
-%     \item \textbf{FreeBase \cite{bollacker2008}:} A large-scale, multi-domain KG that aimed to collect human knowledge in order to facilitate its integration, usage and standardization. Unlike the previously discussed KGs, which use Wikipedia as their main sources of information, FreeBase was a collaborative project that relied on human editors and curators to add knowledge to it. It was also one of the first multimodal KGs, since it allowed users to include text, images and media files. FreeBase was acquired by Google in 2010 and, upon the release of the Google Knowledge Graph, it was discontinued and put in a read-only mode. However, it is still a popular Knowledge Graph in the academic domain, since many different research works use it to benchmark their proposals.
-    
-%     \begin{figure}[!htp]
-%         \centering
-%         \includegraphics[width=.4\textwidth]{fig/kgs/infobox.png}
-%         \caption{A Wikipedia infobox}
-%         \label{fig:kgs-infobox}
-%     \end{figure}
+    % \item \textbf{GeoNames} is a geographical database that provides detailed information about places worldwide, including countries, cities, and landmarks. It also includes coordinates and population data, it combines data from various sources, including official government databases, with user contributions and validation processes.
 
-%     \item \textbf{WikiData \cite{vrandevcic2014}:} After KGs such as DBpedia and YAGO successfully leveraged the information in Wikipedia's infoboxes, the Wikimedia Foundation soon realized that the information contained in them could be very useful. However, the data in these boxes needed to be manually added, edited and updated by human editors, and constantly kept up-to-date in as many languages as the original articles were available in. To alleviate this issue, they introduced WikiData as a centralized and crowdsourced source of information, to supply Wikipedia articles and a number of other applications with data. Contrary to most other KGs, and following the philosophy of Wikipedia, all data entered into WikiData is not immediately considered a fact, but rather a claim that must be supported by references to outside sources. Both entities and relations in WikiData are denoted with codes, which makes it language-agnostic, but can reduce its human interpretability if they are not mapped to their human-readable names. Figure~\ref{fig:kgs-wikidata} shows a small excerpt of WikiData, centered around the entity \textit{Artist}.
+    \item \textbf{UMLS (Unified Medical Language System)} is a comprehensive ontology and knowledge graph for the biomedical domain. It integrates terminology and data from various biomedical sources. UMLS is built through a combination of manual curation by domain experts and automated processes for integrating and mapping different terminologies.
     
-%     \begin{figure}[!htp]
-%         \centering
-%         \includegraphics[width=\textwidth]{fig/kgs/wikidata.png}
-%         \caption{An excerpt of WikiData}
-%         \label{fig:kgs-wikidata}
-%     \end{figure}
+    \item \textbf{Freebase (Now Part of Wikidata)} was a large-scale knowledge graph acquired by Google in 2010 and later integrated into Wikidata. It contained structured data on a wide array of topics, including people, places, and concepts. It was constructed through a combination of automated data extraction, crowd-sourcing, and expert curation.
     
-%     \item \textbf{NELL \cite{mitchell2018}:} The Never-Ending Language Learning project, or NELL for short, is a fully-automated system that scans the entire web, reads the contents of a webpage, and attempts to extract information from plain text written by humans. The information it extracts is then structured in the form of a triple and inserted in a KG. This Knowledge Graph is thus, by its very definition, under constant expansion. The NELL project allows users to rate an extracted fact positively or negatively, depending on whether or not the fact makes sense and is correct, and this allows the extractor to learn over time which facts are being successfully extracted, consistently improving its capabilities. NELL can also assign a confidence score to the facts it extracts, although only \textasciitilde6\% of its \textasciitilde50 million facts have a high confidence score.
+    \item \textbf{WordNet} is a lexical database of the English language, organized in a semantic network. It groups English words into sets of synonyms (synsets) and provides short, general definitions. WordNet is manually constructed by lexicographers who define word meanings and establish semantic relationships between words.
     
-%     \item \textbf{MAKG \cite{sinha2015}:} A prime example of a domain-specific KG, the Microsoft Academic Knowledge Graph is a very large collection of over 8 billion triples with meta-information about research, such as academic publications, authors, institutions, and domains of study, among others. The information in it is obtained directly from two main sources: academic publishers, such as ACM and IEEE, and websites indexed by the Bing search engine, from which the information must be extracted from a plain-text format. In total, more than 83 million papers and 20 million authors are present in this academic Knowledge Graph.
-
-% \end{itemize}
+    \item \textbf{NELL (Never-Ending Language Learning)} is a project aimed at creating a machine learning system that continuously learns to extract structured information from the web. It aims to discover new facts about entities over time it uses a combination of natural language processing, machine learning, and information extraction techniques to learn and update its knowledge base.
+\end{itemize}
 
 \section{Applications}\label{sec:kgs-applications}
 
-tambien una seccion obvia, tenemos que son, cuales hay y par que se usan, quizas alterar el orden y poner esta seccion antes de la anterior? hay pros y contras...
+Knowledge graphs, as we explored in the preceding chapter, are structured representations of information that emphasize the interconnectedness of entities, attributes, and relationships. This section delves into the practical applications and diverse utility of knowledge graphs across a spectrum of domains. The power of knowledge graphs lies not only in their capacity to organize information but in their ability to unlock a deeper layer of context, semantics, and relationships within data. 
 
-% It has been established that Knowledge Graphs are a powerful tool to organize and connect information in a semantically meaningful way, making it easier for machines and services to understand and interpret complex data. The use of Knowledge Graphs has expanded rapidly across a wide range of fields, including healthcare, education, e-commerce, and many others \cite{peng2023}. By providing a structured representation of data, Knowledge Graphs enable more accurate and efficient decision-making processes, support natural language processing, and enhance the ability of machines to understand the context and relationships between different entities. 
+They have emerged as a foundational tool in modern information processing and artificial intelligence. In this chapter, we delve into the diverse and powerful applications of knowledge graphs across various domains. From enhancing search engines to revolutionizing recommendation systems, knowledge graphs play a pivotal role in extracting valuable insights and enabling intelligent decision-making.
 
-% In this way, Knowledge Graphs have proven to be an invaluable resource for a variety of practical applications that we take for granted nowadays, which require complex data management and analysis. Some of the most popular practical applications of Knowledge Graphs are as follows:
+This chapter explores five prominent applications of knowledge graphs, each showcasing their versatility and impact in different realms of information processing, such as information retrieval, data analysis, and decision support. We illustrate how knowledge graphs have transformed traditional approaches, enabling more accurate, contextually aware, and personalized interactions with data.
+
+\begin{itemize}
+    \item \textbf{Semantic Search and Information Retrieval}:
+    Knowledge Graphs provide a structured foundation for deducing the context between entities by understanding the intricate relationships between them. Unlike traditional keyword-based searches, semantic search engines, empowered by knowledge graphs, consider the deeper meaning and connections within the data, they ensure that search results are more accurate and contextually meaningful. This is especially crucial in fields like healthcare, legal research, and scientific studies where precision in information retrieval is essential. Through semantic search, users can navigate complex datasets with greater precision, uncovering insights that might be missed in traditional keyword-based searches.
+
+    For instance, in a healthcare knowledge graph, the relationships between symptoms, diagnoses, and treatments allow for more precise and contextually relevant search results. This is vital in scenarios where accuracy and depth of information retrieval are paramount.
+
+    
+    \item \textbf{Recommendation Systems}:
+    Knowledge graphs play a pivotal role in recommendation systems, revolutionizing how personalized suggestions are generated. 
+    Recommendation systems, at their core, rely on understanding user behavior and preferences. Knowledge graphs provide the structured foundation needed to model these relationships effectively. By incorporating nuanced connections, recommendation systems can go beyond surface-level patterns, uncovering unexpected associations that lead to more meaningful and relevant suggestions.
+    By modeling rich semantic connections between users, items, and their attributes, knowledge graphs enhance the accuracy and relevance of recommendations. 
+    
+    This is particularly crucial in domains like content streaming platforms, e-commerce, and content curation, where tailoring suggestions to individual tastes can significantly enhance the user experience. Knowledge Graphs elevate the accuracy and effectiveness of recommendation engines. This results in more engaged users, higher conversion rates, and ultimately, a more satisfying user experience.
+
+    \todo{NLP and healthcare must be tweaked.}
+
+    \item \textbf{Natural Language Processing (NLP)}:
+    Knowledge graphs provide a structured framework for representing and understanding textual information. This allows for more accurate and nuanced language understanding, leading to improved tasks such as entity recognition, relationship extraction, and question answering. In a medical context, a knowledge graph can be used to understand clinical text. It can identify relationships between symptoms, diagnoses, and treatments, enabling the extraction of valuable information for healthcare applications.
+
+    % second egneration here.
+
+    Knowledge graphs provide a structured framework that significantly enhances natural language processing (NLP) tasks. They underpin advanced NLP functions such as entity recognition, relationship extraction, and question answering. By incorporating semantic relationships between entities and their attributes, knowledge graphs enrich language understanding. For example, in a medical knowledge graph, relationships can link symptoms, diagnoses, and treatments. This enables more precise and contextually relevant language comprehension in healthcare applications, where accuracy in understanding medical text is crucial.
+
+    In the realm of language understanding, knowledge graphs serve as a fundamental tool for NLP applications. They allow for a more nuanced analysis of textual data by considering not just individual words, but also their relationships within a broader context. This is particularly valuable in fields like legal analysis, where the meaning of words and phrases depends heavily on the surrounding context. Knowledge graphs enable NLP systems to go beyond basic language processing, enabling them to grasp the complexities of human communication more effectively.
+
+    Furthermore, knowledge graphs facilitate the inference of implicit relationships based on the existing graph structure. This means that even if a specific relationship is not explicitly stated in the text, the knowledge graph can help deduce it. This inference capability is a powerful feature in NLP tasks, enabling systems to uncover hidden patterns and connections within text data. This is particularly useful in tasks like sentiment analysis, where understanding the sentiment of a sentence may depend on the context provided by surrounding sentences.
+
+    In conclusion, knowledge graphs are integral to natural language processing, providing a structured foundation that enhances tasks such as entity recognition, relationship extraction, and question answering. They allow for a more nuanced and accurate understanding of language by considering the contextual relationships between entities. This is crucial in fields where precision and context in language comprehension are paramount, such as healthcare, legal research, and sentiment analysis.
+
+    \item \textbf{Contextual Analysis and Decision Support}:
+    Contextual analysis involves examining information within the broader framework of its surroundings, considering the environment, relationships, and relevant circumstances that influence its meaning or interpretation. It is crucial in understanding the full significance of data. It helps in avoiding misinterpretations that can occur when information is considered in isolation. By taking into account the surrounding context, analysts can gain deeper insights and make more informed decisions. Knowledge graphs enhance contextual analysis by providing a structured framework for representing relationships and contextual information between entities. These graphs incorporate temporal, hierarchical, and semantic dimensions, allowing for a comprehensive understanding of data within its broader context. Moreover, knowledge graphs facilitate context-aware queries, enabling users to retrieve information based on specific contextual constraints. This not only supports decision-making but also empowers analysts to uncover hidden patterns and dependencies within the data, ultimately leading to more informed and effective analyses.
+
+    \item \textbf{healthcare}:
+    In healthcare, knowledge graphs serve as a powerful tool for representing, organizing, and analyzing complex medical information. They provide a structured framework that captures relationships between medical entities, their attributes, and contextual information. For instance, a healthcare knowledge graph can model the relationships between symptoms, diagnoses, treatments, medications, and patient histories. This enables comprehensive and contextually-rich representations of medical data, which is crucial for accurate diagnosis, treatment planning, and research.
+
+    One of the key strengths of knowledge graphs in healthcare lies in their ability to integrate diverse sources of medical information. They can incorporate data from electronic health records (EHRs), medical literature, clinical trials, and other healthcare databases. This integration enables a holistic view of a patient's medical history and facilitates evidence-based decision-making by healthcare professionals.
+    
+    Furthermore, knowledge graphs support clinical decision support systems (CDSS) by providing a structured foundation for generating patient-specific recommendations and alerts. For example, a CDSS built on a healthcare knowledge graph can analyze a patient's symptoms, medical history, and medication interactions to offer tailored treatment suggestions. This not only enhances the quality of care but also helps healthcare providers stay up-to-date with the latest medical knowledge.
+    
+    In addition, knowledge graphs are invaluable for medical research and innovation. They enable researchers to explore relationships between genetic factors, diseases, treatments, and outcomes. This can lead to discoveries about disease mechanisms, personalized medicine approaches, and the development of new therapies.
+    
+    In summary, knowledge graphs play a vital role in healthcare by providing a structured framework for representing and analyzing medical information. They support accurate diagnosis, treatment planning, and research by capturing relationships between medical entities. Their ability to integrate diverse sources of medical data and support clinical decision-making makes them a fundamental tool in modern healthcare systems.
+
+\end{itemize}
 
 % \begin{itemize}
 %     \item \textbf{Question answering:} Many search engines and personal assistants that are ubiquitous today, such as Siri, Alexa, Cortana, and Google Assistant, combine natural language processing (NLP) techniques, which helps them understand a query posed by a user, with Knowledge Graphs, which are used to navigate between entities and find the correct answer. Although most of the KGs that are used for this purpose are not made public for commercial reasons, they often contain a high amount of relations between both real-world and fictional entities and people. An example of this in practice is shown in Figure~\ref{fig:kgs-qa}.\\
@@ -93,7 +144,7 @@ tambien una seccion obvia, tenemos que son, cuales hay y par que se usan, quizas
     
 %     \item \textbf{Research:} Besides the previously discussed MAKG, a number of other Knowledge Graphs of research and academic entities have been built to help researchers explore possible lines of investigation and find possible relevant related materials. AceKG, introduced by \citet{wang2018}, is a similar KG, containing more than 3 billion triples with information about authors, papers, venues, and so on. The Artificial Intelligence KG \cite{dessi2020aikg}, and its extension, the Computer Science KG \cite{dessi2022cskg}, also contain a large volume of information pertaining research concepts, materials, tasks, and other similar entities in these fields. Furthermore, \citet{angioni2021} introduced the Academia/Industry KG, to help researchers identify trends in the constant exchanges between these two realms.\\
     
-%     \item \textbf{Healthcare:} It is undoubtable that having an efficient and effective healthcare system is a cornerstone of a functional modern society. To help manage the ever-growing amount of medical data and records that healthcare professionals have to deal with, some proposals to integrate KGs in this field have been made. \citet{zhang2020b} presented HKGB, a KG builder aimed towards healthcare professionals that leverages their expertise to construct medical Knowledge Graphs. \citet{gong2021} proposed constructing KGs with information about medicines, diseases and patients, in order to use it to suggest medicines to patients with particular incompatibilities or intolerances. 
+%     \item \textbf{Healthcare:} It is undoubtable that having an efficient and effective healthcare system is a cornerstone of a functional modern society. To help manage the ever-growing amount of medical data and records that healthcare professionals have to deal with, some proposals to integrate KGs in this field have been made. \citet{zhang2020b} presented HKGB, a KG builder aimed towards healthcare professionals that leverages their expertise to construct medical Knowledge Graphs. \citet{gong2021} proposed constructing KGs with information about medicines, diseases and patients, in order to use it to suggest medicines to patients with particular incompatibilities or intolerances.
 % \end{itemize}
 
 \section{Open challenges}\label{sec:kgs-challenges}

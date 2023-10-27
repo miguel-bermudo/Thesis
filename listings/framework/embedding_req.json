@@ -1,0 +1,9 @@
+{
+  "dataset": "NELL-995",
+  "models": [],
+  "use_gpu": true,
+  "regenerate_existing": true,
+  "normalize": true,
+  "add_inverse_path": true,
+  "fast_mode": false
+}

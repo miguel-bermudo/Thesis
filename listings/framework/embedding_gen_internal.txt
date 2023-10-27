@@ -1,0 +1,2 @@
+message: "post;embedding;{`dataset': `NELL-995', `models': [], `use_gpu': True, `regenerate_existing': True, `normalize': True, `add_inverse_path': True, `fast_mode': False}"
+response: "success; Embedding Calculation Launched"
