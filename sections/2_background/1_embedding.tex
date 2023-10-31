@@ -2,7 +2,6 @@
 
 \chapterQuote{\textit{``All problems in computer science can be solved by another level of indirection, except for the problem of too many layers of indirection.''}}{--- David Wheeler}
 
-I dont like the name of this chapter, but I assume it was changed from Embeddings as to make it easier to non expert readers?
 
 %REESTRUCTURAR EN BASE A LOS COMENTARIO DE DANI, UNA EXPLICACION GENERAL SOBRE LO QUE SON Y LUEGO LOS DIFERENTES METODOS EN LOS QUE SE OBTIENEN.
 
@@ -16,10 +15,26 @@ I dont like the name of this chapter, but I assume it was changed from Embedding
 La que acabe estando en la version final de la tesis debe de ser bastante similar a la presentada x agu ya que el mundo de los embeddings no se ha movido mucho y se usan para practicamente lo mismo en ambas propuestas.}
 
 Quizas moveria las prpuestas a una misma categoria mas general y pondria una tabla explicando los progesos de cada una de las ramas y luego entraria en detalles sobre las mas novedosas que hay ( y sobretodo en las que se han usado en el trabajo...)
+
 % latent representation of a triple is one that exposes previously hidden knowledge, such as semantic similarity to some other triple. Obtaining such a representation is a popular way to perform Knowledge Graph completion, and it can be achieved in a number of ways. In this chapter we introduce the most prominent KG completion methods in the scientific literature that rely on latent representations. This chapter is structured in the following manner: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-tensors} presents the methods that perform  tensor factorization, Section~\ref{sec:emb-translations} introduces the models that are centered around embedded translations, Section~\ref{sec:emb-nn} discusses the number of ways in which neural networks can be used in this regard; finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
 
 \section{Introduction}\label{sec:emb-intro}
-que son y porque se usan en los grafos de conocimiento.
+Embeddings are a form of representation of information which gathers the semantic, contextual, relational and modular data within an information node and converts it into a numerical representation, as a N-dimensional vector.
+
+In particular KG embeddings represent the nodes and relations in the graph which can be captured either semantically with a bag of words vector, positionally with one one of the mutiple techniques described, or with a combined approach, an enriched positional vector.
+
+Knowledge graph embeddings aid in representing information within a KG in a way that is understandable for Machine learning tasks. These embeddings provide a compact, continuous vector representation for entities and relationships, allowing for efficient computational operations and meaningful interpretations.
+
+These vectors capture the semantic nuances of the entities and the connections between them. In essence, knowledge graph embeddings serve as a bridge between the discrete, symbolic world of knowledge graphs and the continuous, numerical space of machine learning algorithms.
+
+The process of obtaining knowledge graph embeddings involves mapping entities and relationships to low-dimensional vector spaces. This transformation is designed to preserve the essential structural and semantic information of the knowledge graph. Entities are represented as points in this vector space, while relationships are encoded as transformations that operate on entity vectors.
+
+The goal is to position entities and relationships in such a way that their geometric relationships in the embedding space reflect the underlying semantic relationships in the knowledge graph. In this manner, knowledge graph embeddings serve as a powerful tool for capturing the rich tapestry of connections, dependencies, and contextual information present in knowledge graphs.
+
+
+% A mí esta sección me extrañó un poco en la tesis de Agu, ya que "tensor factorization" y "translational models" son los dos embeddings que se obtienen con redes neuronales. Yo hubiera explicado primero que un embedding es cualquier tipo de representación numérica que de alguna manera contenga información sobre la cosa representada. Y luego pondría (estructurado como sea más conveniente) que se puede hacer una representación con
+
+% 1) Cualquier medición hecha sobre el nodo o relación. Por ejemplo si los nodos son documentos, su vector de embeddings podría ser la representación como bolsa de palabras.
 
 % A popular approach to Knowledge Graph completion consists on changing the representation medium of entities and relations entirely: instead of elements with a semantic meaning in a graph structure, they are represented in a numerical way. This then allows for the application of numerical methods to find missing entities, or missing connection between the existing entities. This is known as a latent representation.
 
@@ -27,8 +42,161 @@ que son y porque se usan en los grafos de conocimiento.
 
 % Another popular latent representation is by creating an N-dimensional space and determining a position in it for every entity in a KG. An entity can then be referred to as the N-dimensional vector that represents its position. Such a space is known as an embedded space, and the position vectors are known as entity embeddings. In the embedded space, the plausibility of any given relation can be checked by performing a series of translations in it and evaluating the result, or by finding more complex relations between the entity embeddings thanks to the use of neural networks.
 
-\section{Tensor factorization models}\label{sec:emb-tensors}
-Rescal, SimplE, ComplEx etc etc...
+
+\section{Translation models}\label{sec:emb-translations}
+
+These models are additive models, which usually use distance-based functions to
+define the scoring function for link prediction. After the relation is translated, the distance is used to measure the credibility between two entities. For this category, we divide these models into three subcategories: TransE and its extensions, Gaussian embedding and others.
+
+The models of TransE and its extensions are those that extend TransE []. TransE [] is
+one of the earliest models for link prediction, which uses the relation for translating the head entity to a tail entity. There are many extensions of TransE. The models of Gaussian embedding are those considering the uncertainties of entities and relations by using a probability function. The models of others are those similar to TransE; they do not belong to distance-based models in essence, but their idea is the same as that of TransE, such as using rotations, Lie groups, quaternions and MobiusE rings for translation.
+
+TransE [] is a well-known, early and simple model that regards a relation as a translation from a head entity to a tail entity. It uses a distance scoring function as follows:
+
+$f (h, t) = ||h + r - t||_1$
+
+TransE is the earliest translation-based embedding model, and it has difficulty dealing with multirelational graphs; it is limited by its simple translation operation as well as its lack of a discrimination policy for all kinds of relations.
+
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=.5\textwidth]{example-image-a}
+    \caption{Visual representation of the TransE model in a 2D space}
+    \label{fig:emb-transE}
+\end{figure}
+
+In recent years, many variants of TransE have been proposed, such as TransH [] and TransR []. TransH introduces a hyperplane, and TransR uses a relation-specific space to handle different relations, excavating more semantic information
+
+\todo{INTROCUDE TransR and TransH from their papers.}
+TransH 2014:
+
+
+
+TransR 2015:
+
+
+
+RotatE [35] can model and infer various relation patterns, including symmetry (antisymmetry),
+inversion and composition. Specifically, it defines each relation as a rotation
+from the head entity to the tail entity in a complex vector space. It provides a novel
+self-adversarial negative-sampling technique for efficiently and effectively training RotatE.
+Inspired by Euler's identity, RotatE maps the head and tail entities h and t to complex
+embeddings such as h, t 2 Ck; then, it defines a mapping function induced by each relation
+r as an elementwise rotation from the head entity h to the tail entity t. For the triple (h, r, t),
+RotatE yields t = h  r, , where jrij = 1 and  is the Hadamard (or elementwise) product.
+For each element in the embedding, we have ti = hiri. Here, this method constrains the
+modulus of each element of r 2 Ck, i.e., ri 2 C, to be jrij = 1. By doing so, ri takes
+the form eiqr,i , which corresponds to a counterclockwise rotation by qr,i radians about the
+origin of the complex plane and affects only the phases of the entity embeddings in the
+complex vector space. This is the origin of the “rotation”. The distance function of RotatE
+is dr(h, t) = kh  r 􀀀 tk. By defining each relation as a rotation in the complex vector
+space, RotatE can model and infer all three types of relation patterns introduced above.
+
+
+
+% A separate group of models represent entities as vectors in an N-dimensional space, called embeddings, and relations as translations in that space. From this starting point, their main goal is to define the transformations from entities to vectors and the translations in such a way that, for every triple $(s, r, t)$ in the KG, applying the translation defined by $r$ to the entity $s$ should result in a vector as close as possible to that of $t$. These models can then be used to provide a confidence value for the correctness of any triple, by evaluating to what extent this concept holds true.
+
+% \citet{bordes2013} started this line of work with the TransE model. TransE defines a single N-dimensional space to which all entities in a KG are mapped, and in which every relation turns into a translation vector. Thus, it aims to generate this space in such a way that, for any given triple $(s, r, t)$, $v_s + v_r \approx v_t$, where $v_s, v_t$ are the vectors representing the $s$ and $t$ entities respectively, and $v_r$ represents the translation carried out by the relation $r$. The main intuition behind TransE is visually depicted in Figure~\ref{fig:emb-transE} for a simple 2D space.
+
+% \begin{figure}[!htp]
+%     \centering
+%     \includegraphics[width=.4\textwidth]{fig/embedding/transe}
+%     \caption{Visual representation of the TransE model in a 2D space}
+%     \label{fig:emb-transE}
+% \end{figure}
+
+% \citet{wang2014} proposed the TransH model, which improves TransE by considering that it may desirable for an entity to have a different embedded representation depending on the particular relation that is being considered. TransH achieves this by defining a particular hyperplane $w_r$ for every relation $r$, and then projecting the entities onto these planes as $e_\bot = v_e - w_r^{T}v_{e}w_r$, where $e$ can be any entity in the KG. Then, similarly to TransE, it optimizes the embedded space to ensure that $s_\bot + v_r \approx t_\bot$ for any triple $(s, r, t)$. A similar visual representation is provided in Figure~\ref{fig:emb-transH}.
+
+% \begin{figure}[!htp]
+%     \centering
+%     \includegraphics[width=.4\textwidth]{fig/embedding/transh}
+%     \caption{Visual representation of the TransH model in a 2D space}
+%     \label{fig:emb-transH}
+% \end{figure}
+
+% Following up with the previous idea, \citet{lin2015} proposed the TransR model. It acknowledges that an entity and a relation have a very different semantic meaning and, for this reason, TransR makes a twofold contribution. On the one hand, it defines two separate embedded spaces, one for entities and one for relations. On the other hand, it creates a different entity embedded space for each relation. The transition from the entity space to the relation space is performed through a relational projection matrix $M_r$. The translation goal thus becomes $v_sM_r + v_r \approx v_tM_r$. A graphical example of this is provided in Figure~\ref{fig:emb-transR}.
+
+% \begin{figure}[!htp]
+%     \centering
+%     \includegraphics[width=.85\textwidth]{fig/embedding/transr}
+%     \caption{Visual representation of the TransR model in a 2D space}
+%     \label{fig:emb-transR}
+% \end{figure}
+
+% \citet{ji2015} introduced the TransD model, building upon TransH and improving it by constructing mapping matrices dynamically for every entity. Furthermore, it replaces the matrix multiplication operations used in the previous models with vector multiplications, which increases its operational speed. A similar approach is proposed by \citet{do2018} with TransF, which uses more lightweight matrices to perform the translation.
+
+% \citet{fan2014} devised TransM, addressing the fact that the original TransE proposal considers all triples to be equally important, and thus they all contribute equally towards generating the embedded space in such a way that it optimizes the transformation goal. TransM adds a weight parameter that can be assigned to every individual triple, which affects its ability to influence the embedded space as a whole and acts as an attention mechanism.
+
+% \citet{xiao2015} presented the TransA model, which uses an adaptive goal metric during the embedding generation process, overcoming the simple metrics used by other similar methods, making it more flexible when facing challenging relations.
+
+% Perhaps facing the prospect of running out of letters in the English alphabet to continue with the previous naming scheme, \citet{sun2019} proposed the RotatE model, which defines an embedded space that uses complex numbers. Contrary to the previous models, where a translation is defined as a straight movement through the space, RotatE defines each relation as a rotation on the whole embedded space.
+
+
+
+\section{Semantic information models}\label{sec:emb-semantic}
+Semantic information-based models usually use similarity-based functions to define
+scoring functions for traditional semantic-matching models or introduce additional information
+to mine more knowledge for recently proposed models. Thus, these models are
+divided into two subcategories: models with additional information and models without
+additional information. The latter traditional models match the latent semantics of
+entities and relation embeddings to measure the plausibility of a triple. The traditional
+semantic-based models focus only on the information of the triple itself and do not fuse
+any additional information, as DistMult [20] and Complex [21] do. These models suffer
+from higher computational complexity. The former recently proposed models fuse various
+additional information to obtain better performance to mine deeper semantic information
+at the bottoms of graphs. The additional information includes path information, order
+information, concepts, entity attributes, entity types and so on.
+
+\todo{Pull from RESCAL}
+
+(Survey page 11)
+
+In RESCAL, entities are
+expressed as vectors x 2 Rd, and relations are expressed as matrices W 2 Rdd. Then,
+the triple (h, r, t) is represented as a score given by sc(s, r, t) = xT
+s Wrxt. This is similar to
+tensor factorization; these vectors and matrices are learned by a loss function that compares
+a correct triple with an incorrect triple. RESCAL uses a max-margin loss function as in
+Equations (15) and (16):
+
+% J(Q) =
+% Nå
+% i=1
+% å
+% t02N(t)
+% mm
+% 
+% s(sci ), s
+% 
+% s0
+% ci
+% 
+% (15)
+% mm
+% 
+% s(sci ), s
+% 
+% s0
+% ci
+% 
+% = max
+% h
+% 0, 1 􀀀 s(sci ) + s
+% 
+% s0
+% ci
+% i
+% (16)
+% where there are N positive instances, and the positive and negative instances are scored as
+% sci = sc(si, ri, ti) and s0
+% ci = sc
+% 􀀀
+% si, ri, t0
+% i
+% 
+
+, respectively. Nt is the set of incorrect targets, and s is the sigmoid function.
+
+\todo{Expand with ComplEX, DistMult and TuckER}
 
 % Tensors are a generalization of scalar numbers, vectors, matrices, and so on. Broadly, a tensor of order $N$ represents an $N$-dimensional collection of elements, where $N$ indices are necessary to address the position of an element. Any given Knowledge Graph can be represented using a third-order tensor of size $|E| \times |E| \times |R|$, namely $X = \{0, 1\}^{|E| \times |E| \times |R|}$, where $E$ is the set of entities in the KG, and $R$ is the set of possible relations in it. Using this representation, every element of the tensor is a binary number $\{0, 1\}$ denoting whether or not a given relation exists between a pair of entities. This concept is visually represented in Figure~\ref{fig:emb-kg2tensor}.
 
@@ -74,49 +242,14 @@ Rescal, SimplE, ComplEx etc etc...
 % Perhaps inspired by the naming of the previous model, \citet{kazemi2018} introduced the SimplE model, which aims to be more performant than other approaches in this category. For each relation $r$ present in a KG, SimplE considers an additional inverse relation $r^{-1}$ to it. Both are then represented using the vectors $v_r$ and $v_r^{-1}$, respectively. Thus, the confidence score for a triple $(s, r, t)$ is computed as the average of the confidence of $(s, r, t)$ and $(s, r^{-1}, t)$. This configuration allows the embedded representation of a relation and its inverse to be obtained independently, resulting in a higher expressivity and a good performance in practice.
 
 
-\section{Translational models}\label{sec:emb-translations}
-
-TransE, TransR y un muy larguisimo etc...
-
-% A separate group of models represent entities as vectors in an N-dimensional space, called embeddings, and relations as translations in that space. From this starting point, their main goal is to define the transformations from entities to vectors and the translations in such a way that, for every triple $(s, r, t)$ in the KG, applying the translation defined by $r$ to the entity $s$ should result in a vector as close as possible to that of $t$. These models can then be used to provide a confidence value for the correctness of any triple, by evaluating to what extent this concept holds true.
-
-% \citet{bordes2013} started this line of work with the TransE model. TransE defines a single N-dimensional space to which all entities in a KG are mapped, and in which every relation turns into a translation vector. Thus, it aims to generate this space in such a way that, for any given triple $(s, r, t)$, $v_s + v_r \approx v_t$, where $v_s, v_t$ are the vectors representing the $s$ and $t$ entities respectively, and $v_r$ represents the translation carried out by the relation $r$. The main intuition behind TransE is visually depicted in Figure~\ref{fig:emb-transE} for a simple 2D space.
-
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.4\textwidth]{fig/embedding/transe}
-%     \caption{Visual representation of the TransE model in a 2D space}
-%     \label{fig:emb-transE}
-% \end{figure}
-
-% \citet{wang2014} proposed the TransH model, which improves TransE by considering that it may desirable for an entity to have a different embedded representation depending on the particular relation that is being considered. TransH achieves this by defining a particular hyperplane $w_r$ for every relation $r$, and then projecting the entities onto these planes as $e_\bot = v_e - w_r^{T}v_{e}w_r$, where $e$ can be any entity in the KG. Then, similarly to TransE, it optimizes the embedded space to ensure that $s_\bot + v_r \approx t_\bot$ for any triple $(s, r, t)$. A similar visual representation is provided in Figure~\ref{fig:emb-transH}.
-
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.4\textwidth]{fig/embedding/transh}
-%     \caption{Visual representation of the TransH model in a 2D space}
-%     \label{fig:emb-transH}
-% \end{figure}
-
-% Following up with the previous idea, \citet{lin2015} proposed the TransR model. It acknowledges that an entity and a relation have a very different semantic meaning and, for this reason, TransR makes a twofold contribution. On the one hand, it defines two separate embedded spaces, one for entities and one for relations. On the other hand, it creates a different entity embedded space for each relation. The transition from the entity space to the relation space is performed through a relational projection matrix $M_r$. The translation goal thus becomes $v_sM_r + v_r \approx v_tM_r$. A graphical example of this is provided in Figure~\ref{fig:emb-transR}.
-
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.85\textwidth]{fig/embedding/transr}
-%     \caption{Visual representation of the TransR model in a 2D space}
-%     \label{fig:emb-transR}
-% \end{figure}
-
-% \citet{ji2015} introduced the TransD model, building upon TransH and improving it by constructing mapping matrices dynamically for every entity. Furthermore, it replaces the matrix multiplication operations used in the previous models with vector multiplications, which increases its operational speed. A similar approach is proposed by \citet{do2018} with TransF, which uses more lightweight matrices to perform the translation.
-
-% \citet{fan2014} devised TransM, addressing the fact that the original TransE proposal considers all triples to be equally important, and thus they all contribute equally towards generating the embedded space in such a way that it optimizes the transformation goal. TransM adds a weight parameter that can be assigned to every individual triple, which affects its ability to influence the embedded space as a whole and acts as an attention mechanism.
-
-% \citet{xiao2015} presented the TransA model, which uses an adaptive goal metric during the embedding generation process, overcoming the simple metrics used by other similar methods, making it more flexible when facing challenging relations.
-
-% Perhaps facing the prospect of running out of letters in the English alphabet to continue with the previous naming scheme, \citet{sun2019} proposed the RotatE model, which defines an embedded space that uses complex numbers. Contrary to the previous models, where a translation is defined as a straight movement through the space, RotatE defines each relation as a rotation on the whole embedded space.
 
 \section{Neural network-based models}\label{sec:emb-nn}
-Como se aplican los embeddings a KG reasoning/completion. 
+
+\todo{ConvE, HypER, InteractE, Path based reasoning}
+
+
+path reasoning: (Multi-Partition Embedding Interaction with Block Term Format for Knowledge Graph Completion)
+
 
 % In parallel to the development of research centered around Knowledge Graphs, the fields of neural networks (NNs) and deep neural networks (DNNs) have also seen significant improvements in the last decade \cite{vaswani2017, brown2020, rombach2022}.
 
@@ -137,6 +270,8 @@ Como se aplican los embeddings a KG reasoning/completion.
 % In more recent years, graph convolutional networks, also called simply graph neural networks (GNNs) have emerged as a way to apply NNs to graph-like structures \cite{bruna2014, wu2021, zhou2020, kipf2017}. It seems thus reasonable that Knowledge Graph completion could benefit from the application of GNNs \cite{ye2022}. %Recently, \citet{TODO fernando} have studied the application of GNNs to KG completion and other related tasks, reaching the conclusion that they can generally outperform traditional neural networks, although more work and fine-tuning is needed to achieve consistent results.
 
 % In this regard, \citet{schlichtkrull2018} proposed R-GCN, a type of GNN that leverages graph neighborhoods in order to complete them. \citet{shang2019} have proposed SACN, an encoder-decoder method based on this type of NN. For encoding, SACN uses a composition of multiple weighted GNNs that is able to leverage information from the structure of a Knowledge Graph and the attributes contained in its entities. The decoder uses a modified version of the previously mentioned ConvE model. The addition of GNNs allows it to outperform the original ConvE method.
+
+
 
 \section{Summary}\label{sec:emb-summary}
 % In this chapter, we have presented an overview of the existing methods for Knowledge Graph completion in the literature that rely on latent triple representations. We have introduced and described the models that use tensors to model a KG, and then factorize those tensors to obtain a predictive model. We have also presented the models that embed entities in a higher-order space and perform translations on them to find missing knowledge. Finally, we have enumerated the methods that use neural networks to perform Knowledge Graph completion, and we have presented the neural network architectures that are commonly used for this task.
