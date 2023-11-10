@@ -10,100 +10,218 @@
 Mencionamos tambien metodologia de los diferentes algoritmos como PPO, SAC, reinforce vs Actor critic etc etc...}
 
 \section{Introduction}\label{sec:rl-intro}
-An explanation of how reinforcement learning works and where its usefull.
-% A relational path is a sequence of relations that connect two entities together in a Knowledge Graph. There can be many such paths between any two entities, and they can vary in length and complexity. Given that these paths can provide an interesting insight on how related two entities are, many researchers have developed methods to analyze them to learn what constitutes correct knowledge. 
+Machine learning is a subfield of artificial intelligence that focuses on the development of algorithms and models that can learn from data. There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning. In supervised learning, the algorithm is trained on a labeled dataset, where the input data is associated with a corresponding output label. The goal of supervised learning is to learn a mapping from input to output that can generalize to new, unseen data. In unsupervised learning, the algorithm is trained on an unlabeled dataset, where the goal is to discover patterns and structure in the data. Unsupervised learning can be used for tasks such as clustering\cite{}, dimensionality reduction\cite{}, and anomaly detection\cite{}.
 
-% Generally, these methods generate features that characterize the information contained in each path, and then train classifiers to predict the existence of missing relations based on these features. Due to the high number of possible paths that can exist between two entities, such methods usually use techniques like random walks to restrict the amount of paths that are analyzed, possibly constraining their effectiveness.
+Reinforcement learning is a type of machine learning that is used to solve problems where the agent interacts with an environment and receives feedback in the form of rewards. The goal of reinforcement learning is to learn a policy that maximizes the cumulative reward over time. Reinforcement learning is particularly useful for problems where the optimal action depends on the current state of the environment and the actions taken in the past. Reinforcement learning has been successfully applied to a wide range of problems, including robotics\cite{}, game playing\cite{}, recommendation systems\cite{}, and other areas.
 
-% To solve this issue, other methods analyze graph neighborhoods, which refer to the entities and relationships that are directly connected to a given entity in a Knowledge Graph. This allows KG completion method to focus on a much more reduced amount of information that is more likely to accurately characterize an entity.
+Reinforcement learning is different from supervised and unsupervised learning in several ways. In supervised learning, the algorithm is provided with labeled data, whereas in reinforcement learning, the algorithm learns from feedback in the form of rewards. In unsupervised learning, the algorithm is trained on an unlabeled dataset, whereas in reinforcement learning, the algorithm interacts with an environment. Reinforcement learning also requires a different evaluation metric than supervised and unsupervised learning, since the goal is to maximize the cumulative reward over time rather than to minimize a loss function.
 
-% In this chapter, we present an overview on the methods that rely on these techniques to complete a Knowledge Graph. We first introduce the methods that rely purely on relational paths and their characterization. Next, we present the methods that analyze entity neighborhoods. Finally, we discuss more advanced methods that combine these approaches with techniques from the previous chapter.
+Reinforcement Learning techniques need to adapt to real world environments, which is a challenging task given that reality is often diverse, non-stationary and open-ended. RL is generally described as having low generalization, i.e., it is hard to create general-purpose agents. This, in turn, generates another problem: environmental overfitting. Trained agents specialize in the environment in which they were trained and are very susceptible to small changes, needing to be re-trained very often when new knowledge is added\cite{}.
 
-\section{Algorithms}\label{sec:rl-algorithms}
-We categorize and evaluate the different algorithms and progress that has been made in the field of reinforcement learning 
+\subsection*{Markov decision process}
+Markov decision processes (MDPs) are stochastic decision-making processes which uses a mathematical framework to model them. MDPs provides a formal framework for modeling situations where outcomes are partly random and partly under the control of the decision maker. 
 
-% A relational path is simply a concatenation of triples that connect an entity to some other entity through a number of relations. Naturally, any Knowledge Graph has an abundance of possible paths to, from, or between entities. The idea of analyzing such paths to learn what constitutes valid knowledge has led to many research works.
+MDPs originated in then 1950s with the Russian mathematician Andrey Markov who played a pivotal role in shaping stochastic processes. In its infacny, MDPs were used to solve bussiness related problems such as inventory management and control, queuing optimization, and routing matters. Today, MDPs find applications in studying optimization problems via dynamic programming, robotics, automatic control, economics or manufacturing.
 
-% One of the first approaches that exploited relational paths in a Knowledge Graph was the Path Ranking Algorithm (PRA), proposed by \citet{lao2011}. PRA uses random walks to generate a set of paths between a given pair of entities in a depth-first manner. The generated paths are then transformed into a series of features that aim to characterize the information contained in it. These features are ultimately used to train a binary log-linear classifier, which learns whether a direct relationship should exist between two entities according to the paths that are already present between them. However, PRA is not without limitations. The number of possible paths between a pair of entity can be very high, limiting its scalability. Additionally, the randomly guided paths that it uses may miss information just by mere chance.
+In an MDP, the decision maker, or agent, interacts with an environment that is characterized by a set of states, actions, and rewards. The agent's goal is to learn a policy that maximizes the cumulative reward over time.
 
-% Aiming to improve PRA, \citet{gardner2015} introduced the Subgraph Feature Extraction (SFE) method. In opposition to PRA, SFE uses a breadth-first search that is not randomly guided, in order to better characterize the portion of the KG between two entities. SFE also requires the creation of a handmade ``Alias'' relation, which relates entities in the same KG that refer to the same element in the real world. It is able to achieve more expressive results than PRA, making it easier for the human user to understand what constitutes a good path that may be indicative of the existence of a direct relation between two entities.
+\begin{figure}[!htp]
+    \centering
+    \includegraphics[width=.6\textwidth]{fig/rl/MDP-model.png}
+    \caption{A markov decision process loop.}
+    \label{fig:MDP}
+\end{figure}
 
-% \citet{gardner2013} also proposed an extension of PRA that addresses the issue of potentially having to consider a very high number of paths. It considers the semantic similarities between the relations of a Knowledge Graph, and uses them to merge very similar paths together, greatly reducing the number of paths that need to be analyzed afterwards. This addition increases the effectivity of PRA in the NELL Knowledge Graph, although the authors do not provide data for any other KGs.
+The future state of the environment depends only on the current state and action, and not on the history of previous states and actions. This is known as the Markov property, It allows the agent to make decisions based only on the current state of the environment, without needing to consider the entire history of previous states and actions. This way the agent can use the current state of the environment to estimate the expected future rewards of different actions, and then choose the action that is most likely to lead to the highest cumulative reward over time.
 
-% \citet{nastase2019} proposed the Abstract Path Model (APM), which produces an abstract graph from a KG, and then focuses on extracting relevant abstract paths from it. These abstract graphs provide a more general representation of the high-level relations between entities, and thus the paths that can be traced in it represent more high-level knowledge. Additionally, this abstract representation is, as a general rule, considerably smaller than the KG it is derived from and not very computationally taxing to obtain, which aids in its application to larger graphs.
+Based on the notation from figure \ref{fig:MDP}, the markov property can be evaluated as the equation presented in \ref{eq:markov_property}.
 
-% \citet{gu2015} introduced the Trans-COMP method, which proposes a different strategy. Rather than analyzing a large number of paths between two entities to try to characterize the pair, it only uses a single path. Precisely, it aims to select the path that provides the highest predictive capabilities of the existence of a given relation. \citet{toutanova2016} further refine this idea with their All-Paths method by providing an explicit way to represent the intermediate entities that can be found in such a path and, additionally, enabling the method to consider more paths.
+\begin{equation}
+    \label{eq:markov_property}
+    P[St+1|St] = P[St+1|S1,S2,S3,.....,St]
+\end{equation}
 
-% A number of other authors have also researched alternative ways to select and learn from the best paths in a Knowledge Graph. \citet{jiang2017} proposed the APCM model, which assigns different weights to the found paths and combines them based on these weights. Furthermore, the PRCTA model introduced by \citet{lei2019} employs an attention mechanism \cite{vaswani2017} to construct and select the paths, which allows it to work satisfactorily in more sparse KGs.
+Where the probability of the next state (P[St+1]) given the present state (St) is calculted as the (P[St+1]) depending on all the possible next states (S1,S2,S3……St).
+The relation between the action to be chosen and the chosen outcome reward is referred to as the policy ($\pi$), $\pi: S -> A$.
 
-\section{RL in KGs}\label{sec:rl-RLinKGs}
-an overview of all approaches that appeared in the field. tables and all.
-% The previous chapter introduced the main ideas behind how embeddings and neural networks can be applied to Knowledge Graph completion. Some authors have proposed a series of approaches that combine path-based information with these techniques, in order to guide the path finding process towards the most significant path, avoiding having to explore a very large number of them.
+To determine the best policy, it is essential to define the returns that reveal the agent's rewards at every state. The discount factor ($\gamma$) [0-1] determines which rewards are prioritized, minimal values focus on immediate rewards while maximum values focus on long term rewards. The discounted infinite-horizon method expressed by the value function \ref{eq:value_function} determines the reward for each state by discounting future rewards.
 
-% An example of this is the PATH-RNN technique, which was proposed by \citet{neelakantan2015}. In addition to using path-based information, PATH-RNN uses the embedded representations of the relations in a path to further characterize it. It uses a recursive neural network (RNN) to combine these embeddings together, resulting in a single embedding that contains information about the entire path. For this reason, it can operate using paths of any length. Additionally, due to the fact that it operates on the embedded representations of the relations, which in turn capture semantic meanings, it can in theory predict relations that were not present in the KG at the time of training the model. Figure~\ref{fig:path-rnn} graphically illustrates this idea.
+\begin{equation}
+    \label{eq:value_function}
+    V(s) = E \sum_{t=1}^{\inf}\gamma^t r_t|s_t
+\end{equation}
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=\textwidth]{fig/paths/pathrnn}
-%     \caption{Overview of the PATH-RNN method}
-%     \label{fig:path-rnn}
-% \end{figure}
+This value function can be separated into two components as shown in figure\ref{fig:bellman}, 
 
-% \citet{das2017} improve the previously discussed PATH-RNN method with their Single-Model proposal. They point out that taking the embeddings of the entities in a path into account can provide useful information. To represent a path, they recursively combine the embeddings of both the entities and relations in it using RNNs. Furthermore, they propose using a number of different functions to select the best path: \textit{Top-K}, \textit{Average} and \textit{LogSumExp}. They experimentally conclude that the \textit{LogSumExp} function performs better when completing a Knowledge Graph. Figure~\ref{fig:path-single} displays a visual overview of Single-Model. In this Figure, entity embeddings are represented in blue, and relation embeddings in orange. The path that is being considered is the same as in Figure~\ref{fig:path-rnn}.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=.4\textwidth]{fig/rl/Bellmans decomposition.png}
+    \caption{Value function equation decompostion}
+    \label{fig:bellman}
+\end{figure}
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.9\textwidth]{fig/paths/singlemodel}
-%     \caption{Overview of the Single-Model method}
-%     \label{fig:path-single}
-% \end{figure}
+the reward for the current state and the value of the discounted reward for the next state, giving birth to Bellman's equation \ref{eq:bellmans}.
 
-% \citet{xiong2018} proposed GMatching, a technique that specializes in extracting information from KG neighborhoods using relatively infrequent relations, which are traditionally considered more challenging due to the reduced amount of information about them present in the graph. GMatching is comprised of two main components: a neighbor encoder, which creates an embedded representation for an entity in a neighborhood; and a matching checker, which computes the similarity of two entity embeddings created by the first component. A visual representation of this proposal is provided in Figure~\ref{fig:path-gmatching}. The meaning of the colors is the same as in the previous Figure.
+\begin{equation}
+    \label{eq:bellmans}
+    V*(s) = max_a[ R(s,a) + \gamma \sum_{s' \in S}\mathcal{P}_{ss'} V*(s')]
+\end{equation}
 
-% \begin{figure}[!htp]
-%     \centering
+Where s' represents the previous state, s the current state and a, the action evaluated.
+
+The agents actions and rewards vary based on the policy revealing that the value function is specific to a policy. this type of operation can be solved by iterative methods such as Monte-Carlo evaluations, dynamic programming, or temporal-difference learning. The policy that chooses the maximum optimal value while considering the present state is referred to as the optimal policy \ref{eq:optimal_policy}
+
+\begin{equation}
+    \label{eq:optimal_policy}
+    \pi*(s) = argmax_a[R(s,a) + \gamma \sum_{s' \in S}\mathcal{P}_{ss'}^a V(s')]
+\end{equation}
+
+The policy is a consequence of the current state wherein, at each time step, a new policy is evaluated based on the current state information.
+
+\subsection*{Reinforcement Elements}
+
+Reinforcement Learning can be defined as a markov process by solving the policy optimization function with a Neural Network. Reinforcemente Learning shares multituple similarities with MDPs such as the States, Action, Environment, Agent interactions and being respectfull of the Markov Property, it is a particular case of MDP, an optimal control of incompletely-known Markov decision processes\cite{sutton}.
+
+Some definitions about RL that can help to better see the similarities between MDPs and the differences from other types of machine learning techniques are the following:
+
+
+\begin{itemize}
+    \item A learning agent must be able to sense the state of its environment to some extent and must be able to take actions that affect the state.
+    \item The agent also must have a goal or goals relating to the state of the environment.
+    \item Supervised learning the agent learns from a labeled training set, in order to extrapolate future answers not present on it. In RL agent must be able to learn from its own experience as when dealing with interactive problems it is often impractical to obtain examples of desired behavior that are both correct and representative of all the situations in which the agent has to act.
+    \item Reinforcement learning differs from unsipervised learning, it is trying to maximize a reward signal instead of trying to find hidden structure.
+\end{itemize}
+
+A key difference between RL and other types of learning is the exploration/exploitation dilemma, RL favors actions that provide high rewards however, in order to reach the intended solution it may have to select low reward actions in the early stages of training, or actions that have not been selected before. The dilemma is that neither exploration nor exploitation can be pursued exclusively without failing at the task. The agent must try a variety of actions and progressively favor those that appear to be best.
+
+The elements of reinforecement Learning as we have previously commented are similar to Markov's. Sutton and Barto\cite{}, apart from the environment and agent enumerate the following elements:
+
+\begin{itemize}
+    \item The \textbf{policy} is the "brain" of the decision-maker in markov's processes, a map adquired from the perception of the agent from the current state of the environment that determines which action should be taken.
     
-%     \subfigure[An example KG]{
-%         \includegraphics[width=.45\textwidth]{fig/paths/gmatching-a}
-%     }\\
-%     \subfigure[Encoding of the neighborhood of the entity \textit{Magnus Carlsen}]{
-%         \includegraphics[width=.7\textwidth]{fig/paths/gmatching-b}
-%     }
+    \item The \textbf{reward signal} is the goal the Agent is trying to reach, for each step in training the Agent performs it recieves a numerical reward, The agent objective is the maximization of this numerical value. It determines what constitutes a good or bad events while the agent learns and thus shapes its behaviour. In general, reward signals may be stochastic functions of the state of the environment and the actions taken.
+    
+    \item The \textbf{value function} differs from the reward in its immediacy, it helps the agent determine what isa good course of action to follow in the long run. the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. values indicate the long-term desirability of states after taking into account the states that are likely to follow, and the rewards available in those states
+     
+    \item Some RL systems rely on a \textbf{environment model}, it is a predictor for how the environment will behave, given a state and action the model can approximately predict the next state and reward for that action. Some RL systems plan ahead and gather information about future states without actually experiencing them. these model based methods contrast with the purely experience based methods which originated RL.
+\end{itemize}
 
-%     \caption{Overview of the GMatching method}
-%     \label{fig:path-gmatching}
-% \end{figure}
+\subsection*{History}
+The roots of reinforcement learning can be traced back to early 20th-century psychologists like Thorndike\cite{} and Skinner\cite{}, who laid the groundwork for the concept of reinforcement by studying animal behavior.
 
-% \citet{shen2017} proposed Implicit ReasoNets (IRNs), a neural network architecture that is able to reason about paths of different lengths in a KG. It is an encoder-decoder model that is governed by a central controller, which allows the whole process to be carried out with no human intervention. Also, it introduces the usage of a shared memory that implicitly stores relevant information about the graph, allowing it to be more efficient and have a smaller memory footprint.
+In the 1950s and 1960s, control theory, which deals with the behavior of dynamic systems, influenced the development of reinforcement learning. Bellman's work on dynamic programming and optimal control provided a mathematical framework, introducing the Bellman equation as we previously discussed in equation \ref{eq:bellmans}.
 
-% Additionally, a number of improvements have been made to the baseline translational models to help them leverage path information in several ways. For instance, \citet{lin2015} have proposed PTransE, an extension of TransE that uses path information in its confidence function. Its goal is to give a higher confidence score to those entities that are well-connected together by means of paths that are semantically similar to the relation in the triple that is being evaluated.
+Computer scientists in the mid-20th century explored ways to make machines learn from experience. Samuel's 1959 checkers-playing program, which employed temporal difference learning\cite{}, demonstrated that machines could attain expertise in games without explicit programming. The 1980s saw the development of algorithms capable of learning from delayed rewards, including the widely-used Q-learning introduced by Watkins in 1989 \cite{}.
 
-% \citet{garcia-duran2015b} proposed RTransE, which represents paths as a series of translations in the embedded space defined by the TransE model. For efficiency reasons, RTransE is limited to using only paths that contain two relations. Likewise, \citet{xiong2018b} introduced PTransD, an enhancement of TransD that performs subsequent translations to model paths. However, PTransD uses two embeddings to represent each entity, to perform operations in parallel.
+The 1990s saw the convergence of reinforcement learning with neural networks, giving rise to deep reinforcement learning. Tesauro's TD-Gammon in 1995 showcased the potential of this combination by achieving expert-level play in backgammon\cite{}. In the 21st century, breakthroughs in deep reinforcement learning have been remarkable, exemplified by DeepMind's 2013 Deep Q-Network (DQN) algorithm\cite{}.
 
-\section{Explainability?}\label{sec:rl<REPLACE THIS>}
-this needs some more classification I`m not sure how yet, maybe when I begin writing it...
+From its origins in psychology to its current status as a powerful AI tool, the evolution of reinforcement learning has been marked by significant milestones and breakthroughs which are still ongoing. The following section on will provide further details about the aforementioned proposals and study their evolution.
 
-% Considering the possible paths between two entities is undoubtedly helpful, but this concept can be expanded further. Rather than a single path, we can consider the entirety of the region of a Knowledge Graph around a certain entity, in other words, its neighborhood. The concept of entity neighborhood is visually shown in Figure~\ref{fig:path-neighborhood}, which depicts the closest and more extended neighborhoods of an entity shown in the center.
+\section{Algorithms and Techniques}\label{sec:rl-algorithms_and_techniques}
+This section will give an overview for each key evolution in RL development, as previously mentioned control theory is the origin of RL development, by evaluating and trying to solve dynamic systems, A. L. Samuel introduced Temporal Difference Learning \cite{samuel1959checkers} in a checkers game context, it is a type of reinforcement learning algorithm that updates the estimated value of a state based on the difference between the value of the next state and the current state, this difference is refferred to as the TD-error.
 
-% \begin{figure}[!htp]
-%     \centering
-%     \includegraphics[width=.7\textwidth]{fig/paths/neighborhoods-b.png}
-%     \caption{A visual representation of entity neighborhoods}
-%     \label{fig:path-neighborhood}
-% \end{figure}
+Rather than aiming to compute the overall future reward on each step the algorithm compares the new prediction with the previously stored one. If there is a disparity between the two predictions, the TD Learning algorithm quantifies this difference and employs it to update the previous prediction towards the new one.
+
+TD algorithms are based on bellmans equations, it computes optimal policies by recursively computing the value of each state. This way the algorithm is able to learn from incomplete sequences of experience, where the final outcome is not known at the time of the update, this was a significant improvement on reward prediction and paved the way for more modern RL approaches. 
+
+Q-learning, developed by Watkins et. al. \cite{} in 1989, follows a similar methodology to that of TD learning, which updates the value of a state based on the difference between the value of the next state and the current state, Q-learning updates the value of a state based on the maximum value of the next state. The objective of Q-learning is to calculate an aproximmation \textit{Q} of the optimal action-value function \textit{q*} which is independent from the policy and store this updates in a table of action-value pairs called the Q-table. This makes Q-learning an off-policy algorithm, as it learns the optimal action-value function \textit{Q} regardless of the policy being followed. this action-value function is show in equation \ref{eq:q-learning_value_function}.
+
+\begin{equation}
+    \label{eq:q-learning_value_function}
+    Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma max_a Q(S_{t+1}, a) - Q(S_t, A_t)]
+\end{equation}
+
+Where $\alpha \in (0,1]$ is the step size, $S_t$ is the state in timestep t, $A_t$ the action in timestep t, $\gamma$ is the discount factor of rewards for update,and $R_{t+1}$ the expected reward for the action chosen.
+
+Even though Q-learning is an off-policy method, the policy still has an effect, it determines which states and actions to pick and evaluate for every episode. Q-learning works by iteratively updating the estimated value of a state-action pair based on the difference between the estimated value and the actual return obtained from taking that action in that state. The algorithm starts with an initial estimate of the action-value function and iteratively updates the estimates based on the observed returns. The algorithm continues to update the estimates until the action-value function converges to the optimal values as seen in figure \ref{fig:Q-learning}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=.5\textwidth]{fig/rl/Q-learning.png}
+    \caption{Q-learning operations diagram}
+    \label{fig:Q-learning}
+\end{figure}
+
+One of the main advantages of Q-learning is that it can be used to learn optimal policies in environments with large or continuous state and action spaces. This is because Q-learning does not require a model of the environment, but rather learns from experience by iteratively updating the action-value function.
+
+In the 1940s, John von Neumann and Stanislaw Ulam introduced the Monte Carlo method named after Monaco's famous casino, due to its reliance on randomness akin to a game of roulette.
+
+Monte Carlo's methods estimate the value of a state or action based on the average return obtained by sampling complete episodes, unlike TD learning, which updates every step by comparison to previous results.
+
+Monte Carlo methods use the actual return obtained from the episode to update the value of the states in that episode based on the actions taken, they are particularly useful in situations where the dynamics of the environment are unknown or stochastic, as they do not require a model of the environment, instead, they rely on experience to estimate the value of each action-state pair.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=.7\textwidth]{fig/rl/Monte Carlo Blackjack convergence.png}
+    \caption{The game of blackjacks policy and value function as calculated by following a Monte Carlo control approach}
+    \label{fig:monte-carlo}
+\end{figure}
+
+Monte Carlo methods work by simulating complete episodes of interaction between the agent and the environment, starting from a given state and following a given policy (Off-policy Monte Carlo methods aside) this particular method of applying Monte Carlo to control thory is generally reffered to as Monte Carlo control, Figure \ref{fig:monte-carlo} shows the calculation of the policy and value function for a simplified game of blackjack.
+
+The return obtained from each episode is then used to update the value of the states and actions that were visited for that episode. This process is repeated many times, with the value estimates converging to the true values as the number of episodes increases. Monte Carlo methods are unbiased and consistent, meaning that they converge to the true values of the states or actions with probability 1 as the number of episodes goes to infinity.
+
+One of the main advantages of Monte Carlo methods is that they can be used to estimate the value of any state or action, regardless of its position in the state space or action space. This makes them particularly useful in large or continuous state and action spaces.
+
+In contrast to the previous methods the more modern Policy Gradient Methods differ from the previous approaches in that they do not focus on learning the values of actions to then select the highest one, instead, Policy Gradient Methods learn a parameterized policy that can select actions without consulting a value function (equation \ref{eq:policy_gradient}), however, a value function may be applied to learn the policy ($\pi$), but is not required for action selection.
+
+\begin{equation}
+    \label{eq:policy_gradient}
+    \pi(a|s,\theta) = Pr\{A_t=a | S_t=s, \theta_t=\theta\}
+\end{equation}
+
+Where $\theta$ represents the policy parameters, a is the probability of that action being taken, in timestep t for the current state s.
+
+This parametrized policy function takes the current state of the environment as input and outputs a probability distribution over possible actions. During training, the agent interacts with the environment, taking actions according to its current policy. The rewards obtained from these actions are used to adjust the parameters of the policy function through a process called gradient ascent, this process is as follows:
+
+\begin{itemize}
+    \item if an action leads to a higher reward, the probability of taking that action in similar future situations is increased.
+    \item if an action results in a lower reward, the probability of taking that action is decreased.
+    \item This adjustment is guided by the gradient of the expected cumulative reward with respect to the policy parameters.
+    \item Iteratively updating the policy based on this gradient, the agent learns to make better decisions over time, improving its performance in the given environment.
+\end{itemize}
+
+Policy gradient methods learn the policy parameter $\theta$ based on the gradient of some performance measure $J(\theta)$ linked to the policy parameter and seek to maximize this performance measure as depicted in equation \ref{eq:gradient_ascent}.
+
+\begin{equation}
+    \label{eq:gradient_ascent}
+    \theta_{t+1} = \theta_t + \alpha \nabla J (\theta_t)
+\end{equation}
+
+Where $\nabla J (\theta_t)$ is an approximation of the gradient of performance $J(\theta)$ for the timestep t and $\alpha$ is the learning rate a parameter to control the speed of the agent learning. All methods which follow this methodology of approximating a gradient for performance linked to a parametrized policy are what encompasses policy gradient methods, they offer flexibility and can handle high-dimensional action spaces, making them well-suited for complex tasks. However, training can be computationally intensive, requiring multiple interactions with the environment to fine-tune the policy.
+
+The action selection in policy gradients is a stochastic event, where the probability of an action is computed as the estimated reward for the state that action leads to, making the process a stochastic gradient ascent.
+
+The REINFORCE \cite{sutton} is the first policy-gradient based algorithm which follows this stochastic gradient ascent method. The main idea behind it is to maximize the expected cumulative reward by adjusting the parameters of the policy $\theta$ in the direction that increases the likelihood of actions leading to higher rewards so that it learns to take them. In other words it maximize the policy gradient function $\nabla J (\theta_t)$ by finding the optimal $\theta$ for the maximization of $J(\theta)$, formally defined by equation \ref{eq:gradient_ascent_rein}.
+
+\begin{equation}
+    \label{eq:gradient_ascent_rein}
+    \nabla_\theta J(\theta) = \mathcal{E}_\pi[\sum_{t=0}^{inf}\nabla_\theta log \pi(a_t|s_t;\theta)G_t]
+\end{equation}
+
+$G_t$ is the return at timestep t, identified by equation \ref{eq:expected_return_reinforce}
+
+\begin{equation}
+    \label{eq:expected_return_reinforce}
+    G_t = \sum_{k=0}^{\inf} \gamma^k R_{t+k+1}
+\end{equation}
+
+$\nabla_\theta log \pi(a_t|s_t;\theta$ is the score function representing the gradient of the log probability of taking action $a_t$ in state $s_t$ with respect to the policy parameters $\theta$, REINFORCE then updates the policy parameter and performs stochastic gradient ascent as seen in previous equation \ref{eq:gradient_ascent}. The key intuition is that the policy parameters are adjusted in proportion to the gradient of the expected return, encouraging actions that lead to higher rewards to become more likely.
+
+REINFORCE shares similarities with Monte Carlo processes, particularly in how it estimates expected values. In both REINFORCE and Monte Carlo methods an agent interacts with the environment over a sequence of steps and receives a cumulative reward at the end of each episode. Instead of directly calculating the expected cumulative reward, both approaches estimate it by sampling multiple trajectories (sequences of states, actions, and rewards) and averaging the observed returns.
+
+REINFORCE, in comparison to traditional Monte Carlo methods, offers the key improvement of leveraging policy gradients, enabling the algorithm to handle continuous action spaces and apply parametriced policies, often implemented with neural networks. The probabilistic nature of REINFORCE facilitates effective exploration strategies, reducing variance in estimated returns and promoting stable convergence during training.
+
+Actor-Critic (1983)
 
 
-% Given a pair of entities, their neighborhoods can be analyzed to determine if a relation should be present between them. This idea has been put to practice by a number of authors.
+Deep Q-Network (DQN) algorithm (2013)
 
-% \citet{bansal2019a2n} proposed the A2N method, which aggregates the entities in a neighborhood together to obtain a more compact representation of said neighborhood. It uses an attention-based mechanism to focus on the most prominent entities, giving a trustworthy representation of the entities surrounding another one. Additionally, it is designed such that the computational cost of the method does not increase greatly with the size of the neighborhoods.
 
-% The use of attention-based mechanisms in this regard has not gone unnoticed by other authors. \citet{wang2019} have proposed LAN, another approach that aggregates the contents of an entity neighborhood together, however, the attention-based technique that they propose uses weights to give more importance to more relevant entities. \citet{kong2019} also proposes using attention to filter out possibly irrelevant relations in the graph, allowing the models to focus only on more meaningful information, which is especially relevant in the case of heterogeneous Knowledge Graphs. Similarly, \citet{nathani2019} introduced the KBAT method, which is able to capture information from both the entities and the relations in a KG neighborhood. 
 
-% \citet{zhang2020} further the previous idea by adding a weighted attention system to both entities and relations, acknowledging that not all knowledge in the KG is equally useful. Two different attention-based mechanisms are used in their proposal. First, the relation-level attention provides an intuition for which connections from an entity may provide more useful information. Then, the reached entities are considered according to their entity-level attention. This composite, hierarchical attention mechanism allows it to outperform other attention-based proposals.
-
-% \citet{ferre2019} proposes finding missing information by finding similar entities in commonly occurring graph patterns, through the application of concepts of nearest neighbors \cite{denoeux1995}. It does not require any sort of pre-processing of the Knowledge Graph, making it very efficient. Furthermore, its reliance on graph patterns makes it a more interpretable method than other similar proposals.
-
+\section{Applications}\label{sec:rl-applications}
+mention of usage of RL an overview of all approaches that appeared in the field. tables and all.
 
 
 \section{Summary}\label{sec:path-summary}
-The contents of this chapter have provided an overview of the methods to perform Knowledge Graph completion that use relational paths. We have first listed the most prominent scientific proposals that extract paths from a KG and characterize them using features, to learn which paths can be predictive of correct knowledge. Afterwards, we have centered on the proposals that use entity neighborhood information in a number of ways. Finally, we have introduced the approaches that merge together path-based information with latent entity representations, entity and relation embeddings, and neural networks.
+% The contents of this chapter have provided an overview of the methods to perform Knowledge Graph completion that use relational paths. We have first listed the most prominent scientific proposals that extract paths from a KG and characterize them using features, to learn which paths can be predictive of correct knowledge. Afterwards, we have centered on the proposals that use entity neighborhood information in a number of ways. Finally, we have introduced the approaches that merge together path-based information with latent entity representations, entity and relation embeddings, and neural networks.
