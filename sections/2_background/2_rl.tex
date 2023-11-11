@@ -212,15 +212,61 @@ REINFORCE shares similarities with Monte Carlo processes, particularly in how it
 
 REINFORCE, in comparison to traditional Monte Carlo methods, offers the key improvement of leveraging policy gradients, enabling the algorithm to handle continuous action spaces and apply parametriced policies, often implemented with neural networks. The probabilistic nature of REINFORCE facilitates effective exploration strategies, reducing variance in estimated returns and promoting stable convergence during training.
 
-Actor-Critic (1983)
+Actor-Critic methods represent a class of reinforcement learning algorithms that combine elements of both policy-based (actor) and value-based (critic) approaches. The fundamental idea is to have two distinct components within the learning agent: an \textbf{actor} that learns a policy to select actions, and a \textbf{critic} that evaluates the value of state-action pairs. This dual structure allows for more efficient learning and improved stability compared to pure policy or value-based methods.
 
+The actor update function uses the policy gradient of the expected cumulative reward with respect to the policy parameters, which we have previously explored in REINFORCE (eq. \ref{eq:gradient_ascent_rein}) without the expected return $G_t$, and instead relying in an advantages function $Q(s,a)$ that represents the difference between the estimated value of a state-action pair and the value function only in the evaluated state as shown in equation \ref{eq:gradient_actor_critic}. 
 
-Deep Q-Network (DQN) algorithm (2013)
+\begin{equation}
+    \label{eq:gradient_actor_critic}
+    \nabla_\theta J(\theta) \eqsim \mathcal{E}_\pi[\nabla_\theta log \pi(a_t|s_t;\theta)Q(s,a)]
+\end{equation}
 
+The critic parameters $\mathcal(w)$, and $\beta$, the critics learning rate, are updated using TD learning methods. the critic tries to approximate the TD error $\delta$ between the estimated value $V(s_t;\mathcal(w))$ and the current cumulative reward $R_{t+1}$ plus the discounted value of the next state $\gamma V(s_{t+1};\mathcal(w))$, formally described by equation \ref{eq:td-error_critic}.
+
+\begin{equation}
+    \label{eq:td-error_critic}
+    \delta = R_{t+1} + \gamma V(s_{t+1};\mathcal(w)) - V(s_t;\mathcal(w))
+\end{equation}
+
+The TD error measures the difference between the agent's prediction of the immediate reward and its estimate of the future rewards, providing a signal for updating the critic's parameters, which are updated by using the gradient of the TD-error with respect to the critics parameters $\mathcal(w)$ according to the learning rate $\beta$, formally described by equation \ref{eq:parameter_update_critic}.
+
+\begin{equation}
+    \label{eq:parameter_update_critic}
+    \mathcal(w)_{t+1} = \mathcal(w)_t + \beta \nabla_\mathcal(w) \delta V(s_t;\mathcal(w))
+\end{equation}
+
+This equation reflects the iterative adjustment of the critic's parameters to minimize the TD error, aligning the predicted values with the observed rewards. The learning rate ($\beta$) determines the step size in the parameter space.
+
+Actor-Critic methods strike a balance between exploration (through the actor's policy) and exploitation (through the critic's value estimates), reducing the variance caused by policy grandient monte-carlo methods.
 
 
 \section{Applications}\label{sec:rl-applications}
-mention of usage of RL an overview of all approaches that appeared in the field. tables and all.
+
+\subsection*{Games}
+
+https://www.nature.com/articles/nature16961
+
+https://arxiv.org/pdf/1712.01815.pdf
+ 
+https://www.nature.com/articles/s41586-019-1724-z
+
+
+\subsection*{Industrial Control}
+
+https://deepmind.google/discover/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/ 
+
+
+\subsection*{Robotics}
+
+https://medium.com/@vmayoral/reinforcement-learning-in-robotics-d2609702f71b 
+
+
+https://journals.sagepub.com/doi/full/10.1177/0278364913495721?casa_token=CTVePzfDVosAAAAA%3AREr36VUeVR_PPzIYvRgykV-NYvAAxHyk8L5l8fgCxVv66B-JhlgH62Nypy66bEDwySL9fBXbvQ
+
+
+\subsection*{Autonomous Driving}
+
+https://arxiv.org/pdf/2002.00444.pdf
 
 
 \section{Summary}\label{sec:path-summary}
