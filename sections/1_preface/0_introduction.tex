@@ -42,46 +42,50 @@ Existing literature displays the multiple ways in which KG completion and reason
 \textbf{Semantic matching models}, compute a scoring function by measuring the semantic similarities of entity or relation embeddings in latent embedding space, they do so by applying \textbf{Neural Network} or \textbf{Tensor Factorization} models. 
 NN models \cite{} present a challenging problem as they require the effective encoding of world knowledge using powerful models. However, research has shown that neural networks can capture the semantic features of entities and relations intelligently and model the semantic relationships between discrete entities, ultimately leading to more accurate embeddings of KGs.
 Tensors\cite{} and their decompositions are widely used in data mining and machine learning problems. their usefulness comes from the representation they offer as KG entities and triples can be represented as tensors, KG completion can be tackled as a binary tensor completion problem\cite{shen2022comprehensive}.
+
 \textbf{Translational models}\cite{} encode KG entities and relations as low-dimensional numerical vectors. a distance scoring function is then applied in the N-dimensional vectorial space reflecting the correctness of a proposed triple, then a ranking loss function is applied to learn the top translation relation between the entities in question.
 \textbf{Structural models}\cite{} The inherent rich information inside KGs plays an important role in capturing useful features of knowledge embeddings for KG completion. the common internal information inside KGs includes node attribute information\cite{}, entity-related information\cite{}, relation-related information\cite{}, neighborhood information\cite{}, and relational path information\cite{}. This dissertation's proposal expands on relational path reasoning combined with translational elements as part of the contribution.
 
 % this needs to be formalised, cited, completed and improved...
-Obtaining information from relational paths contained within a KG is usually performed by applying machine learning algorithms; path capture\cite{}, path classification, path augmentation or multi-hop KG reasoning, all but the latter have a problem, they use a path ranking NN as a binary classifier which causes feature explosion for large KGs. In our work we chose to develop a multi-hop reasoning approach for this reason and for explainability of the decisions taken.
-We also chose Reinforcement Learning to create intelligent agents tasked with solving this task. In practice this focuses on solving a stochastic gradient descent problem, that will be described in depth in future sections.
-The RL agents traverse through the graph nodes as states by using connected relations as the action space.
-Existing approaches that follow this methodology already exist, however, they generally apply rewards based in REINFORCE algorithm and blah blah blah...
+Obtaining information from relational paths contained within a KG is usually performed by applying machine learning algorithms; path capture\cite{}, path classification, path augmentation or multi-hop KG reasoning, most of these approaches present an inherent flaw, they use a path ranking NN as a binary classifier which causes feature explosion for large KGs and lacks background information on the selected path, both of those shortcomings are solved by KG reasoning methods. Thats why in our works we focused on the development of a multi-hop reasoning approach which adds explainability and prevent feature explosions for large KGs.
 
-% Machine Learning
-% Reinforcement Learning as a solution,
-% how Rl applies KG reasoning techniques
+There are several options for the construction of an artificial intelligence capable of performing KG resoning, namely, supervised, unsupervised and reinforcement learning.
 
+Supervised learning requieres providing a golden truth in a labeled dataset, which means knowing the optimal outcome beforehand, this is usefull for tasks that require classification and regression problems, prediciting a value in continuous or discrete spaces. This is simply not possible for many problems in the field, in this case it would mean obtaining the best path connecting two given nodes of a Knowledge Graph for the particular problem being solved. This would require expert knowledge and deep analysis for each of the nodes, a task which is simply unfeasable for decently sized Knowledge Graphs.
+
+In unsupervised learning no labeled dataset is provided it tries to learn the the underlying patterns of the problem and in this way approximate the output, however, traditional unsupervised approaches often struggle to handle the complexity of real-world knowledge graphs, especially when faced with missing or ambiguous information
+
+Reinforcement learning emerges as a promising paradigm to address these limitations. RL introduces an interactive learning framework where an agent learns to navigate and interact with the knowledge graph by using it as the environment of the problem. RL algorithms, can dynamically adapt their strategies, effectively dealing with the uncertainties present in an automatically constructed KG even in the absence of human supervision.
+
+In practice Reinforcement Learning focuses on solving a stochastic gradient ascent problem in a KG reasoning scenario, that will be described in depth in chapter\ref{chap:reinforcement}, it is a policy gradient method seeking to optimize the quality of the found path based on the metrics of some reward functions. 
+
+It does so by traversing through the graph nodes as states by using connected relations as the action space for that state. the objective of the Agent is to learn the best path that answers a particular query. This query is represented by an initial node and an outgoing relation, such as (Keanu Reeves, partner, ?), the agent is then expected to find the destination node while training in order to then be able to generate new paths of information from the unanswered queries contained in the KG.
+
+Several proposals have tackled this problem beforehand \cite{xiong2017deeppath, das2017go, lin2018multi, xian2019reinforcement} however htye present several shortcomings, for instance, they require the embedding models to be computed before attempting the problem. Also, they restrict themselves to using classica RL backpropagation algorithms, and overlook the application of more modern options such as Proximal Policy Optimization (PPO)\cite{schulman2017proximal} or Soft Actor Critic (SAC) \cite{haarnoja2018soft} while also relying on simple reward structures. Finally, most of these proposals are not distributed as usable tools intended for final users. Even if they make their implementation publicly available, their code is generally intended for the sake of reproducibility of their experimental results, and they often lack any degree of customization or flexibility, meaning they usually can only work on a number of predefined datasets as input.
+
+Our proposal SpaceRL combines the benefits from RL pathfinding with the power of representational embeddings to infer fairly long and explainable paths, useful for KG-based applications, and it can do so with on-the-fly embedding generation and embedding based rewards combined with step based rewards.
+
+Our tool is highly configurable, allowing for reward calculation to be modified with a combination of several options, customizing the policy intermediate activation function and regularization and allowing the user to apply state-of-the-art RL algorithms out of the box, which improve performance and help avoid reward plateaus while training.
+
+Finally, SpaceRL, aims to provide a versatile tool intended for users with different levels of expertise, from novice to experts. It allows comprehensive and flexible customization for advanced users, who may prefer to install SpaceRL as a server for their local usage, or to become a service provider for third parties. On the other hand, it also offers a simple MLaaS interface, intended for a more untrained end user. Machine Learning as a Service (MLaaS) has gained traction in recent years, since it adds layers of abstraction that create a black box simplified interface for a non-expert final user. SpaceRL offers RL model generation and usage as a service capabilities, either locally through its GUI or as a deployable REST API for third party consumption. Therefore, it is, to the best of our knowledge, the first turnkey tool to provide such RL KG completion and reasoning functionalities.
 
 \section{Research rationale}\label{sec:intro-rationale}
 In this section, we present the hypothesis that has motivated our research work in the context of Knowledge Graph reasoning and state our thesis, which we prove in the rest of the dissertation.
 
 \subsection{Hypothesis}
-% Nowadays, there is an increasing interest of individuals, organizations and companies in using Knowledge Graphs to represent information about a certain domain and to exploit said KGs to provide services. In the present day, practical applications such as question answering \cite{singhal2012}, product recommendations \cite{zhang2021, palumbo2020}, data retrieval \cite{wise2020} and meta-research \cite{dessi2022cskg,angioni2021} already rely on Knowledge Graphs. However, these applications need the data present in KGs to be as complete as possible, which makes it necessary to expand them after their creation.
+Currently, Knowledge Graphs present a tantalizing alternative for structuring information about one or multiple domains. They offer a semantic connection between the data nodes which can be used for a multitude of applications such as question answering \cite{}, recommendation systems \cite{}, healthcare \cite{} or natural language processing tasks. The nature of these knowledge graphs make them inherently incomplete as their construction is automatic, garanting for their expansion with a variety of techniques, however these techniques \cite{} come with their own set of limitations, most notably how they provide close to no input about why they provided the result they did. In addition the tools available to perform these tasks are limited due to the nature of their conception, generally made for replication purposes, they offer no chance for easy expansion of their capabilities or use by non expert users.
 
-% According to the previous argumentation, we conclude that our hypothesis is the following:
+According to the previous argumentation, we conclude that our hypothesis is the following:
 
-% \hypthesis{Knowledge Graphs provide value to individuals and companies alike by supporting applications that are widely used today, and their usefulness is likely to keep growing. Due to their incompleteness, there is a need to refine them and find the information that they are missing in order to expand them.} 
+% Knowledge Graphs provide value to individuals and companies alike by supporting applications that are widely used today, and their usefulness is likely to keep growing. Due to their incompleteness, there is a need to refine them and find the information that they are missing in order to expand them.
 
-% ---------------------
-
-% aqui es lo que asumo que es cierto de cara a presentar la tesis?
-% existen X grafos que hacen cosas y conviene que esten completos porque ofrecen muchas cosas como QA, Recommendations Systems, Salud.
-% es util poder responder a preguntas que se responden por la informacion no explicita de los mismos.
-% se puede usar un sistema de reinforcement learning aprovechando la semantica interna de los mismos mendiante los embeddings
-
-
-% asumiendo que es verdad
-
-% porque esto es util.
-
-\hypthesis{Hypothesis goes here.}
+\hypthesis{Knowledge Graphs provide a way to structure information such that it provides semantic value to applications that rely on them and are widely used. They are inherently incomplete and can be expanded, however the methods that can do so are limited in two major ways, they provide no explainability and use outdated means.}
 
 \subsection{Thesis}
 % There already exist a number of techniques that can be applied to perform Knowledge Graph completion, e.g., \cite{jiang2016, galarraga2015, galarraga2013, wang2015, richardson2006, kuzelka2019, yang2017, sadeghian2019, minervini2018, wei2015, nickel2011, jenatton2012, garcia-duran2015, yang2014, tay2017, trouillon2016, bordes2013, wang2014, lin2015, do2018, lao2011, gardner2015, gardner2013, nastase2019, gu2015, toutanova2016, jiang2017, lei2019, bansal2019a2n, wang2019}. Unfortunately, they do not fulfill a number of requirements for their application to large Knowledge Graphs. Those that rely on extracting and applying rules suffer from a particularly poor scalability, which has been acknowledged in the literature \cite{galarraga2013}. A large number of proposals use latent representations such as tensors, or entity or relation embeddings. While they can be effective, they are hindered by the fact that these representations must be obtained beforehand, which is a very computationally intensive task, and they must be updated entirely when a new entity or relation is introduced to the graph, which is a frequent event. Furthermore, many other proposals for KG completion need to access external or manually-provided information, making them not fully automatic or self-contained.
+
+Multitude of approaches have tackled the problem of KG completion \cite{} and reasoning \cite{}, however, KG completion approaches lack explainability for their results and can not provide any knowledge past the inclusion of new triples with a certain degree of confidence and KG reasoning apporaches that do provide this do so based on algorithms and techniques which are lacking in inference due to the high variance they present and retropropagated simple rewards.
+
 
 
 % In light of the previous reasoning, we conclude that our thesis is as follows:
