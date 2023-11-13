@@ -2,7 +2,6 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=latex,visualstudiocode
 
 *Zone.Identifier
-main.pdf
 
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
