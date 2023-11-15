@@ -4,22 +4,26 @@
 
 \chapterAbstract{D}{}
 
-% espite Knowledge Graph completion being a very active research topic, the current proposals for carrying it out still have some drawbacks that hinder their applicability in practice, and which should be solved. Our goal in this chapter is to present the problems that arise in practice when completing Knowledge Graphs, and to motivate the need for a new proposal. This chapter is organized as follows: Section~\ref{sec:moti-intro} introduces it and provides the necessary background knowledge, Section~\ref{sec:moti-problems} presents the problems of KG completion in detail, Section~\ref{sec:moti-analysis} analyzes the current approaches and their main problems, Section~\ref{sec:moti-discussion} explains how none of the existing proposals solves all practical problems at a time, Section~\ref{sec:moti-proposal} introduces our contributions and compares them with the existing proposals in the literature; finally, Section~\ref{sec:moti-summary} summarizes the chapter.
+% Despite Knowledge Graph completion being a very active research topic, the current proposals for carrying it out still have some drawbacks that hinder their applicability in practice, and which should be solved. Our goal in this chapter is to present the problems that arise in practice when completing Knowledge Graphs, and to motivate the need for a new proposal. This chapter is organized as follows: Section~\ref{sec:moti-intro} introduces it and provides the necessary background knowledge, Section~\ref{sec:moti-problems} presents the problems of KG completion in detail, Section~\ref{sec:moti-analysis} analyzes the current approaches and their main problems, Section~\ref{sec:moti-discussion} explains how none of the existing proposals solves all practical problems at a time, Section~\ref{sec:moti-proposal} introduces our contributions and compares them with the existing proposals in the literature; finally, Section~\ref{sec:moti-summary} summarizes the chapter.
+
+
+
 
 \section{Introduction}\label{sec:moti-intro}
-\begin{itemize}
-    \item Increase in interest by companies like google amazon etc\dots
-    \item they are good for organization of information
-    \item they need to be as complete as possible
-    \item they need to be organized in such a way that they allow algorithms to obtain answers to queries in a way that they provide have an explanation (explainability)
-\end{itemize}
-% Nowadays, there is an increasing interest of individuals, organizations and
-% companies in Knowledge Graphs, in order to organize, store and publish their data. This, in turn, can support many practical applications in a variety of domains, such as commerce \cite{zhang2021, palumbo2020}, education \cite{chen2018, aliyu2020}, research \cite{wang2018, dessi2020aikg, dessi2022cskg}, or healthcare \cite{zhang2020b, gong2021, wise2020}, to cite a few.
+In recent years, there has been a growing interest of major tech companies in Knowledge Graphs (KGs) fueled by the proven efficacy of KGs in structuring and organizing information.
 
-% Ideally, these Knowledge Graphs should be as complete as possible, to make sure that they include all pieces of knowledge that may be relevant to the organization that manages it or the users they support. However, due to the way in which they are constructed, it is well-known that this is not the case \cite{paulheim2017,shen2022overview,hogan2020,peng2023}. Those that are automatically built from external knowledge sources rely on the completeness of the original source and the capabilities of automated information extractors, which are far from perfect \cite{mitchell2018, bordes2014b}. Additionally, KGs that are built manually, either by their creators or by a crowdsourced process, tend to be much smaller in size \cite{miller1995}. Due to these reasons, there exists a large number of incomplete KGs under active use today, and a need to complete them \cite{shrivastava2017, krishnan2018, pittman2017, noy2019, singhal2012}.
+Giants like Google, Facebook, and Microsoft adopted KGs as part of the core of their organizations, recognizing them as instrumental in organizing vast amounts of information, a new era of knowledge representation unfolds. This chapter explores the motivations driving the creation of this book, tracing the trajectory of the growing significance of KGs in information management.
 
-% In the literature, there are different proposals to address the problem of
-% completing Knowledge Graphs, e.g., \cite{jiang2016, galarraga2015, wang2015, kuzelka2019, yang2017, sadeghian2019, minervini2018, wei2015, garcia-duran2015, yang2014, tay2017, trouillon2016, lin2015, do2018, gardner2015, nastase2019, gu2015, toutanova2016, jiang2017, lei2019, bansal2019a2n, wang2019}. Unfortunately, these proposals have a number of drawbacks that hinder their applicability in practice. Consequently, it is still necessary to research on the field of Knowledge Graph completion, which is our purpose in this dissertation.
+Knowledge Graphs, with their inherent ability to capture complex relationships between entities, have proven to be indispensable tools for organizing information at an unprecedented scale. The capacity to structure data in a way that reflects the intricacies of real-world connections, offering a more nuanced understanding of the underlying domain.
+
+However, the way in which KGs are automatically constructed leads to their inherent incompletenes, hence the main challenge for KGs lies in their augmentation with unexplicited information that can be inferred from itself, the process of Knowledge Graph Completion (KGC), in this way ensuring they are as comprehensive as possible.
+
+KGC provides new knowledge to be incorporated to the KG, howver provides no reason for it more than a numerical value, KG reasoning stands as a pivotal advancement for this matter. Unlike conventional completion approaches that primarily address missing links through direct imputation, KG reasoning introduces a more sophisticated layer of inference.
+
+Through reasoning, the completion process transcends mere data imputation, dynamically synthesizing implicit connections within the graph, offering a more nuanced and comprehensive representation of the underlying knowledge, by leveraging Reinforcement Learning it is possible to generate intelligent agents capable of constructing paths of reasoned knoledge which offer insisghts into the facts being inserted into the graph.
+
+In the literature, there are different proposals which address the problem of
+applying KG reasoning through RL for Knowledge graphs, e.g., \cite{}. These proposals however, are limited due to the application of the methods the propose. For this reason, furthering the strategies and methodologies for KG reasoning is our main purpose in this dissertation.
 
 \section{Problems}\label{sec:moti-problems}
 \begin{itemize}
@@ -54,7 +58,7 @@ An enumeration of references is also a possibility for this section, adding the 
 
 % There already exist a number of proposals for completing Knowledge Graphs in the literature. In Table~\ref{table:proposals}, we summarize them and the problems they suffer from, and in the following, we discuss them in more detail:
 
-% \input{tables/proposals}
+\input{tables/0ld/proposals}
 
 % \citet{bordes2013} devised a proposal that learns embedded representations of the entities in a Knowledge Graph, in order to place them in an N-dimensional space while transforming semantical similarities into physical closeness in said space. In this proposal, the correctness of a triple can be checked by evaluating the relative positions of its two entities in the embedded space.
 

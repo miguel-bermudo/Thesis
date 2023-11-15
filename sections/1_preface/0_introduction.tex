@@ -92,39 +92,29 @@ In light of the previous reasoning, we conclude that our thesis is as follows:
 \hypthesis{Knowledge graph reasoning can benefit from the development of novel reward structured which leverage the semantic value contained within the embedding representations of graph nodes and relations, more robust Reinforcement Learning algorithms which circumvent the high variance of the methodology of policy gradient methods and from a standardized approach to applying these techniques which is easily expanded and modified for the purposes of fast iterations for future work.}
 
 \section{Summary of contributions}\label{sec:intro-summary}
-% codgio disponible en git, 
-% propuesta en under review...
+To prove our thesis, we have devised \href{https://github.com/DEAL-US/SpaceRL-KG}{\textbf{\textit{SpaceRL our KG reasoning framework}}} supported by Reinforcement Learning techniques.
 
-To prove our thesis, we have devised SpaceRL %a XXX YYY program that does stuff.:
+SpaceRL is an end-to-end framework focused on customization and adaptability, it works with any dataset provided in the expected format. SpaceRL allows any user with any level of expertise to generate an intelligent agent able to reason over the KG of their choice in order to generate new knowledge in the form of a triple accompanied by a structured reasoned path.
 
-% \begin{itemize}
-%     \item \textbf{CHAI}, a technique that is able to quickly filter out a large amount of candidate triples, leaving only the most promising ones. To do this, CHAI generates a number of rules that determine which triples have a higher chance of representing correct facts and deserve further evaluation, and which ones are most likely wrong and should be discarded immediately. Each of these rules is generated in an iterative manner, evaluating which continuation for it is the most promising. After a rule has been expanded, it is assessed again to determine whether it needs to be expanded further or not.\\
-    
-%     Regarding this contribution, the article that describes it \cite{borrego2019} was accepted and presented at K-CAP 2019.\\
+The framework allows the users to customize it by permitting the tuning of hyperparameters, relying on previous experience with LSTM layers, generating a particular set of embeddings for the dataset being used, using multiple RL algorithms, reward structures and depth of reasoned paths.
 
-%     \item \textbf{CAFE}, a technique that is able to learn what constitutes a correct and a wrong fact, and thus can select only the correct triples provided by CHAI, which can then be added to a KG, completing it. CAFE relies upon a set of neighborhood-aware features that are able to accurately characterize the neighborhoods of a pair of entities. It then uses these features to transform all triples it is provided into feature vectors, and trains a set of neural classification models to learn to distinguish between correct and incorrect knowledge.\\
-    
-%     Regarding this contribution, the article that describes it \cite{borrego2021} was published in the EAAI journal.\\
+It also allows for the deployement of a relation API in order to be a service provider for tuned models or to provide infrastructure for model generation to a third party, as well as offering a GUI in order to give inexperienced users a comprehensive view of the system for them to generate models and tune them as needed, without expert knowledge of the field. The system also offers visualization tools that gives the user an overview about how the trained models choose the paths while on inference mode in order to better understand the decision made.
 
-%     \item \textbf{SciCheck}, a proposal that is specifically designed to complete scientific Knowledge Graphs. Due to the particularities of these KGs, regular KG completion proposals do not provide satisfactory results. SciCheck overcomes these issues by considering the semantic similarities of the research concepts in a KG and by leveraging the rich ontologies that such KGs usually have.\\
-    
-%     Regarding this contribution, the article that describes it \cite{borrego2022} was published in the IEEE Access journal.
-
-% \end{itemize}
+SpaceRL is meant to be easily expanded, however it also comes with multiple options out of the box, we have mentioned in the introduction how current KG reasoning approaches are lacking in inference stability, that is why SpaceRL defaults to the usage of the Proximal Policy Optimization (PPO) reinforcement learning algorithm and comes out of the box with novel reward structures based on the properties of the embeddings for the evaluated KG. these options were used in our paper "SpaceRL-KG: Searching Paths Automatically Combining Embedding-based Rewards with Reinforcement Learning in Knowledge Graphs", currently under review in Expert systems with applications. The framework, complete with API and GUI has been sent to SoftwareX, and is currently awaiting to be reviewed by the editor.
 
 \section{Structure of this dissertation}\label{sec:intro-structure}
 This dissertation is structured as follows:
 
 \begin{description}
     \item[\textbf{Part I: Preface.}] 
-    % It encompasses this introduction and Chapter \ref{chap:motivation}, in which we provide the motivation for our research work and we conclude that the existing proposals for automatically completing Knowledge Graphs have a number of drawbacks.\\
+    It holds the introductory chaperts to this dissertation, the one holding these words plus Chapter \ref{chap:motivation}, were we go into detail about the justification that granted the works presented in this book, presenting the limitations of the current state-of-the-art approaches\\
     
     \item[Part II: Background Information.] 
-    % It provides information about Knowledge Graphs and the different proposals to complete them that can be found in the literature. In Chapter~\ref{chap:kgs}, we introduce the concept of Knowledge Graph, their main characteristics and the current open challenges regarding them. In Chapter~\ref{chap:embeddings}, we present different proposals to complete KGs that rely on latent triple representations. In Chapter~\ref{chap:paths}, we provide an overview of the KG completion proposals that use information found in paths between entities and, in Chapter~\ref{chap:rules}, we summarize the existing proposals to perform this task using logical rules.\\
+    This section gives insight into the topics necessary to better understand the proposals presented, In chapter \ref{chap:kgs} we give an overview of Knowledge graphs, how the are structured, constructed, applied and the challenges in the field. In chapter \ref{chap:embeddings}, we introduce the representational techniques for knowledge graphs known as embeddings, how they work and several proposals that apply the different techniques used to generate them. In chapter \ref{chap:reinforcement} we give an introduction to Reinforcement Learning, how it can solve KG reasoning tasks and how it operates within the scope of a knowledge graph, the evolution of the techniques and algorithms and how each of them operate and some applications RL has had success on.
     
     \item[Part III: Our Proposal.]
-    % It reports on the main contribution of this dissertation. In Chapter~\ref{chap:framework}, we define a common framework of definitions and concepts. In Chapter~\ref{chap:chai}, we present our proposal for automated candidate triple filtering, which is able to quickly discard a large number of incorrect triples. In Chapter~\ref{chap:cafe}, we describe our proposal for triple classification, which can assess the correctness of a triple with a high efficacy. Finally, in Chapter~\ref{chap:scicheck}, we present our technique for completing scientific Knowledge Graphs, along with a practical use case.\\
+    This section reports on the contributions made on this dissertation. In chapter \ref{chap:SpaceRL} we describe the methodology followed to create reinforcement learning agents and how they fared on several state-of-the-art datasets to generate reasoned paths following our new reward structure and use of modern RL algorithms. In chapter \ref{chap:framework} we present our framework for RL based KG reasoning tasks, how it works and the advantages it poses over creating new one-time use code for a proposal, how it can help expert users provide a service to others and how can be used by non-espert users.
     
     \item[Part IV: Final Remarks.]
-    % It contains Chapter~\ref{chap:conclusions}, which concludes this dissertation and presents some possible future research directions.
+    It contains Chapter~\ref{chap:conclusions}, which concludes this dissertation and presents some possible future research directions.
 \end{description}
