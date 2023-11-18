@@ -1,0 +1,45 @@
+\newcommand{\?}{{\fontfamily{cyklop}\selectfont ?}}
+
+\begin{table}[!htp]
+    \begin{center}
+        \renewcommand{\arraystretch}{2.0}
+    \begin{tabular}{>{\raggedright\arraybackslash} M{5cm} | M{1cm} | M{1cm} |  M{1cm} |  M{1cm} |  M{1cm}}
+    
+    \specialrule{1.2pt}{3pt}{3pt}
+    \centering \textbf{Proposal} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5}  \\
+    \specialrule{1.2pt}{3pt}{3pt}
+
+    \citet{lao2011random} & \? & \no & \yes & \? & \? \\ \hline % PRA
+    \citet{nickel2011three} & \? & \no & \no & \? & \? \\ \hline % Rescal
+    \citet{bordes2013translating} & \yes & \no & \no & \? & \? \\ \hline % TRANSH
+    \citet{wang2014knowledge} & \yes & \no & \no & \? & \? \\ \hline % transH
+    \citet{xiong2017deeppath} & \no & \no & \yes & \yes & \no \\ \hline % DeepPath 
+    \citet{das2017go} & \yes & \no & \yes & \yes & \no \\ \hline % Minerva
+    \citet{lin2018multi} & \no & \no & \yes & \no & \no \\ \hline  % rew shaping
+    \citet{xian2019reinforcement} & \no & \no & \yes & \no & \no \\ \hline  % explainable recommendtaion
+    \citet{vashishth2020interacte} & \? & \no & \no & \yes & \no \\ \hline % InteractE
+    \citet{tiwari2021dapath}& \yes & \no & \yes & \yes & \no \\ \hline % DAPath
+    \citet{cui2023incorporating} & \no & \no & \yes & \no & \yes \\ \hline % Anticipation embed
+
+    \specialrule{1.2pt}{3pt}{3pt}
+    
+    \end{tabular}
+
+    \vspace{.5cm}
+    {
+        \flushleft
+        P1 = Reliance on Embedding representations and not providing them;
+        P2 = Hardcoded implementations of specific approaches;
+        P3 = No explainability of the knowledge generated (binary classifier/ranking);
+        P4 = Reward structure based on terminality (if aplicable);
+        P5 = Low convergence algorithms (if applicable)\\
+        
+        \flushleft
+        \yes means the proposal does not have this problem,
+        \no means that it does suffer from it and 
+        \? means its not applicable for that proposal.
+    }
+    \caption{Comparison of current proposals for KG reasoning and completion.}
+    \label{table:proposals}
+    \end{center}
+\end{table}
