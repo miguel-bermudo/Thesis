@@ -2,11 +2,12 @@
 
 \newcommand{\toolname}{SpaceRL}
 
-\chapterQuote{\textit{``Most problems can be solved using algebra, or violence.''}}{--- Bill Wurtz}
+\chapterQuote{\textit{``The introduction of many minds into many fields of learning along a broad spectrum keeps alive questions about the accessibility, if not the unity, of knowledge.''}}{--- Edward H. Levi}
 
-\chapterAbstract{E}{n esta seccion podemos hablar sobre la importancia de la replicabilidad de la experimentacion pero tambien de crear herramientas accesibles para todo el mundo y no limitar el acceso solo a los expertos de dominio y ya luego meter todo lo que se ha hecho.}
+\chapterAbstract{T}{he importance of improving upon the works of others and not just mere replication in scientific reasearch is one of the main pillars of the field. Multiple proposals focus only on publishing their results and not in advancing or even demonstrating the claims the presented in their publications as true, For this reason we present our works as a framework, usable in multiple levels of expertise and meant for expansion. This chapter introduces our framework for KG reasoning and is structured as follows: Section~\ref{sec:framework-intro} Introduces the framework to the reader, Section~\ref{sec:framework-software} described the different components that constitute the framework, Section~\ref{sec:framework-usage} offer an example of use for the framework, Section~\ref{sec:framework-future}describes the possible future for the software, and Section~\ref{sec:framework-summary} closes the proposal.
 
-% efore we delve into the details of our proposal, it is important to establish a common and unambiguous vocabulary. For this reason, we have devised a conceptual framework that allows us to describe a number of relevant concepts in detail. The chapter is organized as follows: Section \ref{sec:theo-intro} introduces it, Section \ref{sec:theo-triple} models the concept of a triple, Section \ref{sec:theo-kg} presents the theoretical model of a Knowledge Graph, Section \ref{sec:theo-paths} introduces topology-based elements such as paths, distances and reachability, Section \ref{sec:theo-subgraph} illustrates the concept of neighborhood subgraphs, Section \ref{sec:theo-candidates} presents the notions of candidate triples and candidate-filtering fitness, Section \ref{sec:theo-rule} describes candidate-filtering criteria and rules, and Section \ref{sec:theo-features} introduces graph-based features and feature groups; finally, Section \ref{sec:theo-conclusion} summarizes the chapter.
+}
+
 
 \section{Introduction}\label{sec:framework-intro}
 
@@ -53,7 +54,7 @@ Several software tools have been proposed to deal with the incompleteness in KGs
     This can be described as a Markov decision process (MDP) which guarantees stochasticity, meaning that the process is non-deterministic. 
 \end{itemize}
 
-From the previous analysis, we can conclude that Reinforcement Learning path finding is the most promising approach, since it leverages the KG structure,  provides the same type of explainability as relation path reasoning proposals, while overcoming the scalability problem, and minimizes the risk of neglecting the most promising paths. Furthermore, it can be combined with embedding models to optimize the decision making in each step. Those reasons motivated us to make \toolname{} a RL-based tool for KG reasoning and completion.
+From the previous analysis, we can conclude that Reinforcement Learning path finding is the most promising approach, since it leverages the KG structure,  provides the same type of explainability as relation path reasoning proposals, while overcoming the scalability problem, and minimizes the risk of neglecting the most promising paths. Furthermore, it can be combined with embedding models to optimize the decision making in each step. Those reasons motivated us to make SpaceRL a RL-based tool for KG reasoning and completion.
 
 There are some previous proposals in this field, such as DeepPath
 % \cite{xiong2017deeppath},
@@ -72,43 +73,41 @@ or Soft Actor Critic (SAC)
 Finally, most of these proposals are not distributed as usable tools intended for final users. Even if they make their implementation publicly available, their code is generally intended for the sake of reproducibility of their experimental results, and they often lack any degree of customization or flexibility, meaning they usually can only work on a number of predefined datasets as input.
 
 %Now the benefits, one per 
-\toolname{} combines the benefits from RL pathfinding with the power of representational embeddings to infer fairly long and explainable paths, useful for KG-based applications, and it can do so with on-the-fly embedding generation, which means that the KG embeddings are not a required input to the system.
+SpaceRL combines the benefits from RL pathfinding with the power of representational embeddings to infer fairly long and explainable paths, useful for KG-based applications, and it can do so with on-the-fly embedding generation, which means that the KG embeddings are not a required input to the system.
 
 Our tool is highly configurable, allowing for reward calculation to be modified with a combination of several options, customizing the policy intermediate activation function and regularization, using the more classical approach of the REINFORCE .
 % \cite{sutton1999policy}
-algorithm instead of PPO if required, computing the reward in one of several ways, or selecting the max depth of paths to explore, among other options. Also, \toolname{} allows the user to apply state-of-the-art RL algorithms out of the box, namely Proximal Policy Optimization (PPO)
+algorithm instead of PPO if required, computing the reward in one of several ways, or selecting the max depth of paths to explore, among other options. Also, SpaceRL allows the user to apply state-of-the-art RL algorithms out of the box, namely Proximal Policy Optimization (PPO)
 %  \cite{schulman2017proximal} 
 combined with Soft Actor Critic (SAC)
 %  \cite{haarnoja2018soft},
 which improve performance and help avoid reward plateaus while training. To the best of our knowledge, this is the first tool to provide such a wide variety of options.
 
-Finally, \toolname{}, aims to provide a versatile tool intended for users with different levels of expertise, from novice to experts. It allows comprehensive and flexible customization for advanced users, who may prefer to install \toolname{} as a server for their local usage, or to become a service provider for third parties. On the other hand, it also offers a simple MLaaS interface, intended for a more untrained end user. Machine Learning as a Service (MLaaS) has gained traction in recent years 
+Finally, SpaceRL, aims to provide a versatile tool intended for users with different levels of expertise, from novice to experts. It allows comprehensive and flexible customization for advanced users, who may prefer to install SpaceRL as a server for their local usage, or to become a service provider for third parties. On the other hand, it also offers a simple MLaaS interface, intended for a more untrained end user. Machine Learning as a Service (MLaaS) has gained traction in recent years 
 % \cite{RibeiroGC15}
-, since it adds layers of abstraction that create a black box simplified interface for a non-expert final user. \toolname{} offers RL model generation and usage as a service capabilities, either locally through its GUI or as a deployable REST API for third party consumption. Therefore, it is, to the best of our knowledge, the first turnkey tool to provide such RL KG completion and reasoning functionalities.
+, since it adds layers of abstraction that create a black box simplified interface for a non-expert final user. SpaceRL offers RL model generation and usage as a service capabilities, either locally through its GUI or as a deployable REST API for third party consumption. Therefore, it is, to the best of our knowledge, the first turnkey tool to provide such RL KG completion and reasoning functionalities.
 
 \section{Software description}\label{sec:framework-software}
-\toolname{} is an end-to-end Knowledge Graph completion tool, written entirely in Python and accessible to multiple user groups with different levels of expertise. \toolname{} provides an easy to use GUI tool for novices, an API for internal network or third party usage, and direct access to the low level application for advanced users or potential contributors. A diagram illustrating its internal code structure is depicted in Figure \ref{fig:classdiagram}.
+SpaceRL is an end-to-end Knowledge Graph completion tool, written entirely in Python and accessible to multiple user groups with different levels of expertise. SpaceRL provides an easy to use GUI tool for novices, an API for internal network or third party usage, and direct access to the low level application for advanced users or potential contributors. A diagram illustrating its internal code structure is depicted in Figure \ref{fig:classdiagram}.
 
-% \addimage{pseudo_class_diagram.svg}{ \toolname{} package diagram.}{classdiagram}{1} 
+% \addimage{pseudo_class_diagram.svg}{ SpaceRL package diagram.}{classdiagram}{1} 
 
 \begin{figure}[!h]
     \centering
     \includesvg[inkscapelatex=false, width=\textwidth]{fig/framework/diagrams/pseudo_class_diagram.svg}
-    \caption{\toolname{} package diagram.}
+    \caption{SpaceRL package diagram.}
     \label{fig:classdiagram}
 \end{figure}
 
-\toolname{} was designed to provide a wide variety of functionalities related to KG completion, including: embedding generation, path reasoning model training and testing, integration of pre-trained models, performance metrics calculation and reports, mock KG generation, and cache file generation for distance rewards, among others. Our software includes as well a graphical visualization tool to allow the user inspect the resulting paths inferred from a KG, providing additional information about the reasoning process.
+SpaceRL was designed to provide a wide variety of functionalities related to KG completion, including: embedding generation, path reasoning model training and testing, integration of pre-trained models, performance metrics calculation and reports, mock KG generation, and cache file generation for distance rewards, among others. Our software includes as well a graphical visualization tool to allow the user inspect the resulting paths inferred from a KG, providing additional information about the reasoning process.
 
-To perform these tasks, \toolname{} requires only a KG as input, which is used to generate different embedding representations of the graph nodes and edges. In its current version, \toolname{} provides support for four classical embedding models in the literature, namely, ComplEx 
+To perform these tasks, SpaceRL requires only a KG as input, which is used to generate different embedding representations of the graph nodes and edges. In its current version, SpaceRL provides support for four classical embedding models in the literature, namely, ComplEx 
 % \cite{trouillon2016},
 DistMult 
 % \cite{yang2015embedding},
-TransE 
-% \cite{bordes2013},
-and TransR 
+TransE \cite{bordes2013translating}, and TransR 
 % \cite{lin2015}.
-The effectiveness of these models has been confirmed by multiple authors; notwithstanding, further embedding models could be added to \toolname{} in the future. To implement these models, we relied on DGL-KE 
+The effectiveness of these models has been confirmed by multiple authors; notwithstanding, further embedding models could be added to SpaceRL in the future. To implement these models, we relied on DGL-KE 
 % \cite{zheng2020dgl}
 a package which provides off the shelf embedding vector generation.
 
@@ -116,12 +115,12 @@ Our tool is publicly available at our GitHub page
 % \cite{SpaceRL},
 and it is open to contribution. The application is divided into several subsystems which will be explored in the following subsections, and the interconnection between these subsystems can be seen in Diagram \ref{fig:tool_flow}. They will be described from the perspective of an advanced user in order to provide a comprehensive view of the proposal.
 
-% \addimage{tool_flow.svg}{\toolname{} work flow}{tool_flow}{.65}
+% \addimage{tool_flow.svg}{SpaceRL work flow}{tool_flow}{.65}
 
 \begin{figure}[htp]
     \centering
     \includesvg[inkscapelatex=false, width=.65\textwidth]{fig/framework/diagrams/tool_flow.svg}
-    \caption{\toolname{} work flow}
+    \caption{SpaceRL work flow}
     \label{fig:tool_flow}
 \end{figure}
 
@@ -129,7 +128,7 @@ and it is open to contribution. The application is divided into several subsyste
 
 \subsection{Configuration}\label{sec:framework-config} 
 
-The configuration module of \toolname{} comprises two components: a key-value map which holds several global tuning parameters, and the \code{Experiment} and \code{Test} classes. The behaviour of the tool is defined by a list of class instances that describe the experimental and testing setups, respectively, and which can be found in the \code{model/config.py} file (a sample excerpt of this file showing these lists can be found in Listing \ref{code:experiment-test-lists}).
+The configuration module of SpaceRL comprises two components: a key-value map which holds several global tuning parameters, and the \code{Experiment} and \code{Test} classes. The behaviour of the tool is defined by a list of class instances that describe the experimental and testing setups, respectively, and which can be found in the \code{model/config.py} file (a sample excerpt of this file showing these lists can be found in Listing \ref{code:experiment-test-lists}).
 
 The most relevant global configuration parameters in the key-value map are the following:
 
@@ -211,7 +210,7 @@ The subsystem is comprised of a number of classes, namely:  \code{Environment} (
 
 \subsubsection{Environment}
 
-\toolname{} environment is built with navigating the KG in mind; to that effect, we consider that the environment is the entirety of the KG, the state is a particular node in the KG, and the action space is comprised of every relation that links that node with its adjacent nodes (which may include itself).
+SpaceRL environment is built with navigating the KG in mind; to that effect, we consider that the environment is the entirety of the KG, the state is a particular node in the KG, and the action space is comprised of every relation that links that node with its adjacent nodes (which may include itself).
 To create an instance of the environment, a \code{DataManager} class instance is needed, as well as tuning some of the configuration parameters defined in Section \ref{sec:config}: the KG triples, number of laps, and optionally, a specific relation to train for.
 
 The \code{Environment} class was implemented following the OpenAI Gym 
@@ -220,24 +219,24 @@ standard for reinforcement learning tools, recently transferred to the Farama Fo
 %   \cite{Gymnasium}.
 Enforcing this standard entails the implementation of a number of functions, namely \code{reset}, \code{action\_space}, \code{observation\_space} and \code{step}, with the latter returning the environment state and a \code{done} flag to signal early stopping of the episode. Thus, it is guaranteed that the \code{Environment} class is responsible for state management and action generation. Our implementation also provides on-demand distance cache generation, consultation and reward generation, all of which are used by the agent to drive through the KG.
 
-Once created, the \code{Environment} instance first invokes the \code{KnowledgeGraph} class, initializes the cache, and generates the KG embedding vectors if they are not present, as \toolname{} stores previously generated embedding models while also offering a module to pre-generate them if desired. 
+Once created, the \code{Environment} instance first invokes the \code{KnowledgeGraph} class, initializes the cache, and generates the KG embedding vectors if they are not present, as SpaceRL stores previously generated embedding models while also offering a module to pre-generate them if desired. 
 
 Every training episode begins with a query triple $(s,r,t)$, and the node that contains the head entity $s$ as the initial state of the episode. The selection of the episode initial triple is performed by the environment during the \code{reset} operation. Then, the link representing relation $r$ is then removed from that particular instance of training. Figure \ref{fig:environment} offers a graphical representation of the environment, in which the current state is the initial query triple head entity. 
-After the outgoing triple relation is removed, \toolname{} begins the training process. 
+After the outgoing triple relation is removed, SpaceRL begins the training process. 
 
-% \addimage{env_description.svg}{\toolname{} environment}{environment}{.7}
+% \addimage{env_description.svg}{SpaceRL environment}{environment}{.7}
 
 \begin{figure}[!h]
     \centering
     \includesvg[inkscapelatex=false, width=.7\textwidth]{fig/framework/diagrams/env_description.svg}
-    \caption{\toolname{} environment}
+    \caption{SpaceRL environment}
     \label{fig:environment}
 \end{figure}
 
 For each training step, the environment encodes the initial state as a concatenation of embedding vectors, and calculates all possible actions starting from that state. Then, it relies on the \code{Agent} to select one of those actions in order to advance to the next state. The process is repeated for each state until the episode is complete. In that moment, the reward to be used for policy updates is also calculated based on the configuration parameters chosen.
 
 \subsubsection{Agent}
-The \code{Agent} class is one of \toolname{} most complex components, tasked with building the neural network according to a given specification, as well as selecting the actions on each step according to the \code{action\_picking\_policy} and \code{reward\_computation} values in the configuration, memorizing them, storing the rewards given by the environment and advancing to the next environment step.
+The \code{Agent} class is one of SpaceRL most complex components, tasked with building the neural network according to a given specification, as well as selecting the actions on each step according to the \code{action\_picking\_policy} and \code{reward\_computation} values in the configuration, memorizing them, storing the rewards given by the environment and advancing to the next environment step.
 
 Creating an instance of the \code{Agent} class requires providing an instance of the \code{Environment} and \code{DataManager} classes, and some configuration parameters, such as the activation function for intermediate layers, the RL algorithm to use, the reward components to activate, and the hyperparameter values \code{alpha} and \code{gamma}.
 
@@ -372,14 +371,14 @@ The textual representation of the returned paths is stored in a text file in ord
 
 \subsection{Graphical User Interface} \label{sec:framework-GUI}
 
-\toolname{} offers a GUI that provides the most important functionalities for an average user. The GUI implementation is based on Python default GUI manager Tkinter. An overview of the GUIs elements can be seen in Figure \ref{fig:GUI_structure}.
+SpaceRL offers a GUI that provides the most important functionalities for an average user. The GUI implementation is based on Python default GUI manager Tkinter. An overview of the GUIs elements can be seen in Figure \ref{fig:GUI_structure}.
 
-% \addimage{GUI_view.svg}{ \toolname{} GUI structure}{GUI_structure}{.55}
+% \addimage{GUI_view.svg}{ SpaceRL GUI structure}{GUI_structure}{.55}
 
 \begin{figure}[!h]
     \centering
     \includesvg[inkscapelatex=false, width=.55\textwidth]{fig/framework/diagrams/GUI_view.svg}
-    \caption{\toolname{} GUI structure}
+    \caption{SpaceRL GUI structure}
     \label{fig:GUI_structure}
 \end{figure}
 
@@ -389,7 +388,7 @@ When the GUI is launched, the \textbf{main menu} is displayed, as depicted in Fi
 \begin{figure}[!h]
     \centering
     \includegraphics[width=.45\textwidth]{fig/framework/GUI/mm_default}
-    \caption{\toolname{} GUI: Main menu window}
+    \caption{SpaceRL GUI: Main menu window}
     \label{fig:mm_default}
 \end{figure}
 
@@ -422,18 +421,18 @@ The \textbf{Config submenu} includes the global configuration parameters describ
         \includegraphics[width=0.65\columnwidth]{fig/framework/GUI/s_queued_tests.png}
         \label{fig:s_test_submenu}
     }\\
-    \caption{\toolname{} GUI: Train and test submenus}
+    \caption{SpaceRL GUI: Train and test submenus}
     \label{fig:queued_setup_menus}
 \end{figure*}
 
 The \textbf{Setup submenu} is divided into two tabs, \textbf{Train} (Figure \ref{fig:s_train_submenu}) and \textbf{Test} (Figure \ref{fig:s_test_submenu}), which include the specific parameters for the training and testing processes, respectively. The tool validates the user input, looking for common mistakes, such as specifying an already existing agent name, an unusually large number of laps, or a relation that does not exist in the given KG. Once the desired experiment or test has been configured, it can be added to the list using the \textbf{add} option at the bottom of each tab. The added elements are then listed at the right side of the corresponding tab, as seen in Figure \ref{fig:queued_setup_menus}.
 
-After the training experiments and tests have been configured, they can be launched using the options available at the \textbf{Runner} block of the main menu (options \textbf{Train} and \textbf{Test}, respectively). The underlying modules are executed asynchronously by means of subprocesses, which enables \toolname{} to run them in the background, and provide real-time progress update through cyclic polling.
+After the training experiments and tests have been configured, they can be launched using the options available at the \textbf{Runner} block of the main menu (options \textbf{Train} and \textbf{Test}, respectively). The underlying modules are executed asynchronously by means of subprocesses, which enables SpaceRL to run them in the background, and provide real-time progress update through cyclic polling.
 
 \begin{figure*}[!h]
     \centering
     \includegraphics[width=0.47\columnwidth]{fig/framework/GUI/view_paths_menu_error}
-    \caption{\toolname{} GUI: Visualization menu}
+    \caption{SpaceRL GUI: Visualization menu}
     \label{fig:view_paths_menu}
 \end{figure*}
 
@@ -446,7 +445,7 @@ Initially, the complete path is shown with only the name of the chosen relations
 
 The implementation of our visualization tool is based on Pygame 
 % \cite{PyGame},
-which acts as a mediator between \toolname{} and the SDL kit 
+which acts as a mediator between SpaceRL and the SDL kit 
 %  \cite{SDLKit}
 that offers low level access to keyboard, mouse, and graphics hardware. We also relied upon the NetworkX package 
 %   \cite{NetworkX},
@@ -458,7 +457,7 @@ and convert these positions into application pixels positions.
     \begin{figure*}[!h]
         \centering
         \includegraphics[width=1.65\textwidth]{fig/framework/GUI/Visualizer_2}
-        \caption{\toolname{} GUI: Visualization tool.}
+        \caption{SpaceRL GUI: Visualization tool.}
         \label{fig:visualizer}
     \end{figure*}
 \end{landscape}
@@ -466,7 +465,7 @@ and convert these positions into application pixels positions.
 %(Figure \ref{fig:API_console}) -> está demasiado lejos la referencia
 
 \subsection{API}
-\toolname{} also provides an application programming interface that can be used by developers to implement their own applications on top of our functionalities. Our API service relies on FastAPI
+SpaceRL also provides an application programming interface that can be used by developers to implement their own applications on top of our functionalities. Our API service relies on FastAPI
 % \cite{FastAPI}
 to generate an OpenAPI
 % \cite{OpenAPI}
@@ -476,18 +475,18 @@ as a backend webserver to host the app. The use of FastAPI makes it easier to de
 
 % API ALLOWS MLAAS COMMENT HERE...
 
-% \addimage{API_view.svg}{API structure of \toolname{}}{API_structure}{0.65}
+% \addimage{API_view.svg}{API structure of SpaceRL}{API_structure}{0.65}
 
 \begin{figure}[!h]
     \centering
     \includesvg[inkscapelatex=false, width=.65\textwidth]{fig/framework/diagrams/API_view.svg}
-    \caption{API structure of \toolname{}}
+    \caption{API structure of SpaceRL}
     \label{fig:API_structure}
 \end{figure}
 
 As depicted in Figure \ref{fig:API_structure}, the FastAPI application handles user requests and our \code{ConnectionManager} class holds the internal client-server architecture, which is responsible for resource intensive operations while delivering a response back to the main application to show fast progress to the end user. The \code{ConnectionManager}  class does not rely on intermediate packages to handle requests, which makes it faster and independent from interoperability limitations given by other general purpose software. This, however, adds complexity to the tool, since the implementation of the logic regarding encoding and decoding of requests was custom-made.
 
-FastAPI requires the definition of custom classes to describe the responses returned to the user, as part of the OpenAPI specification. The classes we defined for \toolname{} are the following:
+FastAPI requires the definition of custom classes to describe the responses returned to the user, as part of the OpenAPI specification. The classes we defined for SpaceRL are the following:
 
 \begin{itemize}
     \item \textbf{Triple} describes entity connection through a given relation.
@@ -507,7 +506,7 @@ FastAPI requires the definition of custom classes to describe the responses retu
 Figure \ref{fig:endpoints} shows the web view of the API endpoints given by SwaggerUI 
 % \cite{Swagger}. 
 
-\toolname{} internally distinguishes  between two types of endpoints, \emph{instant} and \emph{process}. Both provide fast responses to the end user; however, \emph{process} endpoints correspond to computationally intensive background tasks, which require a significant amount of resources. Therefore, the response sent to the user in those cases is merely a message to inform whether the process could be launched. If the resources needed to attend a \emph{process} request are available, the \code{ConnectionManager} underlying client sends a plain-text message to the internal server with the request in a particular format and the server answers back in the same way (cf. listings \ref{code:internal-server-petition-cache} and \ref{code:internal-server-petition-embedding} for examples of these exchanges). 
+SpaceRL internally distinguishes  between two types of endpoints, \emph{instant} and \emph{process}. Both provide fast responses to the end user; however, \emph{process} endpoints correspond to computationally intensive background tasks, which require a significant amount of resources. Therefore, the response sent to the user in those cases is merely a message to inform whether the process could be launched. If the resources needed to attend a \emph{process} request are available, the \code{ConnectionManager} underlying client sends a plain-text message to the internal server with the request in a particular format and the server answers back in the same way (cf. listings \ref{code:internal-server-petition-cache} and \ref{code:internal-server-petition-embedding} for examples of these exchanges). 
 
 \lstinputlisting[float, floatplacement=!htp, language=python, label=code:internal-server-petition-cache, caption=Internal server cache generation request and response]{listings/framework/cache_gen_internal.txt}
 
@@ -531,25 +530,24 @@ Next, we provide a description of the available endpoints in detail:
     \item \code{/check} (\emph{instant}): it shows the currently active processes on the system, corresponding to elements in the training/testing lists; however, it does not display their current progress. It is used mainly for debugging purposes.
 \end{itemize}
 
-Note that \toolname{} accounts for computing resources limitations and it will return a failure message to any request to a process endpoint if it determines that it will cause problems for the host machine. For instance, if there is a embedding generation endpoint running which is using the only available GPU in the system and the \code{/experiments/run} endpoint is invoked with configuration parameter \code{use\_gpu = True}, the API will respond with a \code{BusyError}, notifying the user that there are not enough resources available.
+Note that SpaceRL accounts for computing resources limitations and it will return a failure message to any request to a process endpoint if it determines that it will cause problems for the host machine. For instance, if there is a embedding generation endpoint running which is using the only available GPU in the system and the \code{/experiments/run} endpoint is invoked with configuration parameter \code{use\_gpu = True}, the API will respond with a \code{BusyError}, notifying the user that there are not enough resources available.
 
-
-\section{Usages}\label{sec:theo-subgraph}
+\section{Usages}\label{sec:framework-usage}
 adding an example of using the tool such as the one provided in the paper might be usefull to understand how it interact with itself.
 
 The example given must be complete, how to perform it completely with the GUI and how to do it with the API by themselves as standalone applications.
 
 
-In order to better understand the capabilities of \toolname{},  we selected NELL
+In order to better understand the capabilities of SpaceRL,  we selected NELL
 % \cite{mitchell2018}
 as an illustrative example. NELL is a knowledge graph with over 50 million triples, which is frequently used as a resource for validation of different proposals for reasoning and completion over KGs.  NELL is built automatically from web data in a continuous and mostly unsupervised fashion, meaning that there are usually a large number of missing triples, which makes it ideal to validate KG completion proposals. For this example, we use a subset of NELL built from the 995th iteration, known as NELL-995
 % \cite{xiong2017deeppath}. 
 
-The goal of this section is to use \toolname{} to infer missing links between concepts contained in NELL-995, together with the metric scores associated to the resulting triples, using the capabilities described in section \ref{sec:description}.  We assume that \toolname{} has already been correctly installed, following the instructions available in our GitHub repository 
+The goal of this section is to use SpaceRL to infer missing links between concepts contained in NELL-995, together with the metric scores associated to the resulting triples, using the capabilities described in section \ref{sec:description}.  We assume that SpaceRL has already been correctly installed, following the instructions available in our GitHub repository 
 % \cite{SpaceRL}.
 
 %Más enfasis
-We aim to demonstrate the flexibility that \toolname{} provides, which allows to invoke its functionalities either directly, as a local server, or via its API and GUI capabilities, interchangeably. To that effect, we will illustrate how to perform the different steps involved in KG completion using different strategies in each case.
+We aim to demonstrate the flexibility that SpaceRL provides, which allows to invoke its functionalities either directly, as a local server, or via its API and GUI capabilities, interchangeably. To that effect, we will illustrate how to perform the different steps involved in KG completion using different strategies in each case.
 
 Regarding the API, note that it must be deployed to make its endpoints available. To do so, we must run \code{API/main.py}, and wait for the messages that indicate that both the Internal Server and Client are active, and in which port number is the client application available (cf. Figure \ref{fig:API_console} as an example of these messages).
 
@@ -567,21 +565,21 @@ Regarding the API, note that it must be deployed to make its endpoints available
     \label{fig:API_base}
 \end{figure*}
 
-In this example, the API has been deployed to localhost, port number 8080. A request to this address and port will be responded with a welcome message that provides further instructions on how to use the tool, as seen in figure \ref{fig:API_root}. The desired API endpoints are now accessible, which means that any of the existing commercial tools that automatically issue HTTP requests could be used. However, by using FastAPI, \toolname{} is able to provide a web-based, swagger-powered interface in order to access all supported endpoints at url \code{http://localhost:8080/docs}.
+In this example, the API has been deployed to localhost, port number 8080. A request to this address and port will be responded with a welcome message that provides further instructions on how to use the tool, as seen in figure \ref{fig:API_root}. The desired API endpoints are now accessible, which means that any of the existing commercial tools that automatically issue HTTP requests could be used. However, by using FastAPI, SpaceRL is able to provide a web-based, swagger-powered interface in order to access all supported endpoints at url \code{http://localhost:8080/docs}.
 
 As for the GUI, it can be launched by running the file \code{GUI/main.py}, resulting in the main menu windows (cf. Figure \ref{fig:mm_default}).
 
 % PARRAFO DE LO QUE SEA INTEROPERABILITY EQUIVALENT
 
-To perform our sample KG completion, first we must provide the input KG in the expected format, and for this we will directly work on the local instance of \toolname{}. To do so, we create a new subfolder in the \code{/datasets} directory with the desired name,  e.g., ``NELL-995'', and place inside a file named ``graph.txt'' that contains the list of triples that compose the KG. The expected file format is illustrated in listing \ref{code:dataset-base-format}, i.e., one $(s,r,t)$ triple per line, being each triple a sequence of three tab-separated values ($s$, $r$, and $t$). Note that this process could be performed as well using the API (endpoint \code{/dataset}), or the GUI (option \textbf{Datasets} in block \textbf{Folders})
+To perform our sample KG completion, first we must provide the input KG in the expected format, and for this we will directly work on the local instance of SpaceRL. To do so, we create a new subfolder in the \code{/datasets} directory with the desired name,  e.g., ``NELL-995'', and place inside a file named ``graph.txt'' that contains the list of triples that compose the KG. The expected file format is illustrated in listing \ref{code:dataset-base-format}, i.e., one $(s,r,t)$ triple per line, being each triple a sequence of three tab-separated values ($s$, $r$, and $t$). Note that this process could be performed as well using the API (endpoint \code{/dataset}), or the GUI (option \textbf{Datasets} in block \textbf{Folders})
 
 \lstinputlisting[float, floatplacement=!htp, language=python, label=code:dataset-base-format, caption=An extract of NELL dataset with the expected format.]{listings/framework/dataset_format.txt}
 
-Then, we need to provide the desired configuration for \toolname{}, including the global parameters, and the specific training and testing parameters, as described in Section \ref{sec:config}. The values for the configuration key-value map parameters can either be set using the \textbf{Config submenu} (cf. Figure \ref{fig:cm_main}), the \code{/config} API endpoint, or directly by editing the configuration file \code{/config.py}, as shown in listing \ref{code:configuration-file}, which also displays other possible values that the parameters can take as Python-style comments.
+Then, we need to provide the desired configuration for SpaceRL, including the global parameters, and the specific training and testing parameters, as described in Section \ref{sec:config}. The values for the configuration key-value map parameters can either be set using the \textbf{Config submenu} (cf. Figure \ref{fig:cm_main}), the \code{/config} API endpoint, or directly by editing the configuration file \code{/config.py}, as shown in listing \ref{code:configuration-file}, which also displays other possible values that the parameters can take as Python-style comments.
 
 \lstinputlisting[float, floatplacement=!htp, language=python, label=code:configuration-file, caption=Configuration parameters used for the example]{listings/framework/config.py}
 
-The next step is embedding generation, which could be omitted, since \toolname{} is able to perform it automatically. In this case, however, in order to further illustrate these functionalities in detail, all embedding representations for the NELL-995 KG will be generated. To do so, we can issue an HTTP POST request to endpoint \code{/embeddings}, including in the request body the parameters shown in listing \ref{code:embedding-request}.
+The next step is embedding generation, which could be omitted, since SpaceRL is able to perform it automatically. In this case, however, in order to further illustrate these functionalities in detail, all embedding representations for the NELL-995 KG will be generated. To do so, we can issue an HTTP POST request to endpoint \code{/embeddings}, including in the request body the parameters shown in listing \ref{code:embedding-request}.
 
 \lstinputlisting[float, floatplacement=!htp, language=json, label=code:embedding-request, caption=The request body parameters to generate all embeddings for NELL KG.]{listings/framework/embedding_req.json}
 
@@ -611,7 +609,7 @@ Then, the experiments would be run by issuing a POST request to the \code{/exper
 ``\code{Success}'':``\code{Experiment(s) Launched}'').
 \\
 \\
-The agent generation operations can be computationally complex, which is why \toolname{} provides two mechanisms to track their progress:
+The agent generation operations can be computationally complex, which is why SpaceRL provides two mechanisms to track their progress:
 \begin{itemize}
     \item \textbf{Log files}, which are redirected console output from the server which is running the process, found as \code{logs/p\_ExperimentRunner.out} and \code{logs/p\_ExperimentRunner.err} for the general and error outputs, respectively.
     
@@ -625,7 +623,7 @@ The agent generation operations can be computationally complex, which is why \to
 Once the operation is complete, a new folder is created at \code{model/agents/\\My\_New\_NELL\_Agent}, which contains the configuration options used to generate the agent, and the models that comprise it.
 The generated agent can be used as input to a testing process, to assess its performance and use it to infer new paths for NELL-995.
 
-As we stated before, all the former operations could have also been invoked via our GUI. For the remainder of this Section, we will focus on this part of \toolname{}, although the testing functionality could also be invoked via the API.
+As we stated before, all the former operations could have also been invoked via our GUI. For the remainder of this Section, we will focus on this part of SpaceRL, although the testing functionality could also be invoked via the API.
 
 Once the main GUI window is displayed, the \textbf{Config} option under the Configuration block opens the configuration submenu window (Figure \ref{fig:cm_main}). This window reflects the changes made to the key-value map in the \code{config.py} file, and allows for further tuning. 
 
@@ -685,20 +683,17 @@ On the other hand, in listing \ref{code:path} we can see an example of a newly r
     \item As a consequence, fact ``(concept\_ceo\_alan\_greenspan, concept:worksfor,\\  concept\_bank\_federal\_reserve)'' should be added to the KG.
 \end{itemize}
 
-\section{Support and Iterations}
+\section{Support and Iterations}{sec:framework-future}
 % the future of the tool, possible limtations and changes
 
-\toolname{} is Open Source software, open for collaboration in its GitHub repository \cite{SpaceRL} and being improved constantly. Therefore, not only does it provide benefits for companies whose business model is based on knowledge graphs and need to manipulate them; it could also be potentially benefitial for researchers in data engineering areas who can use our functionalities as a solid support to build their own smart applications.
+SpaceRL is Open Source software, open for collaboration in its GitHub repository \cite{SpaceRL} and being improved constantly. Therefore, not only does it provide benefits for companies whose business model is based on knowledge graphs and need to manipulate them; it could also be potentially benefitial for researchers in data engineering areas who can use our functionalities as a solid support to build their own smart applications.
 
 Finally, our tool could also aid researchers in other areas, such as biomedicine, statistics, or data science, who do not possess a computing science background that allows them to build their own software, but still require this kind of tool to operate on their knowledge graphs.
 
 
-We made sure that, as Open Software, \toolname{} is easily expandable by keeping the dependencies to a minimum whenever possible, providing extensive documentation and following community standards such as OpenAPI and Gymnasium.
+We made sure that, as Open Software, SpaceRL is easily expandable by keeping the dependencies to a minimum whenever possible, providing extensive documentation and following community standards such as OpenAPI and Gymnasium.
 
-The future steps in the life cycle of \toolname{} would be to design modular reward and policy elements which could be altered by experts to increase its reach even more, to offer a large scale implementation to support uncoupled operations and to increase the level of the documentation offered
-
+The future steps in the life cycle of SpaceRL would be to design modular reward and policy elements which could be altered by experts to increase its reach even more, to offer a large scale implementation to support uncoupled operations and to increase the level of the documentation offered
 
 \section{Summary}\label{sec:framework-summary}
-% In this chapter, we have described the conceptual framework our proposal relies on. We have defined Knowledge Graphs, triples, paths, distance in a KG and reachability. Furthermore, we have introduced neighborhood subgraphs, candidate triples and fitness functions, as well as candidate-filtering criteria and rules. Finally, we have described graph-based features and their groups.
-
-In summary, \toolname{} is a powerful and flexible tool to help with Knowledge Graph problems while also being expandable and highly customizable, and potentially used for the development of novel and improved reasoning applications over KGs.
+In this chapter we have described the SpaceRL framework, and end-to-end accesible tool for knowledge graph reasoning, that allows for flexible operation and expansion. It is a powerful and flexible tool to help with Knowledge Graph problems while also being expandable and highly customizable, and potentially used for the development of novel and improved reasoning applications over KGs.

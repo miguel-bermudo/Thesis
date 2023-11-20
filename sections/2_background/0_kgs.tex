@@ -1,10 +1,9 @@
 \chapter{Knowledge Graphs}\label{chap:kgs}
 
-\chapterQuote{\hfill\textit{``Knowledge is hot water on wool. It shrinks time and space.''}}{--- \textit{House of Leaves}, Mark Z. Danielewski}
+\chapterQuote{\hfill\textit{``To know that we know what we know, and to know that we do not know what we do not know, that is true knowledge.''}}{--- \textit{Nicolaus Copernicus}}
 
-\chapterAbstract{K}{nowledge Graphs (KGs) are ...}
+\chapterAbstract{K}{nowledge Graphs (KGs) are a way to structure information by representing them into a series of interconnected facts and relations between them. This chapter gives some context around them. It is divided into the following sections: Section~\ref{sec:kgs-intro} presents a brief history of Knowledge Graphs and their adoption. Section~\ref{sec:kgs-current} goes over some of the more relevant KGs currently. Section~\ref{sec:kgs-applications} goes about some of the many applications KGs are currently being used for. Section~\ref{sec:kgs-challenges} reflects the current open challenges for KGs. Finally, Section~\ref{sec:kgs-summary} summarizes and concludes this chapter.}
 
-% are collections of facts that are represented in a graph-like structure, with entities and connections between them. This chapter provides an introduction to KGs, and it is structured as follows: Section~\ref{sec:kgs-intro} introduces the reader to their history and main characteristics. Section~\ref{sec:kgs-current} provides an overview of the most prominent KGs in use nowadays. Section~\ref{sec:kgs-applications} presents some of the many practical applications of Knowledge Graphs. Section~\ref{sec:kgs-challenges} reflects on the main current challenges regarding KGs. At last, Section~\ref{sec:kgs-summary} summarizes and concludes this chapter.
 
 \section{Introduction}\label{sec:kgs-intro}
 % METER ESTA IDEA AQUI.
@@ -139,9 +138,6 @@ This chapter explores five prominent applications of knowledge graphs, each show
 \section{Open challenges}\label{sec:kgs-challenges}
 While knowledge graphs offer a powerful framework for organizing and leveraging structured data, they are not without their complexities and hurdles. In this section, we turn our attention to the open challenges that persist in the field of knowledge graphs. These challenges encompass three critical domains: integration, completion, and reasoning. Addressing these issues is essential for unlocking the full potential of knowledge graphs in diverse applications. Let's delve into each of these challenges and explore the research frontiers that seek to overcome them.
 
-
-% Despite the fact that Knowledge Graphs are already a well-established concept in research and industry, a number of challenges about their use and refinement still remain \cite{paulheim2017, hogan2020, peng2023}. In the following subsections, we delve into some of the most prominent ones in more detail. 
-
 \subsection{Integration - Joining diverse data sources}
 Knowledge graph integration addresses the crucial task of amalgamating information from disparate sources into a unified, coherent representation. This process is instrumental in creating comprehensive knowledge graphs that encapsulate a wide array of domains.Ontology-based integration employs predefined schemas to structure data, ensuring compatibility across diverse sources.Federated approaches, on the other hand, enable querying across distributed databases, extracting relevant information from each source.Schema matching and alignment techniques aim to identify correspondences between different schemas, facilitating the mapping of data elements.
 
@@ -190,70 +186,32 @@ Once the new information has been inferred it can be used to enrich the KG by ad
 
 \subsection{Reasoning - extracting deeper insights}
 
-\todo{make this a proper parragraph}
+In regard to knowledge reasoning, different nomenclatures have been incepted in academic circles. Initially, Reasoning is the process of analyzing, synthesizing and deciding on several matters, it begins with collecting data in the form of facts and discovering interrelationships between them to then develop new insight, In short, reasoning is the process of "drawing conclusions from existing facts by the rules"\cite{sutton2018reinforcement}.
 
-With respect to the basic concepts of knowledge reasoning, academia has
-given different definitions. Zhang and Zhang (1992) pointed out
-that reasoning is the process of analyzing, synthesizing and making decisions on various things, starting from collecting the exist
-facts, discovering interrelationships between things, to developing
-new insight. In short, reasoning is the process of drawing conclusions from existing facts by the rules. Kompridis (2000) believed
-that reasoning is a collective term for a range of abilities, including
-capacity of understanding things, apply logic, and calibrate or validate architecture based on existing knowledge. Tari (2013) defined
-the concept of knowledge reasoning as the mechanism behind inferring new knowledge based on the existing facts and logic rules.
-In general, knowledge reasoning is the process of using known
-knowledge to infer new knowledge.
+Reasoning techniques developed and so did its description, including the capacity to understand things, apply logic, and validate elements based on existing knowledge. In other words, the mechanism behind inferring new knowledge is based on the existing facts and logical rules. In general, knowledge reasoning is defined as the process of using known knowledge to infer new knowledge.
 
-With the explosive growth of Internet data scale, traditional
-methods based on artificially built knowledge bases (KBs) cannot
-adapt to the need to mine a large amount of knowledge in the era
-of big data. For this reason, data-driven machine reasoning methods have gradually become the main stream of knowledge reasoning research.
+The internet made available for dataset sizes to explode in size so traditional methods could not adapt to the amount of data generated. For this reason, data-driven machine reasoning methods have gradually become the mainstream of knowledge reasoning research. With the development of knowledge graphs, reasoning over them has gained traction in research.
 
-With the development of knowledge graphs, reasoning over
-knowledge graphs has also increased a general concern. Referring
-to the definition of reasoning, we give the definition of reasoning
-over knowledge graphs as follows:
+Its goal is to use machine learning methods to infer potential relations between entity pairs and identify erroneous knowledge based on existing data automatically with the purpose of complementing KGs while obtaining logical rules to accompany the knowledge generated.
 
-% Definition 1Knowledge reasoning over KGs:. Given a knowledge
-% graph KG =< E, R, T > and the relation path P, where E, T represent
-% the set of entities, R denotes the set of relations, and the edges in R
-% link two nodes to form a triple (h, r, t) ∈ T, generating a triplet that
-% does not exist in the KG G' = {(h,r,t)|h ∈ E,r ∈ R,t ∈ T,(h,r,t) ∈/
-% G}.
+% Knowledge reasoning based on logic rules 
+% Knowledge reasoning based on distributed representation (Knowledge reasoning based on tensor factorization)
 
-Its goal is to use machine learning methods to infer potential
-relations between entity pairs and identify erroneous knowledge
-based on existing data automatically with the purpose of complementing KGs
+% Knowledge reasoning based on neural network
+% (Knowledge reasoning based on recurrent neural network)
+% (Knowledge reasoning based on reinforcement learning)
 
-Knowledge reasoning based on logic rules
-Knowledge reasoning based on distributed representation (Knowledge reasoning based on tensor factorization)
+% application of KG reasoning:
 
-Knowledge reasoning based on neural network
-(Knowledge reasoning based on recurrent neural network)
-(Knowledge reasoning based on reinforcement learning)
+Several KG reasoning techniques exist, Inference techniques can perform domain knowledge reasoning through modeling domain knowledge and rules, which can support automatic decision-making, data mining and link prediction. It is performed by applying logical rules and algorithms to traverse, analyze, and connect entities and relationships within the knowledge graph. These rules encode domain-specific knowledge and can be hand-crafted or learned from data.
 
-application of KG reasoning:
+Embedding-based reasoning leverages continuous vector representations of entities and relationships to perform operations that approximate logical reasoning. Graph neural networks (GNNs) \cite{sola2022} are a powerful approach that directly operates on the graph structure, enabling the propagation of information and capturing complex dependencies.
 
-Knowledge graph reasoning methods infer unknown relations
-from existing triples, which not only provides efficient correlation discovery ability for resources in large-scale heterogeneous
-knowledge graphs but also completes knowledge graphs. Techniques such as consistency inference ensure the consistency and
-integrity of the knowledge graph. Inference techniques can perform
-domain knowledge reasoning through modelling domain knowledge and rules, which can support automatic decision making, data
-mining and link prediction. Due to the powerful intelligent reasoning ability, knowledge graphs can be widely used in many downstream tasks. In this section, we categorize these tasks into In-KG
-
-
-Knowledge graph reasoning entails the ability to make inferences and draw conclusions beyond explicit information contained within the graph. It involves deducing implicit relationships, filling gaps, and uncovering hidden patterns. In general terms, KG reasoning is performed by applying logical rules and algorithms to traverse, analyze, and connect entities and relationships within the knowledge graph. This process allows for the extraction of higher-level knowledge and facilitates a more nuanced understanding of the underlying domain.
-
-Several approaches have been developed to tackle knowledge graph reasoning. Rule-based reasoning relies on predefined logical rules to infer new relationships based on existing ones. These rules encode domain-specific knowledge and can be hand-crafted or learned from data. Embedding-based reasoning leverages continuous vector representations of entities and relationships to perform operations that approximate logical reasoning. Graph neural networks (GNNs) are a powerful approach that directly operates on the graph structure, enabling the propagation of information and capturing complex dependencies.
-
-\todo{Figure on KG reasoning process...}
+% \todo{Figure on KG reasoning process...}
 
 Knowledge graph reasoning offers significant improvements over simple completion tasks. While completion focuses on predicting missing links or attributes, reasoning enables a deeper level of understanding by inferring complex relationships and uncovering latent patterns. It goes beyond the immediate graph structure to extract higher-order knowledge, making it invaluable in tasks that require sophisticated analysis and decision-making.
 
 Our approach, SpaceRL, places a particular emphasis on knowledge graph reasoning. By incorporating reinforcement learning techniques, we aim to enhance the reasoning capabilities of agents navigating knowledge graphs. This allows for dynamic exploration and exploitation of the graph's structure, leading to more effective inferences and insights. In future explorations, we intend to delve deeper into this critical aspect, refining and extending SpaceRL to unlock even greater potential in knowledge graph reasoning.
 
 \section{Summary}\label{sec:kgs-summary}
-
-\todo{write the summary}
-% This chapter has introduced the reader to Knowledge Graphs. It has provided a brief summary of their history and main characteristics, as well as a summary of the most prominent KGs that can be found today. Furthermore, it has presented the reader with an ample repertoire of practical applications of Knowledge Graphs, many of which we use in our daily lives. Finally, it has introduced some of the challenges regarding KGs that still remain open to this day, namely: Knowledge Graph integration, correction, and completion.
-
-a brief summary of all topics in this chapter.
+This chapter serves as an introduction to Knowledge Graphs, initiates the reader with a portrayal of their historical evolution and fundamental attributes. Additionally, it offers a comprehensive overview of noteworthy Knowledge Graphs currently prevalent. The discourse extends to an exploration of pragmatic applications emanating from Knowledge Graphs, elucidating their pervasive influence on our daily activities. Concluding this exposition, the chapter scrutinizes enduring challenges inherent in the domain of Knowledge Graphs, specifically focusing on unresolved issues such as integration, completion and reasoning.

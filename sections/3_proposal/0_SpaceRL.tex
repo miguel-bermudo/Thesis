@@ -2,9 +2,7 @@
 
 \chapterQuote{\hfill\textit{``Reason has always existed, but not always in a reasonable form.''}}{--- Karl Marx}
 
-\chapterAbstract{H}{ere we speak about the main proposal for KG reasoning.}
-
-% When a set of candidate triples has been obtained, the next step in Knowledge Graph completion is to classify every triple in said set to determine if it represents correct knowledge or not and, if found to be correct, added back to the KG in order to enrich it. In this chapter we introduce CAFE, our proposal for candidate triple classification. This chapter is structured as follows: Section~\ref{sec:cafe-intro} introduces it, Section~\ref{sec:cafe-proposal} presents the neighborhood-aware features that CAFE uses to discern between correct and incorrect triples, as well as the process it follows to do so, Section~\ref{sec:cafe-architecture} discusses its internal architecture and the design choices behind it, Section~\ref{sec:cafe-evaluation} shows the experiments that we carried out to assess the effectivity of CAFE, as well as their results; Section~\ref{sec:cafe-limitations} discusses its practical limitations; finally, Section~\ref{sec:cafe-summary} summarizes the chapter.
+\chapterAbstract{W}{hen presented with the challenge of completing a given knowledge graph we must aim to offer the most complete answer possible, a reasoned answer that complements the inference achieved, that responds to the question of why the knowledge presented must be incorporated back into the graph. In this chapter, we introduce SpaceRL our knowledge graphs reasoning proposal. This chapter is structured as follows: Section~\ref{sec:spacerl-intro} introduces the proposal , Section~\ref{sec:spacerl-formal_description} Formally introduces the problem to solve., Section~\ref{sec:spacerl-proposal} Presents the developments made in the work, Section~\ref{sec:spacerl-evaluation} Explains the methodology followed to evaluate the methods and displays the results obtained by them, Section~\ref{sec:spacerl-limitations} touches on the limitations of the method, Lastly, Section~\ref{sec:spacerl-summary} summarizes the work.}
 
 \section{Introduction}\label{sec:spacerl-intro}
 This chapter introduces SpaceRL-KG our KG reasoning proposal using Reinforcement Learning with embedding-based rewards.
@@ -45,8 +43,7 @@ In this example it is confirmed by two separate paths that Alexandra Grant speak
 
 The application of RL to KG reasoning tasks requires that the entities and edges of the graph be transformed into numerical vectors that can be provided to the agents as a representation of the state and its available actions at every step.
 
-SpaceRL-KG focuses on an improved set of rewards and the application of novel algorithms to these processes.
-The evaluation of our technique is performed by applying it to several widely accepted Knowledge Graphs and shows that our novel reward functions significantly improve performance when compared to more traditional ones, especially when node embeddings are used
+SpaceRL-KG focuses on an improved set of rewards and the application of novel algorithms to these processes. The evaluation of our technique is performed by applying it to several widely accepted Knowledge Graphs and shows that our novel reward functions significantly improve performance when compared to more traditional ones, especially when node embeddings are used.
 Throughout this chapter, we will expand on the running example in Section~\ref{sec:spacerl-intro}.
 
 \section{Formal Description}\label{sec:spacerl-formal_description}
@@ -70,7 +67,6 @@ p_k(e_0,e_k) =  \Bigl\{ e_0 \xrightarrow[]{r_0} e_1 \xrightarrow[]{r_1} ... \xri
 \end{equation}
 
 And it is considered to be correct if $e_n = e_a$, where $e_n$ is the node in step n, the last step in the path. We could then infer a new relation ($e_0\xrightarrow[]{r_q}e_n$).
-
 
 \section{Our proposal}\label{sec:spacerl-proposal}
 As we have already seen in previous sections SpaceRL-KG focuses on acquiring reasoned knowledge in the form of paths in order to determine if a particular relation should exist between two nodes of the graph.
@@ -296,15 +292,9 @@ where $a+1$ denotes the possible action values in the next step, $\alpha$ and $\
 
 This approach reduces the variance significantly as we can update the parameters in a step by step basis by using the Q-value-like method, ensuring faster convergence of the policy gradient and making it possible to run a non-episodic method.
 
-
 \section{Evaluation}\label{sec:spacerl-evaluation}
-% estructura de evaluacion similar a la vista en otras tesises.
-% se puede casi que calcar tal cual del paper del eswa y plantarlo aqui con unas modificaciones pequeñas.
-
-
 In this section, we describe in detail the experiments we carried out to evaluate our contributions and their results. First, we introduce the datasets we use in our experiments. Then, we describe the experimental setup, that is, the techniques that are evaluated and under what conditions. Finally, we provide a discussion of the results obtained in our experiments.
 
-% In this section, we present the evaluation that we carried out to assess the performance and effectiveness of CAFE. First, we introduce the Knowledge Graphs on which CAFE was applied and an overview of their main characteristics. Next, we explain the methodology that we used to evaluate CAFE. Finally, we show and discuss the results of our evaluation.
 
 \subsection{Experimental data}
 
@@ -513,7 +503,6 @@ Table~\ref{tab:WN18RR_results} shows that even when all agents have reached conv
 
 This tells us that whenever the number of relations increases, the MRR (which shows the stability of the agent) drops, meaning it is harder for the agent to determine a good result from the pool of possibilities. However, we see that the increase is logarithmic in nature, so it is reasonable to assume that it would still perform satisfactorily in adverse conditions.
 
-
 \section{Limitations}\label{sec:spacerl-limitations}
 % el apartado de conclusions y future work tiene mucho de lo que podemos poner aqui tambien.
 
@@ -526,5 +515,6 @@ Our novel alternative consists of a new set of reward-functions and the applicat
 Both the new reward functions and policies have resulted in improvements over the state-of-the-art standard practices, particularly when using embedding-based reward functions on five widely used datasets. These results should motivate the development and evaluation of more variants of these aspects, since there is margin for improvement. Therefore, two trends of future work could be developed: 1) evaluating existing context-independent RL techniques, which are often already implemented by existing libraries but mainly remain untested in this context; 2) implementing new reward functions that make use of additional information in the graph, e.g. node attributes, which provide additional rich data.
 
 \section{Summary}\label{sec:spacerl-summary}
-
-% In this chapter we have introduced CAFE, our proposal to classify candidate triples for Knowledge Graph completion. CAFE defines a set of neighborhood-aware features which evaluate several aspects of a triple, by checking for shared neighborhoods at several distances with other triples in a KG, and then combines the values of all features into a feature vector. Once all candidate triples have been transformed into feature vectors, CAFE trains and applies a neural binary classifier to discern between correct and incorrect triples, and provides the user with a set of correct candidate triples to add back to the KG. Our experimental evaluation shows that CAFE is very effective, outperforming other state-of-the-art approaches in a number of well-known Knowledge Graphs of different sizes and domains.
+In this chapter we have introduced SpaceRL, our proposal to complete knowledge graphs while overcoming several problems present in literature, focusing on a novel reward function and modern Reinforcement Learning algorithms.
+SpaceRL offers an end-to-end proposal to complete KGs while leveraging Reinforcement Learning to train intelligent agents capable of responding to queries by driving throught the graph and forming reasoned paths of information that respond to these queries, forming new explainable knowledge in the process.
+SpaceRL was tested against state-of-the-art datasets and performed significantly better with embedding based rewards and PPO RL-algorithms than other state-of-the-art approaches using well known an widely accepted ranking metrics.

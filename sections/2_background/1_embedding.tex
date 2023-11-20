@@ -1,6 +1,6 @@
 \chapter{Knowledge Graph Embeddings}\label{chap:embeddings}
 
-\chapterQuote{\textit{``All problems in computer science can be solved by another level of indirection, except for the problem of too many layers of indirection.''}}{--- David Wheeler}
+\chapterQuote{\textit{``Computer Science is a science of abstraction -creating the right model for a problem and devising the appropriate mechanizable techniques to solve it''}}{--- Alfred Aho}
 
 %REESTRUCTURAR EN BASE A LOS COMENTARIO DE DANI, UNA EXPLICACION GENERAL SOBRE LO QUE SON Y LUEGO LOS DIFERENTES METODOS EN LOS QUE SE OBTIENEN.
 
@@ -10,12 +10,8 @@
 
 % 2) Técnicas basadas en redes neuronales, que ajustan unos embeddings para que funcione la tarea de alguna red neuronal. Por ejemplo, una red neuronal que determine si dos nodos están unidos o no. Como esto depende de lo que representen los nodos y sus características, pues al final los embeddings de alguna manera reflejan lo que representen los nodos y sus características. Estas técnicas tienen la ventaja de que son aplicables a los nodos de cualquier grafo, includo si hay varios tipos de nodos.
 
-\chapterAbstract{E}{sta seccion habla de embeddings y como funcionan.
-La que acabe estando en la version final de la tesis debe de ser bastante similar a la presentada x agu ya que el mundo de los embeddings no se ha movido mucho y se usan para practicamente lo mismo en ambas propuestas.}
-
-Quizas moveria las prpuestas a una misma categoria mas general y pondria una tabla explicando los progesos de cada una de las ramas y luego entraria en detalles sobre las mas novedosas que hay ( y sobretodo en las que se han usado en el trabajo...)
-
-% latent representation of a triple is one that exposes previously hidden knowledge, such as semantic similarity to some other triple. Obtaining such a representation is a popular way to perform Knowledge Graph completion, and it can be achieved in a number of ways. In this chapter we introduce the most prominent KG completion methods in the scientific literature that rely on latent representations. This chapter is structured in the following manner: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-tensors} presents the methods that perform  tensor factorization, Section~\ref{sec:emb-translations} introduces the models that are centered around embedded translations, Section~\ref{sec:emb-nn} discusses the number of ways in which neural networks can be used in this regard; finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
+\chapterAbstract{R}{epresenting the information in knowledge graphs in a way that is usable for machine learning techniques became one of the main focuses of research after their inception. The inception of these representations flourished from several KG completion techniques with numerical vectors representing the entities and relations of the KG as a byproduct of them. In this chapter, we evolutionarily introduce several of these techniques. It is structured as follows: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-translations} introduces the methods that leverage translation operations, Section~\ref{sec:emb-semantic} elaborates on the methods which focus on matching information semantically, Section~\ref{sec:emb-tensor} discusses the proposals which focus on the use of tensor representations of the KG; Section~\ref{sec:emb-nn} overviews the methods which make use of neural network in their approaches, and finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
+}
 
 \section{Introduction}\label{sec:emb-intro}
 Embeddings are a form of representation of information which gathers the semantic, contextual, relational and modular data within an information node and converts it into a numerical representation, as a N-dimensional vector.
@@ -34,7 +30,7 @@ Along the following sections the following nomenclature will be followed, where,
 
 \section{Translation models}\label{sec:emb-translations}
 
-\todo{table with the evolution of the proposals, as an overview?}
+% \todo{table with the evolution of the proposals, as an overview?}
 
 Translation models usually use distance-based functions to define the scoring function for link prediction tasks, the general idea behind these models is that if we apply a translation operation based on a relation ``r'' to an entity ``h'' represented by a low dimensional vector the result should be close to its destination entity ``t'' in the triple (h, r, t) which is considered correct as it is in the graph.
 
@@ -114,7 +110,6 @@ By defining each relation as a rotation in the complex vector spaces, RotatE can
 
 The distance function of RotatE \ref{eq:rotatE_scoring} corresponds to a counterclockwise rotation by $\theta_r,i$ radians about the origin of the complex plane, and only affects the phases of the entity embeddings in the complex vector space.
 
-
 \section{Semantic information models}\label{sec:emb-semantic}
 Semantic information-based models usually use similarity-based functions to define scoring functions for traditional semantic-matching models or introduce additional information to mine more knowledge for recently proposed models.
 
@@ -135,8 +130,18 @@ It consist of two methods, a continuos bag-of-words model and a skip-gram model.
 
 The second model tries to maximize the classification of a word based on the sentence it is contained within. the entire context sentece is fed into a log-linear classifier which tries predict words before and after the current word.
 
-\todo{inser GlovE here.}
-GlovE \cite{} appears 
+GlovE \cite{} appears as a model able to capture a global corpus of words  statistics directly by using global matrix factorization and local context window methods. It is designed to capture semantic relationships between words by learning vector representations that encode the statistical information of word co-occurrence in a large corpus.
+
+GloVe has become a popular choice for word embeddings in NLP due to its effectiveness in capturing semantic relationships and its relatively efficient training process.
+
+GloVe starts by constructing a word co-occurrence matrix based on a given corpus. Each entry (i, j) in the matrix represents the number of times word i co-occurs with word j within a certain context window.
+
+Then it trains in order to learn vector representations such that the dot product of these vectors corresponds to the logarithm of the observed word co-occurrence probabilities. The objective function of GloVe aims to minimize the difference between the dot product of word vectors and the logarithm of the co-occurrence probabilities.
+
+The learned vectors represent words in a continuous vector space, where the distance and direction between vectors capture semantic relationships. Words with similar meanings or that often appear in similar contexts will have similar vector representations.
+
+GloVe has been praised for its ability to capture meaningful semantic relationships between words. The resulting word embeddings often exhibit interesting properties, such as linear relationships that represent semantic analogies (e.g., "king" - "man" + "woman" $\simeq$ "queen").
+
 
 \section{Tensor Factorization models}\label{sec:emb-tensor}
 Tensor factorization try to solve KG completion tasks by relying on the fact that a Knowledge Graph can be represented as tensors where the relational data can be represented as a {0, 1}-valued third-order tensor Y, and, if a relation (h, r, t) is true it meets $Y_{h,r,t} = 1$, KGC can be framed as a 3rd-order binary tensor completion problem.
@@ -270,6 +275,4 @@ In each triple (h, t, r), the entities and relations embedding vectors $h, t \in
 \end{equation}
 
 \section{Summary}\label{sec:emb-summary}
-% In this chapter, we have presented an overview of the existing methods for Knowledge Graph completion in the literature that rely on latent triple representations. We have introduced and described the models that use tensors to model a KG, and then factorize those tensors to obtain a predictive model. We have also presented the models that embed entities in a higher-order space and perform translations on them to find missing knowledge. Finally, we have enumerated the methods that use neural networks to perform Knowledge Graph completion, and we have presented the neural network architectures that are commonly used for this task.
-
-% brief summary of all the facts presented
+In this chapter, we have presented an overview of the existing methods that generate embedded representations of the information held in KGs. Particularly we have introduced and described the models that operate based on translation operations, to obtain numerical vectors that represent the information in KGs. We described several techniques based on the semantic information of each node within the graph. Also, we have overviewed the methods based on representing the KG as a third-order graph factorization model. Finally, we have enumerated the methods that use neural networks to generate these embeddings.

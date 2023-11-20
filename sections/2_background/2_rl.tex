@@ -1,13 +1,11 @@
 \chapter{Reinforcement Learning}\label{chap:reinforcement}
 
 \chapterQuote{
-    \textit{``Caminante, no hay camino, se hace camino al andar.''}\\
-    \textit{(``Traveler, there is no path, you make your path as you walk.'')}
-    }{--- Antonio Machado}
+    \textit{``One learns from books and example only that certain things can be done. Actual learning requires that you do those things.''}\\
+    }{--- Frank Herbert}
 
-\chapterAbstract{A}{qui hablamos tanto del RL de base y su historia y como funciona hasta de como se plaica en los grafos de conocimiento y porque provee de un razonamiento intrinseco.
+\chapterAbstract{R}{einforcement Learning encompasses all techniques which train intelligent agents on a simulated environment via rewards to their actions which modify said environment in some way. In this chapter we get an overview about how Reinforcement Learning operates and the different algorithms and techniques that have arisen. Section~\ref{sec:rl-intro} introduces the MDP description which encompasses all RL problems, which elements are found in every RL problem and how the interact and the evolution of the methods to perform it. Section~\ref{sec:rl-algorithms_and_techniques} introduces algorithms throughout the years and reward implementations that became standarized. Section~\ref{sec:rl-applications} shows some applications for Reinforcement Learning. Finally Section~\ref{sec:rl-summary} summarizes all information given.}
 
-Mencionamos tambien metodologia de los diferentes algoritmos como PPO, SAC, reinforce vs Actor critic etc etc...}
 
 \section{Introduction}\label{sec:rl-intro}
 Machine learning is a subfield of artificial intelligence that focuses on the development of algorithms and models that can learn from data. There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning. In supervised learning, the algorithm is trained on a labeled dataset, where the input data is associated with a corresponding output label. The goal of supervised learning is to learn a mapping from input to output that can generalize to new, unseen data. In unsupervised learning, the algorithm is trained on an unlabeled dataset, where the goal is to discover patterns and structure in the data. Unsupervised learning can be used for tasks such as clustering\cite{}, dimensionality reduction\cite{}, and anomaly detection\cite{}.
@@ -192,7 +190,7 @@ Where $\nabla J (\theta_t)$ is an approximation of the gradient of performance $
 
 The action selection in policy gradients is a stochastic event, where the probability of an action is computed as the estimated reward for the state that action leads to, making the process a stochastic gradient ascent.
 
-The REINFORCE \cite{sutton} is the first policy-gradient based algorithm which follows this stochastic gradient ascent method. The main idea behind it is to maximize the expected cumulative reward by adjusting the parameters of the policy $\theta$ in the direction that increases the likelihood of actions leading to higher rewards so that it learns to take them. In other words it maximize the policy gradient function $\nabla J (\theta_t)$ by finding the optimal $\theta$ for the maximization of $J(\theta)$, formally defined by equation \ref{eq:gradient_ascent_rein}.
+The REINFORCE \cite{sutton1999policy} is the first policy-gradient based algorithm which follows this stochastic gradient ascent method. The main idea behind it is to maximize the expected cumulative reward by adjusting the parameters of the policy $\theta$ in the direction that increases the likelihood of actions leading to higher rewards so that it learns to take them. In other words it maximize the policy gradient function $\nabla J (\theta_t)$ by finding the optimal $\theta$ for the maximization of $J(\theta)$, formally defined by equation \ref{eq:gradient_ascent_rein}.
 
 \begin{equation}
     \label{eq:gradient_ascent_rein}
@@ -239,35 +237,38 @@ This equation reflects the iterative adjustment of the critic's parameters to mi
 
 Actor-Critic methods strike a balance between exploration (through the actor's policy) and exploitation (through the critic's value estimates), reducing the variance caused by policy grandient monte-carlo methods.
 
-
 \section{Applications}\label{sec:rl-applications}
+This section provides a concise exploration of diverse applications harnessing the power of reinforcement learning (RL). From gaming to Autonomous driving or Industrial control, RL exhibits its versatility by optimizing decision-making processes across an array of domains.
 
 \subsection*{Games}
+Whether in traditional board games or cutting-edge video games, reinforcement learning has demonstrated remarkable prowess in mastering strategic decision-making and optimizing gameplay. These approaches showcase the evolution of AI's gaming capabilities and their broader implications.
 
-% https://www.nature.com/articles/nature16961
+AlphaGo\cite{silver2016mastering} represents a groundbreaking application of reinforcement learning in the realm of board games, specifically Go. Developed by DeepMind, AlphaGo employs a combination of deep neural networks and Monte Carlo Tree Search to navigate the immense complexity of the game. Its neural network-based policy and value functions enable strategic decision-making, while the Monte Carlo Tree Search facilitates lookahead exploration. Notably, AlphaGo's triumph over human champion Fan Hui marks a turning point for machine learning history, showcasing the capability of reinforcement learning to master complex strategic domains with profound implications for artificial intelligence and game theory research.
 
-% https://arxiv.org/pdf/1712.01815.pdf
- 
-% https://www.nature.com/articles/s41586-019-1724-z
+AlphaZero\cite{silver2017mastering} extends the paradigm established by AlphaGo, utilizing a reinforcement learning approach for mastery in a broader spectrum of board games, including chess and shogi. AlphaZero relies solely on self-play reinforcement learning without access to human game data or domain-specific knowledge. Its unparalleled success in surpassing world-champion level performance across multiple games displays the ability of RL to achieve superhuman proficiency and generalization within strategic gaming domains.
 
+However, AlphaStar\cite{vinyals2019grandmaster} marks a notable advancement in the application of reinforcement learning, applying similar techniques for real-time strategy games. Leveraging a combination of deep neural networks and a unique multi-agent training setup, AlphaStar achieves superhuman proficiency in StarCraft II, surpassing top human players. Its capacity to handle the complexity of real-time decision-making within the game environment underscores the robustness and scalability of reinforcement learning methodologies in addressing challenges beyond turn-based or board game scenarios.
 
 \subsection*{Industrial Control}
+But Reinforcement learning can be applied to much more than games, it proves its versatility in addressing real-world challenges, For example in the world of controlling operations in industrial processes.
 
-% https://deepmind.google/discover/blog/safety-first-ai-for-autonomous-data-centre-cooling-and-industrial-control/ 
+For instance, in data center cooling, by enhancing safety and efficiency within critical infrastructure settings, Traditional control systems often struggle to adapt dynamically to complex and changing environments, leading to inefficiencies and potential safety risks. by leveraging RL techniques significant energy savings and reducing CO2 emissions to help combat climate change become a reality.
 
+The approach works by polling the server sensors continuously and feeding the information given by these sensors to deep neural networks, which predict how different actions will affect future energy consumption. The system identifies how to minimize energy consumption and maintain satisfactory safety constraints. Those actions are sent back to the data center, where the actions are verified by the local control system and then implemented.
 
-\subsection*{Robotics}
+Other techniques in industrial control came with new interests in Nuclear fusion, new tokamak designs in toroidal shapes have been produced and Reinforcement Learning provided a way to optimize the magnetic polarity to maintain the temperature inside these machines \cite{degrave2022magnetic}.
 
-% https://medium.com/@vmayoral/reinforcement-learning-in-robotics-d2609702f71b 
-
-
-% https://journals.sagepub.com/doi/full/10.1177/0278364913495721?casa_token=CTVePzfDVosAAAAA%3AREr36VUeVR_PPzIYvRgykV-NYvAAxHyk8L5l8fgCxVv66B-JhlgH62Nypy66bEDwySL9fBXbvQ
-
+RL has produced and controlled a diverse set of plasma configurations for the Tokamak and achieves accurate tracking of the location, current and shape of these configurations. This represents a notable advance for tokamak feedback control, showing the potential of reinforcement learning to accelerate research in the fusion domain, and is one of the most challenging real-world systems to which reinforcement learning has been applied.
 
 \subsection*{Autonomous Driving}
+Autonomous driving presents a transformative shift in transportation that holds immense potential to enhance our lives. The promise of significantly improved safety on the roads, with autonomous vehicles minimizing human errors and reducing traffic accidents. 
 
-% https://arxiv.org/pdf/2002.00444.pdf
+Beyond safety, autonomous driving has the capacity to enhance accessibility for individuals facing transportation challenges, fostering independence and inclusivity. The technology's potential to optimize traffic flow promises more efficient and less congested road networks, translating to reduced travel times and environmental impact. 
 
+Moreover, the prospect of increased productivity and improved quality of life emerges as individuals can utilize travel time for work or relaxation. The evolution of urban planning and space utilization, prompted by autonomous driving, may lead to more sustainable and pedestrian-friendly cities. While challenges persist, the multifaceted benefits of autonomous driving suggest a future where transportation becomes safer, more efficient, and enriching for individuals and communities alike.
 
-\section{Summary}\label{sec:path-summary}
-% The contents of this chapter have provided an overview of the methods to perform Knowledge Graph completion that use relational paths. We have first listed the most prominent scientific proposals that extract paths from a KG and characterize them using features, to learn which paths can be predictive of correct knowledge. Afterwards, we have centered on the proposals that use entity neighborhood information in a number of ways. Finally, we have introduced the approaches that merge together path-based information with latent entity representations, entity and relation embeddings, and neural networks.
+Multiple methods exist that leverage reinforcement Learning for controlling vehicles automatically, they approach multiple tasks such as Intent prediction for traffic actors such as pedestrians or other vehicles \cite{},path planning and trajectory optimization\cite{}, development of high-level driving policies for complex navigation tasks\cite{},  scenario-based policy learning for highways\cite{}, merges and splits\cite{}, intersections\cite{}, motion planning and dynamic path planning\cite{}, controller optimization\cite{}, learning of policies that ensures safety and perform risk estimation\cite{}.
+
+\section{Summary}\label{sec:rl-summary}
+The contents of this chapter have provided an overview on the methods improvements and applications of reinforcement learning in multiples contexts, We first learned about Markov processes and how RL fell under this umbrella, the elements that composes a reinforcement learning problem and the history of the methods that improved general RL. Then we learned about the algorithms at the core of RL and how each one improved upon the previous ones shortcomings. Finally we observed some applications of RL upon real world problems.
+
