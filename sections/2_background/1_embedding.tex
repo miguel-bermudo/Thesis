@@ -10,13 +10,13 @@
 
 % 2) Técnicas basadas en redes neuronales, que ajustan unos embeddings para que funcione la tarea de alguna red neuronal. Por ejemplo, una red neuronal que determine si dos nodos están unidos o no. Como esto depende de lo que representen los nodos y sus características, pues al final los embeddings de alguna manera reflejan lo que representen los nodos y sus características. Estas técnicas tienen la ventaja de que son aplicables a los nodos de cualquier grafo, includo si hay varios tipos de nodos.
 
-\chapterAbstract{R}{epresenting the information in knowledge graphs in a way that is usable for machine learning techniques became one of the main focuses of research after their inception. The inception of these representations flourished from several KG completion techniques with numerical vectors representing the entities and relations of the KG as a byproduct of them. In this chapter, we evolutionarily introduce several of these techniques. It is structured as follows: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-translations} introduces the methods that leverage translation operations, Section~\ref{sec:emb-semantic} elaborates on the methods which focus on matching information semantically, Section~\ref{sec:emb-tensor} discusses the proposals which focus on the use of tensor representations of the KG; Section~\ref{sec:emb-nn} overviews the methods which make use of neural network in their approaches, and finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
+\chapterAbstract{R}{epresenting the information in knowledge graphs in a way that is usable for machine learning techniques became one of the main focuses of research after their inception. These representations originated from several KG completion techniques in which numerical vectors representing the entities and relations of the KG came as a byproduct of applying them. In this chapter, we showcase the improvements introduced by several of these techniques. It is structured as follows: Section~\ref{sec:emb-intro} provides an introduction to the matter, Section~\ref{sec:emb-translations} introduces the methods that leverage translation operations, Section~\ref{sec:emb-semantic} elaborates on the methods which focus on matching information semantically, Section~\ref{sec:emb-tensor} discusses the proposals which focus on the use of tensor representations of the KG; Section~\ref{sec:emb-nn} overviews the methods which make use of neural network in their approaches, and finally, Section~\ref{sec:emb-summary} provides a summary of the contents of the chapter.
 }
 
 \section{Introduction}\label{sec:emb-intro}
 Embeddings are a form of representation of information that gathers the semantic, contextual, relational and modular data within an information node and converts it into a numerical representation, as a N-dimensional vector.
 
-In particular KG embeddings represent the nodes and relations in the graph which can be captured either semantically with a bag of words vector, positionally with one one of the multiple techniques described, or with a combined approach, an enriched positional vector.
+In particular KG embeddings represent the nodes and relations in the graph which can be captured either \textbf{semantically} by capturing the information held within the node or relation for example, a bag of words vector, \textbf{positionally} by studying the connections between graph nodes with one one of the multiple techniques described in the following sections, or with a combined approach, an enriched positional vector.
 
 Knowledge graph embeddings aid in representing information within a KG in a way that is understandable for Machine learning tasks. These embeddings provide a compact, continuous vector representation for entities and relationships, allowing for efficient computational operations and meaningful interpretations.
 
@@ -24,7 +24,11 @@ These vectors capture the semantic nuances of the entities and the connections b
 
 The process of obtaining knowledge graph embeddings involves mapping entities and relationships to low-dimensional vector spaces. This transformation is designed to preserve the essential structural and semantic information of the knowledge graph. Entities are represented as points in this vector space, while relationships are encoded as transformations that operate on entity vectors.
 
-The goal is to position entities and relationships in such a way that their geometric relationships in the embedding space reflect the underlying semantic relationships in the knowledge graph. In this manner, knowledge graph embeddings serve as a powerful tool for capturing the rich tapestry of connections, dependencies, and contextual information present in knowledge graphs.
+The goal is to position entities and relationships in such a way that their geometric relationships in the embedding space reflect the underlying semantic relationships in the knowledge graph.
+
+For example, given the triple (h, r, t) by adding the vectorial representations of the connecting relation ``r'' to its origin node ``h'' the result should be the destination node ``t'' of that particular triple and be as furthest as possible from other nodes that are dissimilar to ``t''. The aim of these techniques is to maximize this similarity factor and to do so they iterate over the graph multiple times altering the values of these vectors untill they reach a satisfactory result.
+
+In this manner, knowledge graph embeddings serve as a powerful tool for capturing the rich tapestry of connections, dependencies, and contextual information present in knowledge graphs and allowing this information to be passed to machine learning models which can solve a plethora of problems related to these powerful data linking tools.
 
 Along the following sections the following nomenclature will be followed, where, ``h'' denotes a head entity, ``r'' denotes the relation that connects them and ``t'' denotes a tail entity making (h, r, t) a triple in the graph. $\mathcal{E}$ is the set of all entities and $\mathcal{R}$ is the set of all relations in the graph.
 
@@ -34,12 +38,12 @@ Along the following sections the following nomenclature will be followed, where,
 
 Translation models usually use distance-based functions to define the scoring function for link prediction tasks, the general idea behind these models is that if we apply a translation operation based on a relation ``r'' to an entity ``h'' represented by a low dimensional vector the result should be close to its destination entity ``t'' in the triple (h, r, t) which is considered correct as it is in the graph.
 
-TransE \cite{} is a well-known, early and simple model that regards a relation as a translation from a head entity to a tail entity, used for link prediction it generates embeddings representations for entities and relations in KGs, it uses the relation representation to apply a translation from the head entity to a tail entity. It considers the uncertainties of entities and relations by using a probability function. 
+TransE \cite{bordes2013translating} is a well-known, early and simple model that regards a relation as a translation from a head entity to a tail entity, used for link prediction it generates embeddings representations for entities and relations in KGs, it uses the relation representation to apply a translation from the head entity to a tail entity. It considers the uncertainties of entities and relations by using a probability function. 
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.4\textwidth]{fig/embeddings/TransE.png}
-    \caption{TransE representation in 2D Space}
+    \caption{TransE \cite{bordes2013translating} representation in 2D Space}
     \label{fig:emb-transE}
 \end{figure}
 
@@ -50,20 +54,20 @@ The basic idea behind this model is that the connecting relation between the two
     f (h, t) = ||h + r - t||_1
 \end{equation}
     
-TransE is the earliest translation-based embedding model, and it has difficulty dealing with multi-relational graphs; it is limited by its simple translation operation as well as its lack of a discrimination policy for all kinds of relations.
+TransE is the earliest translation-based embedding model, and it has difficulty dealing with multi-relational graphs. It is limited by its simple translation operation as well as its lack of a discrimination policy for all kinds of relations.
 
-Improving on TransE, TransH introduces the concept of hyperplane translations, in order to overcome the problems of TransE in modeling reflexive multi origin or multidestination relations (one-to-many, many-to-one, many-to-many)this model enables an entity to have distributed representations when involved in different relations. 
+Improving on TransE, TransH \cite{wang2014knowledge} introduces the concept of hyperplane translations. In order to overcome the problems of the former when it comes to modeling reflexive multi origin or multidestination relations (one-to-many, many-to-one, many-to-many) this model enables an entity to have distributed representations when involved in different relations. 
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.4\textwidth]{fig/embeddings/TransH.png}
-    \caption{TransH representation in 2D Space}
+    \caption{TransH \cite{wang2014knowledge} representation in 2D Space}
     \label{fig:emb-transH}
 \end{figure}
 
 As illustrated in Figure \ref{fig:emb-transH}, the relation translation vector $d_r$ is contained within the plane rather than being connected directly such as in TransE.
 
-for a triple (h, r, t), the embedding h and t are first projected to the plane ($h\bot$, $t\bot$). They are then connected by a translation vector $d_r$ in the hyperplane. The scoring function is described as by \ref{eq:transH_scoring}
+for a triple (h, r, t), the embedding h and t are first projected to the plane ($h\bot$, $t\bot$). They are then connected by a translation vector $d_r$ in the hyperplane. The scoring function is described in Equation \ref{eq:transH_scoring}
 
 \begin{equation}
     \label{eq:transH_scoring}
@@ -73,12 +77,12 @@ for a triple (h, r, t), the embedding h and t are first projected to the plane (
     $w_r, d_r \in \mathbb{R}$
 \end{center}
 
-Improving on the TransH model appears TransR\cite{} which innovates by using a relation-specific space to handle different relations. As an entity may have multiple semantical interpretations different relations focus on different ones. TransR models entities and relations in distinct spaces, entity and relation spaces and performs translation in the corresponding relation space.
+Improving on the TransH model appears TransR\cite{lin2015learning} which innovates by using a relation-specific space to handle different relations. As an entity may have multiple semantical interpretations different relations focus on different ones. TransR models entities and relations in distinct spaces, entity and relation spaces and performs translation in the corresponding relation space.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.7\textwidth]{fig/embeddings/TransR.png}
-    \caption{TransR representation in 2D Space}
+    \caption{TransR\cite{lin2015learning} representation in 2D Space}
     \label{fig:emb-transR}
 \end{figure}
 
@@ -89,14 +93,14 @@ Figure \ref{fig:emb-transR} shows a simple rendition of the TransR model, it dep
     f(h, t) = ||h_r + r - t_r||^2_2
 \end{equation}
 
-Several iterations of the Trans(+letter) model have been proposed as improvements to these previously mentioned approaches, all of them iterating on the idea of decoupling entity and relations interactions to then perform a translation operation of some sort.
+Several iterations following the recipe of Trans "plus-a-leter" model have been proposed as improvements to the previous methods, all of them iterating on the idea of decoupling entity and relations interactions to then perform a translation operation of some sort.
 
-To conclude this section RotatE\cite{} presents an improvement from previous techniques by defining each relation as a rotation from the ``h'' to ``t'' in a complex plane and the same vector space as shown in figure \ref{fig:emb-rotatE}.
+To conclude this section RotatE\cite{sun2019rotate} presents an improvement from previous techniques by defining each relation as a rotation from the ``h'' to ``t'' in a complex plane and the same vector space as shown in figure \ref{fig:emb-rotatE}.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.4\textwidth]{fig/embeddings/RotatE.png}
-    \caption{RotatE in a 2D plane}
+    \caption{RotatE \cite{sun2019rotate} in a 2D plane}
     \label{fig:emb-rotatE}
 \end{figure}
 
@@ -117,12 +121,12 @@ Traditional models match the latent semantics of entities and relation embedding
 
 More recent models fuse various additional information to obtain better performance to mine deeper semantic information at the bottoms of graphs. The additional information includes path information, order information, concepts, entity attributes, entity types and so on.
 
-Word2vec\cite{} goal is learning high-quality word vectors from huge data sets with billions of words, and with millions of words in the vocabulary by using distributed representations of words learned by neural networks following stochastic gradient descent methods and backpropagation.
+Word2vec\cite{mikolov2013efficient} goal is learning high-quality word vectors from huge data sets with billions of words, and with millions of words in the vocabulary by using distributed representations of words learned by neural networks following stochastic gradient descent methods and backpropagation.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.75\textwidth]{fig/embeddings/Word2Vec.png}
-    \caption{Word2Vec models}
+    \caption{Word2Vec\cite{mikolov2013efficient} models}
     \label{fig:word2Vec}
 \end{figure}
 
@@ -130,7 +134,7 @@ It consists of two methods, a continuous bag-of-words model and a skip-gram mode
 
 The second model tries to maximize the classification of a word based on the sentence it is contained within. the entire context sentence is fed into a log-linear classifier which tries to predict words before and after the current word.
 
-GlovE \cite{} appears as a model able to capture a global corpus of word statistics directly by using global matrix factorization and local context window methods. It is designed to capture semantic relationships between words by learning vector representations that encode the statistical information of word co-occurrence in a large corpus.
+GlovE \cite{pennington2014glove} appears as a model able to capture a global corpus of word statistics directly by using global matrix factorization and local context window methods. It is designed to capture semantic relationships between words by learning vector representations that encode the statistical information of word co-occurrence in a large corpus.
 
 GloVe has become a popular choice for word embeddings in NLP due to its effectiveness in capturing semantic relationships and its relatively efficient training process.
 
@@ -146,12 +150,12 @@ GloVe has been praised for its ability to capture meaningful semantic relationsh
 \section{Tensor Factorization models}\label{sec:emb-tensor}
 Tensor factorization tries to solve KG completion tasks by relying on the fact that a Knowledge Graph can be represented as tensors where the relational data can be represented as a {0, 1}-valued third-order tensor Y, and, if a relation (h, r, t) is true it meets $Y_{h,r,t} = 1$, KGC can be framed as a 3rd-order binary tensor completion problem.
 
-The first approach to take advantage of the tensors being able to represent a Knowledge Graph was RESCAL \cite{}, which takes the inherent structure of relational data into account by operating over this tensor representation.
+The first approach to take advantage of the tensors being able to represent a Knowledge Graph was RESCAL \cite{nickel2011three}, which takes the inherent structure of relational data into account by operating over this tensor representation.
 
 \begin{figure}[!htp]
     \centering
     \includegraphics[width=.45\textwidth]{fig/embeddings/Rescal.png}
-    \caption{Tensor representation of a Knowledge Graph with entities $E_1,...,E_n$ and relation $R_1,...,R_n$}
+    \caption{Tensor representation of a Knowledge Graph \cite{shen2022comprehensive} with entities $E_1,...,E_n$ and relation $R_1,...,R_n$}
     \label{fig:emb-rescal}
 \end{figure}
 
@@ -165,7 +169,7 @@ In RESCAL, entities are expressed as vectors $v \in \mathbb{R}^d$ and relations 
 
 where $vh, vt \in \mathbb{R}^d$ are entity embeddings, and $M_r \in \mathbb{R}^{d\times d}$ is the matrix associated with the relations between them.
 
-Continuing the work on tensor factorization we find DistMult \cite{}, an approach that tries to learn representations for entities and relations via a neural network in which the first layer projects a pair of input entities to low dimensional vectors, and the second layer combines them into an input of the bilinear scoring function \ref{eq:distmult_scoring} which represents the relation between them looking to maximize this score.
+Continuing the work on tensor factorization we find DistMult \cite{yang2014embedding}, an approach that tries to learn representations for entities and relations via a neural network in which the first layer projects a pair of input entities to low dimensional vectors, and the second layer combines them into an input of the bilinear scoring function \ref{eq:distmult_scoring} which represents the relation between them looking to maximize this score.
 
 \begin{equation}
     \label{eq:distmult_scoring}
@@ -174,20 +178,20 @@ Continuing the work on tensor factorization we find DistMult \cite{}, an approac
 
 where $e_1$ and $e_2$ are the learned entity vectors and $W_r$ is the tensor operator. 
 
-Furthering this line of work is complEx \cite{}, as suggested by the name instead of using embeddings containing real numbers it furthers the idea of complex embeddings, similarly to rotatE as seen previously. ComplEx argues that the standard dot product between embeddings can be a very effective composition function when using complex vectors.
+Furthering this line of work is complEx \cite{trouillon2016complex}. As suggested by the name instead of using embeddings containing real numbers it furthers the idea of complex number embeddings, similarly to RotatE. ComplEx argues that the standard dot product between embeddings can be a very effective composition function when using complex vectors.
 
 This instance of the dot product involves the conjugate-transpose of one of the two vectors. As a consequence, the dot product is not symmetric anymore, and facts about antisymmetric relations can receive different scores depending on the ordering of the entities involved.
 
 Thus complex vectors can effectively capture antisymmetric relations while retaining the efficiency benefits of the dot product, that is linearity in both space and time complexity.
 
-A key difference with the RotatE model which also focuses on these complex spaces is that ComplEx applies a tensor factorization approach in a bilinear way, this means that the same entity will have two different embedding vectors, depending on whether it appears as the subject or the object of a relation.
+A key difference with the RotatE model which also focuses on these complex spaces is that ComplEx applies a tensor factorization approach in a bilinear way, which means that the same entity will have two different embedding vectors, depending on whether it appears as the subject or the object of a relation.
 
-Finally the TuckER \cite{} model named after the author of Tucker decomposition \cite{} applies the principles of said technique to the tensor factorization model, by decomposing a tensor into a core tensor multiplied by a matrix along each mode as shown in figure \ref{fig:emb-tucker}, TuckER generalizes the problem presented in previous approaches.
+Finally the TuckER \cite{balavzevic2019tucker} model named after the author of Tucker decomposition \cite{tucker1966some} applies the principles of said technique to the tensor factorization model, by decomposing a tensor into a core tensor multiplied by a matrix along each mode as shown in figure \ref{fig:emb-tucker}, TuckER generalizes the problem presented in previous approaches.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.45\textwidth]{fig/embeddings/TuckER.png}
-    \caption{TuckER architecture}
+    \caption{TuckER \cite{balavzevic2019tucker} architecture}
     \label{fig:emb-tucker}
 \end{figure}
 
@@ -206,68 +210,69 @@ Neural networks can intelligently capture the semantic features of entities and 
 
 The improvement of Deep Neural Networks (DNNs), Recursive Neural Networks (RNNs) or Graph Neural Networks(GNNs) along the previously discussed techniques made it an obvious path for research where NN models were tailored to generating these embedding representations of KG components. However, NN models apply non-linear transformations to the data they are provided in which they lose explainability in the generative process.
 
-One of the initial approaches for this method is Neural Tensor Networks (NTN) \cite{} it is a link prediction method that replaces a standard linear neural network layer with a bilinear tensor layer that directly relates two entity vectors across multiple dimensions making it so entities are represented as an average of their constituting word vectors. The model computes a score of how likely it is that two entities are in a certain relationship by the following NTN-based function shown in figure \ref{fig:emb-ntn}
+One of the initial approaches for this method is Neural Tensor Networks (NTN) \cite{socher2013reasoning} a link prediction method which replaces a standard linear neural network layer with a bilinear tensor layer that directly relates two entity vectors across multiple dimensions making it so entities are represented as an average of their constituting word vectors. The model computes a score of how likely it is that two entities are in a certain relationship by the following NTN-based function shown in figure \ref{fig:emb-ntn}
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{fig/embeddings/NTN.png}
-    \caption{NTN layer}
+    \caption{NTN layer \cite{socher2013reasoning}}
     \label{fig:emb-ntn}
 \end{figure}
 
-ConvE \cite{} iterates upon the idea presented by NTN by using a multi-layer convolutional network model in order to be more parameter efficient than its predecessors and competitors such as DistMult. 
+ConvE \cite{dettmers2018conve} iterates upon the idea presented by NTN by using a multi-layer convolutional network model in order to be more parameter efficient than its predecessors and competitors such as DistMult. 
 
-ConvE utilizes 2D convolutions over embeddings to predict missing links in knowledge graphs. It is the simplest multi-layer convolutional architecture for link prediction. It is defined by a single convolution layer, a projection layer to the embedding dimension, and an inner product layer.
+ConvE utilizes 2D convolutions over embeddings to predict missing links in knowledge graphs. It is the simplest multi-layer convolutional architecture for link prediction and is defined by a single convolution layer, a projection layer to the embedding dimension, and an inner product layer.
 
-using a 2-dimensional convolution layer increases the expressiveness of the model as it increases the number of interaction points, thus being able to extract more feature interactions between two entity embeddings.
+The use of a 2-dimensional convolution layer increases the expressiveness of the model as it increases the number of interaction points, thus being able to extract more feature interactions between two entity embeddings.
 
-InteractE \cite{} improves upon ConvE by providing three key ideas feature permutation, a novel ``checkered'' feature reshaping, and circular convolution as the expressiveness of a model can be enhanced by increasing the possible interactions between embeddings.
+InteractE \cite{vashishth2020interacte} improves upon ConvE by providing three key ideas 1)feature permutation, 2) a novel ``checkered'' feature reshaping and 3)circular convolution, sinceas the expressiveness of a model can be enhanced by increasing the possible interactions between embeddings.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{fig/embeddings/InteractE.png}
-    \caption{InteractE checkered patter for tensor reshaping.}
+    \caption{InteractE checkered pattern \cite{vashishth2020interacte} for tensor reshaping.}
     \label{fig:emb-interactE}
 \end{figure}
 
-\textit{Feature Permutation}: Instead of a fixed order for inputs InteractE allows for a mutable input order increasing the interaction between entity embeddings by allowing permutation between these inputs. However, the number of distinct interactions across all possible permutations is very large. So, for t different permutations, we can expect the total number of interactions to be approximately t times the number of interactions for one permutation.
+\textit{Feature Permutation}: Instead of a fixed order for inputs InteractE allows for a mutable input order, increasing the interaction between entity embeddings by allowing permutation between these inputs. However, the number of distinct interactions across all possible permutations is very large. 
+% So, for t different permutations, we can expect the total number of interactions to be approximately t times the number of interactions for one permutation.
 
 \textit{Checkered Reshaping}: applies a reshape function for tensors that intertwines the features as seen in figure \ref{fig:emb-interactE}, which captures maximum heterogeneous interactions between entity and relation features.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=.65\textwidth]{fig/embeddings/interactE_convolutions.png}
-    \caption{InteractE circular convolution.}
+    \caption{InteractE circular convolution. \cite{vashishth2020interacte}}
     \label{fig:emb-interactE_conv}
 \end{figure}
 
 \textit{Circular Convolution}: Circular convolution allows for a wraparound of the features selected for the convolution operation, as shown in figure \ref{fig:emb-interactE_conv}.
 
-Also improving on ConvE we have ParamE, which makes use of translational properties such as the models in section \ref{sec:emb-translations} and neural networks nonlinear fitting skills such as previous models from this section.
+Also improving on ConvE we have ParamE \cite{che2020parame}, which makes use of translational properties such as the models in section \ref{sec:emb-translations} and neural networks nonlinear fitting skills such as previous models from this section.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{fig/embeddings/ParamE.png}
-    \caption{ParamE model overview.}
+    \caption{ParamE\cite{che2020parame} model overview.}
     \label{fig:emb-paramE}
 \end{figure}
 
-In ParamE, head entity, relation, and tail entity embeddings are the input and output of a neural network respectively. taking neural network parameters as relation embeddings makes ParamE much more expressive and translational. entity and relation embeddings in ParamE belong to feature space and parameter space respectively, which keeps them mapped into two different spaces. The main idea of ParamE is to regard NN parameters as relation embeddings, which makes it expressive and translational.
+In ParamE, head entity, relation, and tail entity embeddings are both input and output of a neural network. The main idea of this model is to regard NN parameters as relation embeddings, which makes them expressive and translational. Entity and relation embeddings in ParamE belong to feature space and parameter space respectively, which keeps them mapped into two different spaces in which the projections are performed and then matched further along the process.
 
-ParamE is a general architecture for 3 separate NN models multilayer perceptrons, convolution layers, and gate structure layers, in which the latter is shown to outperform the other two measures.
+ParamE's architecture has been tested with three different neural network configurations that use different kinds of layers: dense, convolutional, and gate structure ones. The latter is shown to outperform the others.
 
-Finally, MEI \cite{} multi-partition embedding interaction model introduces the division of embeddings into multiple partitions, restricting the interactions in a triple to only entries in the corresponding embedding partitions of (h,r,t).
+Finally, MEI \cite{tran2020multi} multi-partition embedding interaction model introduces the division of embeddings into multiple partitions, restricting the interactions of the embeddings of a triple (h,r,t) to only entries in the corresponding partitions of it, meaning the expressiveness of the most relevant elements of the embeddings is increased during training as they are restricted to each partition and are then multiplexed with other partitions, enhancing those particular set of features.
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=\textwidth]{fig/embeddings/MEI.png}
-    \caption{MEI model}
+    \caption{MEI model \cite{tran2020multi}}
     \label{fig:emb-MEI}
 \end{figure}
 
-Interactions in each partition is done using the tucker format\cite{} to learn general linear interaction mechanisms figure \ref{fig:emb-MEI}. The total score for the model is the sum of all local interactions. 
+Interactions in each partition is done using by tensorizing the elements using the tucker format\cite{tucker1966some}, then to learn the general linear interaction mechanisms they perform the tucker factorization operator producing a bilinear output which is then fed to the model's NN producing a score for that particular arrangement which is finally combined by performing the sum of all local interactions as described by figure \ref{fig:emb-MEI}.
 
-In each triple (h, t, r), the entities and relations embedding vectors $h, t \in \mathbb{E}^{D_e}$, and $r \in mathbb{R}^{D_r}$ are divided into multiple partitions, the score function of MEI \ref{eq:MEI_scoring} is defined as the sum score of $\mathcal{K}$ local interactions, with each local interaction being modeled by the Tucker format.
+In each triple (h, t, r), the entities and relations embedding vectors $h, t \in \mathbb{E}^{D_e}$, and $r \in \mathbb{R}^{D_r}$ are divided into multiple partitions, the score function of MEI, seen in Equation \ref{eq:MEI_scoring} is defined as the sum score of $\mathcal{K}$ local interactions, with each local interaction being modeled by the Tucker format.
 
 \begin{equation}
     \label{eq:MEI_scoring}
@@ -275,4 +280,5 @@ In each triple (h, t, r), the entities and relations embedding vectors $h, t \in
 \end{equation}
 
 \section{Summary}\label{sec:emb-summary}
-In this chapter, we have presented an overview of the existing methods that generate embedded representations of the information held in KGs. Particularly we have introduced and described the models that operate based on translation operations, to obtain numerical vectors that represent the information in KGs. We described several techniques based on the semantic information of each node within the graph. Also, we have overviewed the methods based on representing the KG as a third-order graph factorization model. Finally, we have enumerated the methods that use neural networks to generate these embeddings.
+In this chapter, we have presented an overview of the existing methods that generate embedded representations of the information held in KGs. 
+We have introduced and described the models that operate based on translation operations, to obtain numerical vectors that represent the information in KGs. We also described several techniques based on the semantic information of each node within the graph. As well as overviewing the methods based on representing the KG as a third-order graph factorization model and, finally, we have enumerated the methods that use neural networks to generate these embeddings.

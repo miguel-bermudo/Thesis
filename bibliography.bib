@@ -361,6 +361,7 @@ REINFORCE
 }
 
 % EMBEDDINGS
+TRANSLATIONS
 transE
 @article{bordes2013translating,
   title={Translating embeddings for modeling multi-relational data},
@@ -376,19 +377,62 @@ transH
   author={Wang, Zhen and Zhang, Jianwen and Feng, Jianlin and Chen, Zheng},
   booktitle={Proceedings of the AAAI conference on artificial intelligence},
   volume={28},
-  number={1},
   year={2014}
 }
 
+TransR
+@inproceedings{lin2015learning,
+  title={Learning entity and relation embeddings for knowledge graph completion},
+  author={Lin, Yankai and Liu, Zhiyuan and Sun, Maosong and Liu, Yang and Zhu, Xuan},
+  booktitle={Proceedings of the AAAI conference on artificial intelligence},
+  volume={29},
+  year={2015}
+}
+
+RotatE
+@article{sun2019rotate,
+  title={Rotate: Knowledge graph embedding by relational rotation in complex space},
+  author={Sun, Zhiqing and Deng, Zhi-Hong and Nie, Jian-Yun and Tang, Jian},
+  journal={arXiv preprint arXiv:1902.10197},
+  year={2019}
+}
+
+ComplEX
+@inproceedings{trouillon2016complex,
+  title={Complex embeddings for simple link prediction},
+  author={Trouillon, Th{\'e}o and Welbl, Johannes and Riedel, Sebastian and Gaussier, {\'E}ric and Bouchard, Guillaume},
+  booktitle={International conference on machine learning},
+  pages={2071--2080},
+  year={2016},
+  organization={PMLR}
+}
+
+TENSOR FACTORIZATION
 RESCAL
 @inproceedings{nickel2011three,
   title={A three-way model for collective learning on multi-relational data.},
   author={Nickel, Maximilian and Tresp, Volker and Kriegel, Hans-Peter and others},
   booktitle={Icml},
   volume={11},
-  number={10.5555},
   pages={3104482--3104584},
   year={2011}
+}
+
+TuckER
+@article{balavzevic2019tucker,
+  title={Tucker: Tensor factorization for knowledge graph completion},
+  author={Bala{\v{z}}evi{\'c}, Ivana and Allen, Carl and Hospedales, Timothy M},
+  journal={arXiv preprint arXiv:1901.09590},
+  year={2019}
+}
+
+Neural tensor networks
+@article{socher2013reasoning,
+  title={Reasoning with neural tensor networks for knowledge base completion},
+  author={Socher, Richard and Chen, Danqi and Manning, Christopher D and Ng, Andrew},
+  journal={Advances in neural information processing systems},
+  volume={26},
+  year={2013}
 }
 
 InteractE
@@ -397,11 +441,65 @@ InteractE
   author={Vashishth, Shikhar and Sanyal, Soumya and Nitin, Vikram and Agrawal, Nilesh and Talukdar, Partha},
   booktitle={Proceedings of the AAAI conference on artificial intelligence},
   volume={34},
-  number={03},
   pages={3009--3016},
   year={2020}
 }
 
+ConvE
+@inproceedings{dettmers2018conve,
+	Author = {Dettmers, Tim and Pasquale, Minervini and Pontus, Stenetorp and Riedel, Sebastian},
+	Booktitle = {Proceedings of the 32th AAAI Conference on Artificial Intelligence},
+	Title = {Convolutional 2D Knowledge Graph Embeddings},
+	Url = {https://arxiv.org/abs/1707.01476},
+	Year = {2018},
+        pages  = {1811--1818},
+  	Month = {February}
+}
+
+DistMult
+@article{yang2014embedding,
+  title={Embedding entities and relations for learning and inference in knowledge bases},
+  author={Yang, Bishan and Yih, Wen-tau and He, Xiaodong and Gao, Jianfeng and Deng, Li},
+  journal={arXiv preprint arXiv:1412.6575},
+  year={2014}
+}
+
+ParamE
+@inproceedings{che2020parame,
+  title={Parame: Regarding neural network parameters as relation embeddings for knowledge graph completion},
+  author={Che, Feihu and Zhang, Dawei and Tao, Jianhua and Niu, Mingyue and Zhao, Bocheng},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={34},
+  pages={2774--2781},
+  year={2020}
+}
+
+MEI
+@article{tran2020multi,
+  title={Multi-partition embedding interaction with block term format for knowledge graph completion},
+  author={Tran, Hung Nghiep and Takasu, Atsuhiro},
+  journal={arXiv preprint arXiv:2006.16365},
+  year={2020}
+}
+
+
+SEMANTIC
+Word2Vec
+@article{mikolov2013efficient,
+  title={Efficient estimation of word representations in vector space},
+  author={Mikolov, Tomas and Chen, Kai and Corrado, Greg and Dean, Jeffrey},
+  journal={arXiv preprint arXiv:1301.3781},
+  year={2013}
+}
+
+GlovE
+@inproceedings{pennington2014glove,
+  title={Glove: Global vectors for word representation},
+  author={Pennington, Jeffrey and Socher, Richard and Manning, Christopher D},
+  booktitle={Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP)},
+  pages={1532--1543},
+  year={2014}
+}
 
 RL approaches:
 % Google deepmind AlphaGO
@@ -446,4 +544,18 @@ Tokamaks
   pages={414--419},
   year={2022},
   publisher={Nature Publishing Group}
+}
+
+misc:
+
+tucker decomposition
+@article{tucker1966some,
+  title={Some mathematical notes on three-mode factor analysis},
+  author={Tucker, Ledyard R},
+  journal={Psychometrika},
+  volume={31},
+  number={3},
+  pages={279--311},
+  year={1966},
+  publisher={Springer}
 }
