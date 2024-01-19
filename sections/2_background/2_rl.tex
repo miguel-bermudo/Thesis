@@ -4,7 +4,7 @@
     \textit{``One learns from books and examples only that certain things can be done. Actual learning requires that you do those things.''}\\
     }{--- Frank Herbert}
 
-\chapterAbstract{R}{einforcement Learning encompasses all techniques that train intelligent agents in a simulated environment via rewards to their actions which modify said environment in some way. In this chapter, we get an overview of how Reinforcement Learning operates and the different algorithms and techniques that have arisen. Section~\ref{sec:rl-intro} introduces the MDP description which encompasses all RL problems, which elements are found in every RL problem how they interact and the evolution of the methods to perform it. Section~\ref{sec:rl-algorithms_and_techniques} introduces algorithms throughout the years and reward implementations that became standardized. Section~\ref{sec:rl-applications} shows some applications for Reinforcement Learning. Finally, Section~\ref{sec:rl-summary} summarizes all the information given.}
+\chapterAbstract{R}{einforcement Learning (RL) encompasses all techniques that train intelligent agents in a simulated environment via rewards to perform actions that modify said environment in some way. In this chapter, we get an overview of how Reinforcement Learning operates and the different algorithms and techniques that have arisen. Section~\ref{sec:rl-intro} introduces Markov's Decision Process (MDP), which encompasses all RL problems. We also cover the elements found in every RL problem as well as how they interact with each other. Finally we elucidate about the evolution of the different methods to perform Reinforcement Learning training. This chapter is sectioned as follows Section~\ref{sec:rl-algorithms_and_techniques} showcases the evolution of RL algorithms throughout the years and reward implementations that became standardized. Section~\ref{sec:rl-applications} shows some applications for Reinforcement Learning. Finally, Section~\ref{sec:rl-summary} summarizes all the information given.}
 
 
 \section{Introduction}\label{sec:rl-intro}
@@ -16,10 +16,10 @@ Reinforcement learning is different from supervised and unsupervised learning in
 
 Reinforcement Learning techniques need to adapt to real-world environments, which is a challenging task given that reality is often diverse, non-stationary and open-ended. RL is generally described as having low generalization, i.e., it is hard to create general-purpose agents. This, in turn, generates another problem: environmental overfitting. Trained agents specialize in the environment in which they were trained and are very susceptible to small changes, needing to be re-trained very often when new knowledge is added\cite{}.
 
-\subsection*{Markov decision process}
-Markov decision processes (MDPs) are stochastic decision-making processes that use a mathematical framework to model them. MDPs provide a formal framework for modeling situations where outcomes are partly random and partly under the control of the decision-maker. 
+\subsection*{Markov Decision Process}
+Markov decision processes (MDPs) are stochastic decision-making processes that use a mathematical framework as a model. MDPs provide a formal framework for modeling situations where outcomes are partly random and partly under the control of the decision-maker. 
 
-MDPs originated in the 1950s with the Russian mathematician Andrey Markov who played a pivotal role in shaping stochastic processes. In its infancy, MDPs were used to solve business-related problems such as inventory management and control, queuing optimization, and routing matters. Today, MDPs find applications in studying optimization problems via dynamic programming, robotics, automatic control, economics or manufacturing.
+MDPs were introduced in the 1950s by Russian mathematician Andrey Markov who played a pivotal role in shaping stochastic processes. In their infancy, MDPs were used to solve business-related problems such as inventory management and control, queuing optimization, and routing matters. Today, MDPs find applications in studying optimization problems via dynamic programming, robotics, automatic control, economics or manufacturing.
 
 In an MDP, the decision maker, or agent, interacts with an environment that is characterized by a set of states, actions, and rewards. The agent's goal is to learn a policy that maximizes the cumulative reward over time.
 
@@ -30,16 +30,16 @@ In an MDP, the decision maker, or agent, interacts with an environment that is c
     \label{fig:MDP}
 \end{figure}
 
-The future state of the environment depends only on the current state and action, and not on the history of previous states and actions. This is known as the Markov property, It allows the agent to make decisions based only on the current state of the environment, without needing to consider the entire history of previous states and actions. This way the agent can use the current state of the environment to estimate the expected future rewards of different actions, and then choose the action that is most likely to lead to the highest cumulative reward over time.
+The future state of the environment depends only on the current state and action, and not on the history of previous states and actions. This is known as the Markov property. This way the agent can use the current state of the environment to estimate the expected future rewards of different actions, and then choose the action that is most likely to lead to the highest cumulative reward over time.
 
-Based on the notation from figure \ref{fig:MDP}, the Markov property can be evaluated as the equation presented in \ref{eq:markov_property}.
+Based on the notation from figure \ref{fig:MDP}, the Markov property can be evaluated as shown in Equation \ref{eq:markov_property}.
 
 \begin{equation}
     \label{eq:markov_property}
-    P[St+1|St] = P[St+1|S1,S2,S3,.....,St]
+    P[St+1|St] = P[St+1|S1,S2,S3,.....,Sn]
 \end{equation}
 
-Where the probability of the next state (P[St+1]) given the present state (St) is calculated as the (P[St+1]) depending on all the possible next states (S1, S2, S3,\dots, St).
+Where the probability of the next state (P[St+1]) given the present state (St) is calculated as the (P[St+1]) depending on all the possible next states (S1, S2, S3,\dots, Sn).
 The relation between the action to be chosen and the chosen outcome reward is referred to as the policy ($\pi$), $\pi: S -> A$.
 
 To determine the best policy, it is essential to define the returns that reveal the agent's rewards at every state. The discount factor ($\gamma$) [0-1] determines which rewards are prioritized, minimal values focus on immediate rewards while maximum values focus on long-term rewards. The discounted infinite-horizon method expressed by the value function \ref{eq:value_function} determines the reward for each state by discounting future rewards.
