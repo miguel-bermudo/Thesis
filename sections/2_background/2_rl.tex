@@ -4,7 +4,7 @@
     \textit{``One learns from books and examples only that certain things can be done. Actual learning requires that you do those things.''}\\
     }{--- Frank Herbert}
 
-\chapterAbstract{R}{einforcement Learning (RL) encompasses all techniques that train intelligent agents in a simulated environment via rewards to perform actions that modify said environment in some way. In this chapter, we get an overview of how Reinforcement Learning operates and the different algorithms and techniques that have arisen. Section~\ref{sec:rl-intro} introduces Markov's Decision Process (MDP), which encompasses all RL problems. We also cover the elements found in every RL problem as well as how they interact with each other. Finally we elucidate about the evolution of the different methods to perform Reinforcement Learning training. This chapter is sectioned as follows Section~\ref{sec:rl-algorithms_and_techniques} showcases the evolution of RL algorithms throughout the years and reward implementations that became standardized. Section~\ref{sec:rl-applications} shows some applications for Reinforcement Learning. Finally, Section~\ref{sec:rl-summary} summarizes all the information given.}
+\chapterAbstract{R}{einforcement Learning (RL) encompasses all techniques that train intelligent agents in a simulated environment via rewards to perform actions that modify said environment in some way. In this chapter, we get an overview of how Reinforcement Learning operates and the different algorithms and techniques that have arisen. Section~\ref{sec:rl-intro} introduces Markov's Decision Process (MDP), which encompasses all RL problems. We also cover the elements found in every RL problem as well as how they interact with each other. Finally, we elucidate about the evolution of the different methods to perform Reinforcement Learning training. This chapter is sectioned as follows Section~\ref{sec:rl-algorithms_and_techniques} showcases the evolution of RL algorithms throughout the years and reward implementations that became standardized. Section~\ref{sec:rl-applications} shows some applications for Reinforcement Learning. Finally, Section~\ref{sec:rl-summary} summarizes all the information given.}
 
 
 \section{Introduction}\label{sec:rl-intro}
@@ -17,7 +17,7 @@ Reinforcement learning is different from supervised and unsupervised learning in
 Reinforcement Learning techniques need to adapt to real-world environments, which is a challenging task given that reality is often diverse, non-stationary and open-ended. RL is generally described as having low generalization, i.e., it is hard to create general-purpose agents. This, in turn, generates another problem: environmental overfitting. Trained agents specialize in the environment in which they were trained and are very susceptible to small changes, needing to be re-trained very often when new knowledge is added\cite{}.
 
 \subsection*{Markov Decision Process}
-Markov decision processes (MDPs) are stochastic decision-making processes that use a mathematical framework as a model. MDPs provide a formal framework for modeling situations where outcomes are partly random and partly under the control of the decision-maker. 
+Markov decision processes (MDPs) are stochastic decision-making processes that use a mathematical framework as model. MDPs provide a formal framework for modeling situations where outcomes are partly random and partly under the control of the decision-maker. 
 
 MDPs were introduced in the 1950s by Russian mathematician Andrey Markov who played a pivotal role in shaping stochastic processes. In their infancy, MDPs were used to solve business-related problems such as inventory management and control, queuing optimization, and routing matters. Today, MDPs find applications in studying optimization problems via dynamic programming, robotics, automatic control, economics or manufacturing.
 
@@ -39,67 +39,80 @@ Based on the notation from figure \ref{fig:MDP}, the Markov property can be eval
     P[St+1|St] = P[St+1|S1,S2,S3,.....,Sn]
 \end{equation}
 
-Where the probability of the next state (P[St+1]) given the present state (St) is calculated as the (P[St+1]) depending on all the possible next states (S1, S2, S3,\dots, Sn).
+Where the probability of the next state (P[St+1]) given the present state (St) is calculated based on all the possible next states (S1, S2, S3,\dots, Sn).
 The relation between the action to be chosen and the chosen outcome reward is referred to as the policy ($\pi$), $\pi: S -> A$.
 
-To determine the best policy, it is essential to define the returns that reveal the agent's rewards at every state. The discount factor ($\gamma$) [0-1] determines which rewards are prioritized, minimal values focus on immediate rewards while maximum values focus on long-term rewards. The discounted infinite-horizon method expressed by the value function \ref{eq:value_function} determines the reward for each state by discounting future rewards.
+To determine the best policy, it is essential to obtain optimal values produced for the agent's rewards at every state. The discount factor ($\gamma$) [0-1] determines which rewards are prioritized, minimal values focus on immediate rewards while maximum values focus on long-term rewards. The discounted infinite-horizon method expressed by the value function in Equation \ref{eq:value_function} determines the reward for each state by discounting future rewards.
 
 \begin{equation}
     \label{eq:value_function}
     V(s) = E \sum_{t=1}^{\inf}\gamma^t r_t|s_t
 \end{equation}
 
-This value function can be separated into two components as shown in figure\ref{fig:bellman}, 
+This value function can be separated into two components as shown in equations \ref{eq:vf1} and \ref{eq:vf2} which showcases the joint equation with both states and the split equation for the current and next states respectively.
 
-\begin{figure}[!h]
-    \centering
-    \includegraphics[width=.4\textwidth]{fig/rl/Bellmans decomposition.png}
-    \caption{Value function equation decompostion}
-    \label{fig:bellman}
-\end{figure}
+\begin{equation}
+    \label{eq:vf1}
+    V(s) = E [r + \gamma V(s_{t+1})|s]
+\end{equation}
 
-the reward for the current state and the value of the discounted reward for the next state, giving birth to Bellman's equation \ref{eq:bellmans}.
+\begin{center}
+    $\Downarrow$
+\end{center}
+
+\begin{equation}
+    \label{eq:vf2}
+    V(s) = \mathcal{R}_s + \gamma \sum_{s_{t+1} \in S}^{\inf}\gamma^t r_t|s_t
+\end{equation}
+
+% \begin{figure}[!h]
+%     \centering
+%     \includegraphics[width=.4\textwidth]{fig/rl/Bellmans decomposition.png}
+%     \caption{Value function equation decompostion}
+%     \label{fig:bellman}
+% \end{figure}
+
+or in other words, the reward for the current state and the value of the discounted reward for the next state. Furthering this line we arrive at  Bellman's Equation (\ref{eq:bellmans}).
 
 \begin{equation}
     \label{eq:bellmans}
-    V*(s) = max_a[ R(s,a) + \gamma \sum_{s' \in S}\mathcal{P}_{ss'} V*(s')]
+    V(s) = max_a[ \mathcal{R}(s,a) + \gamma \sum_{s_{t+1} \in  S}\mathcal{P}_{ss_{t+1}} V(s_{t+1})]
 \end{equation}
 
-Where s' represents the previous state, s the current state and a, the action evaluated.
+Where $s_{t+1}$ represents the next possible state, $s$ the current state, $\mathcal{P}_{ss_{t+1}}$ the probability of transitioning to $s_{t+1}$  based on the reward ($\mathcal{R}(s,a)$) for choosing action $a$.
 
-The agent's actions and rewards vary based on the policy revealing that the value function is specific to a policy. this type of operation can be solved by iterative methods such as Monte Carlo evaluations, dynamic programming, or temporal-difference learning. The policy that chooses the maximum optimal value while considering the present state is referred to as the optimal policy \ref{eq:optimal_policy}
+The agent's actions and rewards vary based on the policy chosen for training, manifesting that the value function is different for each one. choosing the right policy is a type of operation that can be solved by iterative methods such as Monte Carlo evaluations, dynamic programming, or temporal-difference learning. The policy that selects the maximum optimal value while considering the present state is referred to as the optimal policy as seen in Equation \ref{eq:optimal_policy}
 
 \begin{equation}
     \label{eq:optimal_policy}
-    \pi*(s) = argmax_a[R(s,a) + \gamma \sum_{s' \in S}\mathcal{P}_{ss'}^a V(s')]
+    \pi(s) = argmax_a[\mathcal{R}(s,a) + \gamma \sum_{s_{t+1} \in S}\mathcal{P}_{ss_{t+1}}^a V(s_{t+1})]
 \end{equation}
 
-The policy is a consequence of the current state wherein, at each time step, a new policy is evaluated based on the current state information.
+The policy is, in essence, a particular application of Bellman's equation for each step, a new policy is evaluated based on the current state information.
 
 \subsection*{Reinforcement Elements}
 
-Reinforcement Learning can be defined as a Markov process by solving the policy optimization function with a Neural Network. Reinforcement Learning shares multiple similarities with MDPs such as the States, Action, Environment, and Agent interactions and being respectful of the Markov Property, it is a particular case of MDP, an optimal control of incompletely-known Markov decision processes\cite{sutton2018reinforcement}.
+Reinforcement Learning can be defined as a Markov process that solves policy optimization functions by using Neural Networks for this reason RL problems are considered substrata of Markov's processes, and as such share a multitude of elements with them, for instance, the States, Actions, Environment, and Agent interactions while also being respectful of Markov's Property. As Sutton and Barto put it, they are an "optimal control of incompletely-known Markov decision processes\cite{sutton2018reinforcement}".
 
-Some definitions of RL that can help to better see the similarities between MDPs and the differences from other types of machine learning techniques are the following:
-
+Some core elements of RL problems are as follows:
 
 \begin{itemize}
     \item A learning agent must be able to sense the state of its environment to some extent and must be able to take actions that affect the state.
     \item The agent also must have a goal or goals relating to the state of the environment.
-    \item Supervised learning the agent learns from a labeled training set, in order to extrapolate future answers not present on it. In RL agents must be able to learn from their own experience as when dealing with interactive problems it is often impractical to obtain examples of desired behavior that are both correct and representative of all the situations in which the agent has to act.
-    \item Reinforcement learning differs from unsupervised learning, it is trying to maximize a reward signal instead of trying to find a hidden structure.
+    \item In supervised learning the agent learns from a labeled training set in order to extrapolate future answers not present on it. In RL agents must be able to learn from their own experience as when dealing with interactive problems it is often impractical to obtain examples of desired behavior that are both correct and representative of all the situations in which the agent has to act.
+    \item Reinforcement learning differs from unsupervised learning, one istries to maximize a reward signal instead while the other focuses on finding a hidden structure.
 \end{itemize}
 
-A key difference between RL and other types of learning is the exploration/exploitation dilemma, RL favors actions that provide high rewards however, in order to reach the intended solution it may have to select low-reward actions in the early stages of training or actions that have not been selected before. The dilemma is that neither exploration nor exploitation can be pursued exclusively without failing at the task. The agent must try a variety of actions and progressively favor those that appear to be best.
+A key difference between RL and other types of learning is the exploration/exploitation dilemma: RL favors actions that provide high rewards (exploitation), but in order to reach the intended solution it may have to select low-reward actions in the early stages of training or actions that have not been selected before (exploration). The dilemma is that neither exploration nor exploitation can be pursued exclusively without failing at the task. The agent must try a variety of actions and progressively favor those that appear to be best.
 
-The elements of reinforcement Learning as we have previously commented are similar to Markov's. Sutton and Barto\cite{}, apart from the environment and agent enumerate the following elements:
+The elements of reinforcement Learning as we have previously commented are similar to MDPs. Sutton and Barto\cite{}, apart from the environment and agent enumerate the following elements:
 
 \begin{itemize}
-    \item The \textbf{policy} is the "brain" of the decision-maker in Markov's processes, a map acquired from the perception of the agent from the current state of the environment that determines which action should be taken.
+    \item The \textbf{policy} is the "brain" of the decision-maker in Markov's processes, an action mapping acquired from the perception of the agent from the current state of the environment that determines which action should be taken.
     
-    \item The \textbf{reward signal} is the goal the Agent is trying to reach, for each step in training the Agent performs it receives a numerical reward, The agent objective is the maximization of this numerical value. It determines what constitutes a good or bad event while the agent learns and thus shapes its behavior. In general, reward signals may be stochastic functions of the state of the environment and the actions taken.
+    \item The \textbf{reward signal} is the goal the Agent is trying to reach. Each action chosen by the Agent during training receives a numerical reward that must be maximized. It determines what constitutes a good or bad event while the agent learns and thus shapes its behavior. In general, reward signals may be stochastic functions of the state of the environment and the taken actions.
     
-    \item The \textbf{value function} differs from the reward in its immediacy, it helps the agent determine what is a good course of action to follow in the long run. the value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. values indicate the long-term desirability of states after taking into account the states that are likely to follow, and the rewards available in those states
+    \item The \textbf{value function} helps the agent determine what a good course of action to follow is in the long run. Value of a state is the total amount of reward an agent can expect to accumulate over the future, starting from that state. values indicate the long-term desirability of states after taking into account the states that are likely to follow, and the rewards available in those states
      
     \item Some RL systems rely on a \textbf{environment model}, which is a predictor for how the environment will behave, given a state and action the model can approximately predict the next state and reward for that action. Some RL systems plan ahead and gather information about future states without actually experiencing them. these model-based methods contrast with the purely experience-based methods that originated RL.
 \end{itemize}
