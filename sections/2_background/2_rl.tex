@@ -129,22 +129,22 @@ The 1990s saw the convergence of reinforcement learning with neural networks, gi
 From its origins in psychology to its current status as a powerful AI tool, the evolution of reinforcement learning has been marked by significant milestones and breakthroughs that are still ongoing. The following section will provide further details about the aforementioned proposals and study their evolution.
 
 \section{Algorithms and Techniques}\label{sec:rl-algorithms_and_techniques}
-This section will give an overview of each key evolution in RL development, as previously mentioned control theory is the origin of RL development, by evaluating and trying to solve dynamic systems, A. L. Samuel introduced Temporal Difference Learning \cite{samuel1959checkers} in a checkers game context, it is a type of reinforcement learning algorithm that updates the estimated value of a state based on the difference between the value of the next state and the current state, this difference is referred to as the TD-error.
+This section will give an overview of each key evolution in RL development. As previously mentioned control theory is the origin of RL development, by evaluating and trying to solve dynamic systems, A. L. Samuel introduced Temporal Difference Learning \cite{samuel1959checkers} in a checkers game context. It is a type of reinforcement learning algorithm that updates the estimated value of a state based on the difference between the value of the next state and the current state. This difference is referred to as the TD-error.
 
 Rather than aiming to compute the overall future reward on each step, the algorithm compares the new prediction with the previously stored one. If there is a disparity between the two predictions, the TD Learning algorithm quantifies this difference and employs it to update the previous prediction to the new one.
 
-TD algorithms are based on Bellman equations, it computes optimal policies by recursively computing the value of each state. This way the algorithm is able to learn from incomplete sequences of experience, where the final outcome is not known at the time of the update, this was a significant improvement in reward prediction and paved the way for more modern RL approaches. 
+TD algorithms are based on Bellman equations. They compute optimal policies by recursively calculating the value of each state. This way the algorithm is able to learn from incomplete sequences of experience, where the final outcome is not known at the time of the update. This was a significant improvement in reward prediction and paved the way for more modern RL approaches. 
 
-Q-learning, developed by Watkins et. al. \cite{} in 1989, follows a similar methodology to that of TD learning, which updates the value of a state based on the difference between the value of the next state and the current state, Q-learning updates the value of a state based on the maximum value of the next state. The objective of Q-learning is to calculate an approximation \textit{Q} of the optimal action-value function \textit{q*} which is independent of the policy and store these updates in a table of action-value pairs called the Q-table. This makes Q-learning an off-policy algorithm, as it learns the optimal action-value function \textit{Q} regardless of the policy being followed. This action-value function is shown in equation \ref{eq:q-learning_value_function}.
+Q-learning, developed by Watkins et. al. \cite{} in 1989, follows a similar methodology to that of TD learning, which updates the value of a state based on the difference between the value of the next state and the current state, Q-learning updates the value of a state based on the maximum value of the next state. The objective of Q-learning is to calculate an approximation \textit{Q} of the optimal action-value function \textit{q*}, which is independent of the policy, and store these updates in a table of action-value pairs called the Q-table. This makes Q-learning an off-policy algorithm, as it learns the optimal action-value function \textit{Q} regardless of the policy being followed. This action-value function is shown in Equation \ref{eq:q-learning_value_function}.
 
 \begin{equation}
     \label{eq:q-learning_value_function}
     Q(S_t, A_t) \leftarrow Q(S_t, A_t) + \alpha [R_{t+1} + \gamma max_a Q(S_{t+1}, a) - Q(S_t, A_t)]
 \end{equation}
 
-Where $\alpha \in (0,1]$ is the step size, $S_t$ is the state in timestep t, $A_t$ the action in timestep t, $\gamma$ is the discount factor of rewards for update, and $R_{t+1}$ the expected reward for the action chosen.
+Where $\alpha \in (0,1]$ is the step size, $S_t$ is the state in timestep t, $A_t$ the action in timestep t, $\gamma$ is the discount factor of rewards for the update, and $R_{t+1}$ the expected reward for the action chosen.
 
-Even though Q-learning is an off-policy method, the policy still has an effect, it determines which states and actions to pick and evaluate for every episode. Q-learning works by iteratively updating the estimated value of a state-action pair based on the difference between the estimated value and the actual return obtained from taking that action in that state. The algorithm starts with an initial estimate of the action-value function and iteratively updates the estimates based on the observed returns. The algorithm continues to update the estimates until the action-value function converges to the optimal values as seen in figure \ref{fig:Q-learning}.
+Even though Q-learning is an off-policy method, the policy still has an effect: it determines which states and actions to pick and evaluate for every episode. Q-learning works by iteratively updating the estimated value of a state-action pair according to the difference between the estimated value and the actual return obtained from taking that action in that state. The algorithm starts with an initial estimate of the action-value function and iteratively updates the estimates based on the observed returns. The algorithm continues to update the estimates until the action-value function converges to the optimal values as seen in figure \ref{fig:Q-learning}.
 
 \begin{figure}[!h]
     \centering
@@ -174,14 +174,14 @@ The return obtained from each episode is then used to update the value of the st
 
 One of the main advantages of Monte Carlo methods is that they can be used to estimate the value of any state or action, regardless of its position in the state space or action space. This makes them particularly useful in large or continuous state and action spaces.
 
-In contrast to the previous methods, the more modern Policy Gradient Methods differ from the previous approaches in that they do not focus on learning the values of actions to then select the highest one, instead, Policy Gradient Methods learn a parameterized policy that can select actions without consulting a value function (equation \ref{eq:policy_gradient}), however, a value function may be applied to learn the policy ($\pi$) but is not required for action selection.
+In contrast to the previous methods, the more modern Policy Gradient Methods differ from the previous approaches in that they do not focus on learning the values of actions to then select the highest one. Instead, Policy Gradient Methods learn a parameterized policy that can select actions without consulting a value function (equation \ref{eq:policy_gradient}). However, a value function may be applied to learn the policy ($\pi$) but is not required for action selection.
 
 \begin{equation}
     \label{eq:policy_gradient}
     \pi(a|s,\theta) = Pr\{A_t=a | S_t=s, \theta_t=\theta\}
 \end{equation}
 
-Where $\theta$ represents the policy parameters, a is the probability of that action being taken, in timestep t for the current state s.
+Where $\theta$ represents the policy parameters, and $a$ is the probability of that action being taken, in timestep t for the current state s.
 
 This parametrized policy function takes the current state of the environment as input and outputs a probability distribution over possible actions. During training, the agent interacts with the environment, taking action according to its current policy. The rewards obtained from these actions are used to adjust the parameters of the policy function through a process called gradient ascent, this process is as follows:
 
@@ -192,32 +192,32 @@ This parametrized policy function takes the current state of the environment as 
     \item Iteratively updating the policy based on this gradient, the agent learns to make better decisions over time, improving its performance in the given environment.
 \end{itemize}
 
-Policy gradient methods learn the policy parameter $\theta$ based on the gradient of some performance measure $J(\theta)$ linked to the policy parameter and seek to maximize this performance measure as depicted in equation \ref{eq:gradient_ascent}.
+Policy gradient methods learn the policy parameter $\theta$ according to the gradient of some performance measure $J(\theta)$ linked to the policy parameter and seek to maximize this performance measure as depicted in equation \ref{eq:gradient_ascent}.
 
 \begin{equation}
     \label{eq:gradient_ascent}
     \theta_{t+1} = \theta_t + \alpha \nabla J (\theta_t)
 \end{equation}
 
-Where $\nabla J (\theta_t)$ is an approximation of the gradient of performance $J(\theta)$ for the timestep t and $\alpha$ is the learning rate a parameter to control the speed of the agent learning. All methods that follow this methodology of approximating a gradient for performance linked to a parametrized policy are what encompasses policy gradient methods, they offer flexibility and can handle high-dimensional action spaces, making them well-suited for complex tasks. However, training can be computationally intensive, requiring multiple interactions with the environment to fine-tune the policy.
+Where $\nabla J (\theta_t)$ is an approximation of the gradient of performance $J(\theta)$ for the timestep t and $\alpha$ is the learning rate a parameter to control the speed of the agent learning. All methods that follow this methodology of approximating a gradient for performance linked to a parametrized policy are what encompasses policy gradient methods. They offer flexibility and can handle high-dimensional action spaces, making them well-suited for complex tasks. However, training can be computationally intensive, requiring multiple interactions with the environment to fine-tune the policy.
 
 The action selection in policy gradients is a stochastic event, where the probability of an action is computed as the estimated reward for the state that action leads to, making the process a stochastic gradient ascent.
 
-The REINFORCE \cite{sutton1999policy} is the first policy-gradient-based algorithm that follows this stochastic gradient ascent method. The main idea behind it is to maximize the expected cumulative reward by adjusting the parameters of the policy $\theta$ in the direction that increases the likelihood of actions leading to higher rewards so that it learns to take them. In other words, it maximizes the policy gradient function $\nabla J (\theta_t)$ by finding the optimal $\theta$ for the maximization of $J(\theta)$, formally defined by equation \ref{eq:gradient_ascent_rein}.
+REINFORCE \cite{sutton1999policy} is the first policy-gradient-based algorithm that follows this stochastic gradient ascent method. The main idea behind it is to maximize the expected cumulative reward by adjusting the parameters of the policy $\theta$ in the direction that increases the likelihood of actions leading to higher rewards so that it learns to take them. In other words, it maximizes the policy gradient function $\nabla J (\theta_t)$ by finding the optimal $\theta$ for the maximization of $J(\theta)$, formally defined by Equation \ref{eq:gradient_ascent_rein}.
 
 \begin{equation}
     \label{eq:gradient_ascent_rein}
     \nabla_\theta J(\theta) = \mathcal{E}_\pi[\sum_{t=0}^{inf}\nabla_\theta log \pi(a_t|s_t;\theta)G_t]
 \end{equation}
 
-$G_t$ is the return at timestep t, identified by equation \ref{eq:expected_return_reinforce}
+$G_t$ is the return at timestep t, identified by Equation \ref{eq:expected_return_reinforce}
 
 \begin{equation}
     \label{eq:expected_return_reinforce}
     G_t = \sum_{k=0}^{\inf} \gamma^k R_{t+k+1}
 \end{equation}
 
-$\nabla_\theta log \pi(a_t|s_t;\theta$ is the score function representing the gradient of the log probability of taking action $a_t$ in state $s_t$ with respect to the policy parameters $\theta$, REINFORCE then updates the policy parameter and performs stochastic gradient ascent as seen in previous equation \ref{eq:gradient_ascent}. The key intuition is that the policy parameters are adjusted in proportion to the gradient of the expected return, encouraging actions that lead to higher rewards to become more likely.
+$\nabla_\theta log \pi(a_t|s_t;\theta$) is the score function representing the gradient of the log probability of taking action $a_t$ in state $s_t$ with respect to the policy parameters $\theta$, REINFORCE then updates the policy parameter and performs stochastic gradient ascent as seen in previous Equation \ref{eq:gradient_ascent}. The key intuition is that the policy parameters are adjusted in proportion to the gradient of the expected return, encouraging actions that lead to higher rewards to become more likely.
 
 REINFORCE shares similarities with Monte Carlo processes, particularly in how it estimates expected values. In both REINFORCE and Monte Carlo methods, an agent interacts with the environment over a sequence of steps and receives a cumulative reward at the end of each episode. Instead of directly calculating the expected cumulative reward, both approaches estimate it by sampling multiple trajectories (sequences of states, actions, and rewards) and averaging the observed returns.
 
@@ -232,7 +232,7 @@ The actor update function uses the policy gradient of the expected cumulative re
     \nabla_\theta J(\theta) \eqsim \mathcal{E}_\pi[\nabla_\theta log \pi(a_t|s_t;\theta)Q(s,a)]
 \end{equation}
 
-The critic parameters $\mathcal(w)$, and $\beta$, the critic's learning rate, are updated using TD learning methods. the critic tries to approximate the TD error $\delta$ between the estimated value $V(s_t;\mathcal(w))$ and the current cumulative reward $R_{t+1}$ plus the discounted value of the next state $\gamma V(s_{t+1};\mathcal(w))$, formally described by equation \ref{eq:td-error_critic}.
+The critic parameters $\mathcal(w)$, and $\beta$, the critic's learning rate, are updated using Temporal Difference (TD) learning methods. the critic tries to approximate the TD error $\delta$ between the estimated value $V(s_t;\mathcal(w))$ and the current cumulative reward $R_{t+1}$ plus the discounted value of the next state $\gamma V(s_{t+1};\mathcal(w))$, formally described by equation \ref{eq:td-error_critic}.
 
 \begin{equation}
     \label{eq:td-error_critic}
@@ -263,9 +263,11 @@ AlphaZero\cite{silver2017mastering} extends the paradigm established by AlphaGo,
 However, AlphaStar\cite{vinyals2019grandmaster} marks a notable advancement in the application of reinforcement learning, applying similar techniques for real-time strategy games. Leveraging a combination of deep neural networks and a unique multi-agent training setup, AlphaStar achieves superhuman proficiency in StarCraft II, surpassing top human players. Its capacity to handle the complexity of real-time decision-making within the game environment underscores the robustness and scalability of reinforcement learning methodologies in addressing challenges beyond turn-based or board game scenarios.
 
 \subsection*{Industrial Control}
-But Reinforcement learning can be applied to much more than games, it proves its versatility in addressing real-world challenges, For example in the world of controlling operations in industrial processes.
+But Reinforcement learning can be applied to much more than games, it proves its versatility in addressing real-world challenges, for example, in the world of controlling operations in industrial processes.
 
-For instance, in data center cooling, by enhancing safety and efficiency within critical infrastructure settings, Traditional control systems often struggle to adapt dynamically to complex and changing environments, leading to inefficiencies and potential safety risks. by leveraging RL techniques significant energy savings and reducing CO2 emissions to help combat climate change become a reality.
+A prime example would be data center cooling, by enhancing safety and efficiency within critical infrastructure settings, traditional control systems often struggle to adapt dynamically to complex and changing environments, leading to inefficiencies and potential safety risks.
+
+Applying RL techniques to the parameter optimization problem that is expressed by the cooling system it can result in significant energy savings and reducing CO2 emissions to help combat climate change.
 
 The approach works by polling the server sensors continuously and feeding the information given by these sensors to deep neural networks, which predict how different actions will affect future energy consumption. The system identifies how to minimize energy consumption and maintain satisfactory safety constraints. Those actions are sent back to the data center, where the actions are verified by the local control system and then implemented.
 
