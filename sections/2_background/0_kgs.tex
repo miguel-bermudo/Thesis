@@ -46,7 +46,7 @@ Today, knowledge graphs have become a cornerstone of various AI applications, in
     \begin{figure}[!h]
         \centering
         \includegraphics[width=\textwidth]{fig/kgs/Keanu_DBpedia.png}
-        \caption{The ontology \textit{Keanu Reeves} in DBpedia}
+        \caption{The entity \textit{Keanu Reeves} in DBpedia}
         \label{fig:kgs-dbpedia}
     \end{figure}
     
@@ -103,7 +103,7 @@ This chapter explores five prominent applications of knowledge graphs, each show
     
     Knowledge graphs enhance contextual analysis by providing a structured framework for representing relationships and contextual information between entities. These graphs incorporate temporal, hierarchical, and semantic dimensions, allowing for a comprehensive understanding of data within its broader context. Moreover, knowledge graphs facilitate context-aware queries, enabling users to retrieve information based on specific contextual constraints. This not only supports decision-making but also empowers analysts to uncover hidden patterns and dependencies within the data, ultimately leading to more informed and effective analyses.
 
-    \item \textbf{healthcare}:
+    \item \textbf{Healthcare}:
     In healthcare, knowledge graphs serve as a powerful tool for representing, organizing, and analyzing complex medical information. They provide a structured framework that captures relationships between medical entities, their attributes, and contextual information. For instance, a healthcare knowledge graph can model the relationships between symptoms, diagnoses, treatments, medications, and patient histories. This enables comprehensive and contextually rich representations of medical data, which is crucial for accurate diagnosis, treatment planning, and research.
 
     One of the key strengths of knowledge graphs in healthcare lies in their ability to integrate diverse sources of medical information. They can incorporate data from electronic health records (EHRs), medical literature, clinical trials, and other healthcare databases. This integration enables a holistic view of a patient's medical history and facilitates evidence-based decision-making by healthcare professionals.
@@ -138,9 +138,9 @@ Another prevalent approach in knowledge graph completion involves utilizing grap
 
 Once the new information has been inferred it can be used to enrich the KG by adding the missing triples obtained from this process back into the KG. This completion task can be performed every time the KG is extended due to temporal shifts in the information it holds, this way the KG will always be up to date.
 
-\subsection{Reasoning - extracting deeper insights}
+\subsection{Reasoning - Extracting deeper insights}
 
-In regard to knowledge reasoning, different nomenclatures have been incepted in academic circles. Initially, Reasoning is the process of analyzing, synthesizing and deciding on several matters. It begins with collecting data in the form of facts and discovering interrelationships between them to then develop new insights, In short, reasoning is the process of "drawing conclusions from existing facts by the rules"\cite{sutton2018reinforcement}.
+In regard to knowledge reasoning, different nomenclatures have been incepted in academic circles. Initially, reasoning is the process of analyzing, synthesizing and deciding on several matters. It begins with collecting data in the form of facts and discovering interrelationships between them to then develop new insights. In short, reasoning is the process of "drawing conclusions from existing facts by the rules"\cite{sutton2018reinforcement}.
 
 The development of reasoning techniques also affected their definition, now including the capacity to understand things, apply logic, and validate elements based on existing knowledge. In other words, the mechanism behind inferring new knowledge is based on the existing facts and logical rules. In general, knowledge reasoning is ultimately defined as the process of using \textit{known} knowledge to infer \textit{new} knowledge.
 
@@ -161,7 +161,7 @@ Several KG reasoning techniques exist, we focus on the most promising, Inference
 
 \todo{Ejemplo de Inference techniques, as dani puts it: Estaría bien un ejemplo tipo 'por ejemplo, una técnica podría observar que la ocurrencia de la relación "abuelo" está, desde el punto de vista estadístico, altamente correlacionada con la presencia de un camino entre las entidades con dos aristas de la relación "padre de" y usar esta regla para insertar una arista de "abuelo" cuando se observa ese camino'}
 
-Embedding-based reasoning leverages continuous vector representations of entities and relationships to perform operations that approximate logical reasoning. Graph neural networks (GNNs) \cite{sola2022} are a powerful approach that directly operates on the graph structure, enabling the propagation of information and the capture of complex dependencies.
+Embedding-based reasoning leverages continuous vector representations of entities and relationships to perform operations that approximate logical reasoning. Graph neural networks (GNNs) \cite{sola2023deep} are a powerful approach that directly operates on the graph structure, enabling the propagation of information and the capture of complex dependencies.
 
 % \todo{Figure on KG reasoning process...}
 
