@@ -111,12 +111,7 @@ where $\mathcal{R}_i,\mathcal{E}_i$ denote the subset of relations and entities 
     \item \textbf{NO-OP}: a negative reward that aims to discourage the use of the no-op action outside the answer node. This reward overrides all other reward components, and cannot be triggered in the same step as the terminal reward.
 \end{itemize}
 
-Detailed information regarding the distance and embedding rewards can be found in Section
-% ~\ref{sec:rewards}
- 
-Shaped reward were implemented as seen in approaches
-%  ~\cite{cui2023incorporating, lin2018multi}
-for comparison purposes; they use embeddings, however, they do so in a different manner, only using them as an anticipation or guiding factor and relying in terminal rewards.
+Detailed information regarding the distance and embedding rewards can be found in Section \ref{sec:spacerl-rewards} Shaped reward were implemented as seen in approaches \cite{cui2023incorporating, lin2018multi} for comparison purposes; they use embeddings, however, they do so in a  different manner, only using them as an anticipation or guiding factor and relying in terminal rewards.
 
 \begin{figure*}[!h]
     \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{fig/SpaceRL-KG/Agent_Policy.eps}}
@@ -125,26 +120,20 @@ for comparison purposes; they use embeddings, however, they do so in a different
 \end{figure*}
 
 \subsection{Policy Network}
-\label{sec:policy}
+\label{sec:spacerl-policy}
 
 The policy used to determine which action will be taken at each step is based on the neural network architecture described in Figure~\ref{fig:policy}. The network receives state information in the form of the query $(e_0,r_q)$, the current location node $e_t$ as well as the action which is being evaluated $(r_{t+1}, e_{t+1})$. These actions are all the possible relations connected to the current node $e_t$. It is necessary to evaluate each action individually since the number of edges connected to a node is variable.
 
 For the neural network to receive this information, it is encoded using translation embedding representations for each of the entities and relations so that  $\textbf{r} \in \mathbb{R}$, $\textbf{e} \in \mathbb{E}$ where $\mathbb{R}$ and $\mathbb{E}$ are the vectorial spaces containing all possible representations in the graph. The chosen size for these embedded representations was $200$ as it is a common in literature for these set of knowledge graphs and embedding combinations, making the networks input size $1000$ units.
 
-The embedding vectors are concatenated and fed to the network as $[e_q,r_q,$ \\$e_t,r_{t+1},e_{t+1}]$. The input is passed on to a densely connected layer for pre-processing, whose output is connected to a multi-layered Long short-term memory (LSTM)
-% ~\cite{hochreiter1997Long}
- block with 3 layers. The result is post-processed with 2 more dense layers that produce a numerical answer representing the quality of the selected action. The final output is produced by a sigmoid function(~\ref{eq:sigmoid}) that produces a [0,1] output that is adequate for an action evaluator.
+The embedding vectors are concatenated and fed to the network as $[e_q,r_q,$ \\$e_t,r_{t+1},e_{t+1}]$. The input is passed on to a densely connected layer for pre-processing, whose output is connected to a multi-layered Long short-term memory (LSTM) \cite{hochreiter1997long} block with 3 layers. The result is post-processed with 2 more dense layers that produce a numerical answer representing the quality of the selected action. The final output is produced by a sigmoid function(~\ref{eq:sigmoid}) that produces a [0,1] output that is adequate for an action evaluator.
 
 \begin{equation}
 \label{eq:sigmoid}
     \sigma(z) = \frac{1} {1 + e^{-z}}
 \end{equation}
 
-The activation function in intermediate layers was chosen to be leaky ReLU to avoid gradient explosion
-% ~\cite{bengio1994learning}
-, which is common in deep neural approaches. Batch normalization is applied to the embedding representations, and ADAM
-% ~\cite{kingma2014adam}
-is used as optimizer. 
+The activation function in intermediate layers was chosen to be leaky ReLU to avoid gradient explosion \cite{bengio1994learning}, which is common in deep neural approaches. Batch normalization is applied to the embedding representations, and ADAM \cite{kingma2014adam} is used as optimizer. 
 
 The historical values $h_t = (e_0,r_1,e1,...,r_n,e_n)$ can be formally defined by equation(~\ref{eq:ht}) for the hidden state layer of LSTMs at instant t.
 
@@ -164,7 +153,7 @@ Finally the policy network can be formalized as:
 
 
 \subsection{Embedding \& Distance rewards}
-\label{sec:rewards}
+\label{sec:spacerl-rewards}
 
 \begin{algorithm}[!h]
 \caption{Embedding-based reward calculation}
@@ -238,7 +227,7 @@ The distance reward function is shown in detail in Algorithm~\ref{alg:distance}.
 
 
 \subsection{Reinforcement Learning algorithms}
-\label{sec:RLalgorithms}
+\label{sec:spacerl-RLalgorithms}
 
 % As it can be seen in Table~\ref{tab:SoTA_approaches}, all previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
 
@@ -255,24 +244,11 @@ This approach, however, suffers from some known shortcomings:
 \begin{itemize}
     \item {Since the agent takes several actions during the episode, specially if several episodes take place during the same learning loop for faster training times, the variance of the method increases (that is, a single reward is used to influence many different actions), and it becomes less likely to assign proper credit to the actually useful actions. Because of this, it takes more time for the gradients of the agent to converge, increasing the training time needed to stabilize the value of the loss function.}
     \item {REINFORCE only produces training data when episodes conclude, meaning that it is not possible to train an agent with a single, longer episode. This, however, has no effect in our context since all episodes are limited to a number of steps N.}
-    \item {REINFORCE is very sensitive to hyperparameters, making it crucial to tune them for each approach, as seen in MINERVA
-    % ~\cite{das2017go}
-    , where a hyperparameters table is specified for the performed tasks.}
+    \item {REINFORCE is very sensitive to hyperparameters, making it crucial to tune them for each approach, as seen in MINERVA\cite{das2017go}, here a hyperparameters table is specified for the performed tasks.}
 \end{itemize}
 
-To overcome REINFORCE's limitations, several other paradigms have been developed. We have identified as particularly promising the Proximal Policy Optimization (PPO)
-% ~\cite{schulman2017proximal}
-and Actor-Critic
-% ~\cite{castro2010convergent}
- approaches, in particular, the soft variant
-% ~\cite{haarnoja2018soft}.
- These algorithms mitigate the aforementioned problems.
-Their combination benefits from the advantages typical of Temporal-Difference Learning
-% ~\cite{sutton1988learning}
- by defining a critic: a neural network tasked with predicting the value of the long-term reward associated to an action-state pair $(a,s)$. This value is used in a similar fashion to how Q-learning
-% ~\cite{watkins1992q}
- uses the Q-value in its learning process. The values provided by the critic $\mathcal{C}(s,a)$ replace $\mathcal{G}(s,a)$ in equation
-~\ref{eq:reinforce}, which results in the following equation:
+To overcome REINFORCE's limitations, several other paradigms have been developed. We have identified as particularly promising the Proximal Policy Optimization (PPO) \cite{schulman2017proximal} and Actor-Critic \cite{castro2010convergent} approaches, in particular, the soft variant \cite{haarnoja2018soft}. These algorithms mitigate the aforementioned problems.
+Their combination benefits from the advantages typical of Temporal-Difference Learning \cite{sutton1988learning} by defining a critic: a neural network tasked with predicting the value of the long-term reward associated to an action-state pair $(a,s)$. This value is used in a similar fashion to how Q-learning \cite{watkins1992q} uses the Q-value in its learning process. The values provided by the critic $\mathcal{C}(s,a)$ replace $\mathcal{G}(s,a)$ in equation \ref{eq:reinforce}, which results in the following equation:
 
 \begin{equation}
 \label{eq:ActorCritic}
@@ -301,26 +277,15 @@ In this section, we describe in detail the experiments we carried out to evaluat
 We selected five benchmark datasets, which are often used in the literature, and which can help discern the strengths of the techniques under evaluation:
 
 \begin{itemize}
-    \item \textbf{COUNTRIES}
-    % ~\cite{bouchard2015approximate}
-    , a small, low-connectivity dataset that contains relations between geographical regions and the countries inside them.
+    \item \textbf{COUNTRIES} \cite{bouchard2015approximate}, a small, low-connectivity dataset that contains relations between geographical regions and the countries inside them.
     
-    \item \textbf{Unified Medical Language System (UMLS)}
-    % ~\cite{kok2007statistical}
-    , a highly connected dataset that consists of biomedical data, with entities representing different diseases, bacteria, treatments and diagnoses.
+    \item \textbf{Unified Medical Language System (UMLS)} ~\cite{kok2007statistical}, a highly connected dataset that consists of biomedical data, with entities representing different diseases, bacteria, treatments and diagnoses.
     
-    \item \textbf{FreeBase (FB15K-237)}
-    % ~\cite{toutanova2015representing}
-    , a subset of the FreeBase Knowledge Graph in which inverse relations have been removed to avoid leakage from the training to testing validation splits.
+    \item \textbf{FreeBase (FB15K-237)} \cite{toutanova2015representing}, a subset of the FreeBase Knowledge Graph in which inverse relations have been removed to avoid leakage from the training to testing validation splits.
     
-    \item \textbf{Never Ending Language Learning (NELL-995)}
-    % ~\cite{xiong2017deeppath}
-    , a particular version of the NELL dataset, built by web crawlers automatically by extracting triples from plain text from several sources.
+    \item \textbf{Never Ending Language Learning (NELL-995)}\cite{xiong2017deeppath}, a particular version of the NELL dataset, built by web crawlers automatically by extracting triples from plain text from several sources.
     
-    \item \textbf{WordNet (WN18RR)}
-    % ~\cite{miller1995wordnet}
-    , a subset of WordNet in which originally many text triples are obtained by inverting triples from the training set.
-    % ~\cite{dettmers2018convolutional}
+    \item \textbf{WordNet (WN18RR)} \cite{miller1995wordnet}, a subset of WordNet in which originally many text triples are obtained by inverting triples from the training set. \cite{dettmers2018convolutional}
     This leads to these datasets being able to be completed by using simple ruling, by removing these inverse triples, WN18RR, avoids leakage of inverse relations into the testing split, thus making it necessary to have knowledge of the entire dataset.
 \end{itemize}
 
@@ -328,7 +293,7 @@ Table~\ref{tab:datasets} contains a statistical summary of the aforementioned da
 
 \input{tables/SpaceRL-KG/datasets}
 
-% We evaluated our proposal using four KGs provided by the freely available AYNEC-DataGen~\cite{ayala2019} tool: FB13-A, WN11-AR, WN18-AR and NELL-AR. These KGs are based on the well-known FB13, WN11 \cite{socher2013}, WN18~\cite{bordes2014}, and a subset of NELL proposed in \cite{gardner2015}. However, they have been processed to remove reciprocal relations detected by AYNEC, i.e., relations $r$ and $r'$ such that, if $(s, r, t)$ exists, then $(t, r', s)$ also exists very frequently. Additionally, relations that amount to less than 5\% of the total number of triples in the graph have been removed.
+% We evaluated our proposal using four KGs provided by the freely available AYNEC-DataGen~\cite{ayala2019aynec} tool: FB13-A, WN11-AR, WN18-AR and NELL-AR. These KGs are based on the well-known FB13, WN11 \cite{socher2013reasoning}, WN18~\cite{bordes2014constructing}, and a subset of NELL proposed in \cite{gardner2015}. However, they have been processed to remove reciprocal relations detected by AYNEC, i.e., relations $r$ and $r'$ such that, if $(s, r, t)$ exists, then $(t, r', s)$ also exists very frequently. Additionally, relations that amount to less than 5\% of the total number of triples in the graph have been removed.
 
 \subsection{Experimental setup}
 \input{tables/SpaceRL-KG/emb_comparison}
@@ -336,16 +301,7 @@ Table~\ref{tab:datasets} contains a statistical summary of the aforementioned da
 First, in order to limit our experimentation to a single type of embedding, we carried out a preliminary experimental study to determine which embeddings offered the best results. The results of this study are shown in Table ~\ref{tab:embedding_comparison}. It can be observed that TransE, despite its simplicity, leads to the best results in the COUNTRIES and UMLS datasets. Consequently, we use TransE for all of our experiments over the other three types that were tested (DistMult, ComplEx and TransR).
 
 Previous to every training loop we make sure that the vectorial space of the embeddings is normalized, to avoid vanishing gradients or gradient explosions as previously mentioned. We set the hyperparameters to the following values: $\alpha=0.9$, $\gamma=0.99$, path exploration to a maximum of $5$, and hidden size of intermediate layers to $400$. These values were selected on an empirical basis, as to the best of our knowledge there is no way to systematically find the optimal ones for a given architecture.
-For the Policy network, we set the kernel initializer to Glorot/Xavier
-% ~\cite{glorot2010understanding}
-for general purpose or LeCun
-% ~\cite{lecun2012efficient}
-for incompatible activation functions. We chose LReLU with a factor of $0.01$ as the activation for the intermediate layers to prevent gradient vanishing, which would lead to the Glorot activation being prevalent. We used L1 and L2 regularisation with L1 having a factor of $10^{-5}$ and L2 having $10^{-4}$. We selected RSMprop
-% ~\cite{hinton2012neural}
-as an optimiser for the PPO network and Adam
-% ~\cite{kingma2014adam}
-as default. The previous choices, were based on empirical testing performed by previous approaches
-% ~\cite{jomaa2019hyp}.
+For the Policy network, we set the kernel initializer to Glorot/Xavier \cite{glorot2010understanding} for general purpose or LeCun \cite{lecun2012efficient} for incompatible activation functions. We chose LReLU with a factor of $0.01$ as the activation for the intermediate layers to prevent gradient vanishing, which would lead to the Glorot activation being prevalent. We used L1 and L2 regularisation with L1 having a factor of $10^{-5}$ and L2 having $10^{-4}$. We selected RSMprop ~\cite{hinton2012neural}as an optimiser for the PPO network and Adam \cite{kingma2014adam} as default. The previous choices, were based on empirical testing performed by previous approaches \cite{jomaa2019hyp}.
 
 
 We performed a preliminary evaluation of several techniques to select the most promising ones for further experimentation:
@@ -398,11 +354,7 @@ Table~\ref{tab:umls} displays the results from the two PPO agents trained for th
 
 \subsubsection{Large datasets}
 %Large datasets provide a closer look at how trained agents would behave in a real world environment focusing on table~\ref{tab:datasets} we can see the number of relations and the degree of connectivity of these datasets is much larger than the ones presented in ~\ref{sssec:smalldatasets}. 
-We trained several agents to compare algorithm and reward implementation combinations using the FreeBase
-% ~\cite{toutanova2015representing}
- and NELL
-%  ~\cite{carlson2010toward}
-datasets, and compared generalist agent performance versus relation-specific agents using the WordNet~\cite{miller1995wordnet} dataset. These results show that our proposal is able to deal with web-scale datasets.
+We trained several agents to compare algorithm and reward implementation combinations using the FreeBase \cite{toutanova2015representing} and NELL \cite{carlson2010toward} datasets, and compared generalist agent performance versus relation-specific agents using the WordNet \cite{miller1995wordnet} dataset. These results show that our proposal is able to deal with web-scale datasets.
 
 When using FreeBase, we trained four agents per algorithm and reward combinations with ``film/film/genre'' as the selected relation for a total of 159,896 episodes, or 53,299 epochs.
 
@@ -411,8 +363,6 @@ We trained a total of 12 NELL agents, four for each of the following relations: 
 In these tables, \#rel denotes the frequency of appearance of these relations for each dataset, and \#laps indicates the number of times the dataset was iterated during training.
 
 \input{tables/SpaceRL-KG/FB_film}
-
-% \addimage{fb_film_genre.svg}{Algorithm and reward comparison for FreeBase ``film genre'' relation}{fb_film_genre}{0.75}
 
 \begin{figure*}[!h]
     \centering
