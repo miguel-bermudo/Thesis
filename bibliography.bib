@@ -249,6 +249,7 @@ RL HISTORY PAPERS
 
 @article{thorndike1932fundamentals,
   title={The fundamentals of learning.},
+  journal={Self Published.}, 
   author={Thorndike, Edward L},
   year={1932},
   publisher={Teachers College Bureau of Publications}
@@ -611,6 +612,51 @@ Tokamaks
   publisher={Nature Publishing Group}
 }
 
+%% Evaluation functions
+@inproceedings{nair2010rectified,
+  title={Rectified linear units improve restricted boltzmann machines},
+  author={Nair, Vinod and Hinton, Geoffrey E},
+  booktitle={Proceedings of the 27th international conference on machine learning (ICML-10)},
+  pages={807--814},
+  year={2010}
+}
+
+@inproceedings{maas2013rectifier,
+  title={Rectifier nonlinearities improve neural network acoustic models},
+  author={Maas, Andrew L and Hannun, Awni Y and Ng, Andrew Y and others},
+  booktitle={Proc. icml},
+  volume={30},
+  pages={3},
+  year={2013},
+  organization={Atlanta, GA}
+}
+
+@inproceedings{he2015delving,
+  title={Delving deep into rectifiers: Surpassing human-level performance on imagenet classification},
+  author={He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  booktitle={Proceedings of the IEEE international conference on computer vision},
+  pages={1026--1034},
+  year={2015}
+}
+
+@article{clevert2015fast,
+  title={Fast and accurate deep network learning by exponential linear units (elus)},
+  author={Clevert, Djork-Arn{\'e} and Unterthiner, Thomas and Hochreiter, Sepp},
+  journal={arXiv preprint arXiv:1511.07289},
+  year={2015}
+}
+
+@article{lecun1998gradient,
+  title={Gradient-based learning applied to document recognition},
+  author={LeCun, Yann and Bottou, L{\'e}on and Bengio, Yoshua and Haffner, Patrick},
+  journal={Proceedings of the IEEE},
+  volume={86},
+  number={11},
+  pages={2278--2324},
+  year={1998},
+  publisher={Ieee}
+}
+
 misc:
 
 tucker decomposition
@@ -625,12 +671,14 @@ tucker decomposition
   publisher={Springer}
 }
 
-@misc{Marr2021, title={How much data do we create every day? the mind-blowing stats everyone should read},
-url={https://bernardmarr.com/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/},
-journal={How Much Data Do We Create Every Day? The Mind-Blowing Stats Everyone Should Read}, publisher={Bernard Marr & co.},
-author={Marr, Bernard},
-year={2021},
-month={Jul}} 
+@article{Marr2021,
+  title={How much data do we create every day? the mind-blowing stats everyone should read},
+  url={https://bernardmarr.com/how-much-data-do-we-create-every-day-the-mind-blowing-stats-everyone-should-read/},
+  journal={How Much Data Do We Create Every Day? The Mind-Blowing Stats Everyone Should Read}, publisher={Bernard Marr & co.},
+  author={Marr, Bernard},
+  year={2021},
+  month={Jul}
+} 
 
 @inproceedings{manchanda2023metapath,
   title={Metapath-Guided Data-Augmentation For Knowledge Graphs},
@@ -792,15 +840,15 @@ rec systems:
 
 specialization: 
 @article{such218Atari,
-  author = {F. Such, Vashisht Madhavan, Rosanne Liu, Rui Wang, P. S. Castro, Yulun Li, Ludwig Schubert, Marc G. Bellemare, J. Clune, and J. Lehman},
   title = {An Atari Model Zoo for Analyzing, Visualizing, and Comparing Deep Reinforcement Learning Agents},
+  author = {{F. Such, Vashisht Madhavan, Rosanne Liu, and J. Lehman}},
   journal = {International Joint Conference on Artificial Intelligence},
   year = {2018}
 }
 
 @article{yang2018Learning,
-  author = {Ze Yang, Tiange Luo, Dong Wang, Zhiqiang Hu, Jun Gao, and Liwei Wang},
   title = {Learning to Navigate for Fine-grained Classification},
+  author = {{Ze Yang, and Liwei Wang}},
   journal = {European Conference on Computer Vision},
   year = {2018}
 }
@@ -900,4 +948,252 @@ year = {2020}
   pages={22415--22428},
   year={2023},
   publisher={Springer}
+}
+
+FROM the original papers:
+THEORETICAL PAPER:
+
+
+
+FRAMEWORK PAPER:
+@article{galarraga2015,
+  author    = {Luis Gal{\'{a}}rraga and Christina Teflioudi and Katja Hose and Fabian M. Suchanek},
+  title     = {Fast rule mining in ontological knowledge bases with {AMIE+}},
+  journal   = {{VLDB} J.},
+  volume    = {24},
+  number    = {6},
+  pages     = {707--730},
+  year      = {2015},
+  doi       = {10.1007/s00778-015-0394-1},
+}
+
+@inproceedings{kolthoff2015,
+  title={Semantic relation composition in large scale knowledge bases},
+  author={Kolthoff, Kristian and Dutta, Arnab},
+  booktitle={{LD4IE}@{ISWC}},
+  volume={1467},
+  pages={34--47},
+  year={2015},
+}
+
+@inproceedings{BorregoAHR019,
+  author       = {Agust{\'{\i}}n Borrego and
+                  Daniel Ayala and
+                  Inma Hern{\'{a}}ndez and
+                  Carlos R. Rivero and
+                  David Ruiz},
+  editor       = {Mayank Kejriwal and
+                  Pedro A. Szekely and
+                  Rapha{\"{e}}l Troncy},
+  title        = {Generating Rules to Filter Candidate Triples for their Correctness
+                  Checking by Knowledge Graph Completion Techniques},
+  booktitle    = {Proceedings of the 10th International Conference on Knowledge Capture,
+                  {K-CAP} 2019, Marina Del Rey, CA, USA, November 19-21, 2019},
+  pages        = {115--122},
+  publisher    = {{ACM}},
+  year         = {2019},
+  url          = {https://doi.org/10.1145/3360901.3364418},
+  doi          = {10.1145/3360901.3364418}
+}
+
+@article{dai2020survey,
+	title        = {A Survey on Knowledge Graph Embedding: Approaches, Applications and Benchmarks},
+	author       = {Dai, Yuanfei and Wang, Shiping and Xiong, Neal N and Guo, Wenzhong},
+	year         = 2020,
+	journal      = {Electronics},
+	publisher    = {Multidisciplinary Digital Publishing Institute},
+	volume       = 9,
+	number       = 5,
+	pages        = 750
+}
+
+@inproceedings{gardner2015,
+  title={Efficient and expressive knowledge base completion using subgraph feature extraction},
+  author={Gardner, Matt and Mitchell, Tom},
+  booktitle={{EMNLP}},
+  pages={1488--1498},
+  year={2015},
+  publisher={The Association for Computational Linguistics},
+}
+
+@inproceedings{mazumder2017,
+  author = {Mazumder, Sahisnu and Liu, Bing},
+  title = {Context-aware Path Ranking for Knowledge Base Completion},
+  booktitle = {{IJCAI}},
+  year = {2017},
+  pages = {1195--1201},
+  publisher = {AAAI Press},
+  doi = {10.24963/ijcai.2017/166},
+}
+
+@article{chen2020knowledge,
+  title={Knowledge graph completion: A review},
+  author={Chen, Zhe and Wang, Yuehan and Zhao, Bin and Cheng, Jing and Zhao, Xin and Duan, Zongtao},
+  journal={Ieee Access},
+  volume={8},
+  pages={192435--192456},
+  year={2020},
+  publisher={IEEE}
+}
+
+@inproceedings{RibeiroGC15,
+  author={Ribeiro, Mauro and Grolinger, Katarina and Capretz, Miriam A.M.},
+  booktitle={2015 IEEE 14th International Conference on Machine Learning and Applications (ICMLA)}, 
+  title={MLaaS: Machine Learning as a Service}, 
+  year={2015},
+  volume={},
+  number={},
+  pages={896-902},
+  doi={10.1109/ICMLA.2015.152}}
+
+  @inproceedings{zheng2020dgl,
+  title={Dgl-ke: Training knowledge graph embeddings at scale},
+  author={Zheng, Da and Song, Xiang and Ma, Chao and Tan, Zeyuan and Ye, Zihao and Dong, Jin and Xiong, Hao and Zhang, Zheng and Karypis, George},
+  booktitle={Proceedings of the 43rd International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages={739--748},
+  year={2020}
+}
+
+@misc{OpenAIGym,
+  title = {{OpenAI Gym}},
+  author = {{OpenAI}},
+  howpublished = "\url{ https://github.com/openai/gym}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{Gymnasium,
+  title = {{Gymnasium}},
+  author = {{Farama Foundation}},
+  howpublished = "\url{https://github.com/Farama-Foundation/Gymnasium}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@article{hochreiter1997long,
+  title={Long short-term memory},
+  author={Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
+  journal={Neural computation},
+  volume={9},
+  number={8},
+  pages={1735--1780},
+  year={1997},
+  publisher={MIT press}
+}
+
+@article{kingma2014adam,
+  title={Adam: A method for stochastic optimization},
+  author={Kingma, Diederik P and Ba, Jimmy},
+  journal={arXiv preprint arXiv:1412.6980},
+  year={2014}
+}
+
+@article{graves2013generating,
+  title={Generating sequences with recurrent neural networks},
+  author={Graves, Alex},
+  journal={arXiv preprint arXiv:1308.0850},
+  year={2013}
+}
+
+@misc{FastAPI,
+  title = {{FastAPI}},
+  author = {{FastAPI}},
+  howpublished = "\url{https://github.com/tiangolo/fastapi}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{Keras,
+  title = {{Keras}},
+  author = {{Keras}},
+  howpublished = "\url{ https://github.com/keras-team/keras}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{NetworkX,
+  title = {{NetworkX}},
+  author = {{NetworkX}},
+  howpublished = "\url{ https://github.com/networkx/networkx}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{OpenAPI,
+  title = {{OpenAPI}},
+  author = {{OpenAPI}},
+  howpublished = "\url{ https://github.com/OAI/OpenAPI-Specification}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{PyGame,
+  title = {{PyGame}},
+  author = {{PyGame}},
+  howpublished = "\url{ https://github.com/pygame/pygame}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{SDLKit,
+  title = {{SDL Kit}},
+  author = {{SDL team}},
+  howpublished = "\url{ https://www.libsdl.org/}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{SpaceRL,
+  title = {{SpaceRL}},
+  author = {{SpaceRL}},
+  howpublished = "\url{ https://github.com/DEAL-US/SpaceRL-KG}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{Swagger,
+  title = {{Swagger}},
+  author = {{Swagger}},
+  howpublished = "\url{ https://github.com/swagger-api/swagger-ui}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{TensorFlow,
+  title = {{TensorFlow}},
+  author = {{TensorFlow}},
+  howpublished = "\url{ https://github.com/tensorflow/tensorflow}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@misc{Uvicorn,
+  title = {{Uvicorn}},
+  author = {{Uvicorn}},
+  howpublished = "\url{https://github.com/encode/uvicorn}",
+  year = {2023}, 
+  note = "[Accessed \visitedon]"
+}
+
+@article{kamada1989algorithm,
+  title={An algorithm for drawing general undirected graphs},
+  author={Kamada, Tomihisa and Kawai, Satoru and others},
+  journal={Information processing letters},
+  volume={31},
+  number={1},
+  pages={7--15},
+  year={1989},
+  publisher={Citeseer}
+}
+
+@article{mitchell2018,
+  author = {Mitchell, T. and Cohen, W. and Hruschka, E. and Talukdar, P. and Yang, B. and Betteridge, J. and Carlson, A. and Dalvi, B. and Gardner, M. and Kisiel, B. and Krishnamurthy, J. and Lao, N. and Mazaitis, K. and Mohamed, T. and Nakashole, N. and Platanios, E. and Ritter, A. and Samadi, M. and Settles, B. and Wang, R. and Wijaya, D. and Gupta, A. and Chen, X. and Saparov, A. and Greaves, M. and Welling, J.},
+  title = {Never-ending Learning},
+  journal = {Commun. {ACM}},
+  volume = {61},
+  number = {5},
+  year = {2018},
+  pages = {103--115},
+  publisher = {ACM},
+  doi = {10.1145/3191513},
 }

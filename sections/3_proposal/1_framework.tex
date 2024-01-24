@@ -9,86 +9,38 @@
 
 \section{Introduction}\label{sec:framework-intro}
 
-Knowledge graphs (KGs) are sources of structured information that have proved their worth as data structures for the scientific community 
-% \cite{SurveyKG} 
-and the IT industry alike.
-% \cite{noy2019industry}
-They provide efficient and versatile support for advanced tasks such as question answering 
-% \cite{LiuDXXT22,huang2019} 
-or recommendation systems 
-% \cite{YangHXL22}
-, which is the reason that has led large companies such as Amazon, Google, or Meta, among many others, to use them. 
-Information in KGs is generally expressed as a list of facts, which in turn are represented as subject-predicate-object triples made up of two entities and a relation which connects them 
-% \cite{schlegel2019}.
- These triples are usually denoted by $\textit(s, r, t)$, which stands for \textit{(source entity, relation, target entity)}. Note that, for the sake of readability, in this paper we use the term \emph{entity} to reference not only an entity itself, but also the node in the graph that contains that entity. 
-
-KGs are usually built from unstructured sources by automated unsupervised processes that extract the information and transform it into triples 
-% \cite{paulheim2017, hogan2020}
-. However, even the most comprehensive of these processes are always prone to leaving some facts behind, resulting in partially incomplete KGs 
-% \cite{BorregoAHRR21}
-, which has a negative effect on the performance of the applications that use them.
-
-Several software tools have been proposed to deal with the incompleteness in KGs. Most of them do so by leveraging the information in the graph to infer new triples that represent missing information 
-% \cite{chen2020knowledge}
-. The approaches in this area can be classified into  four main categories, namely:
+Several software tools have been proposed to deal with the incompleteness in KGs. Most of them do so by leveraging the information in the graph to infer new triples that represent missing information \cite{chen2020knowledge}. The approaches in this area can be classified into  four main categories, namely:
 
 \begin{itemize}
-    \item Rule-based reasoning 
-    % \cite{galarraga2015, kolthoff2015, BorregoAHR019}
-    focuses on finding correlations between existing entities in a KG, which when combined with logical operators may infer an existing albeit non-explicit relation between them. This way, the nodes that represent those entities in the graph can be linked, resulting in new triples for the KG. Despite their simplicity, rule-based techniques usually display lower performance than other approaches, since they ignore essential features related to the KG structure.
+    \item Rule-based reasoning \cite{galarraga2015, kolthoff2015, BorregoAHR019} focuses on finding correlations between existing entities in a KG, which when combined with logical operators may infer an existing albeit non-explicit relation between them. This way, the nodes that represent those entities in the graph can be linked, resulting in new triples for the KG. Despite their simplicity, rule-based techniques usually display lower performance than other approaches, since they ignore essential features related to the KG structure.
     
-    \item Embedding models 
-    % \cite{dai2020survey} 
-    transform KG elements into numerical vectors in an N-dimensional space. Embedding-based algorithms then rank the candidate tail entities for a given query \textit{$(s, r, ?)$}, based on their distance to $s$ in the vector space, and retain the top $k$ candidates. The  embeddings generated in this type of algorithms can additionally be used in combination with other techniques (such as Reinforcement Learning), since they provide a compact and informative representation of KG entities and relations. The main drawback of these techniques is that adding new triples to the KG usually entails having to re-compute the embeddings, which is usually a costly procedure.
+    \item Embedding models \cite{dai2020survey} transform KG elements into numerical vectors in an N-dimensional space. Embedding-based algorithms then rank the candidate tail entities for a given query \textit{$(s, r, ?)$}, based on their distance to $s$ in the vector space, and retain the top $k$ candidates. The  embeddings generated in this type of algorithms can additionally be used in combination with other techniques (such as Reinforcement Learning), since they provide a compact and informative representation of KG entities and relations. The main drawback of these techniques is that adding new triples to the KG usually entails having to re-compute the embeddings, which is usually a costly procedure.
     
-    \item Relation path reasoning 
-    % \cite{gardner2015, mazumder2017, BorregoAHRR21}
-    focuses on finding paths that indirectly relate two disconnected nodes in a KG. Path-based algorithms build these paths by traversing the graph, and then discern which of those paths actually represent a specific type of relation between the node entities, which is then introduced in the KG as a new triple. The main benefits of these techniques are that they leverage the structure of the KG, resulting in a better performance, and that every path that results in a new triple provides additional explainability for the triple. The main limitation of this type of proposals is that traversing a complete and densely connected web-scale KG can be unfeasible; actually, some of this proposals use a random walk approach, which improves the scalability of the techniques, to the expense of ignoring promising paths in some cases. 
+    \item Relation path reasoning \cite{gardner2015, mazumder2017, BorregoAHRR21} focuses on finding paths that indirectly relate two disconnected nodes in a KG. Path-based algorithms build these paths by traversing the graph, and then discern which of those paths actually represent a specific type of relation between the node entities, which is then introduced in the KG as a new triple. The main benefits of these techniques are that they leverage the structure of the KG, resulting in a better performance, and that every path that results in a new triple provides additional explainability for the triple. The main limitation of this type of proposals is that traversing a complete and densely connected web-scale KG can be unfeasible; actually, some of this proposals use a random walk approach, which improves the scalability of the techniques, to the expense of ignoring promising paths in some cases. 
     
-    \item Reinforcement Learning (RL) 
-    % \cite{xiong2017deeppath}
-    path finding enables multi-hop reasoning by using agents to find a path from a source entity to a tail entity that answers a given query.
+    \item Reinforcement Learning (RL) \cite{xiong2017deeppath} path finding enables multi-hop reasoning by using agents to find a path from a source entity to a tail entity that answers a given query.
     The policy-based RL agent learns to traverse the KG travelling from one entity to another adjacent one, and selecting in each step which link to follow, such that this decision maximizes the total episode reward.
     This can be described as a Markov decision process (MDP) which guarantees stochasticity, meaning that the process is non-deterministic. 
 \end{itemize}
 
 From the previous analysis, we can conclude that Reinforcement Learning path finding is the most promising approach, since it leverages the KG structure,  provides the same type of explainability as relation path reasoning proposals, while overcoming the scalability problem, and minimizes the risk of neglecting the most promising paths. Furthermore, it can be combined with embedding models to optimize the decision making in each step. Those reasons motivated us to make SpaceRL a RL-based tool for KG reasoning and completion.
 
-There are some previous proposals in this field, such as DeepPath
-% \cite{xiong2017deeppath},
-MINERVA 
-% \cite{das2017go},
-Reward Shaping 
-% \cite{lin2018multi},
-PGPR 
-% \cite{xian2019reinforcement},
-or DAPath 
-% \cite{tiwari2021dapath}.
+There are some previous proposals in this field, such as DeepPath \cite{xiong2017deeppath},MINERVA \cite{das2017go},Reward Shaping \cite{lin2018multi}, PGPR \cite{xian2019reinforcement}, or DAPath \cite{tiwari2021dapath}.
 However, these approaches require the embedding models to be computed beforehand, which hinders their performance. Also, they are restricted to using classical RL algorithms, and overlook the application of more modern RL algorithm such as Proximal Policy Optimization (PPO)
-% \cite{schulman2017proximal} 
-or Soft Actor Critic (SAC) 
-% \cite{haarnoja2018soft}.
+\cite{schulman2017proximal} or Soft Actor Critic (SAC) \cite{haarnoja2018soft}.
 Finally, most of these proposals are not distributed as usable tools intended for final users. Even if they make their implementation publicly available, their code is generally intended for the sake of reproducibility of their experimental results, and they often lack any degree of customization or flexibility, meaning they usually can only work on a number of predefined datasets as input.
 
 %Now the benefits, one per 
 SpaceRL combines the benefits from RL pathfinding with the power of representational embeddings to infer fairly long and explainable paths, useful for KG-based applications, and it can do so with on-the-fly embedding generation, which means that the KG embeddings are not a required input to the system.
 
-Our tool is highly configurable, allowing for reward calculation to be modified with a combination of several options, customizing the policy intermediate activation function and regularization, using the more classical approach of the REINFORCE .
-% \cite{sutton1999policy}
-algorithm instead of PPO if required, computing the reward in one of several ways, or selecting the max depth of paths to explore, among other options. Also, SpaceRL allows the user to apply state-of-the-art RL algorithms out of the box, namely Proximal Policy Optimization (PPO)
-%  \cite{schulman2017proximal} 
-combined with Soft Actor Critic (SAC)
-%  \cite{haarnoja2018soft},
-which improve performance and help avoid reward plateaus while training. To the best of our knowledge, this is the first tool to provide such a wide variety of options.
+Our tool is highly configurable, allowing for reward calculation to be modified with a combination of several options, customizing the policy intermediate activation function and regularization, using the more classical approach of the REINFORCE \cite{sutton1999policy}.
+algorithm instead of PPO if required, computing the reward in one of several ways, or selecting the max depth of paths to explore, among other options. Also, SpaceRL allows the user to apply state-of-the-art RL algorithms out of the box, namely Proximal Policy Optimization (PPO)\cite{schulman2017proximal} combined with Soft Actor Critic (SAC) \cite{haarnoja2018soft}, which improve performance and help avoid reward plateaus while training. To the best of our knowledge, this is the first tool to provide such a wide variety of options.
 
 Finally, SpaceRL, aims to provide a versatile tool intended for users with different levels of expertise, from novice to experts. It allows comprehensive and flexible customization for advanced users, who may prefer to install SpaceRL as a server for their local usage, or to become a service provider for third parties. On the other hand, it also offers a simple MLaaS interface, intended for a more untrained end user. Machine Learning as a Service (MLaaS) has gained traction in recent years 
-% \cite{RibeiroGC15}
-, since it adds layers of abstraction that create a black box simplified interface for a non-expert final user. SpaceRL offers RL model generation and usage as a service capabilities, either locally through its GUI or as a deployable REST API for third party consumption. Therefore, it is, to the best of our knowledge, the first turnkey tool to provide such RL KG completion and reasoning functionalities.
+\cite{RibeiroGC15}, since it adds layers of abstraction that create a black box simplified interface for a non-expert final user. SpaceRL offers RL model generation and usage as a service capabilities, either locally through its GUI or as a deployable REST API for third party consumption. Therefore, it is, to the best of our knowledge, the first turnkey tool to provide such RL KG completion and reasoning functionalities.
 
 \section{Software description}\label{sec:framework-software}
 SpaceRL is an end-to-end Knowledge Graph completion tool, written entirely in Python and accessible to multiple user groups with different levels of expertise. SpaceRL provides an easy to use GUI tool for novices, an API for internal network or third party usage, and direct access to the low level application for advanced users or potential contributors. A diagram illustrating its internal code structure is depicted in Figure \ref{fig:classdiagram}.
-
-% \addimage{pseudo_class_diagram.svg}{ SpaceRL package diagram.}{classdiagram}{1} 
 
 \begin{figure}[!h]
     \centering
@@ -100,20 +52,13 @@ SpaceRL is an end-to-end Knowledge Graph completion tool, written entirely in Py
 SpaceRL was designed to provide a wide variety of functionalities related to KG completion, including: embedding generation, path reasoning model training and testing, integration of pre-trained models, performance metrics calculation and reports, mock KG generation, and cache file generation for distance rewards, among others. Our software includes as well a graphical visualization tool to allow the user inspect the resulting paths inferred from a KG, providing additional information about the reasoning process.
 
 To perform these tasks, SpaceRL requires only a KG as input, which is used to generate different embedding representations of the graph nodes and edges. In its current version, SpaceRL provides support for four classical embedding models in the literature, namely, ComplEx 
-% \cite{trouillon2016},
-DistMult 
-% \cite{yang2015embedding},
-TransE \cite{bordes2013translating}, and TransR 
-% \cite{lin2015}.
-The effectiveness of these models has been confirmed by multiple authors; notwithstanding, further embedding models could be added to SpaceRL in the future. To implement these models, we relied on DGL-KE 
-% \cite{zheng2020dgl}
-a package which provides off the shelf embedding vector generation.
+\cite{trouillon2016complex}, DistMult \cite{yang2014embedding}, TransE \cite{bordes2013translating}, and TransR \cite{lin2015learning}.
+The effectiveness of these models has been confirmed by multiple authors; notwithstanding, further embedding models could be added to SpaceRL in the future. To implement these models, we relied on DGL-KE \cite{zheng2020dgl} a package which provides off the shelf embedding vector generation.
 
-Our tool is publicly available at our GitHub page 
-% \cite{SpaceRL},
+Our tool is publicly available at our GitHub page \footnote{
+    \href{https://github.com/DEAL-US/SpaceRL-KG}{https://github.com/DEAL-US/SpaceRL-KG} 
+}
 and it is open to contribution. The application is divided into several subsystems which will be explored in the following subsections, and the interconnection between these subsystems can be seen in Diagram \ref{fig:tool_flow}. They will be described from the perspective of an advanced user in order to provide a comprehensive view of the proposal.
-
-% \addimage{tool_flow.svg}{SpaceRL work flow}{tool_flow}{.65}
 
 \begin{figure}[htp]
     \centering
@@ -131,43 +76,47 @@ The configuration module of SpaceRL comprises two components: a key-value map wh
 The most relevant global configuration parameters in the key-value map are the following:
 
 \begin{itemize}
- \item \code{activation}  (\code{string}): Indicates what activation function to use in the agent intermediate layer. Available options are: \code{ReLu}
-%  \cite{nair2010rectified},
-  \code{leaky ReLu}
-%  \cite{maas2013rectifier},
-  \code{PreLu}
-%  \cite{he2015delving},
-  \code{eLu}
-%   \cite{clevert2015fast},
-   or \code{tanh}
-%   \cite{lecun1998gradient}.
- \item \code{alpha} (\code{float}): If using Proximal Policy Optimization (PPO), it defines the previous step learning rate.
-  \item \code{action\_picking\_policy} (\code{string}): Indicates how actions are selected by the agent in every step of training. Available options are: \code{probability} and \code{max}.
+\item \code{activation}  (\code{string}): Indicates what activation function to use in the agent intermediate layer. Available options are: \code{ReLu} \cite{nair2010rectified}, \code{leaky ReLu}\cite{maas2013rectifier}, \code{PreLu} \cite{he2015delving}, \code{eLu}   \cite{clevert2015fast}, or \code{tanh} \cite{lecun1998gradient}.
+ 
+\item \code{alpha} (\code{float}): If using Proximal Policy Optimization (PPO), it defines the previous step learning rate.
+
+\item \code{action\_picking\_policy} (\code{string}): Indicates how actions are selected by the agent in every step of training. Available options are: \code{probability} and \code{max}.
+
 \item \code{episodes} (\code{int}): the number of episodes to train for.
+
 \item \code{gamma} (\code{float}): Decay rate of past observations, used only when \\\code{reward\_type} is set to  \code{retropropagation}.
-  \item \code{guided\_reward} (\code{boolean}): If set to \code{false}, a binary reward is used (reward value is either 1 or 0); otherwise, a step-based reward is used, as specified by the \code{guided\_to\_compute} parameter.  
-  \item \code{guided\_to\_compute} (\code{list\textless string\textgreater}): If \code{guided\_reward} is set to \code{true}, the user can configure additional options:
-  \begin{itemize}
-    \item \code{Terminal}: If the agent reaches the target node it overrides other rewards and sets it to 1.
-    \item \code{Shaping}: Performs embedding addition of node and relation embeddings to measure the distance from the current node to the target node in vector space.
-    \item \code{Distance}: Measures the distance from the agent to the target node.
-    \item \code{Embedding}: Combines several vector embedding operations which determine how successful the agent chosen action was towards bringing it closer to the target node.
-  \end{itemize}
-   \item \code{learning\_rate} (\code{float}): Defines the policy neural network learning rate.
-  \item \code{normalize\_embeddings} (\code{boolean}): Normalizes the vector space after performing embedding regeneration.
-  \item \code{path\_length} (\code{int}): Specifies  a maximum limit for the inferred paths length.
-  \item \code{regenerate\_embeddings} (\code{boolean}): Re-calculates specified embeddings vectors for the desired KG.
-  \item \code{regularizers} (\code{list\textless string\textgreater}): Indicates during which training step L1 and L2 regularization should be applied. Available options are: \code{kernel}, \code{bias}, and \code{activity}.
-  \item \code{reward\_computation} (\code{string}): Indicates how to calculate the reward value passed on to the learn function to update the policy network based on the agents neural network output. Possible values are:
-  \begin{itemize}
-    \item \code{max\_percent}: Scales the agent output to [0, 1] where 1 represents the highest output for the step and 0 the lowest.
-    \item \code{one\_hot\_max}: Binary reward, 1 for the maximum reward in the episode, 0 otherwise.
-    \item \code{straight}: The output from the agent is passed on directly as the reward.
-  \end{itemize}
-  \item \code{reward\_type} (\code{string}): Indicates how the rewards are propagated to the agent in the learning phase. Available options are: 
- \\ \code{retropropagation} or \code{simple}.
-  \item \code{use\_episodes} (\code{boolean}): If set to \code{true}, the agent is trained for the number of episodes specified in the \code{episodes} parameter; otherwise, it relies on the \code{laps} value of the \code{Experiment} class.
-   \item \code{use\_LSTM} (\code{boolean}): If set to \code{true}, LSTM layers are added to the agent when generated.
+ 
+\item \code{guided\_reward} (\code{boolean}): If set to \code{false}, a binary reward is used (reward value is either 1 or 0); otherwise, a step-based reward is used, as specified by the \code{guided\_to\_compute} parameter.  
+
+\item \code{guided\_to\_compute} (\code{list\textless string\textgreater}): If \code{guided\_reward} is set to \code{true}, the user can configure additional options:
+    \begin{itemize}
+        \item \code{Terminal}: If the agent reaches the target node it overrides other rewards and sets it to 1.
+        \item \code{Shaping}: Performs embedding addition of node and relation embeddings to measure the distance from the current node to the target node in vector space.
+        \item \code{Distance}: Measures the distance from the agent to the target node.
+        \item \code{Embedding}: Combines several vector embedding operations which determine how successful the agent chosen action was towards bringing it closer to the target node.
+    \end{itemize}
+\item \code{learning\_rate} (\code{float}): Defines the policy neural network learning rate.
+
+\item \code{normalize\_embeddings} (\code{boolean}): Normalizes the vector space after performing embedding regeneration.
+\item \code{path\_length} (\code{int}): Specifies  a maximum limit for the inferred paths length.
+
+\item \code{regenerate\_embeddings} (\code{boolean}): Re-calculates specified embeddings vectors for the desired KG.
+
+\item \code{regularizers} (\code{list\textless string\textgreater}): Indicates during which training step L1 and L2 regularization should be applied. Available options are: \code{kernel}, \code{bias}, and \code{activity}.
+
+\item \code{reward\_computation} (\code{string}): Indicates how to calculate the reward value passed on to the learn function to update the policy network based on the agents neural network output. Possible values are:
+    \begin{itemize}
+        \item \code{max\_percent}: Scales the agent output to [0, 1] where 1 represents the highest output for the step and 0 the lowest.
+        \item \code{one\_hot\_max}: Binary reward, 1 for the maximum reward in the episode, 0 otherwise.
+        \item \code{straight}: The output from the agent is passed on directly as the reward.
+    \end{itemize}
+\item \code{reward\_type} (\code{string}): Indicates how the rewards are propagated to the agent in the learning phase. Available options are: 
+ \\\code{retropropagation} or \code{simple}.
+
+\item \code{use\_episodes} (\code{boolean}): If set to \code{true}, the agent is trained for the number of episodes specified in the \code{episodes} parameter; otherwise, it relies on the \code{laps} value of the \code{Experiment} class.
+
+\item \code{use\_LSTM} (\code{boolean}): If set to \code{true}, LSTM layers are added to the agent when generated.
+
 \end{itemize}
 
 Regarding the \code{Experiment} class, it is responsible for agent training, and it requires the following specific configuration parameters: 
@@ -184,8 +133,11 @@ The \code{Test} class is tasked with testing the performance of trained agents a
 
 \begin{itemize}
     \item \code{test\_name(string)}: unique name for each test.
+    
     \item \code{agent\_name(string)}: name that identifies the agent that is going to be tested.
+    
     \item \code{embeddings(List\textless string\textgreater)}: subset of the embeddings used by the agent during training, which will be used for testing.
+    
     \item \code{episodes(int)}: number of tests to perform for the selected agent.
 \end{itemize}
 
@@ -194,8 +146,6 @@ The \code{Test} class is tasked with testing the performance of trained agents a
 The RL subsystem takes a KG as an input, and it is responsible for the generation of the training environment, creating the agent that will train on the input KG with the specified configuration options, and managing the data generated during training and testing. 
 
 A Reinforcement Learning \emph{environment} represents the context in which an agent will act and learn. The environment has a \emph{state} that can be manipulated by a number of agent operations called \emph{steps}. However, the agent has only a partial view on the environment in each step,  which puts a limit on the actions it can take; this is referred to as the \emph{action space} available to the agent in the current state. Figure \ref{fig:rl_flow} illustrates how the different Reinforcement Learning modules interact with one another.
-
-% \addimage{RL_Flow.svg}{Reinforcement Learning subsystem work flow}{rl_flow}{1}
 
 \begin{figure}[!h]
     \centering
@@ -209,20 +159,15 @@ The subsystem is comprised of a number of classes, namely:  \code{Environment} (
 \subsubsection{Environment}
 
 SpaceRL environment is built with navigating the KG in mind; to that effect, we consider that the environment is the entirety of the KG, the state is a particular node in the KG, and the action space is comprised of every relation that links that node with its adjacent nodes (which may include itself).
-To create an instance of the environment, a \code{DataManager} class instance is needed, as well as tuning some of the configuration parameters defined in Section \ref{sec:config}: the KG triples, number of laps, and optionally, a specific relation to train for.
+To create an instance of the environment, a \code{DataManager} class instance is needed, as well as tuning some of the configuration parameters defined in Section \ref{sec:framework-config}: the KG triples, number of laps, and optionally, a specific relation to train for.
 
-The \code{Environment} class was implemented following the OpenAI Gym 
-% \cite{OpenAIGym}
-standard for reinforcement learning tools, recently transferred to the Farama Foundation and its new drop-in replacement Gymnasium
-%   \cite{Gymnasium}.
+The \code{Environment} class was implemented following the OpenAI Gym \cite{OpenAIGym} standard for reinforcement learning tools, recently transferred to the Farama Foundation and its new drop-in replacement Gymnasium\cite{Gymnasium}.
 Enforcing this standard entails the implementation of a number of functions, namely \code{reset}, \code{action\_space}, \code{observation\_space} and \code{step}, with the latter returning the environment state and a \code{done} flag to signal early stopping of the episode. Thus, it is guaranteed that the \code{Environment} class is responsible for state management and action generation. Our implementation also provides on-demand distance cache generation, consultation and reward generation, all of which are used by the agent to drive through the KG.
 
 Once created, the \code{Environment} instance first invokes the \code{KnowledgeGraph} class, initializes the cache, and generates the KG embedding vectors if they are not present, as SpaceRL stores previously generated embedding models while also offering a module to pre-generate them if desired. 
 
 Every training episode begins with a query triple $(s,r,t)$, and the node that contains the head entity $s$ as the initial state of the episode. The selection of the episode initial triple is performed by the environment during the \code{reset} operation. Then, the link representing relation $r$ is then removed from that particular instance of training. Figure \ref{fig:environment} offers a graphical representation of the environment, in which the current state is the initial query triple head entity. 
 After the outgoing triple relation is removed, SpaceRL begins the training process. 
-
-% \addimage{env_description.svg}{SpaceRL environment}{environment}{.7}
 
 \begin{figure}[!h]
     \centering
@@ -241,21 +186,12 @@ Creating an instance of the \code{Agent} class requires providing an instance of
 Once instantiated, the agent initializes its memory and the neural network according to the given configuration parameters. It can do so following a PPO algorithm, which is implemented with an Actor-Critic strategy requiring multiple neural networks, or else by following a classic RL algorithm with a single network.
 
 Subsequently, L1/L2 regularization is configured, the base NN layers are added and then complemented with intermediate LSTM layers 
-% \cite{hochreiter1997long}
- if requested. Finally, either ADAM 
-%  \cite{kingma2014adam} 
- or RSMprop 
-%  \cite{graves2013generating} 
- optimizers are used. If PPO was the selected algorithm, a critic is built sharing its network architecture with the Actor network.
+\cite{hochreiter1997long} if requested. Finally, either ADAM \cite{kingma2014adam} or RSMprop \cite{graves2013generating} optimizers are used. If PPO was the selected algorithm, a critic is built sharing its network architecture with the Actor network.
 
 As was described in previous section, class \code{Agent} class intimately interacts with class \code{Environment} during the training episodes. For each action generated by the \code{Environment}, the \code{Agent} calculates the output of the neural network, which represents the score assigned by the agent to that action. Using the scores, the \code{Agent} class evaluates the former actions and selects one of them to proceed, which updates and steps the environment into the next state.
 A stopping condition is defined in order to command the agent to end the current training episode. Alternatively, the user may specify a maximum number of steps as stopping condition.  
 
-Machine learning libraries Keras 
-% \cite{Keras} 
-and Tensorflow
-%  \cite{TensorFlow}
-are responsible for generating the neural network layered structure and then calculating the outputs on each step and allowing for simple storage and loading of trained models.
+Machine learning libraries Keras \cite{Keras} and Tensorflow\cite{TensorFlow} are responsible for generating the neural network layered structure and then calculating the outputs on each step and allowing for simple storage and loading of trained models.
 
 \subsubsection{Data Manager}
 The \code{DataManager} class is responsible for data storage, modification, and organization during testing, training, and embedding generation processes. 
@@ -270,7 +206,7 @@ In summary, the \code{DataManager} class provides the necessary information for 
 The main subsystem of the application acts as the entry point to run a new training or testing process. Its main components are the trainer \code{model/trainer.py} and the tester, \code{model/tester.py}. In the following subsections, they are described in further detail.
 
 \subsubsection{Trainer}
-The \code{Trainer} class only requires the configuration key-value map mentioned in section \ref{sec:config} for its initialization. It first detects available GPUs in the system and configures itself to use them if allowed, then instantiates the \code{DataManager}, \code{Environment}, and \code{Agent} classes.
+The \code{Trainer} class only requires the configuration key-value map mentioned in section \ref{sec:framework-config} for its initialization. It first detects available GPUs in the system and configures itself to use them if allowed, then instantiates the \code{DataManager}, \code{Environment}, and \code{Agent} classes.
 Then, the \code{Trainer} awaits for the \code{run} method to be called, which triggers the training episodes. Each episode starts by obtaining one triple from the Environment, and performing the following actions:
 
 \begin{itemize}
@@ -287,14 +223,7 @@ The \code{Tester} class needs an already trained agent with which to perform the
 
 During the testing process, the system iterates through the list of tests in the configuration file (\code{config.py}). For each of them, one agent model and \code{Tester} instance are loaded for each embedding specified in the test configuration. Then, the \code{Tester} executes the specified amount of testing episodes, as described in Algorithm \ref{alg:tester}. 
 
-
-%explicacion textual del algoritmo
 For each episode, the Algorithm tries to infer new paths starting at the head node of the episode triple, and navigating until the maximum the length specified by the configuration parameter (\code{path\_length}) has been reached. Once $10$ paths have been found for the episode, they are ranked based on their scores. Note that we set the limit to $10$ in order to be able to compute the Hits@10 metric value. Finally, the paths that actually reach the episode triple target entity are returned. 
-
-%Comento este párrafo porque según el algoritmo, sí que tiene que haber score
-%If necessary, a confidence score is provided that averages the neural network scores for each step of training.
-
-% Hits@N is computed as the number of positive paths (i.e., paths that actually reached the tail entity) that are found within the N first positions of the ranked results, with regard to the total number of triples in the test set. Finally, the average Hits@N value is computed as the average Hits@N values obtained for all the performed tests.
 
 \begin{algorithm}[!h]
     \caption{Testing algorithm}
@@ -371,8 +300,6 @@ The textual representation of the returned paths is stored in a text file in ord
 
 SpaceRL offers a GUI that provides the most important functionalities for an average user. The GUI implementation is based on Python default GUI manager Tkinter. An overview of the GUIs elements can be seen in Figure \ref{fig:GUI_structure}.
 
-% \addimage{GUI_view.svg}{ SpaceRL GUI structure}{GUI_structure}{.55}
-
 \begin{figure}[!h]
     \centering
     \includesvg[inkscapelatex=false, width=.55\textwidth]{fig/framework/diagrams/GUI_view.svg}
@@ -400,7 +327,7 @@ When the GUI is launched, the \textbf{main menu} is displayed, as depicted in Fi
     \item The \textbf{View Paths} option allows the user to generate visualized paths for the tested agents.
 \end{itemize}
 
-The \textbf{Config submenu} includes the global configuration parameters described in Section \ref{sec:config}, organized into logical groups. The GUI provides some  descriptive information about these parameters by means of tooltips, which help the user select the most convenient value for each of them. 
+The \textbf{Config submenu} includes the global configuration parameters described in Section \ref{sec:framework-config}, organized into logical groups. The GUI provides some  descriptive information about these parameters by means of tooltips, which help the user select the most convenient value for each of them. 
 
 \begin{figure*}[!h]
     \centering
@@ -441,15 +368,7 @@ After clicking the \textbf{View} button,  the visualization tool main window is 
 
 Initially, the complete path is shown with only the name of the chosen relations and the score given to them by the agent (step 0). The user can then navigate between path nodes with the arrow keys, thus getting extended information about each subsequent step, namely: the node in which the agent was (highlighted in red), and the score given to each outgoing relation, which corresponds to a possible action that the agent could have taken. The selected actions are highlighted in a bold dark red line. Finally, the arrow buttons on the leftmost and rightmost sides of the screen allow the user to visualize the former and next path, respectively. Note that, in the current version, the paths are displayed to the user in the same order as the agent discovered them.
 
-The implementation of our visualization tool is based on Pygame 
-% \cite{PyGame},
-which acts as a mediator between SpaceRL and the SDL kit 
-%  \cite{SDLKit}
-that offers low level access to keyboard, mouse, and graphics hardware. We also relied upon the NetworkX package 
-%   \cite{NetworkX},
-to compute the 2-dimensional positions of the graph nodes based on the Kamada-kawai distribution 
-% \cite{kamada1989algorithm},
-and convert these positions into application pixels positions.
+The implementation of our visualization tool is based on Pygame \cite{PyGame}, which acts as a mediator between SpaceRL and the SDL kit \cite{SDLKit} that offers low level access to keyboard, mouse, and graphics ardware. We also relied upon the NetworkX package \cite{NetworkX}, to compute the 2-dimensional positions of the graph nodes based on the Kamada-kawai distribution \cite{kamada1989algorithm}, and convert these positions into application pixels positions.
 
 \begin{landscape}
     \begin{figure*}[!h]
@@ -460,20 +379,8 @@ and convert these positions into application pixels positions.
     \end{figure*}
 \end{landscape}
 
-%(Figure \ref{fig:API_console}) -> está demasiado lejos la referencia
-
 \subsection{API}
-SpaceRL also provides an application programming interface that can be used by developers to implement their own applications on top of our functionalities. Our API service relies on FastAPI
-% \cite{FastAPI}
-to generate an OpenAPI
-% \cite{OpenAPI}
-compliant application, and Uvicorn 
-% \cite{Uvicorn}
-as a backend webserver to host the app. The use of FastAPI makes it easier to deploy it to a production server or to exchange it for another backend if desired.
-
-% API ALLOWS MLAAS COMMENT HERE...
-
-% \addimage{API_view.svg}{API structure of SpaceRL}{API_structure}{0.65}
+SpaceRL also provides an application programming interface that can be used by developers to implement their own applications on top of our functionalities. Our API service relies on FastAPI\cite{FastAPI} to generate an OpenAPI \cite{OpenAPI} compliant application, and Uvicorn  \cite{Uvicorn} as a backend webserver to host the app. The use of FastAPI makes it easier to deploy it to a production server or to exchange it for another backend if desired.
 
 \begin{figure}[!h]
     \centering
@@ -501,8 +408,7 @@ FastAPI requires the definition of custom classes to describe the responses retu
     \label{fig:endpoints}
 \end{figure*}
 
-Figure \ref{fig:endpoints} shows the web view of the API endpoints given by SwaggerUI 
-% \cite{Swagger}. 
+Figure \ref{fig:endpoints} shows the web view of the API endpoints given by SwaggerUI \cite{Swagger}. 
 
 SpaceRL internally distinguishes  between two types of endpoints, \emph{instant} and \emph{process}. Both provide fast responses to the end user; however, \emph{process} endpoints correspond to computationally intensive background tasks, which require a significant amount of resources. Therefore, the response sent to the user in those cases is merely a message to inform whether the process could be launched. If the resources needed to attend a \emph{process} request are available, the \code{ConnectionManager} underlying client sends a plain-text message to the internal server with the request in a particular format and the server answers back in the same way (cf. listings \ref{code:internal-server-petition-cache} and \ref{code:internal-server-petition-embedding} for examples of these exchanges). 
 
@@ -536,13 +442,9 @@ adding an example of using the tool such as the one provided in the paper might 
 The example given must be complete, how to perform it completely with the GUI and how to do it with the API by themselves as standalone applications.
 
 
-In order to better understand the capabilities of SpaceRL,  we selected NELL
-% \cite{mitchell2018}
-as an illustrative example. NELL is a knowledge graph with over 50 million triples, which is frequently used as a resource for validation of different proposals for reasoning and completion over KGs.  NELL is built automatically from web data in a continuous and mostly unsupervised fashion, meaning that there are usually a large number of missing triples, which makes it ideal to validate KG completion proposals. For this example, we use a subset of NELL built from the 995th iteration, known as NELL-995
-% \cite{xiong2017deeppath}. 
+In order to better understand the capabilities of SpaceRL,  we selected NELL \cite{mitchell2018} as an illustrative example. NELL is a knowledge graph with over 50 million triples, which is frequently used as a resource for validation of different proposals for reasoning and completion over KGs.  NELL is built automatically from web data in a continuous and mostly unsupervised fashion, meaning that there are usually a large number of missing triples, which makes it ideal to validate KG completion proposals. For this example, we use a subset of NELL built from the 995th iteration, known as NELL-995 \cite{xiong2017deeppath}. 
 
-The goal of this section is to use SpaceRL to infer missing links between concepts contained in NELL-995, together with the metric scores associated to the resulting triples, using the capabilities described in section \ref{sec:description}.  We assume that SpaceRL has already been correctly installed, following the instructions available in our GitHub repository 
-% \cite{SpaceRL}.
+The goal of this section is to use SpaceRL to infer missing links between concepts contained in NELL-995, together with the metric scores associated to the resulting triples, using the capabilities described in section \ref{sec:framework-software}.  We assume that SpaceRL has already been correctly installed, following the instructions available in our GitHub repository \cite{SpaceRL}.
 
 %Más enfasis
 We aim to demonstrate the flexibility that SpaceRL provides, which allows to invoke its functionalities either directly, as a local server, or via its API and GUI capabilities, interchangeably. To that effect, we will illustrate how to perform the different steps involved in KG completion using different strategies in each case.
@@ -573,7 +475,7 @@ To perform our sample KG completion, first we must provide the input KG in the e
 
 \lstinputlisting[float, floatplacement=!htp, language=python, label=code:dataset-base-format, caption=An extract of NELL dataset with the expected format.]{listings/framework/dataset_format.txt}
 
-Then, we need to provide the desired configuration for SpaceRL, including the global parameters, and the specific training and testing parameters, as described in Section \ref{sec:config}. The values for the configuration key-value map parameters can either be set using the \textbf{Config submenu} (cf. Figure \ref{fig:cm_main}), the \code{/config} API endpoint, or directly by editing the configuration file \code{/config.py}, as shown in listing \ref{code:configuration-file}, which also displays other possible values that the parameters can take as Python-style comments.
+Then, we need to provide the desired configuration for SpaceRL, including the global parameters, and the specific training and testing parameters, as described in Section \ref{sec:framework-config}. The values for the configuration key-value map parameters can either be set using the \textbf{Config submenu} (cf. Figure \ref{fig:cm_main}), the \code{/config} API endpoint, or directly by editing the configuration file \code{/config.py}, as shown in listing \ref{code:configuration-file}, which also displays other possible values that the parameters can take as Python-style comments.
 
 \lstinputlisting[float, floatplacement=!htp, language=python, label=code:configuration-file, caption=Configuration parameters used for the example]{listings/framework/config.py}
 
@@ -684,9 +586,7 @@ On the other hand, in listing \ref{code:path} we can see an example of a newly r
 \section{Support and Iterations}\label{sec:framework-future}
 % the future of the tool, possible limtations and changes
 
-SpaceRL is Open Source software, open for collaboration in its GitHub repository
-\cite{SpaceRL}
-and being improved constantly. Therefore, not only does it provide benefits for companies whose business model is based on knowledge graphs and need to manipulate them; but it could also be potentially beneficial for researchers in data engineering areas who can use our functionalities as a solid support to build their own smart applications.
+SpaceRL is Open Source software, open for collaboration in its GitHub repository\cite{SpaceRL} and being improved constantly. Therefore, not only does it provide benefits for companies whose business model is based on knowledge graphs and need to manipulate them; but it could also be potentially beneficial for researchers in data engineering areas who can use our functionalities as a solid support to build their own smart applications.
 
 Finally, our tool could also aid researchers in other areas, such as biomedicine, statistics, or data science, who do not possess a computing science background that allows them to build their own software but still require this kind of tool to operate on their knowledge graphs.
 
