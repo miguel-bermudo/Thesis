@@ -48,7 +48,7 @@ Throughout this chapter, we will expand on the running example in Section~\ref{s
 
 \section{Formal Description}\label{sec:spacerl-formal_description}
 
-\todo{ se ha separado cada parte de la estructura formal del problema y solucion en los diferentes apartados y este se ha reservado tan solo para la descripcion formal del problema.}
+% \todo{ se ha separado cada parte de la estructura formal del problema y solucion en los diferentes apartados y este se ha reservado tan solo para la descripcion formal del problema.}
 
 Knowledge graphs $\mathcal{K}$ are formally represented as a set of entities $\mathcal{E}$ and relations $ \mathcal{R}$ Where ($s, r, o$) denotes a triple in the graph, representing a fact that connects entity $s$ to $o$ via a relation $r$ formally described by equation \ref{eq:formalKG}. 
 
@@ -76,8 +76,6 @@ To obtain these paths the graph nodes and relations must be encoded as numerical
 These numerical vectors are then combined in a way where they represent the current state, a possible action and the context of the episode. this information is then fed to a Neural Network which represents the agent policy, responsible for selecting the best-estimated action for every episode step.
 
 This is done by evaluating every possible action for every step of the path and then stochastically selecting one based on the policy scores provided, the agent is then rewarded based on several metrics and updated after every episode.
-
-\subsection{Embedding representations}\label{sec:spacerl-embeddings}
 
 \subsection{Reinforcement Learning implementation}\label{sec:spacerl-rlimplementation}
 
@@ -225,13 +223,12 @@ The distance reward is computed according to the length of the shortest path fro
 % Calculating the distance reward implies that all paths of length $n$ could be known, however this does not make every path valid. Applying this method to KGC would simply fill the graph with new triples which in most cases wouldn't be new facts and would only dilute the existing ones.
 The distance reward function is shown in detail in Algorithm~\ref{alg:distance}.
 
+\input{tables/SpaceRL-KG/state_of_the_art}
 
 \subsection{Reinforcement Learning algorithms}
 \label{sec:spacerl-RLalgorithms}
 
-% As it can be seen in Table~\ref{tab:SoTA_approaches}, all previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
-
-\todo{re-wrie this without making references to the table of SoTa approaches.}
+Table~\ref{tab:SoTA_approaches} displays some of the previous state of the art methods used in the literature, it shows how previous completion approaches use the REINFORCE algorithm as their parametrization method to maximize expected rewards. This algorithm is optimized for terminal rewards or similar ones which are only triggered at the end of an episode, when the obtained rewards are then backpropagated to the former steps in the episode. Formally, the REINFORCE algorithm is described as follows:
 
 \begin{equation}
 \label{eq:reinforce}

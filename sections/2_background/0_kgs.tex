@@ -25,20 +25,7 @@ and the term Knowledge Graph (KG) rose to the popularity it still enjoys nowaday
 
 Today, knowledge graphs have become a cornerstone of various AI applications, including natural language processing, recommendation systems, and data integration. Their ability to represent complex relationships and semantic context has made them an invaluable tool in the era of big data and advanced machine learning techniques.
 
-% kept this here for the citations...
-
-% Representing and storing structured domain-specific knowledge has been an active research topic since at least 1970, when the first relational databases were introduced \cite{codd1970}. Given their indisputable success, many alternative means of representing knowledge in an structured manner have been proposed over the years. One of such proposals was using what was coined as a \textit{Knowledge Base} (KB) \cite{hayes-roth1983}, a collection of facts that are stored as direct relations between concepts. Contrary to relational databases, which need to go through a normalization process that introduces a number of indirections to represent a piece of knowledge, KBs were considered more straightforward to operate and reason about \cite{russell2020}. A number of Knowledge Bases were thus created and maintained throughout the subsequent years by multiple organizations and research entities, which were both general-purpose~\cite{mahdisoltani2014,lehmann2015dbpedia, rebele2016, carlson2010, bollacker2008, vrandevcic2014} and domain-specific~\cite{chakravarty2017, thorn2013pharmgkb, wishart2009, wishart2008, kanehisa2010}.
-
-% The information inside a Knowledge Base was stored in the form of entities, which represented real-world or domain-specific concepts, and relations that link these entities together. This is known as a triple: a combination of two entities by means of a relation, which usually contains a verb. For example, a KB can represent the fact that Magnus Carlsen is a chess player using the triple \textit{(Magnus Carlsen, plays, Chess)}. Such triples were generally encoded in a KB using the RDF/XML format \cite{decker2000}, or an extension of it called RDFS, which allows for a higher degree of expressivity. However, since RDF/XML is mainly intended for machine use, later KBs also used other formats, like N3, Turtle, or RDF/JSON, which are more human-readable.
-
-% However, the introduction of the Google Knowledge Graph in 2012 \cite{singhal2012} was a pivotal point for both the industrial use and academic research of Knowledge Bases.
-
-
-% In the following sections, we present the most popular Knowledge Graphs that are under active use today and the ways in which they are constructed. We then discuss the many practical applications that can, and have been, derived from the usage of KGs in commercial and academical contexts. However, despite their many benefits, Knowledge Graphs still present several challenges that must be addressed to improve their functionality and usefulness. Therefore, we also provide an overview of the main open challenges that need to be addressed to refine and improve Knowledge Graphs.
-
 \section{Modern Knowledge Graphs}\label{sec:kgs-current}
-
-% Nowadays, there are a number of popular Knowledge Graphs under active use, either commercial or academical. Some of the most prominent ones are as follows:
 
 \begin{itemize}
     \item \textbf{DBpedia} is a community-driven knowledge graph that extracts structured information from Wikipedia articles. It covers a wide range of topics and provides structured data about entities, their attributes, and relationships. DBpedia utilizes natural language processing and information extraction techniques to parse Wikipedia articles and convert unstructured text into a structured RDF format.
@@ -159,13 +146,54 @@ With the development of knowledge graphs, reasoning over them has gained tractio
 
 Several KG reasoning techniques exist, we focus on the most promising, Inference and Embedding-based techniques. Inference techniques can perform domain knowledge reasoning by modeling domain rules and specific knowledge which can support automatic decision-making, data mining and link prediction. They apply logical rules and algorithms to traverse, analyze, and connect entities and relationships within the knowledge graph. These rules encode domain-specific knowledge and can be hand-crafted or learned from data.
 
-\todo{Ejemplo de Inference techniques, as dani puts it: Estaría bien un ejemplo tipo 'por ejemplo, una técnica podría observar que la ocurrencia de la relación "abuelo" está, desde el punto de vista estadístico, altamente correlacionada con la presencia de un camino entre las entidades con dos aristas de la relación "padre de" y usar esta regla para insertar una arista de "abuelo" cuando se observa ese camino'}
-
 Embedding-based reasoning leverages continuous vector representations of entities and relationships to perform operations that approximate logical reasoning. Graph neural networks (GNNs) \cite{sola2023deep} are a powerful approach that directly operates on the graph structure, enabling the propagation of information and the capture of complex dependencies.
 
-% \todo{Figure on KG reasoning process...}
+Knowledge graph reasoning offers significant improvements over simple completion tasks. While completion focuses on predicting missing links or attributes, reasoning enables a deeper level of understanding by inferring complex relationships and uncovering latent patterns
 
-Knowledge graph reasoning offers significant improvements over simple completion tasks. While completion focuses on predicting missing links or attributes, reasoning enables a deeper level of understanding by inferring complex relationships and uncovering latent patterns\todo{again focus on a running example here, dani puts its as : Creo de nuevo que aquí viene bien un ejemplo. Completion hace referencia a simplemente predecir, por ejemplo, un enlace, sin dar justificación. Por ejemplo, <bla bla bla>. Mientras que el término reasoning implica que esto se hace proporcionando el razonamiento que se ha seguido para llegar a esa conclusión. Por ejemplo, por la presencia de ciertas relaciones o caminos entre las entidades involucradas}. It goes beyond the immediate graph structure to extract higher-order knowledge, making it invaluable in tasks that require sophisticated analysis and decision-making.
+
+% \todo{Ejemplo de Inference techniques, as dani puts it: Estaría bien un ejemplo tipo 'por ejemplo, una técnica podría observar que la ocurrencia de la relación "abuelo" está, desde el punto de vista estadístico, altamente correlacionada con la presencia de un camino entre las entidades con dos aristas de la relación "padre de" y usar esta regla para insertar una arista de "abuelo" cuando se observa ese camino'}
+
+
+% \todo{again focus on a running example here, dani puts its as : Creo de nuevo que aquí viene bien un ejemplo. Completion hace referencia a simplemente predecir, por ejemplo, un enlace, sin dar justificación. Por ejemplo, <bla bla bla>. Mientras que el término reasoning implica que esto se hace proporcionando el razonamiento que se ha seguido para llegar a esa conclusión. Por ejemplo, por la presencia de ciertas relaciones o caminos entre las entidades involucradas}. It goes beyond the immediate graph structure to extract higher-order knowledge, making it invaluable in tasks that require sophisticated analysis and decision-making.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth]{fig/kgs/Family_graph.png}
+    \caption{A graph demonstrating some familiarity relations between their members.}
+    \label{fig:kgs-family} %Dom Toreto moment.
+\end{figure}
+
+Figure \ref{fig:kgs-family} offers a deeper insight into how to extract information from reasoning over Knowledge Graphs. Familiar bonds can be extrapolated from the information present in the graph by obtaining reasoned paths in the following way:
+
+\begin{itemize}
+    \item obtaining this reasoned path is akin to pondering the question: is Jay the grandparent of Alex?
+    
+    Operating backward from the entity \textit{Haley}, which already has the grandparent relation between it and entity \textit{Jay}, we can see by following the path that \textit{Jay} is the Parent of entity \textit{Claire} that, in turn, is the parent of entity \textit{Haley}.
+
+    This reasoning makes it so the path $(Parent -> Parent)$ should be akin to the relation \textit{Grandparent}. This information can be leveraged during Agent training so that when presented with the query $(Jay, Grandparent, ?)$ it should be able to reach the entities \textit{Alex} and \textit{Luke} through the $(Parent -> Parent)$ path and the relation \textit{Grandparent} could be inferred from it.
+
+    \item A similar thing happens for the \textit{Uncle} entity where the path $(Sibling -> Parent)$ results in the \textit{Uncle} relation
+    
+    \item The same goes for $(Partner -> Parent)$ resulting in relation \textit{Parent}.However, this example poses the question of temporality, as a person could have multiple partners during their lifetimes making this untrue in some cases. 
+    This could be mitigated by another entity that determines a start and end of the relationship which would make the reasoning more complex but still feasible, hence the need for long reasoned paths. This goes to show that in the absence of complete information, reasoning methods could produce false positives showcasing the need for thorough completion methods in KGs.
+
+    \item Finally, the \textit{Sibling} relation connecting entities \textit{Joe} and \textit{Manny} is inferred from a 3 long reasoned chain. Departing from entity \textit{Joe} by traversing through the path $(Parent -> Partner -> Parent)$ we reach the entity \textit{Manny}, this chain is also present for the entities \textit{Haley}, \textit{Alex} and \textit{Luke}.
+    
+    However, even if this path is mostly sufficient, it fails to consider previous relationships, in fact, the result from this path should be either \textit{Half-Hibling} (not present in the KG) or \textit{Sibling} depending on temporality once more.
+
+    This poses an interesting dilemma, as the correct reasoning should be:
+    \begin{itemize}
+        \item Alex's parent is Phil. $(Alex -> Parent -> Phil)$
+        \item Whose partner is Claire. $(Phil -> Partner -> Claire)$
+        \item Who is the parent of Alex. $(Claire -> Parent -> Alex)$
+        \item Whose parent is either Claire or Phil who is also the parent of the other two.
+    \end{itemize}
+    
+    Once again demonstrating that the longer the reasoned path is, the more confidence it can show with its answers.
+
+\end{itemize}
+
+In the case of simpler completion approaches, the generally used method is to link all entities together by all possible relations present in the graph and by setting a similarity threshold the classifier should determine if a certain triple is true or false. This approach only provides a certain result and a degree of confidence, leaving the user to blindly trust the results given by the classifier, however, KG reasoning gives the reasoned path that connects the entities for the given query, making it easier for the end user to discern the accuracy of the prediction if needed.
 
 Our approach, SpaceRL, places a particular emphasis on knowledge graph reasoning. By incorporating reinforcement learning techniques, we aim to enhance the reasoning capabilities of agents navigating knowledge graphs. This allows for dynamic exploration and exploitation of the graph's structure, leading to more effective inferences and insights. In future explorations, we intend to delve deeper into this critical aspect, refining and extending SpaceRL to unlock even greater potential in knowledge graph reasoning.
 
